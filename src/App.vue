@@ -1,5 +1,5 @@
 <template>
-  <el-header class="header">
+  <el-header>
     header
   </el-header>
   <router-view />
@@ -7,8 +7,4 @@
 <script setup>
 </script>
 <style scoped>
-.header{
-  position: fixed;
-  top: 0;
-}
 </style>
