@@ -1,5 +1,5 @@
 <template>
-  faofjdioajfo
+  我是Detail.vue
 </template>
 <script setup>
 </script>

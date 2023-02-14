@@ -6,7 +6,7 @@
     <a href="/introduce" target="_blank">
       <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
     </a>
-    <a href="/about" target="_blank">go to about</a>
+    <a href="/detail" target="_blank">go to detail</a>
   </div>
   <router-view />
   <HelloWorld msg="Vite + Vue" />
