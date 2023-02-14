@@ -1,9 +1,7 @@
 <template>
-  <el-header>Header</el-header>
-  <router-view />
+  login.vue
 </template>
 <script setup>
 </script>
 <style scoped>
-
 </style>
