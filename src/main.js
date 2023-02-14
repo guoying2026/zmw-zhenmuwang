@@ -1,4 +1,5 @@
 import { createApp } from 'vue'
+import './style.css'
 import App from './App.vue'
 import router from './router/index.js'
 //1、用一个引入一个。不要多余的
