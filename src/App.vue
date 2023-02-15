@@ -1,4 +1,5 @@
 <template>
+<!--  固定在顶部用el-affix offset是距离顶部多少px 顶部导航开始-->
     <el-affix :offset="0">
       <el-row class="nav_header">
         <el-col :span="8" class="col_1">ZMW</el-col>
@@ -6,6 +7,8 @@
         <el-col :span="8" class="col_3">登录</el-col>
       </el-row>
     </el-affix>
+  <!--  固定在顶部用el-affix offset是距离顶部多少px 顶部导航结束-->
+
   <router-view />
 </template>
 <script setup>
