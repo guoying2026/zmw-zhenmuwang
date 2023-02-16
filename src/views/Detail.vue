@@ -1,5 +1,7 @@
 <template>
-  我是Detail.vue
+  <el-container>
+    <el-main>Main</el-main>
+  </el-container>
 </template>
 <script setup>
 </script>

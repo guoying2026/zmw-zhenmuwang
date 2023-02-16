@@ -1,36 +1,26 @@
 <template>
+<!--  固定在顶部用el-affix offset是距离顶部多少px 顶部导航开始-->
   <el-affix>
-    <el-row justify="space-between" class="navbar" align="middle">
-      <el-col :span="3" :push="1">
+    <el-row justify="space-between" class="nav_header" align="middle">
+      <el-col :span="3" :push="1" class="col_1">
         <span class="text-extra-large font-600 mr-3">zmw</span>
       </el-col>
-      <el-col :span="16">
+      <el-col :span="16" class="col_2">
         <SearchBar />
       </el-col>
-      <el-col :span="3" :pull="1" style="display: flex;flex-direction: row-reverse;">
+      <el-col :span="3" :pull="1" class="col_3">
         <UserLogin />
       </el-col>
     </el-row>
   </el-affix>
-  <div>
-    <a href="https://vitejs.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="/introduce" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
-    <a href="/detail" target="_blank">go to detail</a>
-  </div>
+  <!--  固定在顶部用el-affix offset是距离顶部多少px 顶部导航结束-->
   <router-view />
-  <HelloWorld msg="Vite + Vue" />
 </template>
 <script setup>
-import HelloWorld from './components/HelloWorld.vue'
-import { useRouter } from 'vue-router'
 import './assets/main.css'
 </script>
 <style scoped>
-.navbar {
+.nav_header {
   height: var(--navbar-height);
   line-height: var(--navbar-line-height);
   background-color: var(--navbar-bg-color);
@@ -44,5 +34,16 @@ import './assets/main.css'
   color: var(--navbar-ft-color);
   background-color: var(--navbar-bg-color);
   border-color: var(--navbar-bg-color);
+}
+.col_1{
+  text-align: left;
+}
+.col_2{
+  text-align: center;
+}
+.col_3{
+  display: flex;
+  flex-direction: row-reverse;
+  text-align: right;
 }
 </style>
