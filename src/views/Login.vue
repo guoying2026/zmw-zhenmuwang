@@ -8,6 +8,9 @@
       label-width="120px"
       class="demo-ruleForm"
   >
+    <el-form-item label="Phone" prop="phone">
+      <el-input v-model.number="ruleForm.phone" />
+    </el-form-item>
     <el-form-item label="Password" prop="pass">
       <el-input v-model="ruleForm.pass" type="password" autocomplete="off" />
     </el-form-item>
@@ -17,9 +20,6 @@
           type="password"
           autocomplete="off"
       />
-    </el-form-item>
-    <el-form-item label="Phone" prop="phone">
-      <el-input v-model.number="ruleForm.age" />
     </el-form-item>
     <el-form-item>
       <el-button type="primary" @click="submitForm(ruleFormRef)"
@@ -27,233 +27,6 @@
       >
       <el-button @click="resetForm(ruleFormRef)">Reset</el-button>
     </el-form-item>
-    <el-form-item label="Password" prop="pass">
-      <el-input v-model="ruleForm.pass" type="password" autocomplete="off" />
-    </el-form-item>
-    <el-form-item label="Confirm" prop="checkPass">
-      <el-input
-          v-model="ruleForm.checkPass"
-          type="password"
-          autocomplete="off"
-      />
-    </el-form-item>
-    <el-form-item label="Phone" prop="phone">
-      <el-input v-model.number="ruleForm.age" />
-    </el-form-item>
-    <el-form-item>
-      <el-button type="primary" @click="submitForm(ruleFormRef)"
-      >Submit</el-button
-      >
-      <el-button @click="resetForm(ruleFormRef)">Reset</el-button>
-    </el-form-item>
-    <el-form-item label="Password" prop="pass">
-      <el-input v-model="ruleForm.pass" type="password" autocomplete="off" />
-    </el-form-item>
-    <el-form-item label="Confirm" prop="checkPass">
-      <el-input
-          v-model="ruleForm.checkPass"
-          type="password"
-          autocomplete="off"
-      />
-    </el-form-item>
-    <el-form-item label="Phone" prop="phone">
-      <el-input v-model.number="ruleForm.age" />
-    </el-form-item>
-    <el-form-item>
-      <el-button type="primary" @click="submitForm(ruleFormRef)">Submit</el-button>
-      <el-button @click="resetForm(ruleFormRef)">Reset</el-button>
-    </el-form-item>
-    <el-form-item label="Password" prop="pass">
-      <el-input v-model="ruleForm.pass" type="password" autocomplete="off" />
-    </el-form-item>
-    <el-form-item label="Confirm" prop="checkPass">
-      <el-input
-          v-model="ruleForm.checkPass"
-          type="password"
-          autocomplete="off"
-      />
-    </el-form-item>
-    <el-form-item label="Phone" prop="phone">
-      <el-input v-model.number="ruleForm.age" />
-    </el-form-item>
-    <el-form-item>
-      <el-button type="primary" @click="submitForm(ruleFormRef)"
-      >Submit</el-button
-      >
-      <el-button @click="resetForm(ruleFormRef)">Reset</el-button>
-    </el-form-item>
-    <el-form-item label="Password" prop="pass">
-      <el-input v-model="ruleForm.pass" type="password" autocomplete="off" />
-    </el-form-item>
-    <el-form-item label="Confirm" prop="checkPass">
-      <el-input
-          v-model="ruleForm.checkPass"
-          type="password"
-          autocomplete="off"
-      />
-    </el-form-item>
-    <el-form-item label="Phone" prop="phone">
-      <el-input v-model.number="ruleForm.age" />
-    </el-form-item>
-    <el-form-item>
-      <el-button type="primary" @click="submitForm(ruleFormRef)"
-      >Submit</el-button
-      >
-      <el-button @click="resetForm(ruleFormRef)">Reset</el-button>
-    </el-form-item>
-    <el-form-item label="Password" prop="pass">
-      <el-input v-model="ruleForm.pass" type="password" autocomplete="off" />
-    </el-form-item>
-    <el-form-item label="Confirm" prop="checkPass">
-      <el-input
-          v-model="ruleForm.checkPass"
-          type="password"
-          autocomplete="off"
-      />
-    </el-form-item>
-    <el-form-item label="Phone" prop="phone">
-      <el-input v-model.number="ruleForm.age" />
-    </el-form-item>
-    <el-form-item>
-      <el-button type="primary" @click="submitForm(ruleFormRef)"
-      >Submit</el-button
-      >
-      <el-button @click="resetForm(ruleFormRef)">Reset</el-button>
-    </el-form-item>
-    <el-form-item label="Password" prop="pass">
-      <el-input v-model="ruleForm.pass" type="password" autocomplete="off" />
-    </el-form-item>
-    <el-form-item label="Confirm" prop="checkPass">
-      <el-input
-          v-model="ruleForm.checkPass"
-          type="password"
-          autocomplete="off"
-      />
-    </el-form-item>
-    <el-form-item label="Phone" prop="phone">
-      <el-input v-model.number="ruleForm.age" />
-    </el-form-item>
-    <el-form-item>
-      <el-button type="primary" @click="submitForm(ruleFormRef)"
-      >Submit</el-button
-      >
-      <el-button @click="resetForm(ruleFormRef)">Reset</el-button>
-    </el-form-item>
-    <el-form-item label="Password" prop="pass">
-      <el-input v-model="ruleForm.pass" type="password" autocomplete="off" />
-    </el-form-item>
-    <el-form-item label="Confirm" prop="checkPass">
-      <el-input
-          v-model="ruleForm.checkPass"
-          type="password"
-          autocomplete="off"
-      />
-    </el-form-item>
-    <el-form-item label="Phone" prop="phone">
-      <el-input v-model.number="ruleForm.age" />
-    </el-form-item>
-    <el-form-item>
-      <el-button type="primary" @click="submitForm(ruleFormRef)"
-      >Submit</el-button
-      >
-      <el-button @click="resetForm(ruleFormRef)">Reset</el-button>
-    </el-form-item>
-    <el-form-item label="Password" prop="pass">
-      <el-input v-model="ruleForm.pass" type="password" autocomplete="off" />
-    </el-form-item>
-    <el-form-item label="Confirm" prop="checkPass">
-      <el-input
-          v-model="ruleForm.checkPass"
-          type="password"
-          autocomplete="off"
-      />
-    </el-form-item>
-    <el-form-item label="Phone" prop="phone">
-      <el-input v-model.number="ruleForm.age" />
-    </el-form-item>
-    <el-form-item>
-      <el-button type="primary" @click="submitForm(ruleFormRef)"
-      >Submit</el-button
-      >
-      <el-button @click="resetForm(ruleFormRef)">Reset</el-button>
-    </el-form-item>
-    <el-form-item label="Password" prop="pass">
-      <el-input v-model="ruleForm.pass" type="password" autocomplete="off" />
-    </el-form-item>
-    <el-form-item label="Confirm" prop="checkPass">
-      <el-input
-          v-model="ruleForm.checkPass"
-          type="password"
-          autocomplete="off"
-      />
-    </el-form-item>
-    <el-form-item label="Phone" prop="phone">
-      <el-input v-model.number="ruleForm.age" />
-    </el-form-item>
-    <el-form-item>
-      <el-button type="primary" @click="submitForm(ruleFormRef)"
-      >Submit</el-button
-      >
-      <el-button @click="resetForm(ruleFormRef)">Reset</el-button>
-    </el-form-item>
-    <el-form-item label="Password" prop="pass">
-      <el-input v-model="ruleForm.pass" type="password" autocomplete="off" />
-    </el-form-item>
-    <el-form-item label="Confirm" prop="checkPass">
-      <el-input
-          v-model="ruleForm.checkPass"
-          type="password"
-          autocomplete="off"
-      />
-    </el-form-item>
-    <el-form-item label="Phone" prop="phone">
-      <el-input v-model.number="ruleForm.age" />
-    </el-form-item>
-    <el-form-item>
-      <el-button type="primary" @click="submitForm(ruleFormRef)"
-      >Submit</el-button
-      >
-      <el-button @click="resetForm(ruleFormRef)">Reset</el-button>
-    </el-form-item>
-    <el-form-item label="Password" prop="pass">
-      <el-input v-model="ruleForm.pass" type="password" autocomplete="off" />
-    </el-form-item>
-    <el-form-item label="Confirm" prop="checkPass">
-      <el-input
-          v-model="ruleForm.checkPass"
-          type="password"
-          autocomplete="off"
-      />
-    </el-form-item>
-    <el-form-item label="Phone" prop="phone">
-      <el-input v-model.number="ruleForm.age" />
-    </el-form-item>
-    <el-form-item>
-      <el-button type="primary" @click="submitForm(ruleFormRef)"
-      >Submit</el-button
-      >
-      <el-button @click="resetForm(ruleFormRef)">Reset</el-button>
-    </el-form-item>
-    <el-form-item label="Password" prop="pass">
-      <el-input v-model="ruleForm.pass" type="password" autocomplete="off" />
-    </el-form-item>
-    <el-form-item label="Confirm" prop="checkPass">
-      <el-input
-          v-model="ruleForm.checkPass"
-          type="password"
-          autocomplete="off"
-      />
-    </el-form-item>
-    <el-form-item label="Phone" prop="phone">
-      <el-input v-model.number="ruleForm.age" />
-    </el-form-item>
-    <el-form-item>
-      <el-button type="primary" @click="submitForm(ruleFormRef)"
-      >Submit</el-button
-      >
-      <el-button @click="resetForm(ruleFormRef)">Reset</el-button>
-    </el-form-item>
-
   </el-form>
 </template>
 <script setup>
@@ -262,18 +35,18 @@ import { reactive, ref } from 'vue'
 
 // const ruleFormRef = ref<FormInstance>()
 
-const checkAge = (rule, value, callback) => {
+const checkPhone = (rule, value, callback) => {
   if (!value) {
-    return callback(new Error('Please input the age'))
+    return callback(new Error('请输入手机号'))
   }
   setTimeout(() => {
     if (!Number.isInteger(value)) {
-      callback(new Error('Please input digits'))
+      callback(new Error('请输入数字'))
     } else {
-      if (value < 18) {
-        callback(new Error('Age must be greater than 18'))
-      } else {
+      if (/^((1[3,5,8,7,9][0-9])|(14[5,7])|(17[0,6,7,8])|(19[1,7]))\d{8}$/.test(value)) {
         callback()
+      } else {
+        callback(new Error('请输入正确手机号'))
       }
     }
   }, 1000)
@@ -303,13 +76,13 @@ const validatePass2 = (rule, value, callback) => {
 const ruleForm = reactive({
   pass: '',
   checkPass: '',
-  age: '',
+  phone: '',
 })
 
 const rules = reactive({
   pass: [{ validator: validatePass, trigger: 'blur' }],
   checkPass: [{ validator: validatePass2, trigger: 'blur' }],
-  age: [{ validator: checkAge, trigger: 'blur' }],
+  phone: [{ validator: checkPhone, trigger: 'blur' }],
 })
 
 const submitForm = (formEl) => {

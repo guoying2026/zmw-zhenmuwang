@@ -1,11 +1,14 @@
 import { createRouter, createWebHistory } from 'vue-router'
 
+//createRouter是用来新建路由实例
 const router = createRouter({
+    //使用路由模式
     history: createWebHistory(), // hash模式：createWebHashHistory，history模式：createWebHistory
     routes: [
         {
             path: '/',
             name: 'list',
+            //以.vue作为后缀的文件，是vue单文件组件的写法
             component: () => import(/* webpackChunkName: "List" */ '../views/List.vue'),
             meta: {
                 title:"木材商信用-真木网",
