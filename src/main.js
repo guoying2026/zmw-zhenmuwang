@@ -20,6 +20,8 @@ import {
     ElAffix,
 } from 'element-plus'
 
+import * as ElementPlusIconsVue from '@element-plus/icons-vue'
+
 const app = createApp(App);//生成vue实例
 
 app.use(router) // 引用路由实例
@@ -33,6 +35,10 @@ app.use(ElContainer)
     .use(ElFormItem)
     .use(ElInput)
     .use(ElAffix)
+
+for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+    app.component(key, component)
+}
 
 app.mount('#app')//挂载到#app
 
