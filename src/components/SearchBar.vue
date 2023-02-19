@@ -70,8 +70,9 @@
   </el-button>
 </template>
 <script setup>
-import common from '../utils/common.js'
-import { onMounted, ref } from 'vue'
+import { onMounted, ref, getCurrentInstance } from 'vue'
+const common = getCurrentInstance().appContext.config.globalProperties.$common
+const urlBase = getCurrentInstance().appContext.config.globalProperties.$urlBase
 
 const isShowSearchBar = ref(false)
 

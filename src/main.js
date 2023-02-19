@@ -40,6 +40,12 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
     app.component(key, component)
 }
 
+import common from './utils/common.js'
+app.config.globalProperties.$env = common.getEnv()
+app.config.globalProperties.$urlBase = common.getApiBase()
+app.config.globalProperties.$userInfoName = common.getEnv() + '_users'
+app.config.globalProperties.$common = common
+
 app.mount('#app')//挂载到#app
 
 router.beforeEach((to, from, next) => { // 根据router的meta配置，更改页面的title、keywords、description
