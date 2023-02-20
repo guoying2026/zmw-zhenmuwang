@@ -3,6 +3,8 @@ import './style.css'
 import App from './App.vue'
 //路由使用vue-router
 import router from './router/index.js'
+//全局状态使用pinia
+import store from './pinia/index.js'
 //写css代码的时候，我们需要预处理工具styluss或者sass
 //网络请求后端数据的时候，我们需要Axios
 //组件库开发中，我们使用element-plus作为组件库
@@ -23,6 +25,8 @@ import {
 const app = createApp(App);//生成vue实例
 
 app.use(router) // 引用路由实例
+    .use(store) //引用pinia实例
+
 //2、上面import,这里use
 app.use(ElContainer)
     .use(ElButton)
