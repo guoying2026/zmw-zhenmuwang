@@ -161,3 +161,124 @@ function addTodo() {
 ```
 应该已经学会了在 Vue 内部进阶地使用响应式机制，去封装独立的函数。
 社区也有非常优秀的 Vueuse 工具库，包含了大量类似 useStorage 的工具函数库。在后续的实战应用中，我们也会经常对通用功能进行封装
+
+## 关于调试性能的知识点
+1、统计项目里面一共有多少html标签，在浏览器里面的console里面执行
+```
+new Set([...document.querySelectorAll('*')].map(n=>n.nodeName)).size
+```
+2、浏览器检查模式的里面最后一项vue。就是调试工具vue devtools，vue devtools可以算是一个elements页面的vue定制版本，
+调试页面左侧的显示内容并不是html,而是vue组件嵌套关系，可以从中清晰看到整个项目中最外层的app组件，也能看到app组件内部的routerview里面包含的组件。
+点击左侧的组件，右侧会显示对应组件中包含的数据和方法。在页面输入东西，可以清除看到右侧数据对应的值在变化。
+
+3、接上个第2点，在component的下拉框那里，我们还可以选择vuex和router页面，分别用来调试vuex和vue-router.
+
+4、如果代码逻辑比较复杂，过多的console信息也会让我们难以调试。这种情况下就需要断点调试的功能，
+chrome的调试窗口会识别代码中的debugger的关键字，并中断代码执行。
+点击右侧（弯曲的右箭头），逐行执行代码。
+并且鼠标放在任意变量上，都可以看到这个变量在代码执行的结果。
+对于复杂代码逻辑的调试来说，使用断点调试，可以让整个项目清晰可见。
+
+5、页面性能调试，遇到页面有卡顿，在调试窗口中点击performance页面中的录制按钮，
+然后重复卡顿的操作后，点击结束，就可以清晰看到你在和页面进行交互操作时，浏览器中性能的变化。
+还可以详细看到每个函数的执行时间。
+
+6、如果觉得第5点过于繁琐，可以直接使用lightHouse插件，进入lightHouse页面，选择desktop桌面版之后，点击生成报告。
+lighthouse在浏览器模拟刷新的操作后，给出一个网页评分。根据性能，可访问性，最佳实践，SEO和PWA 5个维度的评分。
+
+7、如何在 Console 页面写一段代码，来统计首页出现次数最多的 3 种 HTML 标签呢？
+```
+Object.entries([...document.querySelectorAll("*")].map(n=>n.tagName).reduce((pre, cur)=>{
+  pre[cur] = (pre[cur] || 0) + 1;
+  return pre;
+}, {})).sort((a, b)=>b[1]-a[1]).slice(0, 3)
+```
+## 关于JSX和template
+1、在了解JSX之前，先了解h函数
+
+2、在vue 3的项目开发中，template是vue3默认写法，虽然template长的很像html，
+但vue其实会把template解析为render函数，之后，组件运行的时候通过render函数去返回虚拟dom,
+你可以在vue devtools中看到组件编译之后的结果。
+
+3、在上面的示意图中，调试窗口右侧代码中的_src_render_函数就是清单应用的template解析成javascript之后的结果。
+所以除了template之外，在某些场景下，我们可以直接写render函数来实现组件。
+```
+  <h1 v-if="num==1">{{title}}</h1>
+  <h2 v-if="num==2">{{title}}</h2>
+  <h3 v-if="num==3">{{title}}</h3>
+  <h4 v-if="num==4">{{title}}</h4>
+  <h5 v-if="num==5">{{title}}</h5>
+  <h6 v-if="num==6">{{title}}</h6>
+```
+从上面代码是不是感觉很冗余，所以教你一个新的实现方法，就是vue3中的h函数。
+由于render函数可以直接返回虚拟dom,因而我们就不再需要template.我们在
+src/components目录下新建一个文件Heading.jsx,要注意的是，这里heading
+的结尾从.vue变成了jsx.
+
+在下面的代码中，我们使用defineComponent定义一个组件，组件内部配置了props和
+setup。这里的setup函数返回值是一个函数，就是我们所说的render函数。render函数
+返回h函数的执行结果，h函数的第一个参数就是标签名，我们可以很方便的使用字符串拼接的方式，
+实现和上面代码一样的需求。像这种连标签名都需要动态处理的场景，就需要通过手写h函数来实现。
+```
+import { defineComponent, h } from 'vue'
+
+export default defineComponent({
+  props: {
+    level: {
+      type: Number,
+      required: true
+    }
+  },
+  setup(props, { slots }) {
+    return () => h(
+      'h' + props.level, // 标签名
+      {}, // prop 或 attribute
+      slots.default() // 子节点
+    )
+  }
+})
+```
+那么继续在文件中引入这个组件
+```
+ <template>
+  <Heading :level="3">hello geekbang</Heading>
+</template>
+
+<script setup>
+import Heading from './components/Head.jsx'
+</script>
+```
+继续说，手写的h函数，可以处理动态性更高的场景。但是如果是复杂的场景，h函数写起来就显的非常繁琐。需要自己把所有的属性都转变为对象。
+并且组件嵌套的时候，对象也会变得非常复杂。不过，因为h函数也是返回虚拟dom的，所以有没有更方便的方式去写h函数呢？
+答案就是jsx。
+先给大家看下jsx的语法
+```
+const element = <h1 id="app">Hello, Geekbang!</h1>
+```
+这种在javascript里面写html的语法，就叫做jsx，算是对javascript语法的一个扩展。上面的代码直接在javascript中运行，会报错。
+
+在从 JSX 到 createVNode 函数的转化过程中，我们需要安装一个 JSX 插件。在项目的根目录下，打开命令行，执行下面的代码来安装插件：
+```
+npm install @vitejs/plugin-vue-jsx -D
+```
+插件安装完成之后，进入根目录下，打开vite.config.js文件去修改vite配置。
+在vite.config.js文件中，我们加入下面代码。
+这样儿，在加载jsx插件后，现在的页面中就可以支持jsx插件了。
+```
+import vue from '@vitejs/plugin-vue'
+import vueJsx from '@vitejs/plugin-vue-jsx';
+
+export default defineConfig({
+  plugins: [vue(),vueJsx()]
+})
+```
+然后，我们进入 src/componentns/Heading.jsx 中，
+把 setup 函数的返回函数改成下面代码中所示的内容，
+这里我们使用变量 tag 计算出标签类型，直接使用渲染，
+使用一个大括号把默认插槽包起来就可以了。
+```
+  setup(props, { slots }) {
+    const tag = 'h'+props.level
+    return () => <tag>{slots.default()}</tag>
+  }
+```

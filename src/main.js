@@ -36,6 +36,11 @@ app.use(ElContainer)
 
 app.mount('#app')//挂载到#app
 
+//参考国外程序员在 src/main.js 里加入下面这段代码,这样就可以在日志信息中直接复制报错内容中的链接，去 Stack Overflow 中寻找答案
+window.onerror = function(e){
+    console.log(['https://stackoverflow.com/search?q=[js]+'+e])
+}
+
 router.beforeEach((to, from, next) => { // 根据router的meta配置，更改页面的title、keywords、description
   if (to.meta.title) {
     document.title = to.meta.title;
