@@ -16,9 +16,4 @@ export default defineConfig({
       resolvers: [ElementPlusResolver()],
     }),
   ],
-  define: {
-    'process.env': {
-      VITE_APP_ENV: 'develop',
-    },
-  },
 })

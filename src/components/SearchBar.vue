@@ -71,12 +71,10 @@
 </template>
 <script setup>
 import { onMounted, ref, getCurrentInstance } from 'vue'
-const common = getCurrentInstance().appContext.config.globalProperties.$common
-const urlBase = getCurrentInstance().appContext.config.globalProperties.$urlBase
 
 const isShowSearchBar = ref(false)
 
-const searchHistory = common.useStorage('search-history')
+const searchHistory = ref([])
 
 const changeSearchBarShow = () => {
   isShowSearchBar.value = !isShowSearchBar.value

@@ -44,12 +44,6 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
     app.component(key, component)
 }
 
-import common from './utils/common.js'
-app.config.globalProperties.$env = common.getEnv()
-app.config.globalProperties.$urlBase = common.getApiBase()
-app.config.globalProperties.$userInfoName = common.getEnv() + '_users'
-app.config.globalProperties.$common = common
-
 app.mount('#app')//挂载到#app
 
 //参考国外程序员在 src/main.js 里加入下面这段代码,这样就可以在日志信息中直接复制报错内容中的链接，去 Stack Overflow 中寻找答案
