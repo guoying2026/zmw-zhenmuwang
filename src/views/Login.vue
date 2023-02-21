@@ -1,5 +1,5 @@
 <template>
-  <text class="first">真木网</text>
+  <text class="first">真木网验证码登录</text>
   <el-form
       ref="ruleFormRef"
       :model="ruleForm"
@@ -8,32 +8,32 @@
       label-width="120px"
       class="demo-ruleForm"
   >
+    <!--手机号开始-->
     <el-form-item label="Phone" prop="phone">
       <el-input v-model.number="ruleForm.phone" />
     </el-form-item>
-    <el-form-item label="Password" prop="pass">
-      <el-input v-model="ruleForm.pass" type="password" autocomplete="off" />
-    </el-form-item>
-    <el-form-item label="Confirm" prop="checkPass">
-      <el-input
-          v-model="ruleForm.checkPass"
-          type="password"
-          autocomplete="off"
-      />
-    </el-form-item>
+    <!--手机号结束-->
+    <!-- 图形验证码开始-->
+    <GraphValidateCode :model="GraphValidateCode"></GraphValidateCode>
+<!--    <el-form-item class='mb-6 -ml-20' prop='captchaCode'>-->
+<!--      <el-input v-model='form.captchaCode' placeholder='请输入验证码' prefix-icon='el-icon-lock' style='width:260px' />-->
+<!--      <el-image class='captchaCodeImg' style='width: 130px; height: 50px;margin-left:10px;border-radius:5px;' :src='captchaCodeImg' @click='getCaptchaCodeImg' />-->
+<!--    </el-form-item>-->
+    <!--图形验证码结束-->
+    <!--登录开始-->
     <el-form-item>
       <el-button type="primary" @click="submitForm(ruleFormRef)"
       >Submit</el-button
       >
       <el-button @click="resetForm(ruleFormRef)">Reset</el-button>
     </el-form-item>
+    <!--登录结束-->
   </el-form>
 </template>
 <script setup>
-import { reactive, ref } from 'vue'
-// import type { FormInstance } from 'element-plus'
+import { reactive, onMounted } from 'vue'
+import GraphValidateCode from '../components/GraphValidateCode.vue'
 
-// const ruleFormRef = ref<FormInstance>()
 
 const checkPhone = (rule, value, callback) => {
   if (!value) {

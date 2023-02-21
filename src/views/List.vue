@@ -5,8 +5,8 @@
 </template>
 <script setup>
 import { tailCargoList } from "../api/list.js";
-const getTailCargoList = () =>{
-  tailCargoList({}).then(async(res) =>{
+const getTailCargoList = () => {
+  tailCargoList({}).then(async(res) => {
     console.log('tailCargoList');
     console.log(res);
   })
