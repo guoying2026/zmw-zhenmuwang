@@ -1,40 +1,69 @@
 <template>
-  <text class="first">真木网验证码登录</text>
   <el-form
       ref="ruleFormRef"
       :model="ruleForm"
       :rules="rules"
       status-icon
-      label-width="120px"
-      class="demo-ruleForm"
+      label-width="0"
+      class="demo-ruleForm login_el_form"
   >
-    <!--手机号开始-->
-    <el-form-item label="Phone" prop="phone">
-      <el-input v-model.number="ruleForm.phone" />
-    </el-form-item>
-    <!--手机号结束-->
-    <!-- 图形验证码开始-->
-    <GraphValidateCode :model="GraphValidateCode"></GraphValidateCode>
-<!--    <el-form-item class='mb-6 -ml-20' prop='captchaCode'>-->
-<!--      <el-input v-model='form.captchaCode' placeholder='请输入验证码' prefix-icon='el-icon-lock' style='width:260px' />-->
-<!--      <el-image class='captchaCodeImg' style='width: 130px; height: 50px;margin-left:10px;border-radius:5px;' :src='captchaCodeImg' @click='getCaptchaCodeImg' />-->
-<!--    </el-form-item>-->
+    <text class="first">真木网验证码登录</text>
+    <div>
+      <!--手机号开始-->
+      <el-form-item prop="phone">
+        <el-input size="large" maxlength="11" type="number" v-model.number="ruleForm.phone" placeholder='请输入手机号' />
+      </el-form-item>
+      <!--手机号结束-->
+      <!--短信验证码开始-->
+      <div class="mt-4">
+        <el-input size="large" v-model="ruleForm.smsVerificationCode" placeholder="请输入短信验证码">
+          <template #append @click="sendSMSVerificationCode">发送</template>
+        </el-input>
+      </div>
+      <!--短信验证码结束-->
+      <!-- 图形验证码开始-->
+      <el-form-item prop="graphValidateCode" class="margin_top_20">
+        <el-input size="large" type="text" v-model="ruleForm.graphValidateCode" placeholder='请输入下方图片中的4位值'/>
+      </el-form-item>
+      <GraphValidateCode
+          @toFatherLogin="receiveChildGraphValidateCode"
+          ref="someRef"
+          class="margin_top_10"
+          id="canvas"
+          :font-size-min="28"
+          :font-size-max="34"
+          :background-color-min="100"
+          :background-color-max="150"
+          :color-min="0"
+          :color-max="255"
+          :line-color-min="0"
+          :line-color-max="200"
+          :dot-color-min="0"
+          :dot-color-max="255"
+          :content-width="245"
+          :content-height="50"
+      >
+      </GraphValidateCode>
+    </div>
     <!--图形验证码结束-->
     <!--登录开始-->
     <el-form-item>
-      <el-button type="primary" @click="submitForm(ruleFormRef)"
-      >Submit</el-button
-      >
-      <el-button @click="resetForm(ruleFormRef)">Reset</el-button>
+      <el-button @click="submitForm(ruleFormRef)">登录</el-button>
     </el-form-item>
     <!--登录结束-->
   </el-form>
 </template>
 <script setup>
-import { reactive, onMounted } from 'vue'
+import {reactive,ref} from 'vue'
 import GraphValidateCode from '../components/GraphValidateCode.vue'
 
-
+const graphValidateCodeFromChild = ref('');
+//监听子组件定义的函数
+const receiveChildGraphValidateCode = (param) => {
+  graphValidateCodeFromChild.value = param.graphValidateCode
+  console.log(param.graphValidateCode)
+}
+//检查手机号对不对
 const checkPhone = (rule, value, callback) => {
   if (!value) {
     return callback(new Error('请输入手机号'))
@@ -51,19 +80,24 @@ const checkPhone = (rule, value, callback) => {
     }
   }, 1000)
 }
-
-const validatePass = (rule, value, callback) => {
+//检查图形验证码对不对
+const validateGraphValidateCode = (rule, value, callback) => {
   if (value === '') {
-    callback(new Error('Please input the password'))
+    callback(new Error('请输入图片上面的4位值，不区分大小写'))
   } else {
-    if (ruleForm.checkPass !== '') {
+    if(value )
+    if (value !== '') {
       if (!ruleFormRef.value) return
       ruleFormRef.value.validateField('checkPass', () => null)
     }
     callback()
   }
 }
-const validatePass2 = (rule, value, callback) => {
+const sendSMSVerificationCode = () => {
+
+}
+//检查短信验证码对不对
+const validateSMSVerificationCode = (rule, value, callback) => {
   if (value === '') {
     callback(new Error('Please input the password again'))
   } else if (value !== ruleForm.pass) {
@@ -74,14 +108,13 @@ const validatePass2 = (rule, value, callback) => {
 }
 
 const ruleForm = reactive({
-  pass: '',
-  checkPass: '',
-  phone: '',
+  graphValidateCode: '',//图形验证码
+  smsVerificationCode: '',//短信验证码
+  phone: '',//手机号
 })
 
 const rules = reactive({
-  pass: [{ validator: validatePass, trigger: 'blur' }],
-  checkPass: [{ validator: validatePass2, trigger: 'blur' }],
+  graphValidateCode: [{ validator: validateGraphValidateCode, trigger: 'blur' }],
   phone: [{ validator: checkPhone, trigger: 'blur' }],
 })
 
@@ -96,11 +129,19 @@ const submitForm = (formEl) => {
     }
   })
 }
-
-const resetForm = (formEl) => {
-  if (!formEl) return
-  formEl.resetFields()
-}
 </script>
 <style scoped>
+.login_el_form{
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+.margin_top_10{
+  margin-top: 10px;
+}
+.margin_top_20{
+  margin-top: 20px;
+}
 </style>
