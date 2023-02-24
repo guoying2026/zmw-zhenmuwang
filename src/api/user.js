@@ -8,13 +8,6 @@ export const sendSMSVerificationCodeApi = (data) => {
         data
     })
 }
-export const ceshiGuoying = (data) => {
-    return axiosRequest({
-        url: '/Mobile/GroupPurchase/ceshi_guoying',
-        method: 'post',
-        data
-    })
-}
 export const loginApi = (data) => {
     return axiosRequest({
         url: 'Mobile/User/login',
