@@ -113,7 +113,6 @@ const shuffle = (str) => {
   graphValidateCode.value = [...str].sort(() => Math.random() - 0.5).join('')
   emit('toFatherLogin', { graphValidateCode })
   drawPic()
-  console.log(graphValidateCode.value)
 }
 
 /**

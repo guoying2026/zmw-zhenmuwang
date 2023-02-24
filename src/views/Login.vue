@@ -15,11 +15,13 @@
       </el-form-item>
       <!--手机号结束-->
       <!--短信验证码开始-->
-      <div class="mt-4">
-        <el-input size="large" v-model="ruleForm.smsVerificationCode" placeholder="请输入短信验证码">
-          <template #append @click="sendSMSVerificationCode">发送</template>
+      <el-form-item class="mt-4" prop="smsVerificationCode">
+        <el-input size="large" maxlength="6" type="number" v-model="ruleForm.smsVerificationCode" placeholder="请输入短信验证码">
+          <template #append>
+            <el-button @click="sendSMSVerificationCode" :disabled="sendDisabled" :plain="sendPlain">{{sendText}}</el-button>
+          </template>
         </el-input>
-      </div>
+      </el-form-item>
       <!--短信验证码结束-->
       <!-- 图形验证码开始-->
       <el-form-item prop="graphValidateCode" class="margin_top_20">
@@ -48,62 +50,104 @@
     <!--图形验证码结束-->
     <!--登录开始-->
     <el-form-item>
-      <el-button @click="submitForm(ruleFormRef)">登录</el-button>
+      <el-button size="large" @click="submitForm(ruleFormRef)">登录</el-button>
     </el-form-item>
     <!--登录结束-->
   </el-form>
 </template>
 <script setup>
-import {reactive,ref} from 'vue'
+import { sendSMSVerificationCodeApi } from "../api/user.js";
+import { reactive, ref} from 'vue'
 import GraphValidateCode from '../components/GraphValidateCode.vue'
 
+const ruleFormRef = ref(null);
 const graphValidateCodeFromChild = ref('');
+const timer = ref(null);
+const sendDisabled = ref(true);
+const sendPlain = ref(true);
+const sendText = ref('获取');
+const countDownTime = ref(60);
 //监听子组件定义的函数
 const receiveChildGraphValidateCode = (param) => {
-  graphValidateCodeFromChild.value = param.graphValidateCode
-  console.log(param.graphValidateCode)
+  graphValidateCodeFromChild.value = param.graphValidateCode.value
 }
 //检查手机号对不对
 const checkPhone = (rule, value, callback) => {
   if (!value) {
     return callback(new Error('请输入手机号'))
   }
-  setTimeout(() => {
     if (!Number.isInteger(value)) {
       callback(new Error('请输入数字'))
     } else {
       if (/^((1[3,5,8,7,9][0-9])|(14[5,7])|(17[0,6,7,8])|(19[1,7]))\d{8}$/.test(value)) {
+        if(countDownTime.value === 60){
+          sendDisabled.value = false;
+          sendPlain.value = false;
+        }
         callback()
       } else {
         callback(new Error('请输入正确手机号'))
       }
     }
-  }, 1000)
 }
 //检查图形验证码对不对
 const validateGraphValidateCode = (rule, value, callback) => {
   if (value === '') {
     callback(new Error('请输入图片上面的4位值，不区分大小写'))
-  } else {
-    if(value )
-    if (value !== '') {
-      if (!ruleFormRef.value) return
-      ruleFormRef.value.validateField('checkPass', () => null)
+  } else{
+    let value_lower = value.toLowerCase();
+    let graphValidateCode_lower = graphValidateCodeFromChild.value.toLowerCase();
+    if(value_lower !== graphValidateCode_lower) {
+      callback(new Error('请重新输入图形验证码'))
+    } else {
+      callback()
     }
+  }
+}
+//检查短信验证码位数
+const validateSMSVerificationCode = (rule, value, callback) => {
+  if(value === ''){
+    callback(new Error('请输入短信验证码'))
+  } else if(value.length !== 6){
+    callback(new Error('请输入6位'))
+  } else {
     callback()
   }
 }
+//发送短信验证码
 const sendSMSVerificationCode = () => {
-
-}
-//检查短信验证码对不对
-const validateSMSVerificationCode = (rule, value, callback) => {
-  if (value === '') {
-    callback(new Error('Please input the password again'))
-  } else if (value !== ruleForm.pass) {
-    callback(new Error("Two inputs don't match!"))
+  if (/^((1[3,5,8,7,9][0-9])|(14[5,7])|(17[0,6,7,8])|(19[1,7]))\d{8}$/.test(ruleForm.phone)) {
+    console.log(ruleForm.phone);
+    sendSMSVerificationCodeApi({
+      mobile_phone: ruleForm.phone,
+      sms_login: 1,
+      is_mobile: 1,
+    }).then(async(res) => {
+      console.log(res);
+    })
   } else {
-    callback()
+    console.log('不要发送了哦');
+    return false;
+  }
+  sendDisabled.value = true;
+  sendPlain.value = true;
+  sendText.value = '60s';
+  if(!timer.value){
+    timer.value = setInterval(() => {
+      if(countDownTime.value <= 0) {
+        sendDisabled.value = false;
+        sendPlain.value = false;
+        sendText.value = '获取';
+        countDownTime.value = 60;
+        clearInterval(timer.value);
+        timer.value = null
+        return false
+      }
+      --countDownTime.value
+      if(countDownTime.value >= 0){
+        sendText.value = countDownTime.value + 's';
+      }
+    },1000)
   }
 }
 
@@ -115,6 +159,7 @@ const ruleForm = reactive({
 
 const rules = reactive({
   graphValidateCode: [{ validator: validateGraphValidateCode, trigger: 'blur' }],
+  smsVerificationCode: [{validator: validateSMSVerificationCode, trigger: 'blur'}],
   phone: [{ validator: checkPhone, trigger: 'blur' }],
 })
 
