@@ -6,12 +6,10 @@ export const useUserStore = defineStore('userStore', {
     //state被定义为返回初始状态的函数
     state: () => {
         return {
-            token: '',
-            userInfo: null,
+            userId: 0,
+            phone: '',
         }
     },
-    // 也可以定义为
-    // state: () => ({ count: 0 })
 
     //计算
     getters: {},
