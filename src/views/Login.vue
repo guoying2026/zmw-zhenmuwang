@@ -203,11 +203,11 @@ const submitForm = (formEl) => {
           console.log('验证码过期');
         } else if(result.status === 1000){
           console.log('登录成功');
-          //result.userId
+          //result.user_id
           //result._token
           //result.token_expired_time
           //不存_token就是不想让用户过期需要重新登录。但把_token列出来,怕之后请求某个接口需要判断token。所以为了以防万一，先列出来，但不存
-          userStore.userId = result.userId
+          userStore.userId = result.user_id
           userStore.phone = ruleForm.phone
           console.log(userStore);
         } else {//登录失败请重试
