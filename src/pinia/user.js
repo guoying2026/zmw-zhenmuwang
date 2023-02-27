@@ -10,7 +10,8 @@ export const useUserStore = defineStore('userStore', {
             phone: '',
         }
     },
-
+    //调用pinia-plugin-persistedstate插件进行持久化存储
+    persist: true,
     //计算
     getters: {},
 

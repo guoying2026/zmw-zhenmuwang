@@ -58,13 +58,17 @@
 </template>
 <script setup>
 import { sendSMSVerificationCodeApi,loginApi } from "../api/user.js";
-import { reactive, ref} from 'vue'
+import {onMounted, reactive, ref} from 'vue'
 //把页面所有相关图形验证码注释掉
 // import GraphValidateCode from '../components/GraphValidateCode.vue'
 //登录成功后，需要把登录状态让多页面共享
 import { useUserStore } from "../pinia/user.js";
 
 const userStore = useUserStore();
+onMounted(()=>{
+  console.log(userStore.userId);
+  console.log(userStore.phone);
+})
 //storeToRefs,它将为任何响应式属性创建refs，当我们使用pinia的状态但不调用任何操作时很有用
 // import { storeToRefs } from 'pinia'
 // const { token, userId, token_expired_time, phone } = storeToRefs(userStore)
