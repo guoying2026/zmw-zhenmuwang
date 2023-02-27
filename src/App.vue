@@ -20,6 +20,7 @@ router-view负责渲染路由匹配的组件，可以通过把router-view放在�
   <router-view />
 </template>
 <script setup>
+import 'element-plus/theme-chalk/display.css'
 import './assets/main.css'
 //登录成功后，需要把登录状态让多页面共享
 import { onMounted } from "vue";
