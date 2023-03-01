@@ -20,6 +20,10 @@ import {
     ElFormItem,
     ElInput,
     ElAffix,
+    ElLoading,
+    ElEmpty,
+    ElLink,
+    ElSkeleton,
 } from 'element-plus'
 
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
@@ -39,6 +43,10 @@ app.use(ElContainer)
     .use(ElFormItem)
     .use(ElInput)
     .use(ElAffix)
+    .use(ElLoading)
+    .use(ElEmpty)
+    .use(ElLink)
+    .use(ElSkeleton)
 
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
     app.component(key, component)
