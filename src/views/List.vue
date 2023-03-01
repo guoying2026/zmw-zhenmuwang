@@ -67,14 +67,14 @@
               :goods="item.goods"
             />
           </el-col>
-      </template>
+        </template>
       </el-row>
     </el-main>
     <el-footer>
       <el-row :gutter="1" justify="center">
         <el-col :span="1" class="no_max_width">
           <el-pagination class="hidden-sm-and-up" small background layout="prev, pager, next" :total="total" v-model:current-page="currentPage" v-model:page-size="pageSize" @current-change="currentPageChange" />
-          <el-pagination class="hidden-sm-and-down" background layout="prev, pager, next" :total="total" v-model:current-page="currentPage" v-model:page-size="pageSize" @current-change="currentPageChange" />
+          <el-pagination class="hidden-xs-only" background layout="prev, pager, next" :total="total" v-model:current-page="currentPage" v-model:page-size="pageSize" @current-change="currentPageChange" />
         </el-col>
       </el-row>
     </el-footer>
