@@ -6,7 +6,7 @@
           <!-- 信用分 -->
           <el-col :span="6" :xs="6" :sm="3" :md="isShowGoods ? 2 : 4" :lg="isShowGoods ? 3 : 6" :xl="isShowGoods ? 1 : 2">
             <el-row class="seller_info-score" justify="center">
-              <el-col>{{ isBlacklist ? '--' : creditScore }}</el-col>
+              <el-col>{{ creditScore }}</el-col>
               <el-col>信用分</el-col>
             </el-row>
           </el-col>
@@ -61,7 +61,15 @@
           <el-col v-if="isShowGoods" :span="span" :md="mdSpan">
             <el-row :gutter="24" justify="start">
               <template v-for="(item, index) in goods" v-bind:key="item">
-                <el-col v-if="index < 3" :span="8">
+                <el-col v-if="index < 3" :span="8" class="hidden-xs-only">
+                  <GoodsInfo
+                    :goods-title="item.goods_title"
+                    :goods-price="item.goods_price"
+                    :goods-image="item.mainurl"
+                    :type="1"
+                  />
+                </el-col>
+                <el-col v-if="index < 2" :span="12" class="hidden-sm-and-up">
                   <GoodsInfo
                     :goods-title="item.goods_title"
                     :goods-price="item.goods_price"

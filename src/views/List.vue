@@ -14,27 +14,13 @@
             </el-icon>
           </el-button>
           <el-button
-            v-if="isOnlyViewBlackList"
-            type="primary"
-            round
-            @click="handleOnlyViewBlackList"
-            >只看黑名单</el-button
-          >
-          <el-button 
-            v-else 
+            :type="isOnlyViewBlackList?'primary':''"
             round
             @click="handleOnlyViewBlackList"
             >只看黑名单</el-button
           >
           <el-button
-            v-if="isOnlyViewFranchisee"
-            type="primary"
-            round
-            @click="handleOnlyViewFranchisee"
-            >只看加盟商</el-button
-          >
-          <el-button 
-            v-else 
+            :type="isOnlyViewFranchisee?'primary':''"
             round
             @click="handleOnlyViewFranchisee"
             >只看加盟商</el-button
@@ -42,8 +28,14 @@
         </el-col>
       </el-row>
     </el-header>
-    <el-main>
-      <el-row>
+    <el-main v-loading="isLoading">
+      <el-skeleton v-if="isLoading" :rows="5" />
+      <el-empty v-else-if="isLoadFailed">
+        <template #description>
+          <span class="fail_tips_text">加载失败，请稍后<el-link :underline="false" @click="reloadHandle">重试</el-link></span>
+        </template>
+      </el-empty>
+      <el-row v-else>
         <template v-for="(item, index) in list" v-bind:key="item">
           <el-col 
             :span="24" 
@@ -55,7 +47,7 @@
               :name="item.company_name"
               :is-franchisee="item.isFranchisee"
               :is-blacklist="item.isBlacklist"
-              :credit-score="item.creditScore"
+              :credit-score="item.score"
               :unified-social-credit-code="item.credit_code"
               :legal-representative="item.corporation"
               :time-of-establishment="item.foundation_date"
@@ -67,23 +59,22 @@
               :goods="item.goods"
             />
           </el-col>
-      </template>
+        </template>
       </el-row>
     </el-main>
     <el-footer>
       <el-row :gutter="1" justify="center">
         <el-col :span="1" class="no_max_width">
           <el-pagination class="hidden-sm-and-up" small background layout="prev, pager, next" :total="total" v-model:current-page="currentPage" v-model:page-size="pageSize" @current-change="currentPageChange" />
-          <el-pagination class="hidden-sm-and-down" background layout="prev, pager, next" :total="total" v-model:current-page="currentPage" v-model:page-size="pageSize" @current-change="currentPageChange" />
+          <el-pagination class="hidden-xs-only" background layout="prev, pager, next" :total="total" v-model:current-page="currentPage" v-model:page-size="pageSize" @current-change="currentPageChange" />
         </el-col>
       </el-row>
     </el-footer>
   </el-container>
 </template>
 <script setup>
-import { ref } from 'vue'
-import Mock from 'mockjs'
-import { tailCargoList } from "../api/list.js";
+import { nextTick, ref } from 'vue'
+import { tailCargoList, getIndexData } from "../api/list.js";
 const getTailCargoList = () => {
   tailCargoList({}).then(async(res) => {
     console.log('tailCargoList');
@@ -92,11 +83,8 @@ const getTailCargoList = () => {
 }
 getTailCargoList()
 
+// 信用分升序或降序排序
 const isCreditScoreDesc = ref(true)
-const changeCreditScoreSort = () => {
-  isCreditScoreDesc.value = !isCreditScoreDesc.value
-}
-
 // 总条数
 const total = ref(0)
 // 每页数量
@@ -105,41 +93,115 @@ const pageSize = ref(10)
 const currentPage = ref(1)
 // 数据列表
 const list = ref([])
-
+// 是否加载中
+const isLoading = ref(false)
+// 是否加载失败或者没有数据
+const isLoadFailed = ref(false)
+// 是否显示推荐商家
+const isShowRecommend = ref(true)
+// 是否显示加盟商
+const isShowFranchisee = ref(true)
+// 是否显示黑名单
+const isShowBlacklist = ref(true)
+// 是否只看黑名单
+const isOnlyViewBlackList = ref(false)
+// 是否只看加盟商
+const isOnlyViewFranchisee = ref(false)
+/**
+ * 加载数据
+ * @description 
+ * ```currentPage.value``` 当前页码数
+ * 
+ * ```pageSize.value``` 每页数量
+ * 
+ * ```isCreditScoreDesc.value``` 是否按照信用分降序排序。```true``` 降序；```false``` 升序
+ * 
+ * ```isOnlyViewBlackList.value``` 是否仅显示黑名单
+ * 
+ * ```isOnlyViewFranchisee.value``` 是否仅显示加盟商
+ */
 const loadmore = () => {
-  // 模拟数据
-  Mock.mock({
-    'list|100': [{
-      'id|+1': 1,
-      'province': '@province',
-      'company_name': '沭阳沪沭木制品有限公司',
-      // 'isFranchisee': '@boolean',
-      'isFranchisee': true,
-      'isBlacklist': false,
-      'creditScore|0-100': 100,
-      'credit_code': '91321322MA215HKM23',
-      'corporation': '@cname',
-      'foundation_date': '@date',
-      'registered_capital': '500万人民币',
-      'address': '@province@city@county',
-      'business_scope': '一般项目：木材加工；人造板制造；人造板销售；软木制品制造；家具制造',
-      'contact_phone': '13800138000',
-      'goods': Mock.mock({
-        'list|3': [{
-          'id|+1': 1,
-          'goods_title': '刨花脚墩',
-          'goods_price|10-100.0-2': 100,
-          'mainurl': 'http://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_sumai_imagea821434b7b9d8240a45110f58729a2d4.jpg',
-        }]
-      }).list
-    }]
-  }).list.forEach(item => list.value.push(item))
-  console.log(list.value)
-  total.value = list.value.length
+  isLoading.value = true
+  isLoadFailed.value = false
+  let paramsStr = ''
+  paramsStr += 'is_show_recommend=' + (isShowRecommend.value ? 1 : 0)
+  paramsStr += '&is_show_franchisee=' + (isShowFranchisee.value ? 1 : 0)
+  paramsStr += '&is_show_blacklist=' + (isShowBlacklist.value ? 1 : 0)
+  paramsStr += '&page=' + currentPage.value
+  paramsStr += '&page_size=' + pageSize.value
+  paramsStr += '&score_asc=' + (isCreditScoreDesc.value ? 0 : 1)
+  nextTick(() => {
+    getIndexData({},paramsStr).then(res => {
+      console.log(res)
+      if (res.status != 200 || res.data.status != 1000 || !res.data.data || res.data.data.length === 0) {
+        isLoadFailed.value = true
+        return false
+      }
+      isLoadFailed.value = false
+      list.value = res.data.data
+      currentPage.value = Number(res.data.current_page)
+      pageSize.value = Number(res.data.page_size)
+      total.value = Number(res.data.total_count)
+    }).catch(reason => {
+      console.log(reason)
+      isLoadFailed.value = true
+    }).finally(() => {
+      isLoading.value = false
+    })
+  })
 }
+/**
+ * 监听分页的当前页码的点击变化
+ * @param {Number} pageNum 
+ */
 const currentPageChange = (pageNum) => {
   console.log(pageNum)
+  currentPage.value = pageNum
+  loadmore()
 }
+/**
+ * 重新加载当前页码的数据
+ */
+const reloadHandle = () => {
+  loadmore()
+}
+// 切换信用分升降序排序
+const changeCreditScoreSort = () => {
+  isCreditScoreDesc.value = !isCreditScoreDesc.value
+  currentPage.value = 1
+  loadmore()
+}
+// 切换是否仅查看黑名单
+const handleOnlyViewBlackList = () => {
+  isOnlyViewBlackList.value = !isOnlyViewBlackList.value
+  isShowRecommend.value = true
+  isShowFranchisee.value = true
+  isShowBlacklist.value = true
+  if (isOnlyViewBlackList.value) {
+    // 仅查看黑名单
+    isShowRecommend.value = false
+    isShowFranchisee.value = false
+    isOnlyViewFranchisee.value = false
+  }
+  currentPage.value = 1
+  loadmore()
+}
+// 切换是否仅查看加盟商
+const handleOnlyViewFranchisee = () => {
+  isOnlyViewFranchisee.value = !isOnlyViewFranchisee.value
+  isShowRecommend.value = true
+  isShowFranchisee.value = true
+  isShowBlacklist.value = true
+  if (isOnlyViewFranchisee.value) {
+    // 仅查看加盟商
+    isShowRecommend.value = false
+    isShowBlacklist.value = false
+    isOnlyViewBlackList.value = false
+  }
+  currentPage.value = 1
+  loadmore()
+}
+// 默认进来的时候就加载数据
 loadmore()
 </script>
 <style scoped>
@@ -164,5 +226,13 @@ loadmore()
 }
 ul {
   list-style: none;
+}
+.fail_tips_text {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  font-size: var(--el-font-size-base);
 }
 </style>
