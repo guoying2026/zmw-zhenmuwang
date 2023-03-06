@@ -28,19 +28,19 @@
         </el-col>
       </el-row>
     </el-header>
-    <el-main v-loading="isLoading">
-      <el-skeleton v-if="isLoading" :rows="5" />
-      <el-empty v-else-if="isLoadFailed">
+    <el-main v-loading="isMobile?currentPage===1&&isLoading:isLoading">
+      <el-skeleton v-if="isMobile?currentPage===1&&isLoading:isLoading" :rows="5" />
+      <el-empty v-else-if="isMobile?currentPage===1&&isLoadFailed:isLoadFailed">
         <template #description>
           <span class="fail_tips_text">加载失败，请稍后<el-link :underline="false" @click="reloadHandle">重试</el-link></span>
         </template>
       </el-empty>
       <el-row v-else>
-        <template v-for="(item, index) in list" v-bind:key="item">
+        <template v-for="(item, index) in list" v-bind:key="item" :key="item.id">
           <el-col 
             :span="24" 
             :md="index <= 1 ? { span: 24 } : { span: 12 }" 
-            v-if="index < pageSize"
+            v-if="isMobile ? true : index < pageSize"
           >
             <SellerInfo
               :province="item.province"
@@ -62,18 +62,24 @@
         </template>
       </el-row>
     </el-main>
-    <el-footer>
-      <el-row :gutter="1" justify="center">
+    <el-footer class="list_page_footer" v-if="isMobile?currentPage>1&&currentPage<=totalPage:true">
+      <el-row :gutter="1" justify="center" class="hidden-xs-only">
         <el-col :span="1" class="no_max_width">
-          <el-pagination class="hidden-sm-and-up" small background layout="prev, pager, next" :total="total" v-model:current-page="currentPage" v-model:page-size="pageSize" @current-change="currentPageChange" />
-          <el-pagination class="hidden-xs-only" background layout="prev, pager, next" :total="total" v-model:current-page="currentPage" v-model:page-size="pageSize" @current-change="currentPageChange" />
+          <el-pagination background layout="prev, pager, next" :total="total" v-model:current-page="currentPage" v-model:page-size="pageSize" @current-change="currentPageChange" />
         </el-col>
       </el-row>
+      <el-row
+        :gutter="1"
+        justify="center"
+        class="hidden-sm-and-up mobile_load_more_tips"
+        v-loading="true"
+      ></el-row>
     </el-footer>
   </el-container>
+  <el-backtop class="hidden-sm-and-up" :right="20" :bottom="30" />
 </template>
 <script setup>
-import { nextTick, ref } from 'vue'
+import { nextTick, onUnmounted, ref, watchEffect } from 'vue'
 import { tailCargoList, getIndexData } from "../api/list.js";
 const getTailCargoList = () => {
   tailCargoList({}).then(async(res) => {
@@ -87,6 +93,8 @@ getTailCargoList()
 const isCreditScoreDesc = ref(true)
 // 总条数
 const total = ref(0)
+// 总页码数
+const totalPage = ref(0)
 // 每页数量
 const pageSize = ref(10)
 // 当前页码数
@@ -107,6 +115,12 @@ const isShowBlacklist = ref(true)
 const isOnlyViewBlackList = ref(false)
 // 是否只看加盟商
 const isOnlyViewFranchisee = ref(false)
+// 是否初始化完成
+const isInited = ref(false)
+// 是否为移动端(屏幕宽度在768px以下)
+const isMobile = window.outerWidth < 768 ? true : false
+// 是否已经监听滑动事件
+const isLoadScrollFn = ref(false)
 /**
  * 加载数据
  * @description 
@@ -121,6 +135,12 @@ const isOnlyViewFranchisee = ref(false)
  * ```isOnlyViewFranchisee.value``` 是否仅显示加盟商
  */
 const loadmore = () => {
+  if (isLoading.value) {
+    return false
+  }
+  if (isMobile && currentPage.value === 1) {
+    list.value = []
+  }
   isLoading.value = true
   isLoadFailed.value = false
   let paramsStr = ''
@@ -137,9 +157,28 @@ const loadmore = () => {
         isLoadFailed.value = true
         return false
       }
+      res.data.data = res.data.data.map(item => {
+        item.isBlacklist = Number(item.isBlacklist) === 1
+        item.isFranchisee = Number(item.isFranchisee) === 1
+        item.goods = item.goods.map(item1 => {
+          item1.goods_price = Number(item1.goods_price)
+          return item1
+        })
+        return item
+      })
+      isInited.value = true
       isLoadFailed.value = false
-      list.value = res.data.data
-      currentPage.value = Number(res.data.current_page)
+      if (isMobile) {
+        list.value.push(...res.data.data)
+      } else {
+        list.value = res.data.data
+      }
+      totalPage.value = Number(res.data.total_page)
+      if (isMobile && currentPage.value <= totalPage.value) {
+        currentPage.value = Number(res.data.current_page) + 1
+      } else {
+        currentPage.value = Number(res.data.current_page)
+      }
       pageSize.value = Number(res.data.page_size)
       total.value = Number(res.data.total_count)
     }).catch(reason => {
@@ -201,6 +240,34 @@ const handleOnlyViewFranchisee = () => {
   currentPage.value = 1
   loadmore()
 }
+const scrollHandle = () => {
+  // 可视区域
+  let clientHeight = document.documentElement.clientHeight
+  // 滚动文档高度
+  let scrollHeight = document.body.scrollHeight
+  // 已滚动的高度
+  let scrollTop = document.documentElement.scrollTop
+  // 底部的高度
+  let footerHeight = document.querySelector('.el-footer.list_page_footer').clientHeight
+  if (scrollTop + clientHeight >= scrollHeight - footerHeight) {
+    // 触底，加载更多
+    if (currentPage.value <= totalPage.value) {
+      loadmore()
+    }
+  }
+}
+watchEffect(() => {
+  // 手机端在首次加载数据之后再导入监听事件
+  if ( isInited.value && isMobile && !isLoadScrollFn.value) {
+    window.addEventListener('scroll', scrollHandle)
+    // 防止重复监听
+    isLoadScrollFn.value = true
+  }
+})
+// 卸载时要取消监听事件
+onUnmounted(() => {
+  window.removeEventListener('scroll', scrollHandle)
+})
 // 默认进来的时候就加载数据
 loadmore()
 </script>
