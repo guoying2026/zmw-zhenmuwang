@@ -1,7 +1,9 @@
 <template>
-  <el-button type="primary" style="margin-left: 16px" @click="drawer = true">
-    {{startText}}
-  </el-button>
+<!--  由父组件提供插槽内容开始-->
+  <div @click="drawer = true">
+    <slot name="clickDrawer"></slot>
+  </div>
+<!--  由父组件提供插槽内容结束-->
 
   <el-drawer v-model="drawer" direction="btt" size="50%" title="I am the title" :with-header="false">
     <!--          抽屉里的添加评论开始-->
@@ -74,10 +76,6 @@ import { ref } from 'vue'
 //添加评论开始
 //父组件给该组件AddComment传递的值，就定义在defineProps,开始
 const props = defineProps({
-  startText:{
-    type: String,
-    default: '我要评论'
-  },
   placeholderText:{
     type: String,
     default: '添加评论'
