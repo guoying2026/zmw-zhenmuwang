@@ -16,7 +16,7 @@
               v-for="(o, index) in 8"
               :key="o"
               :span="24"
-              :md="index <= 8 ? {span:12} :{span:24}"
+              :md="12"
           >
             <el-card>
               <img
