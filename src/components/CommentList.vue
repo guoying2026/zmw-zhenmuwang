@@ -1,5 +1,5 @@
 <template>
-  <div class="comment_list"  v-for="(item, index) in list" :key="index">
+  <div class="comment_list"  v-for="(item, index) in list.arr" :key="index">
     <div class="comment_list_1">
       <!--            头像开始-->
       <el-avatar
@@ -36,7 +36,7 @@
         <div class="comment_list_1_right_2 margin-15-top">
           <text>{{item.created_time}}</text>
           <div class="comment_list_1_right_2_right margin-15-top">
-            <el-icon><Pointer /></el-icon>
+            <el-icon class="icon-size" :class="[item.is_liked === true ? 'icon-red':'icon-black']" @click="liked_comment(index,item.id,item.is_liked,item.liked_id)"><Pointer /></el-icon>
             <!--        添加评论组件开始-->
             <AddComment
                 :placeholder-text="placeholderText"
@@ -45,7 +45,7 @@
             >
               <template #clickDrawer>
                 <!-- AddComment 插槽的内容放这里开始-->
-                <el-icon class="margin-20-left"><ChatRound /></el-icon>
+                <el-icon class="margin-20-left icon-size"><ChatRound /></el-icon>
               </template>
             </AddComment>
             <!--        添加评论组件结束-->
@@ -53,7 +53,7 @@
         </div>
         <!--                    时间，点赞，回复结束-->
         <!--        该评论的回复列表开始-->
-        <div class="comment_list" v-for="(itemReply, indexReply) in item.comment_reply" :key="indexReply">
+        <div class="comment_list" v-for="(itemReply, indexReply) in item['comment_reply']" :key="indexReply">
           <div class="comment_list_1">
             <!--            头像开始-->
             <el-avatar
@@ -76,7 +76,7 @@
                   >
                     <el-image
                         :src="itemReplyImage"
-                        style="width:100%; height: 310px"
+                        style="width:100%; height: 250px"
                         :zoom-rate="1.2"
                         :preview-src-list="itemReply.image"
                         :initial-index="indexReplyImage"
@@ -90,7 +90,7 @@
               <div class="comment_list_1_right_2 margin-15-top">
                 <text>2023-03-01 12:34:23</text>
                 <div class="comment_list_1_right_2_right margin-15-top">
-                  <el-icon><Pointer /></el-icon>
+                  <el-icon class="icon-size" :class="[itemReply.is_liked === true ? 'icon-red':'icon-black']" @click="liked_comment_reply(index,indexReply,item.id,itemReply.id,itemReply.is_liked,itemReply.liked_id)"><Pointer /></el-icon>
                   <!--        添加评论组件开始-->
                   <AddComment
                       :placeholder-text="placeholderText"
@@ -99,7 +99,7 @@
                   >
                     <template #clickDrawer>
                       <!-- AddComment 插槽的内容放这里开始-->
-                      <el-icon class="margin-20-left"><ChatRound /></el-icon>
+                      <el-icon class="margin-20-left icon-size"><ChatRound /></el-icon>
                     </template>
                   </AddComment>
                   <!--        添加评论组件结束-->
@@ -121,18 +121,24 @@ export default{
 }
 </script>
 <script setup>
-import { ref } from 'vue'
+import { ref,reactive } from 'vue'
 import { onMounted } from 'vue'
+import { commentListApi, likedCommentApi, dislikedCommentApi, likedCommentReplyApi, dislikedCommentReplyApi } from "../api/comment.js";
+//引入用户信息开始
+import { useUserStore } from "../pinia/user.js";
+const userStore = useUserStore();
+
 //评论开始
 // 数据列表
-const list = ref([])
+const list = reactive({
+  arr:[]
+});
 //引入评论api
-import { commentListApi } from "../api/comment.js";
 onMounted(() => {
   commentListApi({}).then(async(res) => {
     console.log(res);
     console.log(res.data.data);
-    list.value = res.data.data;
+    list.arr = res.data.data;
   })
 })
 //引入点击评论组件
@@ -142,9 +148,71 @@ const placeholderText = ref('请输入评论');
 const cancelText = ref('取消评论');
 const confirmText = ref('发布评论');
 //给添加评论组件传值结束
+//给评论点赞开始
+const liked_comment = (index,comment_id,is_liked,liked_id) => {
+  console.log(userStore.userId);
+  if(is_liked === false){
+    list.arr[index].is_liked = true;
+    likedCommentApi({'comment_id':comment_id,'liked_id':liked_id,'user_id':userStore.userId}).then(async(res) => {
+      console.log(res);
+      //连接后端api再取消注释
+      // let result = res.data;
+      // if(result.is_liked === false){
+      //   list.arr[index].is_liked = false;
+      // }
+    })
+  } else if(is_liked === true){
+    list.arr[index].is_liked = false;
+    dislikedCommentApi({'comment_id':comment_id,'liked_id':liked_id,'user_id':userStore.userId}).then(async(res) => {
+      console.log(res);
+      //连接后端api再取消注释
+      // let result = res.data;
+      // if(result.is_liked === true){
+      //   list.arr[index].is_liked = true;
+      // }
+    })
+  }
+}
+//给回复点赞开始
+const liked_comment_reply = (index,indexReply,comment_id,comment_reply_id,is_liked,liked_id) => {
+  if(is_liked === false){
+    list.arr[index].comment_reply[indexReply].is_liked = true;
+    likedCommentReplyApi({'comment_id':comment_id,'comment_reply_id':comment_reply_id,'is_liked':is_liked,'liked_id':liked_id,'user_id':userStore.userId}).then(async(res) => {
+      console.log(res);
+      //连接后端api再取消注释
+      // let result = res.data;
+      // if(result.is_liked === false){
+      //   list.arr[index].comment_reply[indexReply].is_liked = false;
+      // }
+    })
+  } else if(is_liked === true){
+    list.arr[index].comment_reply[indexReply].is_liked = false;
+    dislikedCommentReplyApi({'comment_id':comment_id,'comment_reply_id':comment_reply_id,'liked_id':liked_id,'user_id':userStore.userId}).then(async(res) => {
+      console.log(res);
+      //连接后端api再取消注释
+      // let result = res.data;
+      // if(result.is_liked === true){
+      //   list.arr[index].comment_reply[indexReply].is_liked = true;
+      // }
+    })
+  }
+}
+//点赞结束
 //评论结束
 </script>
 <style scoped>
+.icon-red{
+  color: #800202;
+}
+.icon-black{
+  color: black;
+}
+.icon-white{
+  color: white;
+}
+.icon-size{
+  font-size: 30px;
+}
 .margin-15-top{
   margin-top: 15px;
 }
