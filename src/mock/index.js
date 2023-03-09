@@ -84,3 +84,10 @@ Mock.mock("https://api.zhenmuwang.com/Pc/CompanyComment/dislikedCommentReply","p
         is_liked: '@boolean()',
     });
 })
+Mock.mock("https://api.zhenmuwang.com/Pc/CompanyComment/publishComment","post",function(option){
+    return Mock.mock({
+        id: '@natural(1,300)',
+        status: '@boolean()',
+        created_time: '@datetime()'
+    })
+})

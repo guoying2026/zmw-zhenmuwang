@@ -55,7 +55,9 @@
           </template>
         </el-descriptions>
 <!--        评论列表开始-->
-        <CommentList></CommentList>
+        <CommentList
+            :company-info-id="company_info_id">
+        </CommentList>
 <!--        评论列表结束-->
 <!--        公司首页的大众评论结束-->
       </el-tab-pane>
@@ -71,7 +73,9 @@
 import { ref } from 'vue'
 
 import CommentList from '../components/CommentList.vue'
-
+//
+const company_info_id = ref(0);
+company_info_id.value = 255;
 //商品里面显示时间开始
 const currentDate = ref(new Date())
 //商品里面显示时间结束

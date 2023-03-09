@@ -42,6 +42,14 @@
                 :placeholder-text="placeholderText"
                 :cancel-text="cancelText"
                 :confirm-text="confirmText"
+                :comment-id="item.id"
+                :comment-reply-id="0"
+                :reply-to-user-id="item.user_id"
+                :company-info-id="companyInfoId"
+                @toFatherCommentList="receiveChildAddComment"
+                :comment-index="index"
+                :comment-reply-index="0"
+                :reply-to-name="item.name"
             >
               <template #clickDrawer>
                 <!-- AddComment 插槽的内容放这里开始-->
@@ -96,6 +104,14 @@
                       :placeholder-text="placeholderText"
                       :cancel-text="cancelText"
                       :confirm-text="confirmText"
+                      :comment-id="item.id"
+                      :comment-reply-id="itemReply.id"
+                      :reply-to-user-id="itemReply.user_id"
+                      :company-info-id="companyInfoId"
+                      @toFatherCommentList="receiveChildAddComment"
+                      :comment-index="index"
+                      :comment-reply-index="indexReply"
+                      :reply-to-name="itemReply.name"
                   >
                     <template #clickDrawer>
                       <!-- AddComment 插槽的内容放这里开始-->
@@ -128,11 +144,55 @@ import { commentListApi, likedCommentApi, dislikedCommentApi, likedCommentReplyA
 import { useUserStore } from "../pinia/user.js";
 const userStore = useUserStore();
 
+//父组件给该组件CommentList传递的值，就定义在defineProps,开始
+const props = defineProps({
+  companyInfoId:{
+    type: Number,
+    default: 0
+  },
+})
+//父组件给该组件CommentList传递的值，就定义在defineProps,结束
 //评论开始
 // 数据列表
 const list = reactive({
   arr:[]
 });
+//发布评论之后将评论内容放到评论列表
+const receiveChildAddComment = (param) => {
+  console.log(param);
+  const reply = param.commentReply;
+  console.log('commentReplyId');
+  console.log(param.commentReplyId);
+  if(param.commentReplyId === 0){
+    list.arr[param.commentIndex].comment_reply.unshift({
+      id: reply.id,
+      user_id: reply.user_id,
+      name: reply.name,
+      comment: reply.comment,
+      created_time: reply.created_time,
+      like_count: 0,
+      reply_to_user_id: reply.reply_to_user_id,
+      reply_to_name: reply.reply_to_name,
+      liked_id: 0,
+      is_liked: 0,
+      image: reply.image,
+    })
+  } else {
+    list.arr[param.commentIndex].comment_reply.splice(param.commentReplyIndex+1,0,{
+      id: reply.id,
+      user_id: reply.user_id,
+      name: reply.name,
+      comment: reply.comment,
+      created_time: reply.created_time,
+      like_count: 0,
+      reply_to_user_id: reply.reply_to_user_id,
+      reply_to_name: reply.reply_to_name,
+      liked_id: 0,
+      is_liked: 0,
+      image: reply.image,
+    })
+  }
+}
 //引入评论api
 onMounted(() => {
   commentListApi({}).then(async(res) => {
