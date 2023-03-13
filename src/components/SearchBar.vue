@@ -70,11 +70,15 @@
   </el-button>
 </template>
 <script setup>
-import { onMounted, ref, getCurrentInstance } from 'vue'
+import { onMounted, ref } from 'vue'
+import { useSearchStore } from '../pinia/search.js'
+import { useSearchHistoryStore } from '../pinia/searchHistory.js'
+
+const searchStore = useSearchStore()
+
+const searchHistory = useSearchHistoryStore()
 
 const isShowSearchBar = ref(false)
-
-const searchHistory = ref([])
 
 const changeSearchBarShow = () => {
   isShowSearchBar.value = !isShowSearchBar.value
@@ -84,6 +88,15 @@ const input = ref('')
 
 const links = ref([])
 
+const page = ref(1)
+
+const pageSize = ref(10)
+
+/**
+ * 获取搜索建议内容
+ * @param {string} queryString 
+ * @param {Function} cb 
+ */
 const querySearch = (queryString, cb) => {
   const results = queryString
     ? links.value.filter(createFilter(queryString))
@@ -118,44 +131,75 @@ const loadAll = () => {
     item.isHistory = false
     return item
   })
-  results = results.filter(item => !searchHistory.value.includes(item.value))
-  searchHistory.value.forEach(item => {
+  results = results.filter(item => !searchHistory._list.includes(item.value))
+  searchHistory._list.forEach(item => {
     results.unshift({value: item, isHistory: true})
   })
   return results
 }
+
+/**
+ * 选中搜索建议选项
+ * @param {*} item 
+ */
 const handleSelect = (item) => {
   input.value = item.value
 }
 
+/**
+ * 输入搜索内容时
+ * @param {*} value 
+ */
 const handleInput = (value) => {
   input.value = value
 }
 
+/**
+ * 清除搜索内容
+ */
 const handleClear = () => {
   input.value = ''
 }
 
+/**
+ * 删除历史记录项
+ * @param {*} item 
+ */
 const handleClearSearchHistoryItem = (item) => {
-  let itemIndex = searchHistory.value.findIndex(i => item == i.trim())
+  let itemIndex = searchHistory._list.findIndex(i => item == i.trim())
   if (itemIndex === -1) {
     return false
   }
-  searchHistory.value.splice(itemIndex, 1)
+  searchHistory._list.splice(itemIndex, 1)
   links.value = loadAll()
 }
 
+/**
+ * 点击搜索
+ */
 const handleSearch = () => {
+  // 如果搜索框没有内容，则隐藏
   if (input.value.length === 0) {
     changeSearchBarShow()
     return false
   }
-  let searchContentIndex = searchHistory.value.findIndex(item => input.value.trim() == item.trim())
+  // 加入搜索历史记录
+  let searchContentIndex = searchHistory._list.findIndex(item => input.value.trim() == item.trim())
   if (searchContentIndex > -1) {
-    searchHistory.value.splice(searchContentIndex, 1)
+    searchHistory._list.splice(searchContentIndex, 1)
   }
-  searchHistory.value.push(input.value.trim())
+  searchHistory._list.push(input.value.trim())
   links.value = loadAll()
+
+  searchStore._currentPage = 1
+  page.value = 1
+
+  // 获取搜索结果
+  searchStore.search({
+    page: page.value,
+    size: pageSize.value,
+    name: input.value,
+  })
 }
 
 onMounted(() => {

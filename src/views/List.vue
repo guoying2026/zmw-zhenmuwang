@@ -62,7 +62,7 @@
         </template>
       </el-row>
     </el-main>
-    <el-footer class="list_page_footer" v-if="isMobile?currentPage>1&&currentPage<=totalPage:true">
+    <el-footer class="list_page_footer" v-if="isMobile ? (totalPage > 1 ? (currentPage > 1 && currentPage <= totalPage) : false) : true">
       <el-row :gutter="1" justify="center" class="hidden-xs-only">
         <el-col :span="1" class="no_max_width">
           <el-pagination background layout="prev, pager, next" :total="total" v-model:current-page="currentPage" v-model:page-size="pageSize" @current-change="currentPageChange" />
@@ -80,7 +80,9 @@
 </template>
 <script setup>
 import { nextTick, onUnmounted, ref, watchEffect } from 'vue'
-import { tailCargoList, getIndexData } from "../api/list.js";
+import { tailCargoList, getIndexDataApi } from "../api/list.js";
+import { useSearchStore } from '../pinia/search.js';
+const searchStore = useSearchStore()
 const getTailCargoList = () => {
   tailCargoList({}).then(async(res) => {
     console.log('tailCargoList');
@@ -115,6 +117,8 @@ const isShowBlacklist = ref(true)
 const isOnlyViewBlackList = ref(false)
 // 是否只看加盟商
 const isOnlyViewFranchisee = ref(false)
+// 是否显示搜索结果
+const isShowSearchResult = ref(false)
 // 是否初始化完成
 const isInited = ref(false)
 // 是否为移动端(屏幕宽度在768px以下)
@@ -143,15 +147,23 @@ const loadmore = () => {
   }
   isLoading.value = true
   isLoadFailed.value = false
-  let paramsStr = ''
-  paramsStr += 'is_show_recommend=' + (isShowRecommend.value ? 1 : 0)
-  paramsStr += '&is_show_franchisee=' + (isShowFranchisee.value ? 1 : 0)
-  paramsStr += '&is_show_blacklist=' + (isShowBlacklist.value ? 1 : 0)
-  paramsStr += '&page=' + currentPage.value
-  paramsStr += '&page_size=' + pageSize.value
-  paramsStr += '&score_asc=' + (isCreditScoreDesc.value ? 0 : 1)
   nextTick(() => {
-    getIndexData({},paramsStr).then(res => {
+    if (isShowSearchResult.value) {
+      searchStore.search({
+        page: searchStore._currentPage,
+        size: searchStore._pageSize,
+        name: searchStore._name,
+      })
+      return false
+    }
+    getIndexDataApi({
+      is_show_recommend: isShowRecommend.value ? 1 : 0, 
+      is_show_franchisee: isShowFranchisee.value ? 1 : 0, 
+      is_show_blacklist: isShowBlacklist.value ? 1 : 0, 
+      page: currentPage.value, 
+      page_size: pageSize.value, 
+      score_asc: isCreditScoreDesc.value ? 0 : 1,
+    }).then(res => {
       console.log(res)
       if (res.status != 200 || res.data.status != 1000 || !res.data.data || res.data.data.length === 0) {
         isLoadFailed.value = true
@@ -256,6 +268,36 @@ const scrollHandle = () => {
     }
   }
 }
+// 订阅搜索
+const unsubscribeSearchStore = searchStore.$subscribe((mutation, state) => {
+  /*
+   * mutation主要包含三个属性值：
+   *   events：当前state改变的具体数据，包括改变前的值和改变后的值等等数据
+   *   storeId：是当前store的id
+   *   type：用于记录这次数据变化是通过什么途径，主要有三个分别是
+   *         “direct” ：通过 action 变化的
+   *         ”patch object“ ：通过 $patch 传递对象的方式改变的
+   *         “patch function” ：通过 $patch 传递函数的方式改变的
+   *
+   * 
+   */
+  // 在此处监听store中值的变化，当变化为某个值的时候，做一些业务操作
+  console.log(mutation, state)
+  total.value = state._totalSize
+  totalPage.value = state._totalPage
+  pageSize.value = state._pageSize
+  currentPage.value = state._currentPage
+  list.value = state._list
+  isLoading.value = false
+  isLoadFailed.value = state._list.length === 0
+  isShowSearchResult.value = true
+  isInited.value = state._list.length > 0
+}, {
+  detached: false,
+  // detached:布尔值，默认是 false，正常情况下，当订阅所在的组件被卸载时，订阅将被停止删除，
+  // 如果设置detached值为 true 时，即使所在组件被卸载，订阅依然在生效
+  // 参考文档：https://pinia.web3doc.top/core-concepts/state.html#%E8%AE%A2%E9%98%85%E7%8A%B6%E6%80%81
+})
 watchEffect(() => {
   // 手机端在首次加载数据之后再导入监听事件
   if ( isInited.value && isMobile && !isLoadScrollFn.value) {
@@ -267,6 +309,7 @@ watchEffect(() => {
 // 卸载时要取消监听事件
 onUnmounted(() => {
   window.removeEventListener('scroll', scrollHandle)
+  unsubscribeSearchStore()
 })
 // 默认进来的时候就加载数据
 loadmore()

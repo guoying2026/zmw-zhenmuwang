@@ -8,10 +8,10 @@ export const tailCargoList = (data) => {
     })
 }
 
-export const getIndexData = (data, paramStr='') => {
+export const getIndexDataApi = (data) => {
     return axiosRequest({
-        url: '/Pc/Index/getIndexData' + (paramStr.trim().length > 0 ? '?' : '') + paramStr,
+        url: '/Pc/Index/getIndexData',
         method: 'get',
-        data
+        params: data,
     })
 }
