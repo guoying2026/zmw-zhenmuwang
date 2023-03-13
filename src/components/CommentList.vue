@@ -13,20 +13,21 @@
         <div class="comment_list_1_right_1">
           <text>{{item.name}}</text>
           <text>{{item.comment}}</text>
-          <el-row :gutter="20" class="margin-15-top">
+          <el-row :gutter="24" class="margin-15-top">
             <el-col
                 v-for="(itemImage,indexImage) in item.image"
                 :key="indexImage"
-                :span="24"
+                :span="8"
                 :md="8"
             >
               <el-image
+                  :hide-on-click-modal=true
                   :src="itemImage"
-                  style="width:100%; height: 310px"
+                  style="width:100%;height: 20vw;"
+                  fit="fill"
                   :zoom-rate="1.2"
                   :preview-src-list="item.image"
                   :initial-index="indexImage"
-                  fit="cover"
                   lazy/>
             </el-col>
           </el-row>
@@ -79,16 +80,17 @@
                   <el-col
                       v-for="(itemReplyImage, indexReplyImage) in itemReply.image"
                       :key="indexReplyImage"
-                      :span="24"
+                      :span="8"
                       :md="8"
                   >
                     <el-image
+                        :hide-on-click-modal=true
                         :src="itemReplyImage"
-                        style="width:100%; height: 250px"
+                        style="width:100%;height: 20vw;"
+                        fit="fill"
                         :zoom-rate="1.2"
                         :preview-src-list="itemReply.image"
                         :initial-index="indexReplyImage"
-                        fit="cover"
                         lazy />
                   </el-col>
                 </el-row>
@@ -96,7 +98,7 @@
               <!--              主评论作者和内容结束-->
               <!--                    时间，点赞，回复开始-->
               <div class="comment_list_1_right_2 margin-15-top">
-                <text>2023-03-01 12:34:23</text>
+                <text>{{itemReply.created_time}}</text>
                 <div class="comment_list_1_right_2_right margin-15-top">
                   <el-icon class="icon-size" :class="[itemReply.is_liked === true ? 'icon-red':'icon-black']" @click="liked_comment_reply(index,indexReply,item.id,itemReply.id,itemReply.is_liked,itemReply.liked_id)"><Pointer /></el-icon>
                   <!--        添加评论组件开始-->
