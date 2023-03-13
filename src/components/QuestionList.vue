@@ -1,5 +1,5 @@
 <template>
-  <div class="ask margin-10-top" v-for="(item, index) in list.arr" :key="index">
+  <div class="ask" :class="[index == 0?'':'margin-10-top']" v-for="(item, index) in list.arr" :key="index">
     <div class="general_item">
       <text class="ask_item_1">问：</text>
       <text class="ask_item_2 margin-10-left">我要提问</text>
