@@ -1,5 +1,7 @@
 import { createApp } from 'vue'
 import './style.css'
+import './mock/comment.js'
+import './mock/question.js'
 import App from './App.vue'
 //路由使用vue-router
 import router from './router/index.js'

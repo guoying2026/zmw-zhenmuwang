@@ -1,12 +1,12 @@
 <template>
-<!--  由父组件提供插槽内容开始-->
+  <!--  由父组件提供插槽内容开始-->
   <div @click="drawer = true">
     <slot name="clickDrawer"></slot>
   </div>
-<!--  由父组件提供插槽内容结束-->
+  <!--  由父组件提供插槽内容结束-->
 
   <el-drawer v-model="drawer" direction="btt" size="50%" title="I am the title" :with-header="false">
-    <!--          抽屉里的添加评论开始-->
+    <!--          抽屉里的问题或回答开始-->
     <el-input
         v-model="textarea"
         maxlength="200"
@@ -68,15 +68,12 @@ const emit = defineEmits(['toFatherCommentList'])
 const props = defineProps({
   placeholderText:{
     type: String,
-    default: '添加评论'
   },
   cancelText:{
     type: String,
-    default: '取消评论'
   },
   confirmText:{
     type: String,
-    default: '发布评论'
   },
   commentId:{
     type: Number,
