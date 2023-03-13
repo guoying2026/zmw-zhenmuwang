@@ -1,6 +1,7 @@
 import Mock from 'mockjs'
-
-Mock.mock("https://api.zhenmuwang.com/Pc/CompanyComment/companyComment",'get',function(option){
+import { regUrl } from '../utils/httpReplace.js'
+//评论mock开始
+Mock.mock(regUrl("https://api.zhenmuwang.com/Pc/CompanyComment/companyComment"),'get',function(option){
     console.log('执行到我了');
     //@表示占位符， z占位符引用的是Mock.Random中的方法
     return Mock.mock({
@@ -60,7 +61,7 @@ Mock.mock("https://api.zhenmuwang.com/Pc/CompanyComment/companyComment",'get',fu
     })
 })
 
-Mock.mock("https://api.zhenmuwang.com/Pc/CompanyComment/likedComment","post",function(option){
+Mock.mock("https://api.zhenmuwang.com/Pc/CompanyComment/likedComment","get",function(option){
     return Mock.mock({
         liked_id: '@natural(1,300)',
         is_liked: '@boolean()',
@@ -91,3 +92,5 @@ Mock.mock("https://api.zhenmuwang.com/Pc/CompanyComment/publishComment","post",f
         created_time: '@datetime()'
     })
 })
+//评论mock结束
+

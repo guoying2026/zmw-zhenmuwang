@@ -42,12 +42,14 @@
             </el-button>
           </template>
         </el-descriptions>
-        <el-row :gutter="20">
-
-        </el-row>
+<!--        问答列表开始-->
+        <QuestionList
+            :company-info-id="company_info_id">
+        </QuestionList>
+<!--        问答列表结束-->
 <!--        公司首页的问大家结束-->
 <!--        公司首页的大众评论开始-->
-        <el-descriptions title="大众评论">
+        <el-descriptions title="大众评论" class="margin-20-top">
           <template #extra>
             <el-button type="" text>
               查看全部<el-icon class="el-icon--right"><ArrowRight /></el-icon>
@@ -71,7 +73,7 @@
 </template>
 <script setup>
 import { ref } from 'vue'
-
+import QuestionList from "../components/QuestionList.vue";
 import CommentList from '../components/CommentList.vue'
 //
 const company_info_id = ref(0);

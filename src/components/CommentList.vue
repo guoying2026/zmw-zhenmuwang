@@ -137,8 +137,7 @@ export default{
 }
 </script>
 <script setup>
-import { ref,reactive } from 'vue'
-import { onMounted } from 'vue'
+import { ref,reactive,onMounted } from 'vue'
 import { commentListApi, likedCommentApi, dislikedCommentApi, likedCommentReplyApi, dislikedCommentReplyApi } from "../api/comment.js";
 //引入用户信息开始
 import { useUserStore } from "../pinia/user.js";
@@ -195,7 +194,7 @@ const receiveChildAddComment = (param) => {
 }
 //引入评论api
 onMounted(() => {
-  commentListApi({}).then(async(res) => {
+  commentListApi({},props.companyInfoId).then(async(res) => {
     console.log(res);
     console.log(res.data.data);
     list.arr = res.data.data;

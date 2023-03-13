@@ -1,9 +1,9 @@
 import axiosRequest from "../utils/axiosRequest.js";
 
 //获取评论列表接口
-export const commentListApi = (data) => {
+export const commentListApi = (data,comment_info_id) => {
     return axiosRequest({
-        url: "/Pc/CompanyComment/companyComment",
+        url: "/Pc/CompanyComment/companyComment?comment_info_id="+comment_info_id,
         method: 'get',
         data
     })

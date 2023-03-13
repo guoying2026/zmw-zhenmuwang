@@ -16,3 +16,6 @@ export const guidUtil = () => {
         return v.toString(16);
     });
 }
+export const regUrl = (url) => {
+    return RegExp(url + ".*");
+}
