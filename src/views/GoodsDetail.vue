@@ -809,7 +809,8 @@
 import { nextTick, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { getGoodsDetailApi, addCollectApi, cancelCollectApi } from '../api/goods.js'
-import { formatHttpsProtocol,formatUnit } from '../utils/common.js'
+import { formatHttpsProtocol } from '../utils/httpReplace.js'
+import { formatUnit } from '../utils/good.js'
 // 引入用户信息
 import { useUserStore } from "../pinia/user.js";
 const userStore = useUserStore();
@@ -1104,7 +1105,7 @@ getGoodsDetail()
 .goods_footer {
   height: var(--navbar-height);
   /* line-height: var(--navbar-line-height); */
-  background-color: var(--navbar-bg-color); 
+  background-color: var(--navbar-bg-color);
 }
 .goods_footer-small_btn {
   line-height: 0.8em;

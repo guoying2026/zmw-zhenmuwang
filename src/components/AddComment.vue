@@ -59,7 +59,6 @@ import { publishCommentApi,getAnswerOssSignatureApi,pushAnswerOssApi } from "../
 import { handeSrcHttpsUtil,guidUtil } from "../utils/httpReplace.js";
 //引入用户信息开始
 import { useUserStore } from "../pinia/user.js";
-import axiosRequest from "../utils/axiosRequest.js";
 const userStore = useUserStore();
 //添加评论开始
 //用来给父组件传递值自定义的函数

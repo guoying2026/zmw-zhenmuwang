@@ -1,3 +1,35 @@
+/**
+ * 转换https协议
+ * @param {string} url
+ * @returns {string}
+ */
+export const formatHttpsProtocol = (url) => {
+    if (!url || url.trim().length === 0) {
+        return '';
+    }
+    let str = url.split('//')
+    if (str.length === 1) {
+        return 'https://' + str[0]
+    }
+    return 'https://' + str[1]
+}
+
+/**
+ * 转换http协议
+ * @param {string} url
+ * @returns {string}
+ */
+export const formatHttpProtocol = (url) => {
+    if (!url || url.trim().length === 0) {
+        return '';
+    }
+    let str = url.split('//')
+    if (str.length === 1) {
+        return 'http://' + str[0]
+    }
+    return 'http://' + str[1]
+}
+
 export const handeSrcHttpsUtil = (src) => {
     if (typeof (src) === 'string') {
         if (src.indexOf('https') === -1) {
