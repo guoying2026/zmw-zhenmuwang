@@ -894,20 +894,11 @@ const changeDrawerShow = () => {
   }
   isDrawerShow.value =!isDrawerShow.value
 }
-const showAddShopCart = () => {
-  if (isLoading.value || !isSuccess.value) {
-    return false;
-  }
-  isBuyNow.value = false
-  isAddShopCart.value = true
-  changeDrawerShow()
-}
 const showBuyNow = () => {
   if (isLoading.value || !isSuccess.value) {
     return false;
   }
   isBuyNow.value = true
-  isAddShopCart.value = false
   changeDrawerShow()
 }
 // 新增自定义规格
@@ -1047,7 +1038,8 @@ const getGoodsDetail = () => {
     // 获取交易记录
     tradeLog.value = res.data.data.trade_log
     otherSee.value = res.data.data.other_see
-  }).catch(() => {
+  }).catch((reason) => {
+    console.log(reason)
     isFailed.value = true
     isSuccess.value = false
   }).finally(() => {
