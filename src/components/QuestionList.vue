@@ -9,7 +9,7 @@
         <text class="ask_item_1">{{item.question}}</text>
         <text class="ask_item_2 margin-10-left">{{item.ask_count}}个回答</text>
       </div>
-      <el-row :gutter="24" class="margin-10-top">
+      <el-row :gutter="8" class="margin-10-top">
         <el-col
             v-for="(itemImage, indexImage) in item.image"
             :key="indexImage"
@@ -42,7 +42,7 @@
         <div class="answer_item_left_2">
             <text>{{itemAsk.name}}</text>
             <text class="margin-10-top">{{itemAsk.ask}}</text>
-            <el-row :gutter="24" class="margin-10-top">
+            <el-row :gutter="8" class="margin-10-top">
               <el-col
                 v-for="(itemAskImage, indexAskImage) in itemAsk.image"
                 :key="indexAskImage"

@@ -13,7 +13,7 @@
         <div class="comment_list_1_right_1">
           <text>{{item.name}}</text>
           <text>{{item.comment}}</text>
-          <el-row :gutter="24" class="margin-15-top">
+          <el-row :gutter="8" class="margin-15-top">
             <el-col
                 v-for="(itemImage,indexImage) in item.image"
                 :key="indexImage"
@@ -76,7 +76,7 @@
               <div class="comment_list_1_right_1">
                 <text>{{itemReply.name}} @ {{itemReply.reply_to_name}}</text>
                 <text>{{itemReply.comment}}</text>
-                <el-row :gutter="24" class="margin-15-top">
+                <el-row :gutter="8" class="margin-15-top">
                   <el-col
                       v-for="(itemReplyImage, indexReplyImage) in itemReply.image"
                       :key="indexReplyImage"
