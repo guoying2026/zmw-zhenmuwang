@@ -1,6 +1,7 @@
 :root {
-  --navbar-bg-color: var(--el-text-color-primary);
+  --navbar-bg-color: var(--el-color-white);
+  --navbar-color: var(--el-color-black);
   --navbar-height: 50px;
   --navbar-line-height: var(--navbar-height);
-  --navbar-ft-color: var(--el-color-white);
+  --navbar-ft-color: #000;
 }

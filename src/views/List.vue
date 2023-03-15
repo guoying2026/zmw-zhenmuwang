@@ -10,9 +10,9 @@
     <el-header>
       <el-row>
         <el-col>
-          <el-button 
-            class="select_btn"
-            type="info" 
+          <el-button
+            :class="isCreditScoreDesc?'green_btn':'blue_btn'"
+            type="info"
             round
             @click="changeCreditScoreSort"
           >信用分<el-icon>
@@ -21,17 +21,17 @@
             </el-icon>
           </el-button>
           <el-button
-            :type="isOnlyViewBlackList?'primary':''"
+            :class="isOnlyViewBlackList?'yellow_btn':'select_btn'"
             round
             @click="handleOnlyViewBlackList"
-            >只看黑名单</el-button
-          >
+            >只看黑名单
+          </el-button>
           <el-button
-            :type="isOnlyViewFranchisee?'primary':''"
+            :class="isOnlyViewFranchisee?'purple_btn':'select_btn'"
             round
             @click="handleOnlyViewFranchisee"
-            >只看加盟商</el-button
-          >
+            >只看加盟商
+          </el-button>
         </el-col>
       </el-row>
     </el-header>
@@ -44,9 +44,9 @@
       </el-empty>
       <el-row v-else>
         <template v-for="(item, index) in list" v-bind:key="item" :key="item.id">
-          <el-col 
-            :span="24" 
-            :md="index <= 1 ? { span: 24 } : { span: 12 }" 
+          <el-col
+            :span="24"
+            :md="index <= 1 ? { span: 24 } : { span: 12 }"
             v-if="isMobile ? true : index < pageSize"
           >
             <SellerInfo
@@ -143,15 +143,15 @@ const isInited = ref(false)
 const isMobile = window.outerWidth < 768 ? true : false
 /**
  * 加载数据
- * @description 
+ * @description
  * ```currentPage.value``` 当前页码数
- * 
+ *
  * ```pageSize.value``` 每页数量
- * 
+ *
  * ```isCreditScoreDesc.value``` 是否按照信用分降序排序。```true``` 降序；```false``` 升序
- * 
+ *
  * ```isOnlyViewBlackList.value``` 是否仅显示黑名单
- * 
+ *
  * ```isOnlyViewFranchisee.value``` 是否仅显示加盟商
  */
 const loadmore = () => {
@@ -174,11 +174,11 @@ const loadmore = () => {
       return false
     }
     getIndexDataApi({
-      is_show_recommend: isShowRecommend.value ? 1 : 0, 
-      is_show_franchisee: isShowFranchisee.value ? 1 : 0, 
-      is_show_blacklist: isShowBlacklist.value ? 1 : 0, 
-      page: currentPage.value, 
-      page_size: pageSize.value, 
+      is_show_recommend: isShowRecommend.value ? 1 : 0,
+      is_show_franchisee: isShowFranchisee.value ? 1 : 0,
+      is_show_blacklist: isShowBlacklist.value ? 1 : 0,
+      page: currentPage.value,
+      page_size: pageSize.value,
       score_asc: isCreditScoreDesc.value ? 0 : 1,
     }).then(res => {
       console.log(res)
@@ -220,7 +220,7 @@ const loadmore = () => {
 }
 /**
  * 监听分页的当前页码的点击变化
- * @param {Number} pageNum 
+ * @param {Number} pageNum
  */
 const currentPageChange = (pageNum) => {
   console.log(pageNum)
@@ -280,7 +280,7 @@ const unsubscribeSearchStore = searchStore.$subscribe((mutation, state) => {
    *         ”patch object“ ：通过 $patch 传递对象的方式改变的
    *         “patch function” ：通过 $patch 传递函数的方式改变的
    *
-   * 
+   *
    */
   // 在此处监听store中值的变化，当变化为某个值的时候，做一些业务操作
   console.log(mutation, state)
@@ -324,9 +324,30 @@ loadmore()
     flex-wrap: nowrap;
   }
 }
+.purple_btn{
+  background-color: #e3e2ff;
+  color: #6160ff;
+  border:none;
+}
+.blue_btn{
+  background-color: #e9f9ff;
+  color: #2ab1e6;
+  border: none;
+}
+.green_btn{
+  background-color: #ebfdec;
+  color: #49a269;
+  border:none;
+}
+.yellow_btn{
+  background-color: #fdeb92;
+  color: #000;
+  border: none;
+}
 .select_btn {
-  background: rgb(134,78,40);
-  border-color: rgb(134,78,40);
+  background-color: #f5f5f5;
+  color: #333;
+  border:none;
 }
 .no_max_width {
   max-width: none;
