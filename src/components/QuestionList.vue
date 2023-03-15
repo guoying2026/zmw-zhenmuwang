@@ -2,7 +2,19 @@
   <div class="ask" :class="[index == 0?'':'margin-10-top']" v-for="(item, index) in list.arr" :key="index">
     <div class="general_item">
       <text class="ask_item_1">问：</text>
-      <text class="ask_item_2 margin-10-left">我要提问</text>
+      <AddComment
+          placeholder-text="我要提问"
+          cancel-text="取消提问"
+          confirm-text="发布提问"
+          @toFatherQuestionList="receiveChildAddComment"
+          :company-info-id="companyInfoId"
+          addType="question"
+          questionType="question"
+      >
+        <template #clickDrawer>
+          <text class="ask_item_2 margin-10-left">我要提问</text>
+        </template>
+      </AddComment>
     </div>
     <div class="ask_item margin-10-top">
       <div class="ask_item_top">
@@ -29,8 +41,22 @@
       </el-row>
     </div>
     <div class="answer_item margin-10-top">
-        <text class="ask_item_1">答：</text>
-        <text class="ask_item_2 margin-10-left">我要回答</text>
+      <text class="ask_item_1">答：</text>
+      <AddComment
+          placeholder-text="我要回答"
+          cancel-text="取消回答"
+          confirm-text="发布回答"
+          @toFatherQuestionList="receiveChildAddComment"
+          :company-info-id="companyInfoId"
+          :question-id="item.id"
+          :question-index="index"
+          addType="question"
+          questionType="ask"
+      >
+        <template #clickDrawer>
+          <text class="ask_item_2 margin-10-left">我要回答</text>
+        </template>
+      </AddComment>
     </div>
     <div class="answer_item margin-10-top"
          v-for="(itemAsk,indexAsk) in item.ask_list" :key="indexAsk">
@@ -61,7 +87,7 @@
               </el-col>
             </el-row>
             <div class="answer_item_left_2_3 margin-10-top">
-              <text>2024-09-08 12:11:11</text>
+              <text>{{itemAsk.created_time}}</text>
               <div class="answer_item_left_2_3_right margin-10-top">
                 <div>
                   <text>有用</text>
@@ -87,6 +113,10 @@ export default{
 import { reactive,onMounted } from "vue";
 import { questionListApi } from "../api/question.js";
 
+//引入用户信息开始
+import { useUserStore } from "../pinia/user.js";
+const userStore = useUserStore();
+
 const props = defineProps({
   companyInfoId:{
     type: Number,
@@ -103,6 +133,37 @@ onMounted(() => {
     list.arr = res.data.data;
   })
 })
+//提问之后，将问题放到问答列表
+const receiveChildAddComment = (param) => {
+  console.log(param);
+  let question = param.question;
+  if(param.questionType === 'question'){
+    list.arr.unshift({
+      id: question.id,
+      user_id: userStore.userId,
+      name: userStore.phone,
+      question: question.question,
+      created_time: question.created_time,
+      ask_count: 0,
+      image: question.image,
+      ask_list:[]
+    })
+  } else {
+    list.arr[param.questionIndex].ask_list.unshift({
+      id: question.id,
+      user_id: userStore.userId,
+      name: userStore.phone,
+      created_time: question.created_time,
+      ask: question.question,
+      useful_count: 0,
+      useless_count: 0,
+      is_useful: 0,
+      useful_id: 0,
+      image: question.image
+    })
+  }
+  console.log(list.arr);
+}
 </script>
 <style scoped>
 /*回答开始*/

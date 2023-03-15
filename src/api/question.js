@@ -8,3 +8,11 @@ export const questionListApi = (data,comment_info_id) => {
         data
     })
 }
+//发布问答列表接口
+export const publishQuestionApi = (data) => {
+    return axiosRequest({
+        url: "/Pc/CompanyComment/publishQuestion",
+        method: 'post',
+        data
+    })
+}

@@ -39,7 +39,8 @@
         </el-button>
       </el-col>
       <el-col :span="12" class="center_button margin-20-top">
-        <el-button type="primary" @click="publishComment">
+        <el-button type="primary" v-if="addType === 'question'" @click="publishQuestion">{{confirmText}}</el-button>
+        <el-button type="primary" v-else @click="publishComment">
           {{confirmText}}
         </el-button>
       </el-col>
@@ -54,15 +55,18 @@ export default{
 }
 </script>
 <script setup>
-import { ref,reactive } from 'vue'
-import { publishCommentApi,getAnswerOssSignatureApi,pushAnswerOssApi } from "../api/comment.js";
+import { ref } from 'vue'
+import { getAnswerOssSignatureApi,pushAnswerOssApi } from "../api/ossUploadFile.js";
 import { handeSrcHttpsUtil,guidUtil } from "../utils/httpReplace.js";
+import { publishCommentApi } from "../api/comment.js";
+import { publishQuestionApi } from "../api/question.js";
+
 //引入用户信息开始
 import { useUserStore } from "../pinia/user.js";
 const userStore = useUserStore();
 //添加评论开始
 //用来给父组件传递值自定义的函数
-const emit = defineEmits(['toFatherCommentList'])
+const emit = defineEmits(['toFatherCommentList','toFatherQuestionList'])
 //父组件给该组件AddComment传递的值，就定义在defineProps,开始
 const props = defineProps({
   placeholderText:{
@@ -77,6 +81,7 @@ const props = defineProps({
     type: String,
     default: '发布评论'
   },
+  //评论回复需要的prop
   commentId:{
     type: Number,
     default: 0,
@@ -102,6 +107,23 @@ const props = defineProps({
   },
   replyToName:{
     type: [String, Number],
+  },
+  //提出问题需要prop
+  questionId:{
+    type: Number,
+    default: 0,
+  },
+  questionIndex:{
+    type: Number,
+    default: 0,
+  },
+  addType:{
+    type: String,
+    default: ''
+  },
+  questionType:{
+    type: String,
+    default: ''
   }
 })
 //父组件给该组件AddComment传递的值，就定义在defineProps,结束
@@ -181,18 +203,18 @@ const handlePictureCardPreview = (file) => {
 const publishComment = () => {
   console.log(props.companyInfoId);
   console.log(props.commentId);
-  console.log(textarea);
   console.log(submitFileList.value);
   console.log(props.replyToUserId);
-  publishCommentApi({
+  let data = {
     'company_info_id': props.companyInfoId,//某个公司下的评论
     'comment_id':props.commentId,
     'comment_reply_id': props.commentReplyId,
-    'comment': textarea,
+    'comment': textarea.value,
     'image': submitFileList.value,
     'user_id': userStore.userId,
     'reply_to_user_id': props.replyToUserId,//如果是回复别人记得传回复人的id
-  }).then(async(res) => {
+  };
+  publishCommentApi(data).then(async(res) => {
     console.log(res);
     console.log(res.data.status);
     if(res.data.status === true){
@@ -215,7 +237,7 @@ const publishComment = () => {
           id: res.data.id,
           user_id: userStore.userId,
           name: userStore.phone,
-          comment: textarea,
+          comment: data.comment,
           created_time: res.data.created_time,
           reply_to_user_id: props.replyToUserId,
           reply_to_name: props.replyToName,
@@ -227,6 +249,48 @@ const publishComment = () => {
 }
 //发布评论结束
 //添加评论结束
+//发布问答开始
+const publishQuestion = () => {
+  console.log(props.companyInfoId);
+  console.log(submitFileList.value);
+  let data = {
+    'company_info_id': props.companyInfoId,//某个公司下的问答
+    'question': textarea.value,
+    'image': submitFileList.value,
+    'user_id': userStore.userId,
+    'parent_id': props.questionId,
+  };
+  //提出一个问题
+  publishQuestionApi(data).then(async(res) => {
+    console.log(res);
+    console.log(res.data.status);
+    if(res.data.status === true){
+      console.log('public success');
+      drawer.value = false;
+      textarea.value = '';
+      fileList.value = [];
+      const toFatherImage = [];
+      for(const item of submitFileList.value){
+        console.log(Object.values(item)[0]);
+        toFatherImage.push(Object.values(item)[0]);
+      }
+      //把问答内容传给父组件进行展示
+      emit('toFatherQuestionList',{
+        questionIndex: props.questionIndex,
+        questionType: props.questionType,
+        question: {
+          id: res.data.id,
+          user_id: userStore.userId,
+          name: userStore.phone,
+          question: data.question,
+          created_time: res.data.created_time,
+          image: toFatherImage,
+        }
+      })
+    }
+  })
+}
+//发布问答结束
 </script>
 <style scoped>
 .center_button{
