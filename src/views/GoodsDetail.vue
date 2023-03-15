@@ -392,7 +392,7 @@
             <!-- 产品详情 end -->
             <!-- 交易记录 start -->
             <el-tab-pane label="交易记录">
-              <el-table :data="tradeLog" empty-text="您未在该商家下过单哦～">
+              <el-table :data="tradeLog" empty-text="您未在该商家下过单哦">
                 <el-table-column label="联系地址" prop="user_address"/>
                 <el-table-column label="联系电话" prop="user_phone" />
                 <el-table-column label="购买数量">
@@ -626,7 +626,6 @@
       <template #footer>
         <el-button class="mobile_buy_drawer-footer-btn" type="danger" round>
           <template v-if="isBuyNow">立即购买</template>
-          <template v-else-if="isAddShopCart">加入购物车</template>
         </el-button>
       </template>
       <!-- 弹窗底部 end -->
@@ -760,14 +759,14 @@
     <el-affix class="hidden-sm-and-up" position="bottom">
       <el-row class="goods_footer" align="middle">
         <!-- 联系客服 start -->
-        <el-col :span="4" class="goods_footer-small_btn">
+        <el-col :span="7" class="goods_footer-small_btn">
           <el-icon class="goods_footer-small_btn-icon" @click="toContactService"><Service /></el-icon>
           <br @click="toContactService" />
           <span class="goods_footer-small_btn-text" @click="toContactService">客服</span>
         </el-col>
         <!-- 联系客服 end -->
         <!-- 收藏 start -->
-        <el-col :span="4" class="goods_footer-small_btn">
+        <el-col :span="7" class="goods_footer-small_btn">
           <el-icon class="goods_footer-small_btn-icon" @click="changeCollectGoods">
             <StarFilled v-if="isCollected" />
             <Star v-else />
@@ -778,25 +777,8 @@
           </span>
         </el-col>
         <!-- 收藏 end -->
-        <!-- 购物车 start -->
-        <el-col :span="4" class="goods_footer-small_btn">
-          <el-badge :value="shopCartGoodsNum" :max="99" :hidden="shopCartGoodsNum<=0" @click="gotoShopCart">
-            <el-icon class="goods_footer-small_btn-icon" @click="gotoShopCart">
-              <ShoppingCart v-if="shopCartGoodsNum <= 0" />
-              <ShoppingCartFull v-else />
-            </el-icon>
-            <br @click="gotoShopCart" />
-            <span class="goods_footer-small_btn-text" @click="gotoShopCart">购物车</span>
-          </el-badge>
-        </el-col>
-        <!-- 购物车 end -->
-        <!-- 加入购物车 start -->
-        <el-col :span="6">
-          <el-button type="warning" class="goods_footer-large_btn" @click="showAddShopCart">加入购物车</el-button>
-        </el-col>
-        <!-- 加入购物车 end -->
         <!-- 立即购买 start -->
-        <el-col :span="6">
+        <el-col :span="10">
           <el-button type="danger" class="goods_footer-large_btn" @click="showBuyNow">立即购买</el-button>
         </el-col>
         <!-- 立即购买 end -->
@@ -893,12 +875,8 @@ const remarkContent = ref('')
 const isDrawerShow = ref(false)
 // 是否已经收藏了该商品
 const isCollected = ref(false)
-// 购物车的商品数量
-const shopCartGoodsNum = ref(0)
 // 是否展示移动端的购买弹窗的立即购买按钮，即判断是否为立即购买
 const isBuyNow = ref(true)
-// 是否展示移动端的购买弹窗的加入购物车按钮，即判断是否为加入购物车
-const isAddShopCart = ref(false)
 // 交易记录
 const tradeLog = ref([])
 // 为你推荐
@@ -916,20 +894,11 @@ const changeDrawerShow = () => {
   }
   isDrawerShow.value =!isDrawerShow.value
 }
-const showAddShopCart = () => {
-  if (isLoading.value || !isSuccess.value) {
-    return false;
-  }
-  isBuyNow.value = false
-  isAddShopCart.value = true
-  changeDrawerShow()
-}
 const showBuyNow = () => {
   if (isLoading.value || !isSuccess.value) {
     return false;
   }
   isBuyNow.value = true
-  isAddShopCart.value = false
   changeDrawerShow()
 }
 // 新增自定义规格
@@ -985,13 +954,6 @@ const changeCollectGoods = () => {
       isCollected.value = true
     })
   }
-}
-// 前往购物车列表页
-const gotoShopCart = () => {
-  if (isLoading.value || !isSuccess.value) {
-    return false;
-  }
-  console.log('前往购物车页面')
 }
 const getGoodsDetail = () => {
   // 获取商品详细信息
@@ -1071,14 +1033,13 @@ const getGoodsDetail = () => {
     remarkList.value = res.data.data.remark_list
     // 获取三维图示
     threeDImage.value = formatHttpsProtocol(res.data.data.three_d_image)
-    // 获取购物车商品数量
-    shopCartGoodsNum.value = Number(res.data.data.cart_goods_count)
     // 获取是否已经收藏该商品
     isCollected.value = Number(res.data.data.is_collect) == 1
     // 获取交易记录
     tradeLog.value = res.data.data.trade_log
     otherSee.value = res.data.data.other_see
-  }).catch(() => {
+  }).catch((reason) => {
+    console.log(reason)
     isFailed.value = true
     isSuccess.value = false
   }).finally(() => {

@@ -1,5 +1,12 @@
 <template>
-  <el-container direction="vertical" :gutter="24">
+  <el-container
+    direction="vertical"
+    :gutter="24"
+    v-infinite-scroll="loadmore"
+    :infinite-scroll-disabled="!isMobile||currentPage<=1||currentPage>totalPage"
+    :infinite-scroll-immediate="false"
+    :infinite-scroll-distance="120"
+  >
     <el-header>
       <el-row>
         <el-col>
@@ -62,10 +69,20 @@
         </template>
       </el-row>
     </el-main>
-    <el-footer class="list_page_footer" v-if="isMobile ? (totalPage > 1 ? (currentPage > 1 && currentPage <= totalPage) : false) : true">
+    <el-footer
+      class="list_page_footer"
+      v-if="isMobile ? (totalPage > 1 ? (currentPage >= 1 && currentPage <= totalPage) : false) : true"
+    >
       <el-row :gutter="1" justify="center" class="hidden-xs-only">
         <el-col :span="1" class="no_max_width">
-          <el-pagination background layout="prev, pager, next" :total="total" v-model:current-page="currentPage" v-model:page-size="pageSize" @current-change="currentPageChange" />
+          <el-pagination
+            background
+            layout="prev, pager, next"
+            :total="total"
+            v-model:current-page="currentPage"
+            v-model:page-size="pageSize"
+            @current-change="currentPageChange"
+          />
         </el-col>
       </el-row>
       <el-row
@@ -83,6 +100,7 @@ import { nextTick, onUnmounted, ref, watchEffect } from 'vue'
 import { tailCargoList, getIndexDataApi } from "../api/list.js";
 import { useSearchStore } from '../pinia/search.js';
 const searchStore = useSearchStore()
+
 const getTailCargoList = () => {
   tailCargoList({}).then(async(res) => {
     console.log('tailCargoList');
@@ -123,8 +141,6 @@ const isShowSearchResult = ref(false)
 const isInited = ref(false)
 // 是否为移动端(屏幕宽度在768px以下)
 const isMobile = window.outerWidth < 768 ? true : false
-// 是否已经监听滑动事件
-const isLoadScrollFn = ref(false)
 /**
  * 加载数据
  * @description 
@@ -144,13 +160,14 @@ const loadmore = () => {
   }
   if (isMobile && currentPage.value === 1) {
     list.value = []
+    document.querySelector('html').scrollTo(0,0)
   }
   isLoading.value = true
   isLoadFailed.value = false
   nextTick(() => {
     if (isShowSearchResult.value) {
       searchStore.search({
-        page: searchStore._currentPage,
+        page: currentPage.value,
         size: searchStore._pageSize,
         name: searchStore._name,
       })
@@ -252,22 +269,6 @@ const handleOnlyViewFranchisee = () => {
   currentPage.value = 1
   loadmore()
 }
-const scrollHandle = () => {
-  // 可视区域
-  let clientHeight = document.documentElement.clientHeight
-  // 滚动文档高度
-  let scrollHeight = document.body.scrollHeight
-  // 已滚动的高度
-  let scrollTop = document.documentElement.scrollTop
-  // 底部的高度
-  let footerHeight = document.querySelector('.el-footer.list_page_footer').clientHeight
-  if (scrollTop + clientHeight >= scrollHeight - footerHeight) {
-    // 触底，加载更多
-    if (currentPage.value <= totalPage.value) {
-      loadmore()
-    }
-  }
-}
 // 订阅搜索
 const unsubscribeSearchStore = searchStore.$subscribe((mutation, state) => {
   /*
@@ -283,14 +284,19 @@ const unsubscribeSearchStore = searchStore.$subscribe((mutation, state) => {
    */
   // 在此处监听store中值的变化，当变化为某个值的时候，做一些业务操作
   console.log(mutation, state)
+  if (Number(state._currentPage) === 1) {
+    document.querySelector('html').scrollTo(0,0)
+  }
+  isShowSearchResult.value = true
   total.value = state._totalSize
   totalPage.value = state._totalPage
   pageSize.value = state._pageSize
-  currentPage.value = state._currentPage
-  list.value = state._list
-  isLoading.value = false
-  isLoadFailed.value = state._list.length === 0
-  isShowSearchResult.value = true
+  currentPage.value = isMobile && isShowSearchResult.value ? Number(state._currentPage) + 1 : state._currentPage
+  if (!state._isLoading && state._isSuccess) {
+    list.value = isMobile && Number(state._currentPage) === 1 ? state._list : list.value.concat(state._list)
+  }
+  isLoading.value = state._isLoading
+  isLoadFailed.value = state._isFailed
   isInited.value = state._list.length > 0
 }, {
   detached: false,
@@ -298,17 +304,8 @@ const unsubscribeSearchStore = searchStore.$subscribe((mutation, state) => {
   // 如果设置detached值为 true 时，即使所在组件被卸载，订阅依然在生效
   // 参考文档：https://pinia.web3doc.top/core-concepts/state.html#%E8%AE%A2%E9%98%85%E7%8A%B6%E6%80%81
 })
-watchEffect(() => {
-  // 手机端在首次加载数据之后再导入监听事件
-  if ( isInited.value && isMobile && !isLoadScrollFn.value) {
-    window.addEventListener('scroll', scrollHandle)
-    // 防止重复监听
-    isLoadScrollFn.value = true
-  }
-})
 // 卸载时要取消监听事件
 onUnmounted(() => {
-  window.removeEventListener('scroll', scrollHandle)
   unsubscribeSearchStore()
 })
 // 默认进来的时候就加载数据
