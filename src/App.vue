@@ -3,7 +3,7 @@
   <el-affix>
     <el-row justify="space-between" class="nav_header" align="middle">
       <el-col :span="3" :push="1" class="col_1">
-        <span class="text-extra-large font-600 mr-3">zmw</span>
+        <span class="text-extra-large font-600 mr-3">ZMW</span>
       </el-col>
       <el-col :span="16" class="col_2">
         <SearchBar />
@@ -21,7 +21,7 @@ router-view负责渲染路由匹配的组件，可以通过把router-view放在�
 </template>
 <script setup>
 import 'element-plus/theme-chalk/display.css'
-import './assets/main.css'
+import './assets/color.css'
 //登录成功后，需要把登录状态让多页面共享
 import { onMounted } from "vue";
 import {useUserStore} from "./pinia/user.js";
