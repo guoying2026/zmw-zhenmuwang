@@ -1,0 +1,70 @@
+@use 'sass:math';
+
+@function randomNum($min, $max, $range) {
+  $rand: random();
+  $randomNum: $min + floor($rand * (($max - $min) + $range));
+  @return $randomNum;
+}
+
+$colors: linear-gradient( 109.6deg,  rgba(156,252,248,1) 11.2%, rgba(110,123,251,1) 91.1% ),
+linear-gradient(to right, rgb(242, 112, 156), rgb(255, 148, 114)),
+linear-gradient(to top, #a18cd1 0%, #fbc2eb 100%),
+linear-gradient(to right, rgb(182, 244, 146), rgb(51, 139, 147)),
+radial-gradient( circle farthest-corner at 10% 20%,  rgba(128,248,174,1) 0%, rgba(223,244,148,1) 90% );
+
+@mixin squaredTransition {
+  @for $i from 0 through 15 {
+    $testrandom: math.div(random(90), 100);
+    &:nth-child(#{$i}) {
+      left: percentage($testrandom);
+      animation-delay: #{randomNum(2, 10, 1)}s;
+      animation-duration: #{randomNum(3, 40, 2)}s;
+      background-image: nth($colors, random(length($colors)));
+    }
+  }
+}
+#mini-footer-links {
+  clear: both;
+  position: relative;
+  z-index: 10;
+}
+.mini-footer-links-cont {
+  padding-top: 10vh;
+  padding-bottom: 10vh;
+}
+
+// For animation
+.squared {
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  .squared-item {
+    position: absolute;
+    display: block;
+    list-style: none;
+    top: 100%;
+    width: 90px;
+    height: 90px;
+    background-color: rgba(#000,.5);
+    animation: squaredAnimation 25s linear infinite;
+    border-radius: 22px;
+    @include squaredTransition;
+  }
+}
+
+
+@keyframes squaredAnimation {
+  0%{
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+  100%{
+    transform: translateY(-45vh) rotate(720deg);
+    opacity: 0;
+  }
+}
+

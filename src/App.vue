@@ -31,6 +31,7 @@ import 'element-plus/theme-chalk/display.css'
   line-height: var(--navbar-line-height);
   background-color: var(--navbar-bg-color);
   opacity:0.8;
+  z-index: 100;
 }
 .el-affix,
 .el-affix--fixed {
