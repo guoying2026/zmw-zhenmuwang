@@ -1,6 +1,6 @@
 <template>
   <div class="comment_list"  v-for="(item, index) in list.arr" :key="index">
-    <div class="comment_list_1">
+    <div class="comment_list_item">
       <!--            头像开始-->
       <el-avatar
           class="comment_list_1_left"
@@ -23,7 +23,7 @@
               <el-image
                   :hide-on-click-modal=true
                   :src="itemImage"
-                  style="width:100%;height: 20vw;"
+                  style="width:100%;height: 18vw;"
                   fit="fill"
                   :zoom-rate="1.2"
                   :preview-src-list="item.image"
@@ -61,76 +61,75 @@
           </div>
         </div>
         <!--                    时间，点赞，回复结束-->
-        <!--        该评论的回复列表开始-->
-        <div class="comment_list" v-for="(itemReply, indexReply) in item['comment_reply']" :key="indexReply">
-          <div class="comment_list_1">
-            <!--            头像开始-->
-            <el-avatar
-                class="comment_list_1_left"
-                :size="48"
-                src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
-            />
-            <!--            头像结束-->
-            <div class="comment_list_1_right">
-              <!--              主评论作者和内容开始-->
-              <div class="comment_list_1_right_1">
-                <text>{{itemReply.name}} @ {{itemReply.reply_to_name}}</text>
-                <text>{{itemReply.comment}}</text>
-                <el-row :gutter="8" class="margin-15-top">
-                  <el-col
-                      v-for="(itemReplyImage, indexReplyImage) in itemReply.image"
-                      :key="indexReplyImage"
-                      :span="8"
-                      :md="8"
-                  >
-                    <el-image
-                        :hide-on-click-modal=true
-                        :src="itemReplyImage"
-                        style="width:100%;height: 20vw;"
-                        fit="fill"
-                        :zoom-rate="1.2"
-                        :preview-src-list="itemReply.image"
-                        :initial-index="indexReplyImage"
-                        lazy />
-                  </el-col>
-                </el-row>
-              </div>
-              <!--              主评论作者和内容结束-->
-              <!--                    时间，点赞，回复开始-->
-              <div class="comment_list_1_right_2 margin-15-top">
-                <text>{{itemReply.created_time}}</text>
-                <div class="comment_list_1_right_2_right margin-15-top">
-                  <el-icon class="icon-size" :class="[itemReply.is_liked === true ? 'icon-red':'icon-black']" @click="liked_comment_reply(index,indexReply,item.id,itemReply.id,itemReply.is_liked,itemReply.liked_id)"><Pointer /></el-icon>
-                  <!--        添加评论组件开始-->
-                  <AddComment
-                      :placeholder-text="placeholderText"
-                      :cancel-text="cancelText"
-                      :confirm-text="confirmText"
-                      :comment-id="item.id"
-                      :comment-reply-id="itemReply.id"
-                      :reply-to-user-id="itemReply.user_id"
-                      :company-info-id="companyInfoId"
-                      @toFatherCommentList="receiveChildAddComment"
-                      :comment-index="index"
-                      :comment-reply-index="indexReply"
-                      :reply-to-name="itemReply.name"
-                  >
-                    <template #clickDrawer>
-                      <!-- AddComment 插槽的内容放这里开始-->
-                      <el-icon class="margin-20-left icon-size"><ChatRound /></el-icon>
-                    </template>
-                  </AddComment>
-                  <!--        添加评论组件结束-->
-                </div>
-              </div>
-              <!--                    时间，点赞，回复结束-->
-            </div>
-          </div>
-        </div>
-        <!--        该评论的回复列表结束-->
       </div>
     </div>
-
+    <!--        该评论的回复列表开始-->
+    <div class="reply_list" v-for="(itemReply, indexReply) in item['comment_reply']" :key="indexReply">
+      <div class="comment_list_1">
+        <!--            头像开始-->
+        <el-avatar
+            class="comment_list_1_left"
+            :size="48"
+            src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+        />
+        <!--            头像结束-->
+        <div class="comment_list_1_right">
+          <!--              主评论作者和内容开始-->
+          <div class="comment_list_1_right_1">
+            <text>{{itemReply.name}} @ {{itemReply.reply_to_name}}</text>
+            <text>{{itemReply.comment}}</text>
+            <el-row :gutter="8" class="margin-15-top">
+              <el-col
+                  v-for="(itemReplyImage, indexReplyImage) in itemReply.image"
+                  :key="indexReplyImage"
+                  :span="8"
+                  :md="8"
+              >
+                <el-image
+                    :hide-on-click-modal=true
+                    :src="itemReplyImage"
+                    style="width:100%;height: 18vw;"
+                    fit="fill"
+                    :zoom-rate="1.2"
+                    :preview-src-list="itemReply.image"
+                    :initial-index="indexReplyImage"
+                    lazy />
+              </el-col>
+            </el-row>
+          </div>
+          <!--              主评论作者和内容结束-->
+          <!--                    时间，点赞，回复开始-->
+          <div class="comment_list_1_right_2 margin-15-top">
+            <text>{{itemReply.created_time}}</text>
+            <div class="comment_list_1_right_2_right margin-15-top">
+              <el-icon class="icon-size" :class="[itemReply.is_liked === true ? 'icon-red':'icon-black']" @click="liked_comment_reply(index,indexReply,item.id,itemReply.id,itemReply.is_liked,itemReply.liked_id)"><Pointer /></el-icon>
+              <!--        添加评论组件开始-->
+              <AddComment
+                  :placeholder-text="placeholderText"
+                  :cancel-text="cancelText"
+                  :confirm-text="confirmText"
+                  :comment-id="item.id"
+                  :comment-reply-id="itemReply.id"
+                  :reply-to-user-id="itemReply.user_id"
+                  :company-info-id="companyInfoId"
+                  @toFatherCommentList="receiveChildAddComment"
+                  :comment-index="index"
+                  :comment-reply-index="indexReply"
+                  :reply-to-name="itemReply.name"
+              >
+                <template #clickDrawer>
+                  <!-- AddComment 插槽的内容放这里开始-->
+                  <el-icon class="margin-20-left icon-size"><ChatRound /></el-icon>
+                </template>
+              </AddComment>
+              <!--        添加评论组件结束-->
+            </div>
+          </div>
+          <!--                    时间，点赞，回复结束-->
+        </div>
+      </div>
+    </div>
+    <!--        该评论的回复列表结束-->
   </div>
 </template>
 <script>
@@ -283,34 +282,47 @@ const liked_comment_reply = (index,indexReply,comment_id,comment_reply_id,is_lik
 .margin-20-left{
   margin-left: 20px;
 }
+.comment_list_item{
+  display: flex;
+  max-width: 800px;
+  width: 100%;
+}
+.reply_list{
+  display: flex;
+  flex-direction: column;
+  max-width: 800px;
+  width: 100%;
+}
 .comment_list{
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
-.comment_list .comment_list_1{
+ .comment_list_1{
   display: flex;
   flex-direction: row;
 }
-.comment_list .comment_list_1 .comment_list_1_left{
+.comment_list_1_left{
   width: 48px;
   height: 48px;
 }
-.comment_list .comment_list_1 .comment_list_1_right{
+.comment_list_1_right{
   flex: 1;
   display: flex;
   flex-direction: column;
   margin-left: 10px;
 }
-.comment_list .comment_list_1 .comment_list_1_right .comment_list_1_right_1{
+.comment_list_1_right .comment_list_1_right_1{
   display: flex;
   flex-direction: column;
 }
-.comment_list .comment_list_1 .comment_list_1_right .comment_list_1_right_2{
+.comment_list_1_right .comment_list_1_right_2{
   display: flex;
   flex-direction: column;
   align-items: flex-end;
 }
-.comment_list .comment_list_1 .comment_list_1_right .comment_list_1_right_2 .comment_list_1_right_2_right{
+ .comment_list_1_right .comment_list_1_right_2 .comment_list_1_right_2_right{
   display: flex;
 }
 </style>
