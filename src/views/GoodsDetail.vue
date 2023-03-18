@@ -3,37 +3,7 @@
     <el-main v-if="!isLoading&&isSuccess">
       <el-row>
         <!-- 产品图轮播 start -->
-        <!-- pc端产品图轮播 start -->
-        <el-col class="hidden-xs-only" :span="5">
-          <el-carousel :autoplay="false" height="calc((100vw - (var(--el-main-padding) * 2)) * 0.208333333333)">
-            <template v-for="(item, index) in goodsMainImageList" v-bind:key="item">
-              <el-carousel-item>
-                <el-image class="goods_banner_image" :src="item" fit="cover" />
-              </el-carousel-item>
-            </template>
-          </el-carousel>
-        </el-col>
-        <!-- pc端产品图轮播 end -->
-        <!-- 移动端产品图轮播 start -->
-        <el-col class="hidden-sm-and-up">
-          <el-carousel>
-            <template v-for="(item, index) in goodsMainImageList" v-bind:key="item">
-              <el-carousel-item>
-                <el-image
-                  class="goods_banner_image"
-                  :src="item"
-                  fit="cover"
-                  :hide-on-click-modal="true"
-                  :preview-src-list="goodsMainImageList"
-                  :initial-index="index"
-                  :close-on-press-escape="true"
-                  :preview-teleported="true"
-                />
-              </el-carousel-item>
-            </template>
-          </el-carousel>
-        </el-col>
-        <!-- 移动端产品图轮播 start -->
+        <GoodsCarousel :list="goodsMainImageList" />
         <!-- 产品图轮播 end -->
         <!-- 产品信息 start -->
         <!-- pc端产品信息 start -->
@@ -42,10 +12,6 @@
             <el-descriptions-item>
               <template #label>价格</template>
               ￥{{ goodsPrice }}元起
-            </el-descriptions-item>
-            <el-descriptions-item>
-              <template #label>更新时间</template>
-              {{ updateTime }}
             </el-descriptions-item>
             <el-descriptions-item>
               <template #label>发货地</template>
@@ -66,7 +32,7 @@
               <template #label>
                 <el-row align="middle">
                   <el-col class="pc_spec" :span="2" :sm="2" :md="1" :lg="1" :xl="1">规格</el-col>
-                  <el-col class="pc_spec_add" :span="2" :sm="2" :md="1" :lg="1" :xl="1">
+                  <el-col v-if="isShowAddNewSpecification" class="pc_spec_add" :span="2" :sm="2" :md="1" :lg="1" :xl="1">
                     <el-link type="danger" :underline="false" @click="addNewSpecification">新增</el-link>
                   </el-col>
                 </el-row>
@@ -86,6 +52,7 @@
                           class="pc_spec-input"
                           v-model="scope.row.long"
                           type="number"
+                          step="0.01"
                           size="small"
                           placeholder="长"
                         />×
@@ -93,6 +60,7 @@
                           class="pc_spec-input"
                           v-model="scope.row.width"
                           type="number"
+                          step="0.01"
                           size="small"
                           placeholder="宽"
                         />×
@@ -100,6 +68,7 @@
                           class="pc_spec-input"
                           v-model="scope.row.height"
                           type="number"
+                          step="0.01"
                           size="small"
                           placeholder="高"
                         />
@@ -128,7 +97,7 @@
                       size="small"
                       v-model="scope.row.select_count"
                       :min="0"
-                      :max="Number(scope.row.count)"
+                      :max="scope.row.is_add_manual == 0 || scope.row.is_add_manual == false ? Number(scope.row.count) : Infinity"
                       @change="handleSpecListCountChange"
                     />
                   </template>
@@ -136,46 +105,41 @@
               </el-table>
             </el-descriptions-item>
             <el-descriptions-item>
-              <template #label>收货人</template>
-              <el-input placeholder="请输入收货人姓名" />
-            </el-descriptions-item>
-            <el-descriptions-item>
-              <template #label>收货电话</template>
-              <el-input placeholder="请输入收货人手机号码" />
-            </el-descriptions-item>
-            <el-descriptions-item>
-              <template #label>详细地址</template>
-              <el-input placeholder="请输入详细收货地址" />
+              <template #label>收货信息</template>
+              <EditAddress :id="selectedReceiveAddressId" :list="receiveAddressList" @changeId="recvAddIdChangeHandle" @changeList="recvAddListChangeHandle" />
             </el-descriptions-item>
             <el-descriptions-item>
               <el-row>
                 <el-col :span="12">
-                  <el-input type="textarea" :rows="4" resize="none" placeholder="请输入订单备注" />
+                  <el-input type="textarea" :rows="4" resize="none" v-model="remarkContent" placeholder="请输入订单备注" @change="remarkContentChangeHandle" />
                 </el-col>
                 <el-col :span="12">
                   <el-row>
                     <el-col>
                       <el-row>
                         <el-col class="pc_form_item-title" :span="14">商品总价：</el-col>
-                        <el-col class="pc_form_item-content" :span="10">？元</el-col>
+                        <el-col class="pc_form_item-content" :span="10">{{ goodsTotalPrice > 0 ? goodsTotalPrice : '？' }}元</el-col>
                       </el-row>
                     </el-col>
                     <el-col>
                       <el-row>
                         <el-col class="pc_form_item-title" :span="14">智能运费：</el-col>
-                        <el-col class="pc_form_item-content" :span="10">点击计算</el-col>
+                        <el-col class="pc_form_item-content" :span="10">
+                          <template v-if="freightPrice > 0">{{ freightPrice }}元</template>
+                          <template v-else><el-link class="pc_form_item-content" :underline="false" @click="calcFreightPriceHandle">点击计算</el-link></template>
+                        </el-col>
                       </el-row>
                     </el-col>
                     <el-col>
                       <el-row>
                         <el-col class="pc_form_item-title" :span="14">订单总价：</el-col>
-                        <el-col class="pc_form_item-content" :span="10">？元</el-col>
+                        <el-col class="pc_form_item-content" :span="10">{{ orderTotalPrice > 0 ? orderTotalPrice : '？' }}元</el-col>
                       </el-row>
                     </el-col>
                     <el-col>
                       <el-row>
                         <el-col class="pc_form_item-title" :span="14">合计：</el-col>
-                        <el-col class="pc_form_item-content" :span="10">？元</el-col>
+                        <el-col class="pc_form_item-content" :span="10">{{ totalPrice > 0 ? totalPrice : '？' }}元</el-col>
                       </el-row>
                     </el-col>
                   </el-row>
@@ -258,7 +222,14 @@
         <!-- pc端购买操作区域 start -->
         <el-col class="hidden-xs-only" :span="18" :offset="6">
           <el-button size="large">咨询客服</el-button>
-          <el-button size="large">扫码支付</el-button>
+          <el-button size="large" @click="submitOrderByPcHandle">扫码支付</el-button>
+          <PcPay
+            :isShow="isShowPcPayQrcode"
+            :outTradeNo="outTradeNo"
+            :codeUrl="pcPayQrcodeValue"
+            @onClose="pcPayCloseHandle"
+            @onGetPayResult="getPayResultHandle"
+          />
         </el-col>
         <!-- pc端购买操作区域 end -->
         <!-- pc端产品额外信息 start -->
@@ -296,144 +267,17 @@
         </el-col>
         <!-- pc端产品额外信息 end -->
         <!-- 产品详情和交易记录 start -->
-        <el-col :span="15" :offset="0" :xs="{span:24,offset:0}">
-          <el-tabs>
-            <!-- 产品详情 start -->
-            <el-tab-pane label="产品详情">
-              <el-row>
-                <!-- 产品介绍 start -->
-                <el-col class="goods_introduce-item">
-                  <el-row>
-                    <el-col class="goods_introduce-item-title">产品介绍</el-col>
-                    <el-col class="font-size-base">{{ goodsDescription }}</el-col>
-                  </el-row>
-                </el-col>
-                <!-- 产品介绍 end -->
-                <!-- 产品优势 start -->
-                <el-col class="goods_introduce-item">
-                  <el-row>
-                    <el-col class="goods_introduce-item-title">产品优势</el-col>
-                    <template v-for="(item, index) in goodsFeatures" v-bind:key="item">
-                      <el-col class="goods_introduce-item-goods_features_item" :span="11">
-                        <el-row>
-                          <el-col class="goods_introduce-item-goods_features_item-title">{{ item.name }}</el-col>
-                          <el-col class="goods_introduce-item-goods_features_item-desc">
-                            <span class="goods_introduce-item-goods_features_item-desc_span">{{ item.wenan }}</span>
-                          </el-col>
-                        </el-row>
-                      </el-col>
-                      <el-col class="goods_introduce-item-goods_features_item-center" :span="2" v-if="index % 2 === 0">
-                        <el-divider class="goods_introduce-item-goods_features_item-divier" direction="vertical" />
-                      </el-col>
-                    </template>
-                  </el-row>
-                </el-col>
-                <!-- 产品优势 end -->
-                <!-- 工厂优势 start -->
-                <el-col class="goods_introduce-item">
-                  <el-row>
-                    <el-col class="goods_introduce-item-title">工厂优势</el-col>
-                    <template v-for="(item, index) in factoryFeatures" v-bind:key="item">
-                      <el-col class="goods_introduce-item-factory_features_item">
-                        <el-row align="middle" class="goods_introduce-item-factory_features_item-row">
-                          <el-col :span="11" :offset="index % 2 == 0 ? 0 : 2">
-                            <el-row>
-                              <el-col class="font-size-base font-weight-bold">{{ item.name }}</el-col>
-                              <el-col class="font-size-small">{{ item.wenan }}</el-col>
-                            </el-row>
-                          </el-col>
-                          <el-col :span="11" :offset="index % 2 == 0 ? 2 : 0">
-                            <el-image :src="item.image" />
-                          </el-col>
-                        </el-row>
-                      </el-col>
-                    </template>
-                  </el-row>
-                </el-col>
-                <!-- 工厂优势 end -->
-                <!-- 产品详情图 start -->
-                <el-col class="goods_introduce-item">
-                  <el-row>
-                    <template v-for="(item, index) in goodsDetailImageList" v-bind:key="item">
-                      <el-col class="text-align-center">
-                        <!-- pc端产品详情图 start -->
-                        <el-image
-                          class="hidden-xs-only goods_detail-detail_image pc_goods_detail-detail_image"
-                          fit="cover"
-                          :src="item"
-                          :hide-on-click-modal="true"
-                          :preview-src-list="goodsDetailImageList"
-                          :initial-index="index"
-                          :close-on-press-escape="true"
-                          :preview-teleported="true"
-                        />
-                        <!-- pc端产品详情图 end -->
-                        <!-- 移动端产品详情图 start -->
-                        <el-image
-                          class="hidden-sm-and-up goods_detail-detail_image"
-                          :src="item"
-                          :hide-on-click-modal="true"
-                          :preview-src-list="goodsDetailImageList"
-                          :initial-index="index"
-                          :close-on-press-escape="true"
-                          :preview-teleported="true"
-                        />
-                        <!-- 移动端产品详情图 end -->
-                      </el-col>
-                    </template>
-                  </el-row>
-                </el-col>
-                <!-- 产品详情图 end -->
-                <!-- 图片仅供参考 start -->
-                <el-col class="goods_detail-for_reference_only_tips">图片仅供参考，请以实物为准</el-col>
-                <!-- 图片仅供参考 end -->
-              </el-row>
-            </el-tab-pane>
-            <!-- 产品详情 end -->
-            <!-- 交易记录 start -->
-            <el-tab-pane label="交易记录">
-              <el-table :data="tradeLog" empty-text="您未在该商家下过单哦">
-                <el-table-column label="联系地址" prop="user_address"/>
-                <el-table-column label="联系电话" prop="user_phone" />
-                <el-table-column label="购买数量">
-                  <template
-                    #default="scope"
-                  >{{ Number(scope.row.goods_sumnumber) }}{{ formatUnit(scope.row.unit) }}</template>
-                </el-table-column>
-                <el-table-column label="购买规格" prop="specs" />
-                <el-table-column label="购买产品" prop="goods_title" />
-              </el-table>
-            </el-tab-pane>
-            <!-- 交易记录 end -->
-          </el-tabs>
-        </el-col>
+        <GoodsIntroduce
+          :description="goodsDescription"
+          :goodsFeatures="goodsFeatures"
+          :factoryFeatures="factoryFeatures"
+          :imageList="goodsDetailImageList"
+          :tradeLog="tradeLog"
+        />
         <!-- 产品详情和交易记录 end -->
         <!-- 产品信息 end -->
         <!-- 为你推荐 start -->
-        <el-col class="hidden-xs-only" :span="8" :offset="1">
-          <el-card shadow="hover">
-            <el-row>
-              <el-col>为你推荐</el-col>
-              <template v-for="(item, index) in otherSee" v-bind:key="item">
-                <el-col class="recommend_goods-item">
-                  <el-row justify="center">
-                    <el-col class="recommend_goods-item-image_frame">
-                      <el-image class="recommend_goods-item-image" :src="item.image" fit="cover" />
-                    </el-col>
-                    <el-col class="recommend_goods-item-info">
-                      <el-row justify="center">
-                        <el-col class="recommend_goods-item-info-title">{{ item.goods_name }}</el-col>
-                        <el-col class="recommend_goods-item-info-price">
-                          <span class="font-size-extra-small">￥</span>{{ item.spell_price }}&nbsp;/&nbsp;{{ item.unit }}
-                        </el-col>
-                      </el-row>
-                    </el-col>
-                  </el-row>
-                </el-col>
-              </template>
-            </el-row>
-          </el-card>
-        </el-col>
+        <GoodsRecommends :list="otherSee" />
         <!-- 为你推荐 end -->
       </el-row>
     </el-main>
@@ -448,150 +292,7 @@
       </el-empty>
     </el-main>
     <!-- 加载失败 end -->
-    <template v-if="isLoading">
-      <!-- PC端骨架屏 start -->
-      <el-main class="hidden-xs-only pc_loading_main">
-        <el-skeleton :animated="true" :loading="isLoading">
-          <template #template>
-            <el-row justify="start" align="middle">
-              <el-col>
-                <el-row>
-                  <el-col class="pc_loading_main-side_image_frame" :span="8" :push="0">
-                    <el-skeleton-item class="pc_loading_main-side_image" variant="image" />
-                  </el-col>
-                  <el-col class="pc_loading_main-center_image_frame" :span="8">
-                    <el-skeleton-item class="pc_loading_main-center_image" variant="image" />
-                  </el-col>
-                  <el-col class="pc_loading_main-side_image_frame" :span="8" :pull="0">
-                    <el-skeleton-item class="pc_loading_main-side_image" variant="image" />
-                  </el-col>
-                </el-row>
-              </el-col>
-              <el-col class="pc_loading_main-title">
-                <el-row>
-                  <el-col :span="6">
-                    <el-skeleton-item variant="h1" />
-                  </el-col>
-                </el-row>
-              </el-col>
-              <el-col :span="4">
-                <el-skeleton-item variant="text" />
-              </el-col>
-              <el-col :span="19" :offset="1">
-                <el-skeleton-item variant="text" />
-              </el-col>
-              <el-col :span="4">
-                <el-skeleton-item variant="text" />
-              </el-col>
-              <el-col :span="19" :offset="1">
-                <el-skeleton-item variant="text" />
-              </el-col>
-              <el-col :span="4">
-                <el-skeleton-item variant="text" />
-              </el-col>
-              <el-col :span="19" :offset="1">
-                <el-skeleton-item variant="text" />
-              </el-col>
-              <el-col class="pc_loading_main-title" :span="16">
-                <el-skeleton-item variant="h3" />
-              </el-col>
-              <el-col class="pc_loading_main-title">
-                <el-skeleton-item variant="h3" />
-              </el-col>
-              <el-col class="pc_loading_main-title">
-                <el-skeleton-item variant="h3" />
-              </el-col>
-              <el-col class="pc_loading_main-title">
-                <el-skeleton-item variant="h3" />
-              </el-col>
-              <el-col class="pc_loading_main-title" :span="20">
-                <el-skeleton-item variant="h3" />
-              </el-col>
-            </el-row>
-          </template>
-        </el-skeleton>
-      </el-main>
-      <!-- PC端骨架屏 end -->
-      <!-- 移动端骨架屏 start -->
-      <el-main class="hidden-sm-and-up mobile_loading_main">
-        <el-skeleton :animated="true" :loading="isLoading">
-          <template #template>
-            <el-row align="middle">
-              <el-col>
-                <el-skeleton-item class="mobile_loading_main-image" variant="image" />
-              </el-col>
-              <el-col class="mobile_loading_main-title">
-                <el-skeleton-item variant="h1" />
-              </el-col>
-              <el-col :span="4">
-                <el-skeleton-item variant="text" />
-              </el-col>
-              <el-col :span="19" :offset="1">
-                <el-skeleton-item variant="text" />
-              </el-col>
-              <el-col :span="4">
-                <el-skeleton-item variant="text" />
-              </el-col>
-              <el-col :span="19" :offset="1">
-                <el-skeleton-item variant="text" />
-              </el-col>
-              <el-col :span="4">
-                <el-skeleton-item variant="text" />
-              </el-col>
-              <el-col :span="19" :offset="1">
-                <el-row>
-                  <el-col :span="19" :offset="1">
-                    <el-skeleton-item variant="text" />
-                  </el-col>
-                  <el-col :span="4">
-                    <el-skeleton-item variant="text" />
-                  </el-col>
-                  <el-col :span="19" :offset="1">
-                    <el-row>
-                      <el-col :span="4">
-                        <el-skeleton-item variant="text" />
-                      </el-col>
-                      <el-col :span="19" :offset="1">
-                        <el-skeleton-item variant="text" />
-                      </el-col>
-                    </el-row>
-                  </el-col>
-                  <el-col :span="4">
-                    <el-skeleton-item variant="text" />
-                  </el-col>
-                </el-row>
-              </el-col>
-              <el-col :span="4">
-                <el-skeleton-item class="mobile_loading_main-header" variant="image" />
-              </el-col>
-              <el-col :span="12" :offset="1">
-                <el-skeleton-item variant="text" />
-                <el-skeleton-item variant="text" />
-              </el-col>
-              <el-col :span="6" :offset="1">
-                <el-skeleton-item variant="button" />
-              </el-col>
-              <el-col>
-                <el-skeleton-item variant="text" />
-              </el-col>
-              <el-col>
-                <el-skeleton-item variant="text" />
-              </el-col>
-              <el-col>
-                <el-skeleton-item variant="text" />
-              </el-col>
-              <el-col>
-                <el-skeleton-item variant="text" />
-              </el-col>
-              <el-col>
-                <el-skeleton-item variant="text" />
-              </el-col>
-            </el-row>
-          </template>
-        </el-skeleton>
-      </el-main>
-      <!-- 移动端骨架屏 end -->
-    </template>
+    <GoodsDetailSkeleton v-if="isLoading" />
     <!-- 移动端购买弹窗 start -->
     <el-drawer
       v-model="isDrawerShow"
@@ -600,8 +301,8 @@
     >
       <!-- 弹窗头部 start -->
       <template #header>
-        <el-row>
-          <el-col :span="8">
+        <el-row align="middle">
+          <el-col :span="8" class="mobile_buy_drawer-header-image_container">
             <el-image
               class="mobile_buy_drawer-header-image"
               :src="goodsMainImageList[0] ? goodsMainImageList[0] : ''"
@@ -612,7 +313,7 @@
             <el-row>
               <el-col class="font-size-extra-large font-weight-bold">{{ goodsTitle }}</el-col>
               <el-col class="font-size-large mobile_buy_drawer-header-price">
-                <span class="font-size-extra-small">￥</span>{{ goodsPrice }}
+                <span class="font-size-extra-small">￥</span>{{ goodsTotalPrice > 0 && totalPrice > 0 ? totalPrice : goodsPrice }}
               </el-col>
               <el-col class="font-size-base">
                 库存{{ goodsStock }}{{ formatUnit(specList[0] ? specList[0].count_unit : 0) }}
@@ -642,10 +343,12 @@
           <el-row align="middle">
             <el-col class="font-size-base" :span="6">请选择规格</el-col>
             <el-col
+              v-if="isShowAddNewSpecification"
               class="font-size-base mobile_buy_drawer-main-add_spec"
               :span="3"
-              @click="addNewSpecification"
-            >新增</el-col>
+            >
+              <el-link type="danger" :underline="false" @click="addNewSpecification">新增</el-link>
+            </el-col>
             <el-col :span="15">
               <el-row align="middle">
                 <el-col class="font-size-base text-align-right" :span="16">请选择单位</el-col>
@@ -683,6 +386,7 @@
                     <el-input
                       v-model="scope.row.long"
                       type="number"
+                      step="0.01"
                       size="small"
                       placeholder="长"
                       class="mobile_buy_drawer-main-spec_input"
@@ -690,6 +394,7 @@
                     <el-input
                       v-model="scope.row.width"
                       type="number"
+                      step="0.01"
                       size="small"
                       placeholder="宽"
                       class="mobile_buy_drawer-main-spec_input"
@@ -697,6 +402,7 @@
                     <el-input
                       v-model="scope.row.height"
                       type="number"
+                      step="0.01"
                       size="small"
                       placeholder="高"
                       class="mobile_buy_drawer-main-spec_input"
@@ -712,7 +418,7 @@
                 <el-input-number
                   v-model="scope.row.select_count"
                   :min="0"
-                  :max="Number(scope.row.count)"
+                  :max="scope.row.is_add_manual == 0 || scope.row.is_add_manual == false ? Number(scope.row.count) : Infinity"
                   @change="handleSpecListCountChange"
                   size="small"
                 />
@@ -728,14 +434,14 @@
             <!-- 推荐备注 start -->
             <el-col class="font-size-base">推荐备注(选填)</el-col>
             <el-col>
-              <template v-for="(item, index) in remarkList" v-bind:key="item">
-                <el-button
-                  :type="item.is_selected==1?'primary':'default'"
-                  :plain="item.is_selected==1?false:true"
-                  size="small"
-                  @click="item.is_selected = item.is_selected == 0 ? 1 : 0"
-                >{{ item.name }}</el-button>
-              </template>
+              <el-checkbox-group v-model="selectedRemarkListItems" size="small" @change="remarkListSelectedChangeHandle">
+                <el-checkbox-button
+                  v-for="(item, index) in remarkList"
+                  v-bind:key="item"
+                  :key="item.name"
+                  :label="item.name"
+                >{{ item.name }}</el-checkbox-button>
+              </el-checkbox-group>
             </el-col>
             <!-- 推荐备注 end -->
             <!-- 留言 start -->
@@ -743,7 +449,7 @@
               <el-row align="middle">
                 <el-col :span="4">留言：</el-col>
                 <el-col :span="20">
-                  <el-input size="small" v-model="remarkContent" placeholder="请勿包含加工要求信息。如无，可不输入" />
+                  <el-input size="small" v-model="remarkContent" placeholder="请勿包含加工要求信息。如无，可不输入" @change="remarkContentChangeHandle" />
                 </el-col>
               </el-row>
             </el-col>
@@ -790,7 +496,14 @@
 <script setup>
 import { nextTick, ref } from 'vue'
 import { useRoute } from 'vue-router'
-import { getGoodsDetailApi, addCollectApi, cancelCollectApi } from '../api/goods.js'
+import {
+  getGoodsDetailApi,
+  addCollectApi,
+  cancelCollectApi,
+  getGoodsSpecsPriceApi,
+  getCalcFreightApi,
+  submitOrderApi,
+} from '../api/goods.js'
 import { formatHttpsProtocol } from '../utils/httpReplace.js'
 import { formatUnit } from '../utils/good.js'
 // 引入用户信息
@@ -798,6 +511,9 @@ import { useUserStore } from "../pinia/user.js";
 const userStore = useUserStore();
 // 定义并获取url地址传进来的goods_id参数
 const goodsId = ref(useRoute().query.goods_id)
+const type = ref(useRoute().query.type)
+// 是否为移动端(屏幕宽度在768px以下)
+const isMobile = window.outerWidth < 768 ? true : false
 // 商家信息
 const businessInfo = ref(null)
 // 店铺信息
@@ -810,8 +526,6 @@ const goodsDetailImageList = ref([])
 const goodsTitle = ref('')
 // 商品价格
 const goodsPrice = ref(0)
-// 更新时间
-const updateTime = ref('')
 // 发货地
 const sendArea = ref('')
 // 商品购买单位
@@ -824,9 +538,45 @@ const selectedUnitName = ref('')
 const unitArr = ref([])
 // 规格列表
 const specList = ref([])
+// 是否显示支付二维码(用于pc端)
+const isShowPcPayQrcode = ref(false)
+const pcPayQrcodeValue = ref('')
+const outTradeNo = ref('')
 // 修改规格的购买数量时
 const handleSpecListCountChange = (value) => {
+  console.log(value);
   console.log(specList.value)
+  getGoodsSpecsPriceApi({
+    type: type.value,
+    goods_id: goodsId.value,
+    unit: selectedUnitIndex.value,
+    s_id: specList.value,
+    order_notes: orderNotes.value,
+  }).then(res => {
+    console.log(res);
+    if (res.status != 200 || res.data.status != 1000) {
+      goodsTotalPrice.value = 0
+      freightPrice.value = 0
+      orderTotalPrice.value = 0
+      totalPrice.value = 0
+      return false
+    }
+    goodsTotalPrice.value = res.data.data.goods_total_price
+    if (isMobile) {
+      freightPrice.value = res.data.data.freight_price
+      orderTotalPrice.value = res.data.data.order_total_price
+      totalPrice.value = res.data.data.total_price
+    }
+    if (freightPrice.value > 0) {
+      calcFreightPriceHandle()
+    }
+  }).catch(() => {
+    goodsTotalPrice.value = 0
+    freightPrice.value = 0
+    orderTotalPrice.value = 0
+    totalPrice.value = 0
+  }).finally(() => {
+  })
 }
 // 浏览数
 const viewCount = ref(0)
@@ -865,8 +615,12 @@ const goodsFeatures = ref([])
 const factoryFeatures = ref([])
 // 商品库存
 const goodsStock = ref(0)
+// 订单备注内容(由 selectedRemarkListItems 和 remarkContent 组成)
+const orderNotes = ref('')
 // 商品的可选备注
 const remarkList = ref([])
+// 已选中的备注
+const selectedRemarkListItems = ref([])
 // 商品的三维图示
 const threeDImage = ref('')
 // 用户下单时手动输入的备注内容
@@ -887,6 +641,80 @@ const isLoading = ref(true)
 const isSuccess = ref(false)
 // 是否加载出错了
 const isFailed = ref(false)
+// 收货地址列表
+const receiveAddressList = ref([])
+// 选中的收货地址下标
+const selectedReceiveAddressId = ref('')
+// 商品总价
+const goodsTotalPrice = ref(0)
+// 运费
+const freightPrice = ref(0)
+// 订单总价
+const orderTotalPrice = ref(0)
+// 合计
+const totalPrice = ref(0)
+const freightTitle = ref('')
+// 是否显示新增规格按钮和自定义规格输入框
+const isShowAddNewSpecification = ref(false)
+// 监听收货地址id变化
+const recvAddIdChangeHandle = (id) => {
+  console.log(id)
+  selectedReceiveAddressId.value = id
+  if (freightPrice.value > 0) {
+    calcFreightPriceHandle()
+  }
+}
+// 监听收货地址列表变化
+const recvAddListChangeHandle = (list) => {
+  console.log(list)
+  receiveAddressList.value = list
+}
+// 监听订单备注变化
+const orderNotesChangeHandle = () => {
+  getGoodsSpecsPriceApi({
+    type: type.value,
+    goods_id: goodsId.value,
+    unit: selectedUnitIndex.value,
+    s_id: specList.value,
+    order_notes: orderNotes.value,
+  }).then(res => {
+    console.log(res);
+    if (res.status != 200 || res.data.status != 1000) {
+      goodsTotalPrice.value = 0
+      freightPrice.value = 0
+      orderTotalPrice.value = 0
+      totalPrice.value = 0
+      return false
+    }
+    goodsTotalPrice.value = res.data.data.goods_total_price
+    if (isMobile) {
+      freightPrice.value = res.data.data.freight_price
+      orderTotalPrice.value = res.data.data.order_total_price
+      totalPrice.value = res.data.data.total_price
+    }
+    if (freightPrice.value > 0) {
+      calcFreightPriceHandle()
+    }
+  }).catch(() => {
+    goodsTotalPrice.value = 0
+    freightPrice.value = 0
+    orderTotalPrice.value = 0
+    totalPrice.value = 0
+  }).finally(() => {
+  })
+}
+// 监听备选备注的选中变化
+const remarkListSelectedChangeHandle = (value) => {
+  console.log(value)
+  orderNotes.value = value.join(',') + (value.length > 0 && remarkContent.value.length > 0 ? ',' : '') + remarkContent.value
+  orderNotesChangeHandle()
+}
+// 监听留言信息的变化
+const remarkContentChangeHandle = (value) => {
+  console.log(value)
+  orderNotes.value = selectedRemarkListItems.value.join(',') + (selectedRemarkListItems.value.length > 0 && value.length > 0 ? ',' : '') + value
+  orderNotesChangeHandle()
+}
 // 展示或隐藏移动端的购买弹窗
 const changeDrawerShow = () => {
   if ((isLoading.value || !isSuccess.value) && !isDrawerShow.value) {
@@ -903,7 +731,10 @@ const showBuyNow = () => {
 }
 // 新增自定义规格
 const addNewSpecification = (isFromGetGoodsDetail = false) => {
-  if (isFromGetGoodsDetail || isLoading.value || !isSuccess.value) {
+  if (
+    (typeof isFromGetGoodsDetail === 'boolean' && isFromGetGoodsDetail !== true)
+    || (!isFromGetGoodsDetail && !isLoading.value && isSuccess.value)
+  ) {
     return false;
   }
   specList.value.push({
@@ -938,8 +769,8 @@ const changeCollectGoods = () => {
   if (isCollected.value) {
     cancelCollectApi({
       user_id: userStore.userId,
-      _token: userStore._token,
-      type: 1,
+      phone: userStore.phone,
+      type: type.value,
       goods_id: goodsId.value,
     }).then(res => {
       isCollected.value = false
@@ -947,20 +778,22 @@ const changeCollectGoods = () => {
   } else {
     addCollectApi({
       user_id: userStore.userId,
-      _token: userStore._token,
-      type: 1,
+      phone: userStore.phone,
+      type: type.value,
       goods_id: goodsId.value,
     }).then(res => {
       isCollected.value = true
     })
   }
 }
+// 获取商品详情信息
 const getGoodsDetail = () => {
   // 获取商品详细信息
   getGoodsDetailApi({
+    type: type.value,
     goods_id: goodsId.value,
-    user_id: '24494872',
-    type: 1,
+    user_id: userStore.userId,
+    phone: userStore.phone,
   }).then(res => {
     console.log(res)
     if (res.status != 200 || res.data.status != 1000) {
@@ -983,12 +816,22 @@ const getGoodsDetail = () => {
     goodsTitle.value = res.data.data.goods_title
     // 获取商品价格
     goodsPrice.value = res.data.data.goods_price
-    // 获取商品更新时间
-    updateTime.value = new Date(Number(res.data.data.goods_utime.toString()+'000')).toLocaleString()
+    if (res.data.data.price) {
+      goodsPrice.value = res.data.data.price
+    }
     // 获取商品发货地
     sendArea.value = res.data.data.sendland_name
     // 商品规格添加购买数量、是否手动添加等字段
     res.data.data.specifications = res.data.data.specifications.map(item => {
+      if (item.hasOwnProperty('spec_id')) {
+        item.s_id = item.spec_id
+      }
+      if (item.hasOwnProperty('spec_title')){
+        item.specifications = item.spec_title
+      }
+      if (item.hasOwnProperty('price')){
+        item.goods_price = item.price
+      }
       item.s_img = formatHttpsProtocol(item.s_img)
       item.count = Number(item.count)
       item.select_count = 0
@@ -998,10 +841,14 @@ const getGoodsDetail = () => {
     // 获取商品规格列表
     specList.value = res.data.data.specifications
     console.log(specList.value);
-    // 添加一行新的自定义规格
-    nextTick(() => {
-      addNewSpecification(true)
-    })
+    if (res.data.data.hasOwnProperty('is_agree') && res.data.data.is_agree == '2') {
+      isShowAddNewSpecification.value = true
+      // 添加一行新的自定义规格
+      console.log(nextTick(() => {
+        console.log('goto addNewSpecification');
+        addNewSpecification(true)
+      }))
+    }
     // 获取浏览数
     viewCount.value = res.data.data.view_count
     // 获取商品标签
@@ -1018,6 +865,9 @@ const getGoodsDetail = () => {
     factoryFeatures.value = res.data.data.productDescription.gcys
     // 获取商品的库存
     goodsStock.value = res.data.data.goods_stock
+    if (res.data.data.store_count) {
+      goodsStock.value = res.data.data.store_count
+    }
     // 获取商品的可选购买单位
     unitArr.value = res.data.data.units
     // 获取默认的购买单位下标
@@ -1038,6 +888,14 @@ const getGoodsDetail = () => {
     // 获取交易记录
     tradeLog.value = res.data.data.trade_log
     otherSee.value = res.data.data.other_see
+    // 获取收货地址
+    if (typeof res.data.data.receive_addresses === 'object' && res.data.data.receive_addresses instanceof Array) {
+      receiveAddressList.value = res.data.data.receive_addresses
+      let selectedIndex = res.data.data.receive_addresses.findIndex(item => item.is_default==1)
+      if (selectedIndex > -1) {
+        selectedReceiveAddressId.value = res.data.data.receive_addresses[selectedIndex].id
+      }
+    }
   }).catch((reason) => {
     console.log(reason)
     isFailed.value = true
@@ -1046,6 +904,90 @@ const getGoodsDetail = () => {
     isLoading.value = false
   })
 }
+// 计算运费
+const calcFreightPriceHandle = () => {
+  if (selectedReceiveAddressId.value == '' || selectedReceiveAddressId.value == -1 || selectedReceiveAddressId.value == 0) {
+    return false
+  }
+  freightPrice.value = 0
+  orderTotalPrice.value = 0
+  totalPrice.value = 0
+  getCalcFreightApi({
+    user_id: userStore.userId,
+    phone: userStore.phone,
+    type: type.value,
+    goods_id: goodsId.value,
+    receive_id: selectedReceiveAddressId.value,
+    openid: '',
+    p_price: goodsTotalPrice.value,
+    s_id: specList.value,
+  }).then(res => {
+    if (res.status != 200 || res.data.status != 1000) {
+      return false
+    }
+    freightPrice.value = res.data.data.freight
+    orderTotalPrice.value = res.data.data.payMoney
+    totalPrice.value = res.data.data.payMoney
+    freightTitle.value = res.data.data.title
+  }).catch(() => {
+  }).finally(() => {
+  })
+}
+// Pc端提交订单
+const submitOrderByPcHandle = () => {
+  let sid = []
+  let totalCount = 0
+  specList.value.forEach(item => {
+    if (Number(item.select_count) === 0) {
+      return false
+    }
+    if (item.is_add_manual == 1) {
+      item.specifications = item.long+"cm*"+item.width+"cm*"+item.height+"cm"
+    }
+    sid.push({
+      count: Number(item.select_count),
+      count_unit: selectedUnitIndex.value,
+      is_add_manual: item.s_id ? 0 : 1,
+      s_id: item.s_id ? item.s_id : 0,
+      s_img: '',
+      spec: item.specifications,
+    })
+    totalCount += Number(item.count)
+  })
+  submitOrderApi({
+    user_id: userStore.userId,
+    phone: userStore.phone,
+    sid: sid,
+    num: totalCount,
+    type: type.value,
+    goods_id: goodsId.value,
+    price: goodsTotalPrice.value,
+    address_id: selectedReceiveAddressId.value,
+    freight_title: freightTitle.value,
+    order_notes: orderNotes.value,
+  }).then(res => {
+    if (res.status != 200 || res.data.status != 1000) {
+      return false
+    }
+    if (!res.data.data) {
+      return false
+    }
+    pcPayQrcodeValue.value = res.data.data.code_url
+    outTradeNo.value = res.data.data.out_trade_no
+    isShowPcPayQrcode.value = true
+  }).catch(() => {
+  }).finally(() => {
+  })
+}
+const pcPayCloseHandle = () => {
+  console.log('pcPayCloseHandle')
+  isShowPcPayQrcode.value = false
+}
+const getPayResultHandle = (value) => {
+  console.log('getPayResultHandle')
+  console.log(value)
+}
+// 重新加载
 const reloadHandle = () => {
   isLoading.value = true
   isSuccess.value = false
@@ -1054,15 +996,6 @@ const reloadHandle = () => {
 getGoodsDetail()
 </script>
 <style scoped>
-.goods_banner_image {
-  width: 100%;
-  height: calc((100vw - (var(--el-main-padding) * 2)) * 0.208333333333);
-}
-@media screen and (max-width: 768px) {
-  .goods_banner_image {
-  height: calc(100vw - (var(--el-main-padding) * 2));
-}
-}
 .goods_footer {
   height: var(--navbar-height);
   /* line-height: var(--navbar-line-height); */
@@ -1124,30 +1057,6 @@ getGoodsDetail()
 .pc_goods_detail-detail_image {
   width: 100%;
 }
-.pc_loading_main {
-  height: calc(100vh - var(--navbar-height));
-  overflow: hidden;
-}
-.pc_loading_main-side_image_frame {
-  position:relative;
-  top: 2.5vw;
-  z-index: 0;
-}
-.pc_loading_main-side_image {
-  width: calc((100vw - (var(--el-main-padding) * 2)) / 3);height: 20vw;
-}
-.pc_loading_main-center_image_frame {
-  z-index: 1;
-}
-.pc_loading_main-center_image {
-  width: calc((100vw - (var(--el-main-padding) * 2)) / 2);
-  height: 25vw;
-  position: relative;
-  right: calc((((100vw - (var(--el-main-padding) * 2)) / 2) - ((100vw - (var(--el-main-padding) * 2)) / 3)) / 2);
-}
-.pc_loading_main-title {
-  padding-top: 14px;
-}
 .mobile_select_spec {
   display: inline-flex;
   width: calc(100% - 4em);
@@ -1168,23 +1077,12 @@ getGoodsDetail()
   font-size: var(--el-font-size-small);
   color: #999999;
 }
-.mobile_loading_main {
-  height: calc(100vh - (var(--navbar-height) * 2));
-  overflow: hidden;
-}
-.mobile_loading_main-image {
-  width: 90vw;
-  height: 90vw;
-}
-.mobile_loading_main-title {
-  padding-top: 14px;
-}
-.mobile_loading_main-header {
-  width: calc((100vw - (var(--el-main-padding) * 2)) * 0.166666666667);
-  height: calc((100vw - (var(--el-main-padding) * 2)) * 0.166666666667);
+.mobile_buy_drawer-header-image_container {
+  flex: unset;
 }
 .mobile_buy_drawer-header-image {
-  height: 100%;
+  width: 78px;
+  height: 78px;
   border-radius: var(--el-border-radius-base);
 }
 .mobile_buy_drawer-header-price {
@@ -1198,85 +1096,6 @@ getGoodsDetail()
 }
 .mobile_buy_drawer-main-spec_input {
   width: 35px;
-}
-.goods_introduce-item {
-  padding: 5px 10px;
-}
-.goods_introduce-item:first-of-type {
-  background: url(https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_1475fc45-ef45-499e-ba08-fab90a76f3d6.png);
-  background-size: 100% 100%;
-  border-top-left-radius: var(--el-border-radius-base);
-  border-top-right-radius: var(--el-border-radius-base);
-}
-.goods_introduce-item-title {
-  text-align: center;
-  font-size: var(--el-font-size-extra-large);
-  font-weight: bold;
-}
-.goods_introduce-item-goods_features_item {
-  margin-top: 10px;
-}
-.goods_introduce-item-goods_features_item-title {
-  text-align: center;
-  font-size: var(--el-font-size-large);
-  font-weight: bold;
-}
-.goods_introduce-item-goods_features_item-desc {
-  text-align: center;
-  word-break: break-all;
-  font-size: var(--el-font-size-small);
-  color: #999999;
-}
-.goods_introduce-item-goods_features_item-desc_span {
-  display: inline-block;
-  text-align: left;
-}
-.goods_introduce-item-goods_features_item-center {
-  text-align: center;
-  margin-top: 10px;
-}
-.goods_introduce-item-goods_features_item-divier {
-  height: 100%;
-}
-.goods_introduce-item-factory_features_item:nth-of-type(odd) .goods_introduce-item-factory_features_item-row {
-  flex-direction: row-reverse;
-}
-.goods_introduce-item-factory_features_item:nth-of-type(even) .goods_introduce-item-factory_features_item-row {
-  flex-direction: row;
-}
-.goods_detail-detail_image {
-  width: 100%;
-  border-radius: var(--el-border-radius-small);
-}
-.goods_detail-for_reference_only_tips {
-  text-align: center;
-  color: #aaa;
-  font-size: var(--el-font-size-extra-small);
-}
-.recommend_goods-item {
-  margin-top: 20px;
-}
-.recommend_goods-item-image_frame {
-  text-align: center;
-  z-index: 0;
-}
-.recommend_goods-item-image {
-  width: calc((100vw - (var(--el-main-padding) * 2)) * 0.2);
-  height: calc((100vw - (var(--el-main-padding) * 2)) * 0.2);
-}
-.recommend_goods-item-info {
-  margin-top: -25px;
-  background-color: rgba(255,255,255, 0.7);
-  z-index: 1;
-}
-.recommend_goods-item-info-title {
-  text-align: center;
-  font-size: var(--el-font-size-base);
-}
-.recommend_goods-item-info-price {
-  text-align: center;
-  font-size: var(--el-font-size-base);
-  color: #FE4342;
 }
 .font-size-extra-small {
   font-size: var(--el-font-size-extra-small);
