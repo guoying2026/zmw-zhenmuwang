@@ -10,12 +10,12 @@
     <text class="first">真木网验证码登录</text>
     <div>
       <!--手机号开始-->
-      <el-form-item prop="phone">
+      <el-form-item prop="phone" class="input_btn">
         <el-input size="large" maxlength="11" type="number" v-model.number="ruleForm.phone" placeholder='请输入手机号' />
       </el-form-item>
       <!--手机号结束-->
       <!--短信验证码开始-->
-      <el-form-item class="mt-4" prop="smsVerificationCode">
+      <el-form-item class="mt-4 input_btn" prop="smsVerificationCode">
         <el-input size="large" maxlength="6" type="number" v-model="ruleForm.smsVerificationCode" placeholder="请输入短信验证码">
           <template #append>
             <el-button @click="sendSMSVerificationCode" :disabled="sendDisabled" :plain="sendPlain">{{sendText}}</el-button>
@@ -51,12 +51,30 @@
     </div>
     <!--登录开始-->
     <el-form-item>
-      <el-button size="large" @click="submitForm(ruleFormRef)">登录</el-button>
+      <el-button class="login_btn" size="large" @click="submitForm(ruleFormRef)">登录</el-button>
     </el-form-item>
     <!--登录结束-->
+    <div class="squared">
+      <div class="squared-item"></div>
+      <div class="squared-item"></div>
+      <div class="squared-item"></div>
+      <div class="squared-item"></div>
+      <div class="squared-item"></div>
+      <div class="squared-item"></div>
+      <div class="squared-item"></div>
+      <div class="squared-item"></div>
+      <div class="squared-item"></div>
+      <div class="squared-item"></div>
+      <div class="squared-item"></div>
+      <div class="squared-item"></div>
+      <div class="squared-item"></div>
+      <div class="squared-item"></div>
+      <div class="squared-item"></div>
+    </div>
   </el-form>
 </template>
 <script setup>
+import '../assets/blockAnimation.scss';
 import { sendSMSVerificationCodeApi,loginApi } from "../api/user.js";
 import {onMounted, reactive, ref} from 'vue'
 //把页面所有相关图形验证码注释掉
@@ -92,7 +110,7 @@ const countDownTime = ref(60);
 //检查手机号对不对
 const checkPhone = (rule, value, callback) => {
   if (!value) {
-    return callback(new Error('请输入手机号'))
+    return callback(new Error('手机号不能为空'))
   }
     if (!Number.isInteger(value)) {
       callback(new Error('请输入数字'))
@@ -125,7 +143,7 @@ const checkPhone = (rule, value, callback) => {
 //检查短信验证码位数
 const validateSMSVerificationCode = (rule, value, callback) => {
   if(value === ''){
-    callback(new Error('请输入短信验证码'))
+    callback(new Error('短信验证码不能为空'))
   } else if(value.length !== 6){
     callback(new Error('请输入6位'))
   } else {
@@ -223,17 +241,47 @@ const submitForm = (formEl) => {
 }
 </script>
 <style scoped>
+.input_btn>>>input::placeholder{
+  letter-spacing: 2px;
+}
+.input_btn>>>.el-input__wrapper{
+  box-shadow: none !important;
+  z-index: 100;
+}
+.input_btn>>>.el-input-group__append{
+  box-shadow: none !important;
+  z-index: 100;
+  background-image: linear-gradient(109.6deg, rgb(218 213 237) 11.2%, rgb(208 210 237) 91.1%);
+  color: #9f5be6;
+  opacity: 0.8;
+}
+.input_btn>>>span{
+  letter-spacing: 2px;
+  font-size: 13px;
+}
+.input_btn>>>.el-form-item__error{
+  letter-spacing: 2px;
+  font-size: 14px;
+}
+.first{
+  letter-spacing: 2px;
+  color: #000;
+  font-weight: 300;
+}
 .login_el_form{
-  height: 100vh;
+  height: 90vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
 }
-.margin_top_10{
-  margin-top: 10px;
-}
-.margin_top_20{
-  margin-top: 20px;
+.login_btn{
+  letter-spacing: 10px;
+  padding: 10px 95px;
+  z-index: 100;
+  border: none;
+  background-image: linear-gradient(109.6deg, rgb(176 163 224) 11.2%, rgb(208 210 237) 91.1%);
+  color: #7f20c2;
+  opacity: 0.8;
 }
 </style>

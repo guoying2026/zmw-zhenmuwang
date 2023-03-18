@@ -1,5 +1,8 @@
 import { createApp } from 'vue'
 import './style.css'
+import './assets/color.css'
+import './assets/margin.css'
+import './assets/fontSize.css'
 import './mock/comment.js'
 import './mock/question.js'
 import App from './App.vue'

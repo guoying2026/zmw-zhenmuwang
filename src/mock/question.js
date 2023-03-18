@@ -5,7 +5,7 @@ import {regUrl} from "../utils/httpReplace.js";
 Mock.mock(regUrl("https://api.zhenmuwang.com/Pc/CompanyComment/questionList"),'get',function(option){
     return Mock.mock({
         'total_count': '@natural(10,200)',
-        'data|0-1': [
+        'data|1-2': [
             {
                 id: '@increment(1)',//问题主键
                 user_id: '@natural(20000,30000)',//本人问题id
@@ -24,7 +24,7 @@ Mock.mock(regUrl("https://api.zhenmuwang.com/Pc/CompanyComment/questionList"),'g
                     'https://fuss10.elemecdn.com/2/11/6535bcfb26e4c79b48ddde44f4b6fjpeg.jpeg',
                 ],
                 //回答列表
-                'ask_list|0-20':[
+                'ask_list|0-2':[
                     {
                         id: '@increment(1)',//回答id
                         user_id: '@natural(20000,30000)',//回答人的id

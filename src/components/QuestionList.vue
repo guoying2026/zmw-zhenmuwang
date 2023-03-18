@@ -31,7 +31,7 @@
           <el-image
               :hide-on-click-modal=true
               :src="itemImage"
-              style="width:100%;height: 20vw;"
+              style="width:100%;height: 18vw;"
               fit="fill"
               :zoom-rate="1.2"
               :preview-src-list="item.image"
@@ -78,7 +78,7 @@
                 <el-image
                     :hide-on-click-modal=true
                   :src="itemAskImage"
-                  style="width:100%;height: 20vw;"
+                  style="width:100%;height: 18vw;"
                   :zoom-rate="1.2"
                   :preview-src-list="itemAsk.image"
                   :initial-index="indexAskImage"
@@ -193,14 +193,19 @@ const receiveChildAddComment = (param) => {
   justify-content: space-between;
   align-items: flex-end;
   margin-left: 20px;
+  max-width: 780px;
+  width: 100%;
 }
 .ask{
   display: flex;
   flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 .ask .ask_item{
   display: flex;
   flex-direction: column;
+  max-width: 800px;
 }
 .ask .ask_item .ask_item_top{
   display: flex;
@@ -213,6 +218,8 @@ const receiveChildAddComment = (param) => {
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  max-width: 800px;
+  width: 100%;
 }
 .ask .ask_item_1{
   flex: 1;

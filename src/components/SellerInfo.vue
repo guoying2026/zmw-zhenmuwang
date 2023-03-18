@@ -20,7 +20,7 @@
               </el-col>
               <el-col>
                 <el-row>
-                  <el-col v-if="!isBlacklist&&isFranchisee" :span="9" :xs="8" :sm="3" :md="isShowGoods ? 2 : 9" :lg="isShowGoods ? 2 : 4" :xl="isShowGoods ? 1 : 2"><div class="seller_info-franchisee">加盟商家</div></el-col>
+                  <el-col v-if="!isBlacklist&&isFranchisee" :span="9" :xs="8" :sm="3" :md="isShowGoods ? 2 : 9" :lg="isShowGoods ? 2 : 4" :xl="isShowGoods ? 1 : 2"><div class="seller_info-franchisee orange_btn">加盟商家</div></el-col>
                   <el-col :span="14" :xs="15" :sm="20" :md="isShowGoods ? 21 : 14" :lg="isShowGoods ? 21 : 19" :xl="isShowGoods ? 22 : 21" :offset="!isBlacklist&&isFranchisee ? 1 : 0">{{ province }}</el-col>
                 </el-row>
               </el-col>
@@ -229,12 +229,16 @@ if (!props.isShowGoods) {
   font-weight: bold;
   font-size: var(--el-font-size-large);
 }
+.orange_btn{
+  background-color: #fff1e2;
+  color: #ff6060;
+}
 .seller_info-franchisee {
   text-align: center;
-  background: linear-gradient(to right,rgb(255,25,51),rgb(255,82,28));
-  color: rgb(255,252,248);
   font-size: var(--el-font-size-small);
   border-radius: var(--el-border-radius-base);
+  font-weight: 700;
+  letter-spacing: 1px;
 }
 .seller_info-title {
   color: rgb(154,154,154);

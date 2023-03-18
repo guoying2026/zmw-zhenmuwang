@@ -94,8 +94,8 @@ const pageSize = ref(10)
 
 /**
  * 获取搜索建议内容
- * @param {string} queryString 
- * @param {Function} cb 
+ * @param {string} queryString
+ * @param {Function} cb
  */
 const querySearch = (queryString, cb) => {
   const results = queryString
@@ -140,7 +140,7 @@ const loadAll = () => {
 
 /**
  * 选中搜索建议选项
- * @param {*} item 
+ * @param {*} item
  */
 const handleSelect = (item) => {
   input.value = item.value
@@ -148,7 +148,7 @@ const handleSelect = (item) => {
 
 /**
  * 输入搜索内容时
- * @param {*} value 
+ * @param {*} value
  */
 const handleInput = (value) => {
   input.value = value
@@ -163,7 +163,7 @@ const handleClear = () => {
 
 /**
  * 删除历史记录项
- * @param {*} item 
+ * @param {*} item
  */
 const handleClearSearchHistoryItem = (item) => {
   let itemIndex = searchHistory._list.findIndex(i => item == i.trim())
