@@ -298,6 +298,7 @@ const liked_comment_reply = (index,indexReply,comment_id,comment_reply_id,is_lik
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 0 20px;
 }
  .comment_list_1{
   display: flex;

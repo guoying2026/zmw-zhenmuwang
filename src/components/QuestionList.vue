@@ -195,12 +195,14 @@ const receiveChildAddComment = (param) => {
   margin-left: 20px;
   max-width: 780px;
   width: 100%;
+  padding-right: 20px;
 }
 .ask{
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  padding: 0px 20px;
 }
 .ask .ask_item{
   display: flex;

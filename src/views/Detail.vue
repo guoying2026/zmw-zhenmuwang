@@ -1,7 +1,10 @@
 <template>
-  <div class="padding-10">
+  <div class="padding-10 margin-10-top">
     <el-row :gutter="24">
       <el-col :span="24" :md="12" class="top_1_parent">
+        <div>
+          <text class="orange_btn custom_tag">加盟商</text>
+        </div>
         <div class="top_1 margin-20-top">
         </div>
       </el-col>
@@ -58,7 +61,7 @@
             </el-button>
           </template>
         </el-descriptions>
-        <el-row :gutter="20" class="goods">
+        <el-row :gutter="8" class="goods">
           <el-col
               v-for="(o, index) in 8"
               :key="o"
@@ -80,6 +83,15 @@
             </el-card>
           </el-col>
         </el-row>
+        <div class="adv_1">
+          <div class="top_1_2">
+            <text class="top_1_2_left emphasize">ZMW</text>
+            <div class="top_1_2_right font-10-size">
+              <text class="light_emphasize font-15-size">加入真木网官方木材平台</text>
+              <text>在买木头小程序以及ZMW端出售您的商品</text>
+            </div>
+          </div>
+        </div>
 <!--        公司首页的精选商品结束-->
 <!--        公司首页的问大家开始-->
           <el-descriptions title="问大家">
@@ -140,10 +152,51 @@ const handleClick = (tab, event) => {
 const text = ref('')
 </script>
 <style scoped>
+.custom_tag{
+  padding: 10px 20px;
+  border-radius: 10px;
+}
+.orange_btn{
+  background-color: #fff1e2;
+  color: #ff6060;
+  font-weight: 600;
+}
 .top_1_parent{
   display: flex;
-  align-self: center;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+.adv_1{
+  display: flex;
   justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(109.6deg, rgb(53 53 53) 11.2%, rgb(98 83 133) 91.1%);
+}
+.top_1_2{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  background: #000;
+}
+.top_1_2 .top_1_2_left{
+  padding: 20px;
+  background-color: #000;
+  color: #fff;
+}
+.top_1_2 .top_1_2_right{
+  display: flex;
+  flex-direction: column;
+  background-color: #645386;
+  color: #fff;
+  padding: 20px;
+  letter-spacing: 2px;
+  align-items: flex-start;
+}
+.top_1_2:hover{
+  transform: scale(1.1);
+  transition-duration: 80ms;
 }
 .el-container>>>.el-tabs__header{
   position: -webkit-sticky;
@@ -153,15 +206,15 @@ const text = ref('')
   z-index: 1000;
   opacity: 0.8;
 }
-.el-container>>>.el-tabs__content{
-  padding: 0 10px;
-}
 .el-container>>>.el-tabs__nav-wrap{
   padding: 0 20px;
   letter-spacing: 2px;
 }
 .el-container>>>.el-tabs__nav-scroll{
   overflow-x: auto;
+}
+.el-descriptions{
+  padding:0 10px;
 }
 .el-container>>>.el-tabs__nav-scroll::-webkit-scrollbar{
   display: none;
@@ -183,7 +236,7 @@ const text = ref('')
 }
 .goods{
   background-color: #f0f2f7;
-  padding-top:20px;
+  padding: 10px 10px 0 10px;
 }
 .top_tip_2{
   display: flex;
@@ -214,6 +267,10 @@ const text = ref('')
   display: flex;
   flex-direction: row;
   align-items: center;
+}
+.light_emphasize{
+  font-weight: 600;
+  text-align: center;
 }
 .emphasize{
   font-weight: 900;
@@ -278,7 +335,7 @@ const text = ref('')
   width: 2em !important;
 }
 .el-col{
-  margin-bottom: 20px;
+  margin-bottom: 10px;
 }
 .padding-10{
   padding: 0 10px 20px 10px;
