@@ -15,7 +15,9 @@ export const useSearchStore = defineStore('searchStore', {
       _isFailed: false,
     }
   },
-  persist: true,
+  persist: {
+    storage: sessionStorage,
+  },
   getters: {
     name: (state) => state._name,
     list: (state) => state._list,

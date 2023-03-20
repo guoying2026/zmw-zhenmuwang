@@ -325,7 +325,7 @@
       <!-- 弹窗头部 end -->
       <!-- 弹窗底部 start -->
       <template #footer>
-        <el-button class="mobile_buy_drawer-footer-btn" type="danger" round>
+        <el-button class="mobile_buy_drawer-footer-btn" type="danger" round @click="submitOrderByMobileHandle">
           <template v-if="isBuyNow">立即购买</template>
         </el-button>
       </template>
@@ -341,7 +341,7 @@
         <!-- 规格提示区域 start -->
         <el-col>
           <el-row align="middle">
-            <el-col class="font-size-base" :span="6">请选择规格</el-col>
+            <el-col class="font-size-base" :span="isShowAddNewSpecification?6:9">请选择规格</el-col>
             <el-col
               v-if="isShowAddNewSpecification"
               class="font-size-base mobile_buy_drawer-main-add_spec"
@@ -506,9 +506,11 @@ import {
 } from '../api/goods.js'
 import { formatHttpsProtocol } from '../utils/httpReplace.js'
 import { formatUnit } from '../utils/good.js'
+import { useToPayOrderStore } from '../pinia/toPayOrder'
 // 引入用户信息
 import { useUserStore } from "../pinia/user.js";
 const userStore = useUserStore();
+const toPayOrderStore = useToPayOrderStore()
 // 定义并获取url地址传进来的goods_id参数
 const goodsId = ref(useRoute().query.goods_id)
 const type = ref(useRoute().query.type)
@@ -807,13 +809,22 @@ const getGoodsDetail = () => {
     // 获取店铺信息
     shopInfo.value = res.data.data.shop_info
     // 获取商品主图
-    res.data.data.main = res.data.data.main.map(item => formatHttpsProtocol(item))
     goodsMainImageList.value = res.data.data.main
+    if (goodsMainImageList.value.length === 0 && res.data.data.hasOwnProperty('image')) {
+      goodsMainImageList.value = [res.data.data.image]
+    }
+    goodsMainImageList.value = goodsMainImageList.value.map(item => formatHttpsProtocol(item))
     // 获取商品详情图
-    res.data.data.details = res.data.data.details.map(item => formatHttpsProtocol(item))
     goodsDetailImageList.value = res.data.data.details
+    if (goodsDetailImageList.value.length === 0 && res.data.data.hasOwnProperty('image')) {
+      goodsDetailImageList.value = [res.data.data.image]
+    }
+    goodsDetailImageList.value = goodsDetailImageList.value.map(item => formatHttpsProtocol(item))
     // 获取商品标题
     goodsTitle.value = res.data.data.goods_title
+    if (!goodsTitle.value) {
+      goodsTitle.value = res.data.data.goods_name
+    }
     // 获取商品价格
     goodsPrice.value = res.data.data.goods_price
     if (res.data.data.price) {
@@ -832,6 +843,7 @@ const getGoodsDetail = () => {
       if (item.hasOwnProperty('price')){
         item.goods_price = item.price
       }
+      item.s_img = goodsMainImageList.value[0]
       item.s_img = formatHttpsProtocol(item.s_img)
       item.count = Number(item.count)
       item.select_count = 0
@@ -933,6 +945,19 @@ const calcFreightPriceHandle = () => {
   }).finally(() => {
   })
 }
+// 移动端生成订单
+const submitOrderByMobileHandle = () => {
+  toPayOrderStore._type = type.value
+  toPayOrderStore._goodsId = goodsId.value
+  toPayOrderStore._goodsName = goodsTitle.value
+  toPayOrderStore._sId = specList.value
+  toPayOrderStore._unit = selectedUnitIndex.value
+  toPayOrderStore._remarks = orderNotes.value
+  toPayOrderStore._is_agree = Number(type.value) == 1 && isShowAddNewSpecification.value == true ? 1 : 0
+  nextTick(() => {
+    window.location.assign('/goods/to-pay-order')
+  })
+}
 // Pc端提交订单
 const submitOrderByPcHandle = () => {
   let sid = []
@@ -965,6 +990,7 @@ const submitOrderByPcHandle = () => {
     address_id: selectedReceiveAddressId.value,
     freight_title: freightTitle.value,
     order_notes: orderNotes.value,
+    is_new_pay: '3',
   }).then(res => {
     if (res.status != 200 || res.data.status != 1000) {
       return false
