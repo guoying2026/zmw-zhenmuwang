@@ -53,12 +53,6 @@ import {
 
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
 
-/**
- * 一款 Vue.js 二维码组件.
- * [qrcode.vue](https://github.com/scopewu/qrcode.vue/blob/HEAD/README-zh_cn.md)
- */
-import QrcodeVue from 'qrcode.vue'
-
 const app = createApp(App);//生成vue实例
 
 app.use(router) // 引用路由实例
@@ -102,8 +96,6 @@ app.use(ElContainer)
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
     app.component(key, component)
 }
-
-app.component('qrcode-vue', QrcodeVue)
 
 app.mount('#app')//挂载到#app
 

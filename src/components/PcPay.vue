@@ -10,7 +10,7 @@
   >
     <el-row justify="center">
       <el-col style="text-align: center;">
-        <qrcode-vue
+        <QrcodeVue
           :value="codeUrl"
           :size="pcPayQrcodeSize"
           level="H"
@@ -41,6 +41,11 @@
 <script setup>
 import { nextTick, onUnmounted, ref, watchEffect } from 'vue'
 import { pollingWxOrderApi } from '../api/goods.js'
+/**
+ * 一款 Vue.js 二维码组件.
+ * [qrcode.vue](https://github.com/scopewu/qrcode.vue/blob/HEAD/README-zh_cn.md)
+ */
+import QrcodeVue from 'qrcode.vue'
 import { useUserStore } from "../pinia/user.js";
 const userStore = useUserStore();
 const props = defineProps({
