@@ -62,6 +62,7 @@ export const cancelCollectApi = (data) => {
  * @typedef UnitArr
  * @type {('0'|'1'|'2'|'3'|'4'|'5'|'6'|'7'|'8')}
  * @param {Object} data
+ * @param {'0'|'1'} data.type
  * @param {string|number} data.goods_id
  * @param {SpecItem[]} data.s_id
  * @param {UnitArr} [data.unit]
@@ -179,6 +180,7 @@ export const getCalcFreightApi = (data) => {
  * @param {string|number} data.address_id
  * @param {string} data.freight_title
  * @param {string} [data.order_notes='']
+ * @param {'1'|'3'|'4'} data.is_new_pay 1-微信内支付；3-二维码支付；4-h5支付
  * @returns {Promise<import('axios').AxiosResponse<any,any>>}
  */
 export const submitOrderApi = (data) => {
