@@ -5,7 +5,7 @@
   </div>
 <!--  由父组件提供插槽内容结束-->
 
-  <el-drawer v-model="drawer" direction="btt" size="50%" title="I am the title" :with-header="false">
+  <el-drawer v-model="drawer" direction="btt" size="55%" title="I am the title" :with-header="false">
     <!--          抽屉里的添加评论开始-->
     <el-input
         v-model="textarea"
@@ -34,15 +34,18 @@
     </el-dialog>
     <el-row>
       <el-col :span="12" class="center_button margin-20-top">
-        <el-button type="" @click="drawer = false">
-          {{cancelText}}
-        </el-button>
+        <text class="select_btn btn_item" @click="drawer = false">{{cancelText}}</text>
+<!--        <el-button type="" @click="drawer = false">-->
+<!--          {{cancelText}}-->
+<!--        </el-button>-->
       </el-col>
       <el-col :span="12" class="center_button margin-20-top">
-        <el-button type="primary" v-if="addType === 'question'" @click="publishQuestion">{{confirmText}}</el-button>
-        <el-button type="primary" v-else @click="publishComment">
-          {{confirmText}}
-        </el-button>
+        <text class="blue_btn btn_item" v-if="addType === 'question'" @click="publishQuestion">{{confirmText}}</text>
+        <text class="blue_btn btn_item" v-else @click="publishComment">{{confirmText}}</text>
+<!--        <el-button type="primary" >{{confirmText}}</el-button>-->
+<!--        <el-button type="primary" v-else @click="publishComment">-->
+<!--          {{confirmText}}-->
+<!--        </el-button>-->
       </el-col>
     </el-row>
 
@@ -293,6 +296,11 @@ const publishQuestion = () => {
 //发布问答结束
 </script>
 <style scoped>
+.btn_item{
+  padding: 10px 20px;
+  letter-spacing: 2px;
+  font-weight: bold;
+}
 .center_button{
   text-align: center;
 }

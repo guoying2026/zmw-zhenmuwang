@@ -1,7 +1,7 @@
 <template>
   <div class="ask" :class="[index == 0?'':'margin-10-top']" v-for="(item, index) in list.arr" :key="index">
-    <div class="general_item">
-      <text class="ask_item_1">问：</text>
+    <div class="general_item font-12-size">
+      <text class="general_item_1">问</text>
       <AddComment
           placeholder-text="我要提问"
           cancel-text="取消提问"
@@ -12,7 +12,7 @@
           questionType="question"
       >
         <template #clickDrawer>
-          <text class="ask_item_2 margin-10-left">我要提问</text>
+          <text class="general_item_2 blue_btn margin-10-left">我要提问</text>
         </template>
       </AddComment>
     </div>
@@ -40,8 +40,8 @@
         </el-col>
       </el-row>
     </div>
-    <div class="answer_item margin-10-top">
-      <text class="ask_item_1">答：</text>
+    <div class="answer_item general_item margin-10-top font-12-size">
+      <text class="general_item_1">答</text>
       <AddComment
           placeholder-text="我要回答"
           cancel-text="取消回答"
@@ -54,7 +54,7 @@
           questionType="ask"
       >
         <template #clickDrawer>
-          <text class="ask_item_2 margin-10-left">我要回答</text>
+          <text class="general_item_2 margin-10-left green_btn">我要回答</text>
         </template>
       </AddComment>
     </div>
@@ -86,15 +86,17 @@
                   lazy />
               </el-col>
             </el-row>
-            <div class="answer_item_left_2_3 margin-10-top">
-              <text>{{itemAsk.created_time}}</text>
+
+          <div class="answer_item_left_2_3 margin-10-top">
+
+            <text>{{itemAsk.created_time}}</text>
               <div class="answer_item_left_2_3_right margin-10-top">
-                <div>
-                  <text>有用</text>
+                <div class="answer_item_left_2_3_right">
+                  <ClickLike></ClickLike>
                   <text>{{itemAsk.useful_count}}</text>
                 </div>
-                <div class="margin-10-left">
-                  <text>没用</text>
+                <div class="answer_item_left_2_3_right margin-10-left">
+                  <ClickDislike></ClickDislike>
                   <text>{{itemAsk.useless_count}}</text>
                 </div>
               </div>
@@ -115,6 +117,8 @@ import { questionListApi } from "../api/question.js";
 
 //引入用户信息开始
 import { useUserStore } from "../pinia/user.js";
+import ClickLike from "./ClickLike.vue";
+import ClickDislike from "./ClickDislike.vue";
 const userStore = useUserStore();
 
 const props = defineProps({
@@ -167,7 +171,7 @@ const receiveChildAddComment = (param) => {
 </script>
 <style scoped>
 /*回答开始*/
-.answer_item .answer_item_left .answer_item_left_2 .answer_item_left_2_3 .answer_item_left_2_3_right{
+.answer_item_left_2_3_right{
   display: flex;
   flex-direction: row;
 }
@@ -203,6 +207,7 @@ const receiveChildAddComment = (param) => {
   justify-content: center;
   align-items: center;
   padding: 0px 20px;
+  letter-spacing: 2px;
 }
 .ask .ask_item{
   display: flex;
@@ -222,6 +227,19 @@ const receiveChildAddComment = (param) => {
   align-items: center;
   max-width: 800px;
   width: 100%;
+}
+.general_item .general_item_1{
+  padding: 5px 10px;
+  background-color: #000;
+  color: #fff;
+  border-radius: 10px;
+  font-weight: bold;
+}
+.general_item .general_item_2{
+  padding: 10px 15px;
+  border-radius: 10px;
+  font-weight: bold;
+  letter-spacing: 2px;
 }
 .ask .ask_item_1{
   flex: 1;
