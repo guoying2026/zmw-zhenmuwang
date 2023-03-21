@@ -56,7 +56,6 @@
 import { ref, reactive } from 'vue'
 import { setDefaultAddressApi, addAddressApi, editAddressApi, delAddressApi } from '../api/address.js'
 import { useUserStore } from '../pinia/user.js'
-import showGoToLoginTipsDialog from './GoToLoginTipsDialog';
 const userStore = useUserStore()
 const props = defineProps({
   id: {
@@ -116,17 +115,6 @@ const MessageTips = (msg, type = 'success') => {
       console.error(msg)
       break
   }
-}
-/**
- * 用户未登录时统一处理函数
- */
-const unloginHandle = () => {
-  showGoToLoginTipsDialog({
-  }).then(() => {
-    console.log('确认前往登录')
-  }).catch(() => {
-    console.log('用户不想登录')
-  })
 }
 /**
  * 清除表单的字段信息
@@ -211,21 +199,12 @@ const changeSelectedId = (id) => {
  * 修改默认收货地址
  */
 const changeDefaultAddressHandle = (aId) => {
-  if (userStore.userId == '' || userStore.phone == '') {
-    // 用户未登录
-    unloginHandle()
-    return false
-  }
   setDefaultAddressApi({
     user_id: userStore.userId,
     phone: userStore.phone,
     a_id: aId,
   }).then(res => {
     if (res.status != 200 || res.data.status != 1000) {
-      if ([1002,1100].includes(Number(res.data.status))) {
-        // 用户未登录
-        unloginHandle()
-      }
       return false
     }
     changeSelectedId(aId)
@@ -245,11 +224,6 @@ const changeDefaultAddressHandle = (aId) => {
  * @param {string} item.phone
  */
 const editAddressHandle = (e, item) => {
-  if (userStore.userId == '' || userStore.phone == '') {
-    // 用户未登录
-    unloginHandle()
-    return false
-  }
   console.log(e, item);
   formData.id = item.id
   formData.name = item.name
@@ -264,11 +238,6 @@ const editAddressHandle = (e, item) => {
  * @param {strin|number} item.id
  */
 const deleteAddressHandle = (e, item) => {
-  if (userStore.userId == '' || userStore.phone == '') {
-    // 用户未登录
-    unloginHandle()
-    return false
-  }
   console.log(e)
   console.log(item)
   if (!item.id) {
@@ -280,10 +249,6 @@ const deleteAddressHandle = (e, item) => {
     a_id: item.id,
   }).then(res => {
     if (res.status != 200 || res.data.status != 1000) {
-      if ([1002,1100].includes(Number(res.data.status))) {
-        // 用户未登录
-        unloginHandle()
-      }
       return false
     }
     removeReceiveAddressListItem(item.id)
@@ -301,11 +266,6 @@ const deleteAddressHandle = (e, item) => {
  * 添加收货地址
  */
 const addNewAddressHandle = () => {
-  if (userStore.userId == '' || userStore.phone == '') {
-    // 用户未登录
-    unloginHandle()
-    return false
-  }
   showDialog()
 }
 /**
@@ -330,11 +290,6 @@ const addReceiveAddressListItem = (item) => {
  * 确认收货地址
  */
 const confirmHandle = () => {
-  if (userStore.userId == '' || userStore.phone == '') {
-    // 用户未登录
-    unloginHandle()
-    return false
-  }
   let isFinishForm = true
   // 检测用户是否已经填写完整收货信息
   for (let i in formData) {
@@ -371,10 +326,6 @@ const confirmHandle = () => {
       is_default: isDefault,
     }).then(res => {
       if (res.status != 200 || res.data.status != 1000) {
-        if ([1002,1100].includes(Number(res.data.status))) {
-          // 用户未登录
-          unloginHandle()
-        }
         return false
       }
       // 添加新的收货地址之后，要在地址列表同步添加收货地址信息
@@ -401,10 +352,6 @@ const confirmHandle = () => {
       is_default: isDefault,
     }).then(res => {
       if (res.status != 200 || res.data.status != 1000) {
-        if ([1002,1100].includes(Number(res.data.status))) {
-          // 用户未登录
-          unloginHandle()
-        }
         return false
       }
       updateReceiveAddressList({
