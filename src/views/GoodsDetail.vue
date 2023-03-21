@@ -509,6 +509,7 @@ import { formatUnit } from '../utils/good.js'
 import { useToPayOrderStore } from '../pinia/toPayOrder'
 // 引入用户信息
 import { useUserStore } from "../pinia/user.js";
+import showGoToLoginTipsDialog from '../components/GoToLoginTipsDialog'
 const userStore = useUserStore();
 const toPayOrderStore = useToPayOrderStore()
 // 定义并获取url地址传进来的goods_id参数
@@ -658,6 +659,19 @@ const totalPrice = ref(0)
 const freightTitle = ref('')
 // 是否显示新增规格按钮和自定义规格输入框
 const isShowAddNewSpecification = ref(false)
+
+/**
+ * 用户未登录时统一处理函数
+ */
+const unloginHandle = () => {
+  showGoToLoginTipsDialog({
+  }).then(() => {
+    console.log('确认前往登录')
+  }).catch(() => {
+    console.log('用户不想登录')
+  })
+}
+
 // 监听收货地址id变化
 const recvAddIdChangeHandle = (id) => {
   console.log(id)
@@ -767,6 +781,11 @@ const changeCollectGoods = () => {
   if (isLoading.value || !isSuccess.value) {
     return false;
   }
+  if (userStore.userId === '' || userStore.phone == '') {
+    // 用户未登录
+    unloginHandle()
+    return false
+  }
   console.log(isCollected.value ? '取消收藏商品' : '收藏商品')
   if (isCollected.value) {
     cancelCollectApi({
@@ -775,6 +794,13 @@ const changeCollectGoods = () => {
       type: type.value,
       goods_id: goodsId.value,
     }).then(res => {
+      if (res.status != 200 || res.data.status != 1000) {
+        if ([1002,1100].includes(Number(res.data.status))) {
+          // 用户未登录
+          unloginHandle()
+        }
+        return false
+      }
       isCollected.value = false
     })
   } else {
@@ -784,6 +810,13 @@ const changeCollectGoods = () => {
       type: type.value,
       goods_id: goodsId.value,
     }).then(res => {
+      if (res.status != 200 || res.data.status != 1000) {
+        if ([1002,1100].includes(Number(res.data.status))) {
+          // 用户未登录
+          unloginHandle()
+        }
+        return false
+      }
       isCollected.value = true
     })
   }
@@ -918,6 +951,10 @@ const getGoodsDetail = () => {
 }
 // 计算运费
 const calcFreightPriceHandle = () => {
+  if (userStore.userId == '' || userStore.phone == '') {
+    unloginHandle()
+    return false
+  }
   if (selectedReceiveAddressId.value == '' || selectedReceiveAddressId.value == -1 || selectedReceiveAddressId.value == 0) {
     return false
   }
@@ -947,6 +984,30 @@ const calcFreightPriceHandle = () => {
 }
 // 移动端生成订单
 const submitOrderByMobileHandle = () => {
+  if (userStore.userId == "" || userStore.phone == "") {
+    // 用户未登录
+    unloginHandle()
+    return false
+  }
+  // 检测购买数量大于零
+  let isContinue = false
+  specList.value.forEach(item => {
+    if (Number(item.select_count) == 0) {
+      return false
+    }
+    if (Number(item.is_add_manual) == 1) {
+      if (!(Number(item.long) > 0 && Number(item.width) > 0 && Number(item.height) > 0)) {
+        // 自定义规格未填写完整
+        return false
+      }
+    }
+    isContinue = true
+  })
+  if (!isContinue) {
+    // 用户未选择购买的规格，即购买数量都是零
+    return false
+  }
+
   toPayOrderStore._type = type.value
   toPayOrderStore._goodsId = goodsId.value
   toPayOrderStore._goodsName = goodsTitle.value
@@ -960,6 +1021,11 @@ const submitOrderByMobileHandle = () => {
 }
 // Pc端提交订单
 const submitOrderByPcHandle = () => {
+  if (userStore.userId == '' || userStore.phone == '') {
+    // 用户未登录
+    unloginHandle()
+    return false
+  }
   let sid = []
   let totalCount = 0
   specList.value.forEach(item => {
@@ -993,6 +1059,10 @@ const submitOrderByPcHandle = () => {
     is_new_pay: '3',
   }).then(res => {
     if (res.status != 200 || res.data.status != 1000) {
+      if ([1002,1100].includes(Number(res.data.status))) {
+        // 用户未登录
+        unloginHandle()
+      }
       return false
     }
     if (!res.data.data) {

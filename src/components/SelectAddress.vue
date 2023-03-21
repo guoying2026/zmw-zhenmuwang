@@ -151,6 +151,7 @@ import {
   delAddressApi,
 } from '../api/address.js'
 import { useUserStore } from '../pinia/user'
+import showGoToLoginTipsDialog from './GoToLoginTipsDialog';
 const emits = defineEmits(['onChangeId','onChange'])
 const userStore = useUserStore()
 const isShowCurrentAddressComponent = ref(true)
@@ -188,13 +189,34 @@ watchEffect(() => {
   })
 })
 
+/**
+ * 用户未登录时统一处理函数
+ */
+const unloginHandle = () => {
+  showGoToLoginTipsDialog({
+  }).then(() => {
+    console.log('确认前往登录')
+  }).catch(() => {
+    console.log('用户不想登录')
+  })
+}
+
 const showAddressListHandle = () => {
+  if (userStore.userId == '' || userStore.phone == '') {
+    // 用户未登录
+    unloginHandle()
+    return false
+  }
   isShowAddressListSelectComponent.value = true
   getAddressListApi({
     user_id: userStore.userId,
     phone: userStore.phone,
   }).then(res => {
     if (res.status != 200 || res.data.status != 1000) {
+      if ([1002,1100].includes(Number(res.data.status))) {
+        // 用户未登录
+        unloginHandle()
+      }
       return false
     }
     list.value = res.data.data
@@ -205,6 +227,11 @@ const editAddressHandle = (e, _id = 0) => {
   for (let i in addressForm) {
     addressForm[i] = ''
   }
+  if (userStore.userId == '' || userStore.phone == '') {
+    // 用户未登录
+    unloginHandle()
+    return false
+  }
   isShowAddressEditComponent.value = true
   isEditState.value = Number(_id) !== 0 && Number(_id) !== NaN
   if (Number(_id) !== 0 && Number(_id) !== NaN) {
@@ -214,6 +241,10 @@ const editAddressHandle = (e, _id = 0) => {
       a_id: _id,
     }).then(res => {
       if (res.status != 200 || res.data.status != 1000) {
+        if ([1002,1100].includes(Number(res.data.status))) {
+        // 用户未登录
+        unloginHandle()
+      }
         return false
       }
       console.log(res)
@@ -227,6 +258,11 @@ const editAddressHandle = (e, _id = 0) => {
 }
 
 const saveAddressHandle = () => {
+  if (userStore.userId == '' || userStore.phone == '') {
+    // 用户未登录
+    unloginHandle()
+    return false
+  }
   let request = null
   if (Number(addressForm.id) !== 0 && Number(addressForm.id) !== NaN) {
     // 更新收货地址信息
@@ -252,6 +288,10 @@ const saveAddressHandle = () => {
   }
   request.then(res => {
     if (res.status != 200 || res.data.status != 1000) {
+      if ([1002,1100].includes(Number(res.data.status))) {
+        // 用户未登录
+        unloginHandle()
+      }
       return false
     }
     if (Number(addressForm.is_default) === 1) {
@@ -278,12 +318,21 @@ const deleteAddressHandle = (e, item) => {
   if (!item.id) {
     return false
   }
+  if (userStore.userId == '' || userStore.phone == '') {
+    // 用户未登录
+    unloginHandle()
+    return false
+  }
   delAddressApi({
     user_id: userStore.userId,
     phone: userStore.phone,
     a_id: item.id,
   }).then(res => {
     if (res.status != 200 || res.data.status != 1000) {
+      if ([1002,1100].includes(Number(res.data.status))) {
+        // 用户未登录
+        unloginHandle()
+      }
       return false
     }
     showAddressListHandle()
@@ -293,6 +342,11 @@ const deleteAddressHandle = (e, item) => {
 }
 
 const setDefaultAddressHandle = (e, _id) => {
+  if (userStore.userId == '' || userStore.phone == '') {
+    // 用户未登录
+    unloginHandle()
+    return false
+  }
   list.value.map(item => {
     item.is_default = Number(_id) === Number(item.id)
     return item
@@ -303,6 +357,10 @@ const setDefaultAddressHandle = (e, _id) => {
     a_id: _id,
   }).then(res => {
     if (res.status != 200 || res.data.status != 1000) {
+      if ([1002,1100].includes(Number(res.data.status))) {
+        // 用户未登录
+        unloginHandle()
+      }
       return false
     }
     list.value.forEach(item => {
@@ -323,11 +381,20 @@ const setDefaultAddressHandle = (e, _id) => {
 }
 
 const getDefaultAddressHandle = () => {
+  if (userStore.userId == '' || userStore.phone == '') {
+    // 用户未登录
+    unloginHandle()
+    return false
+  }
   getDefaultAddressApi({
     user_id: userStore.userId,
     phone: userStore.phone,
   }).then(res => {
     if (res.status != 200 || res.data.status != 1000) {
+      if ([1002,1100].includes(Number(res.data.status))) {
+        // 用户未登录
+        unloginHandle()
+      }
       isHasNoDefaultAddress.value = res.data.message.includes('未设置默认收货地址')
       return false
     }

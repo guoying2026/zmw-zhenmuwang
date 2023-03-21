@@ -120,6 +120,7 @@ import {
   pollingWxOrderApi,
 } from '../api/goods.js'
 import { useRoute } from 'vue-router'
+import showGoToLoginTipsDialog from '../components/GoToLoginTipsDialog'
 const userStore = useUserStore()
 const addressInfo = ref({
   id: '',
@@ -136,6 +137,23 @@ const addressId = ref(0)
 const outTradeNo = ref(useRoute().query.out_trade_no)
 const isShowPayResult = ref(false)
 const isPaySuccess = ref(false)
+
+/**
+ * 用户未登录时统一处理函数
+ */
+const unloginHandle = () => {
+  showGoToLoginTipsDialog({
+  }).then(() => {
+    console.log('确认前往登录')
+  }).catch(() => {
+    console.log('用户不想登录')
+  })
+}
+
+if (userStore.userId == '' || userStore.phone == '') {
+  // 用户未登录
+  unloginHandle()
+}
 
 // 如果传进来订单号，则判断该订单是否已支付，显示支付结果
 if (outTradeNo.value) {
@@ -214,6 +232,11 @@ const isWeChat = () => {
 }
 
 const submitMobileOrderHandle = () => {
+  if (userStore.userId == '' || userStore.phone == '') {
+    // 用户未登录
+    unloginHandle()
+    return false
+  }
   let sid = []
   let totalCount = 0
   isShowPayResult.value = false
@@ -248,6 +271,10 @@ const submitMobileOrderHandle = () => {
     is_new_pay: isWeChat() ? '1' : '4',
   }).then(res => {
     if (res.status != 200 || res.data.status != 1000) {
+      if ([1002,1100].includes(Number(res.data.status))) {
+        // 用户未登录
+        unloginHandle()
+      }
       return false
     }
     console.log(res)
