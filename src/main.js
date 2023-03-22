@@ -5,6 +5,7 @@ import './assets/margin.css'
 import './assets/fontSize.css'
 import './mock/comment.js'
 import './mock/question.js'
+import './mock/goods.js'
 import App from './App.vue'
 //路由使用vue-router
 import router from './router/index.js'

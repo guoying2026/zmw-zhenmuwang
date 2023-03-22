@@ -1,4 +1,4 @@
-<template>
+<template style="overflow-x: hidden">
 <!--  固定在顶部用el-affix offset是距离顶部多少px 顶部导航开始-->
   <el-affix>
     <el-row justify="space-between" class="nav_header" align="middle">

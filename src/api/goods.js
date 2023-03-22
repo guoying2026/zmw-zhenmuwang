@@ -1,6 +1,14 @@
 import axiosRequest from '../utils/axiosRequest.js'
 import { formatUnit } from '../utils/good.js'
 
+//获取商品列表
+export const goodsListApi = (data) => {
+  return axiosRequest({
+    url: '/Pc/Goods/goodsList',
+    method: 'get',
+    params: data
+  })
+}
 /**
  * 获取商品详情信息
  * @param {Object} data
@@ -113,7 +121,7 @@ export const getGoodsSpecsPriceApi = (data) => {
  * @property {string} buy_count
  * @property {string} spec_id
  * @property {string} spec_title
- * @param {Object} data 
+ * @param {Object} data
  * @param {string|number} data.user_id
  * @param {string|number} data.phone
  * @param {('0'|'1')} data.type
@@ -170,7 +178,7 @@ export const getCalcFreightApi = (data) => {
  * @property {number} SpecItem.s_id
  * @property {string} SpecItem.s_img
  * @property {string} SpecItem.spec
- * @param {object} data 
+ * @param {object} data
  * @param {string|number} data.user_id
  * @param {string|number} data.phone
  * @param {SpecItem[]} data.sid
@@ -197,7 +205,7 @@ export const submitOrderApi = (data) => {
 
 /**
  * 查询订单支付结果
- * @param {object} data 
+ * @param {object} data
  * @param {string|number} data.user_id
  * @param {string|number} data.phone
  * @param {string} data.out_trade_no

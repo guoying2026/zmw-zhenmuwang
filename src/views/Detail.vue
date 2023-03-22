@@ -70,32 +70,7 @@
             </el-button>
           </template>
         </el-descriptions>
-        <el-row :gutter="8" class="goods">
-          <el-col
-              v-for="(o, index) in 8"
-              :key="o"
-              :span="12"
-              :md="6"
-          >
-            <el-card>
-              <img
-                  src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
-                  class="image"
-              />
-              <div class="goods_item">
-                <text>胶合板</text>
-                <text>详细发货地址：江苏省连云港市东海县第二中学</text>
-              </div>
-              <div>
-                <span>胶合板</span>
-                <div class="bottom">
-                  <text>商品地址</text>
-                  <el-button text class="button">Operating</el-button>
-                </div>
-              </div>
-            </el-card>
-          </el-col>
-        </el-row>
+        <GoodsList :company-info-id="company_info_id"></GoodsList>
         <div class="adv_1">
           <div class="top_1_2">
             <text class="top_1_2_left emphasize">ZMW</text>
@@ -136,9 +111,18 @@
             <!--        公司首页的大众评论结束-->
       </el-tab-pane>
       <el-tab-pane label="商品" name="second">
+        <GoodsList :company-info-id="company_info_id"></GoodsList>
       </el-tab-pane>
-      <el-tab-pane label="问大家" name="third">问大家</el-tab-pane>
-      <el-tab-pane label="大众评论" name="fourth">大众评论</el-tab-pane>
+      <el-tab-pane label="问大家" name="third">
+        <QuestionList
+            :company-info-id="company_info_id">
+        </QuestionList>
+      </el-tab-pane>
+      <el-tab-pane label="大众评论" name="fourth">
+        <CommentList
+            :company-info-id="company_info_id">
+        </CommentList>
+      </el-tab-pane>
       <el-tab-pane label="公司简介" name="fifth">公司简介</el-tab-pane>
     </el-tabs>
   </el-container>
@@ -161,9 +145,17 @@ const handleClick = (tab, event) => {
 const text = ref('')
 </script>
 <style scoped>
+.buy_btn{
+  padding: 5px 10px;
+  border-radius: 10px;
+  font-weight: 900;
+  align-self: flex-end;
+}
 .goods_item{
   display: flex;
   flex-direction: column;
+  padding: 10px;
+  letter-spacing: 2px;
 }
 .top_1_tag{
   display: flex;
@@ -252,10 +244,6 @@ const text = ref('')
 .el-container>>>.el-descriptions__header{
   margin-bottom: 0;
   padding: 10px 0px;
-}
-.goods{
-  background-color: #f0f2f7;
-  padding: 10px 10px 0 10px;
 }
 .top_tip_2{
   display: flex;
@@ -355,9 +343,7 @@ const text = ref('')
   height: 2em !important;
   width: 2em !important;
 }
-.el-col{
-  margin-bottom: 10px;
-}
+
 .padding-10{
   padding: 0 10px 20px 10px;
   letter-spacing: 2px;
@@ -367,27 +353,5 @@ const text = ref('')
   color: #6b778c;
   font-size: 32px;
   font-weight: 600;
-}
-.time {
-  font-size: 12px;
-  color: #999;
-}
-
-.bottom {
-  margin-top: 13px;
-  line-height: 12px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.button {
-  padding: 0;
-  min-height: auto;
-}
-
-.image {
-  width: 100%;
-  display: block;
 }
 </style>
