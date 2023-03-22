@@ -121,7 +121,7 @@
 <!--        问答列表结束-->
 <!--        公司首页的问大家结束-->
             <!--        公司首页的大众评论开始-->
-            <el-descriptions title="大众评论" class="margin-20-top">
+            <el-descriptions title="大众评论">
               <template #extra>
                 <el-button type="" text>
                   查看全部<el-icon class="el-icon--right"><ArrowRight /></el-icon>
@@ -248,6 +248,10 @@ const text = ref('')
 }
 .el-container>>>.el-card__body{
   padding: 0px;
+}
+.el-container>>>.el-descriptions__header{
+  margin-bottom: 0;
+  padding: 10px 0px;
 }
 .goods{
   background-color: #f0f2f7;

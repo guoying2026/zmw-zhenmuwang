@@ -111,6 +111,10 @@ const props = defineProps({
   replyToName:{
     type: [String, Number],
   },
+  replyCount:{
+    type: Number,
+    default: 0,
+  },
   //提出问题需要prop
   questionId:{
     type: Number,
@@ -236,6 +240,7 @@ const publishComment = () => {
         commentReplyIndex: props.commentReplyIndex,
         commentId: props.commentId,
         commentReplyId: props.commentReplyId,
+        reply_count: props.replyCount,
         commentReply: {
           id: res.data.id,
           user_id: userStore.userId,

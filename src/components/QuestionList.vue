@@ -1,5 +1,5 @@
 <template>
-  <div class="ask" :class="[index == 0?'':'margin-10-top']" v-for="(item, index) in list.arr" :key="index">
+  <div class="ask" :class="[index % 2 == 0?'grey_bg':'']" v-for="(item, index) in list.arr" :key="index">
     <div class="general_item font-12-size">
       <text class="general_item_1">问</text>
       <AddComment
@@ -91,13 +91,15 @@
 
             <text>{{itemAsk.created_time}}</text>
               <div class="answer_item_left_2_3_right margin-10-top">
-                <div class="answer_item_left_2_3_right">
-                  <ClickLike></ClickLike>
-                  <text>{{itemAsk.useful_count}}</text>
+                <div class="answer_item_left_2_3_right" @click="liked_question(index,indexAsk,itemAsk.id,itemAsk.is_useful,itemAsk.useful_count,itemAsk.useless_count)">
+                  <ClickLike text="有用" v-if="itemAsk.is_useful == 1" :like-bool=true></ClickLike>
+                  <ClickLike text="有用" v-else :like-bool=false></ClickLike>
+                  <text class="margin-5-left">{{itemAsk.useful_count}}</text>
                 </div>
-                <div class="answer_item_left_2_3_right margin-10-left">
-                  <ClickDislike></ClickDislike>
-                  <text>{{itemAsk.useless_count}}</text>
+                <div class="answer_item_left_2_3_right margin-20-left" @click="disliked_question(index,indexAsk,itemAsk.id,itemAsk.is_useful,itemAsk.useful_count,itemAsk.useless_count)">
+                  <ClickDislike text="没用" v-if="itemAsk.is_useful == 2" :dislike-bool=true></ClickDislike>
+                  <ClickDislike text="没用" v-else :dislike-bool=false></ClickDislike>
+                  <text class="margin-5-left">{{itemAsk.useless_count}}</text>
                 </div>
               </div>
             </div>
@@ -113,7 +115,7 @@ export default{
 </script>
 <script setup>
 import { reactive,onMounted } from "vue";
-import { questionListApi } from "../api/question.js";
+import { questionListApi,likeQuestionApi,dislikeQuestionApi,cancelQuestionApi } from "../api/question.js";
 
 //引入用户信息开始
 import { useUserStore } from "../pinia/user.js";
@@ -137,6 +139,72 @@ onMounted(() => {
     list.arr = res.data.data;
   })
 })
+//有用开始
+const liked_question = (index,indexAsk,id,is_useful,useful_count,useless_count) => {
+  //如果is_useful是1。就是有用，再点赞就是取消有用
+  if(is_useful === 1){
+    list.arr[index].ask_list[indexAsk].is_useful = 0;
+    if(useful_count * 1 > 1){
+      list.arr[index].ask_list[indexAsk].useful_count = useful_count * 1 - 1;
+    } else {
+      list.arr[index].ask_list[indexAsk].useful_count = 0;
+    }
+    // cancelQuestionApi({id: id,user_id: userStore.userId}).then(async(res) => {
+    //   if(res.data.status === false){
+    //     list.arr[index].ask_list[indexAsk].is_useful = 1;
+    //   }
+    // })
+  } else {
+    if(is_useful === 2){//如果从无用变成有用，需要减少无用数量
+      if(useless_count * 1 > 1){
+        list.arr[index].ask_list[indexAsk].useless_count = useless_count * 1 - 1;
+      } else {
+        list.arr[index].ask_list[indexAsk].useless_count = 0;
+      }
+    }
+    list.arr[index].ask_list[indexAsk].is_useful = 1;
+    list.arr[index].ask_list[indexAsk].useful_count = useful_count * 1 + 1;
+    // likeQuestionApi({id: id,user_id: userStore.userId}).then(async(res) => {
+    //   if(res.data.status === false){
+    //     list.arr[index].ask_list[indexAsk].is_useful = is_useful;
+    //   }
+    // })
+  }
+}
+//有用结束
+//没用开始
+const disliked_question = (index,indexAsk,id,is_useful,useful_count,useless_count) => {
+  //如果is_useful是2。就是没用，再点赞就是取消没用
+  if(is_useful === 2){
+    list.arr[index].ask_list[indexAsk].is_useful = 0;
+    if(useless_count * 1 > 1){
+      list.arr[index].ask_list[indexAsk].useless_count = useless_count * 1 - 1;
+    } else {
+      list.arr[index].ask_list[indexAsk].useless_count = 0;
+    }
+    // cancelQuestionApi({id: id,user_id: userStore.userId}).then(async(res) => {
+    //   if(res.data.status === false){
+    //     list.arr[index].ask_list[indexAsk].is_useful = 1;
+    //   }
+    // })
+  } else {
+    if(is_useful === 1){//如果从有用变成无用，需要减少有用数量
+      if(useful_count * 1 > 1){
+        list.arr[index].ask_list[indexAsk].useful_count = useful_count * 1 - 1;
+      } else {
+        list.arr[index].ask_list[indexAsk].useful_count = 0;
+      }
+    }
+    list.arr[index].ask_list[indexAsk].is_useful = 2;
+    list.arr[index].ask_list[indexAsk].useless_count = useless_count * 1 + 1;
+    // dislikeQuestionApi({id:id,user_id: userStore.userId}).then(async(res) => {
+    //   if(res.data.status === false){
+    //     list.arr[index].ask_list[indexAsk].is_useful = is_useful;
+    //   }
+    // })
+  }
+}
+//没用结束
 //提问之后，将问题放到问答列表
 const receiveChildAddComment = (param) => {
   console.log(param);
@@ -206,7 +274,7 @@ const receiveChildAddComment = (param) => {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 0px 20px;
+  padding: 20px;
   letter-spacing: 2px;
 }
 .ask .ask_item{
