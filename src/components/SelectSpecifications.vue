@@ -45,7 +45,7 @@
               @change="onChange"
               :controls="false"
               :validate-event="false"
-              :style="isMobile?'width: 47px;':'width: 53px;'"
+              :style="isMobile?'width: 47px;':'width: 50px;'"
             />
         </template>
           <!-- </el-col> -->

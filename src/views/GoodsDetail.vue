@@ -459,11 +459,6 @@ const handleSpecListCountChange = () => {
       return false
     }
     goodsTotalPrice.value = res.data.data.goods_total_price
-    if (isMobile.value) {
-      freightPrice.value = res.data.data.freight_price
-      orderTotalPrice.value = res.data.data.order_total_price
-      totalPrice.value = res.data.data.total_price
-    }
     if (goodsForm.address_name.length>0&&goodsForm.address_phone.length>0&&goodsForm.address_detailed.length>0&&freightPrice.value > 0) {
       calcFreightPriceHandle()
     }
@@ -613,11 +608,6 @@ const orderNotesChangeHandle = () => {
       return false
     }
     goodsTotalPrice.value = res.data.data.goods_total_price
-    if (isMobile.value) {
-      freightPrice.value = res.data.data.freight_price
-      orderTotalPrice.value = res.data.data.order_total_price
-      totalPrice.value = res.data.data.total_price
-    }
     if (freightPrice.value > 0) {
       calcFreightPriceHandle()
     }
