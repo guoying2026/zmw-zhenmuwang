@@ -142,6 +142,7 @@
 import { ref } from 'vue'
 import QuestionList from "../components/QuestionList.vue";
 import CommentList from '../components/CommentList.vue'
+import "../assets/tag.css"
 //
 const company_info_id = ref(0);
 company_info_id.value = 255;
@@ -172,17 +173,6 @@ const text = ref('')
 .icon{
   width: 30px;
   height: 30px;
-}
-.top_1_tag{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-}
-.custom_tag{
-  padding: 10px 20px;
-  border-radius: 10px;
-  margin: 10px;
 }
 .top_1_parent{
   display: flex;

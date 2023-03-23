@@ -5,35 +5,6 @@
   --navbar-line-height: var(--navbar-height);
   --navbar-ft-color: #000;
 }
-.orange_btn{
-  background-color: #fff1e2;
-  color: #ff6060;
-}
-.purple_btn{
-  background-color: #e3e2ff;
-  color: #6160ff;
-  border:none;
-}
-.blue_btn{
-  background-color: #e9f9ff;
-  color: #2ab1e6;
-  border: none;
-}
-.green_btn{
-  background-color: #ebfdec;
-  color: #49a269;
-  border:none;
-}
-.yellow_btn{
-  background-color: #fdeb92;
-  color: #000;
-  border: none;
-}
-.select_btn {
-  background-color: #f5f5f5;
-  color: #333;
-  border:none;
-}
 .grey_bg{
   background: #f0f2f7;
 }
