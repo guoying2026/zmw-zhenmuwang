@@ -70,6 +70,7 @@ button:focus-visible {
   width: 100%;
   overflow-x: hidden;
   letter-spacing: 2px;
+  min-height: calc(100vh - 42px);
 }
 
 @media (prefers-color-scheme: light) {
