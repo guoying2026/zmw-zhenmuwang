@@ -1,14 +1,15 @@
 <template>
   <div class="padding-10 margin-10-top">
     <div class="top_1_tag">
-      <text class="orange_btn custom_tag font-60-weight">加盟商</text>
-      <text class="yellow_btn custom_tag font-60-weight">信用分100</text>
-      <text class="purple_btn custom_tag font-60-weight">入驻真木网285天</text>
-      <text class="blue_btn custom_tag font-60-weight">刨花板</text>
-      <text class="blue_btn custom_tag font-60-weight">密度板</text>
-      <text class="blue_btn custom_tag font-60-weight">杉木实木多层板</text>
-      <text class="blue_btn custom_tag font-60-weight">杉木实木多层板</text>
-      <text class="blue_btn custom_tag font-60-weight">杉木实木多层板</text>
+      <Tag tag="加盟商" number="60" color="orange"></Tag>
+      <Tag tag="信用分100" number="60" color="yellow"></Tag>
+      <Tag tag="入驻真木网" number="60" color="purple"></Tag>
+      <Tag tag="刨花板" number="60" color="blue"></Tag>
+      <Tag tag="密度板" number="60" color="blue"></Tag>
+      <Tag tag="杉木实木多层板" number="60" color="blue"></Tag>
+      <Tag tag="杉木实木多层板" number="60" color="blue"></Tag>
+      <Tag tag="杉木实木多层板" number="60" color="blue"></Tag>
+      <Tag tag="刨花板" number="60" color="blue"></Tag>
     </div>
     <div class="top_2 margin-20-top">
       <div class="margin-10-top top_2_1">
@@ -24,8 +25,7 @@
     <el-row :gutter="24">
       <el-col :span="24" :md="12" class="top_1_parent">
         <div class="top margin-20-top">
-          <div class="top_1 margin-20-top">
-          </div>
+          <CreditScore :credit-score="100"></CreditScore>
         </div>
       </el-col>
       <el-col :span="24" :md="12">
@@ -70,7 +70,7 @@
             </el-button>
           </template>
         </el-descriptions>
-        <GoodsList :company-info-id="company_info_id"></GoodsList>
+        <GoodsList :list="list.arr"></GoodsList>
         <div class="adv_1">
           <div class="top_1_2">
             <text class="top_1_2_left emphasize">ZMW</text>
@@ -111,7 +111,7 @@
             <!--        公司首页的大众评论结束-->
       </el-tab-pane>
       <el-tab-pane label="商品" name="second">
-        <GoodsList :company-info-id="company_info_id"></GoodsList>
+        <GoodsList :list="list.arr"></GoodsList>
       </el-tab-pane>
       <el-tab-pane label="问大家" name="third">
         <QuestionList
@@ -139,10 +139,12 @@
   </el-container>
 </template>
 <script setup>
-import { ref } from 'vue'
+import { ref,onMounted,reactive } from 'vue'
 import QuestionList from "../components/QuestionList.vue";
 import CommentList from '../components/CommentList.vue'
 import "../assets/tag.css"
+import {goodsListApi} from "../api/goods.js";
+import CreditScore from "../components/CreditScore.vue";
 //
 const company_info_id = ref(0);
 company_info_id.value = 255;
@@ -153,10 +155,23 @@ const handleClick = (tab, event) => {
   console.log(tab, event)
 }
 //导航栏切换结束
-
+const list = reactive({
+  arr: []
+});
+onMounted(() => {
+  goodsListApi({},company_info_id.value).then(async(res) => {
+    list.arr =  res.data.data;
+  })
+})
 const text = ref('')
 </script>
 <style scoped>
+.top_1_tag{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
 .fifth{
   display: flex;
   flex-direction: column;
@@ -169,6 +184,9 @@ const text = ref('')
   flex-direction: row;
   align-items: center;
   margin-top: 10px;
+}
+.el-col{
+  margin-bottom: 10px;
 }
 .icon{
   width: 30px;
@@ -244,9 +262,6 @@ const text = ref('')
 .el-container>>>.el-tabs__item:hover{
   color:#000;
 }
-.el-container>>>.el-card__body{
-  padding: 0px;
-}
 .el-container>>>.el-descriptions__header{
   margin-bottom: 0;
   padding: 10px 0px;
@@ -290,23 +305,6 @@ const text = ref('')
   font-size: 24px;
   text-align: center;
 }
-@keyframes miniShape{
-  0%,100%{
-    border-radius: 42% 58% 70% 30% / 45% 45% 55% 55%;
-    transform: translate3d(0,0,0) rotateZ(0.01deg);
-  }
-  34%{
-    border-radius: 70% 30% 46% 54% / 30% 29% 71% 70%;
-    transform:  translate3d(0,5px,0) rotateZ(0.01deg);
-  }
-  50%{
-    transform: translate3d(0,0,0) rotateZ(0.01deg);
-  }
-  67%{
-    border-radius: 100% 60% 60% 100% / 100% 100% 60% 60% ;
-    transform: translate3d(0,-3px,0) rotateZ(0.01deg);
-  }
-}
 .top{
   display: flex;
   flex-direction: column;
@@ -320,25 +318,6 @@ const text = ref('')
   letter-spacing: 2px;
   padding: 20px;
   width: 90%;
-}
-.top_1::before{
-  position: relative;
-  content: "100";
-  text-align: center;
-  font-size: 150px;
-  font-family: fantasy;
-  height: 180px;
-  width: 100%;
-  font-style: italic;
-  background-position: center;
-  background-size: cover;
-  color: #11269a;
-  background-image: linear-gradient(109.6deg, rgb(156, 252, 248) 11.2%, rgb(110, 123, 251) 91.1%);
-  border-radius: 62% 47% 82% 35%/45% 45% 80% 66%;
-  will-change: border-radius,transform,opacity;
-  display: block;
-  -webkit-animation: 5s linear infinite miniShape;
-  animation: 5s linear infinite miniShape;
 }
 .top_2{
   display: flex;

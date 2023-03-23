@@ -34,9 +34,6 @@
 import "../assets/tag.css"
 </script>
 <style scoped>
-.color_ful{
-  background: linear-gradient(115deg,#4fcf70,#fad648,#a767e5,#12bcfe,#44ce7b);
-}
 .all{
   display: flex;
   flex-direction: column;
