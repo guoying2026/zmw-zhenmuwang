@@ -16,3 +16,27 @@ export const publishQuestionApi = (data) => {
         data
     })
 }
+//有用接口
+export const likeQuestionApi = (data) => {
+    return axiosRequest({
+        url: "/Pc/CompanyComment/likeQuestion",
+        method: 'post',
+        data
+    })
+}
+//没用接口
+export const dislikeQuestionApi = (data) => {
+    return axiosRequest({
+        url: '/Pc/CompanyComment/disLikeQuestion',
+        method: 'post',
+        data
+    })
+}
+//取消说有用还是没用接口
+export const cancelQuestionApi = (data) => {
+    return axiosRequest({
+        url: '/Pc/CompanyComment/cancelQuestion',
+        method: 'post',
+        data
+    })
+}

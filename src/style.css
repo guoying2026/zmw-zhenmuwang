@@ -68,6 +68,8 @@ button:focus-visible {
   flex-direction: column;
   justify-content: flex-start;
   width: 100%;
+  overflow-x: hidden;
+  letter-spacing: 2px;
 }
 
 @media (prefers-color-scheme: light) {
