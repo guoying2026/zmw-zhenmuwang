@@ -7,34 +7,32 @@
     :infinite-scroll-immediate="false"
     :infinite-scroll-distance="120"
   >
-    <el-header>
-      <el-row>
-        <el-col>
-          <el-button
-            :class="isCreditScoreDesc?'green_btn':'blue_btn'"
-            type="info"
-            round
-            @click="changeCreditScoreSort"
-          >信用分<el-icon>
-              <SortDown v-if="isCreditScoreDesc" />
-              <SortUp v-else />
-            </el-icon>
-          </el-button>
-          <el-button
-            :class="isOnlyViewBlackList?'yellow_btn':'select_btn'"
-            round
-            @click="handleOnlyViewBlackList"
-            >只看黑名单
-          </el-button>
-          <el-button
-            :class="isOnlyViewFranchisee?'purple_btn':'select_btn'"
-            round
-            @click="handleOnlyViewFranchisee"
-            >只看加盟商
-          </el-button>
-        </el-col>
-      </el-row>
-    </el-header>
+    <div class="top_1_tag">
+      <div
+          class="custom_tag font-60-weight"
+          :class="isCreditScoreDesc?'green_btn':'blue_btn'"
+          @click="changeCreditScoreSort">
+        信用分
+        <el-icon>
+          <SortDown v-if="isCreditScoreDesc" />
+          <SortUp v-else />
+        </el-icon>
+      </div>
+      <text
+          :class="isOnlyViewBlackList?'yellow_btn':'select_btn'"
+          @click="handleOnlyViewBlackList"
+          class="custom_tag font-60-weight"
+      >
+        只看黑名单
+      </text>
+      <text
+          class="custom_tag font-60-weight"
+          :class="isOnlyViewFranchisee?'purple_btn':'select_btn'"
+          @click="handleOnlyViewFranchisee"
+      >
+        只看加盟商
+      </text>
+    </div>
     <el-main v-loading="isMobile?currentPage===1&&isLoading:isLoading">
       <el-skeleton v-if="isMobile?currentPage===1&&isLoading:isLoading" :rows="5" />
       <el-empty v-else-if="isMobile?currentPage===1&&isLoadFailed:isLoadFailed">
@@ -96,18 +94,11 @@
   <el-backtop class="hidden-sm-and-up" :right="20" :bottom="30" />
 </template>
 <script setup>
+import '../assets/tag.css'
 import { nextTick, onUnmounted, ref, watchEffect } from 'vue'
-import { tailCargoList, getIndexDataApi } from "../api/list.js";
+import { getIndexDataApi } from "../api/list.js";
 import { useSearchStore } from '../pinia/search.js';
 const searchStore = useSearchStore()
-
-const getTailCargoList = () => {
-  tailCargoList({}).then(async(res) => {
-    console.log('tailCargoList');
-    console.log(res);
-  })
-}
-getTailCargoList()
 
 // 信用分升序或降序排序
 const isCreditScoreDesc = ref(true)
