@@ -1,44 +1,39 @@
 <template>
   <el-row :gutter="8" class="goods" >
     <el-col
-        v-for="(item,index) in list.arr"
+        v-for="(item,index) in list"
         :key="index"
         :span="12"
         :md="6"
     >
-      <el-card>
-        <img
-            src="https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png"
-            class="image"
+      <div class="goods_card">
+        <el-image
+            :src="item.mainurl"
+            :hide-on-click-modal=true
+            style="width:100%; height: 200px"
+            fit="fill"
+            :zoom-rate="1.2"
+            :initial-index="index"
+            lazy
         />
         <div class="goods_item font-12-size">
-          <text class="font-15-size">{{item.name}}</text>
+          <text class="font-15-size">{{item.goods_title}}</text>
           <text class="margin-10-top">详细发货地址：{{item.area}}</text>
           <div class="margin-10-top green_btn buy_btn">
             <text>¥ </text>
-            <text class="font-18-size">{{item.price}}</text>
+            <text class="font-18-size">{{item.goods_price}}</text>
           </div>
         </div>
-      </el-card>
+      </div>
     </el-col>
   </el-row>
 </template>
 <script setup>
-import { ref, reactive, onMounted } from "vue";
-import { goodsListApi } from "../api/goods.js";
 const props = defineProps({
-  companyInfoId:{
-    type: Number,
-    default: 0,
+  list:{
+    type: Array,
+    default: [],
   }
-})
-const list = reactive({
-  arr: []
-})
-onMounted(() => {
-  goodsListApi({},props.companyInfoId).then(async(res) => {
-    list.arr =  res.data.data;
-  })
 })
 </script>
 <script>
@@ -47,12 +42,12 @@ export default{
 }
 </script>
 <style scoped>
-.image {
-  width: 100%;
-  display: block;
-}
 .el-col{
   margin-bottom: 10px;
+}
+.goods_card{
+  background-color: #fff;
+  border-radius: 10px;
 }
 .goods{
   background-color: #f0f2f7;

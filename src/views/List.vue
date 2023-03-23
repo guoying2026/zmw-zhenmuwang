@@ -1,3 +1,33 @@
+<style>
+.left_1{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: baseline;
+}
+.left_1 .left_1_2{
+  display:flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+.tag{
+  align-self: flex-start;
+}
+.left_1_2_2{
+  display: flex;
+  flex-wrap: wrap;
+}
+.left{
+  display: flex;
+  flex-direction: column;
+}
+.padding-20{
+  padding: 0px 20px 0px 20px !important;
+}
+.el-col{
+  margin-bottom: 10px;
+}
+</style>
 <template>
   <el-container
     direction="vertical"
@@ -7,7 +37,7 @@
     :infinite-scroll-immediate="false"
     :infinite-scroll-distance="120"
   >
-    <div class="top_1_tag">
+    <div class="top_1_tag font-15-size">
       <div
           class="custom_tag font-60-weight"
           :class="isCreditScoreDesc?'green_btn':'blue_btn'"
@@ -19,7 +49,7 @@
         </el-icon>
       </div>
       <text
-          :class="isOnlyViewBlackList?'yellow_btn':'select_btn'"
+          :class="isOnlyViewBlackList?'yellow_btn':'black_btn'"
           @click="handleOnlyViewBlackList"
           class="custom_tag font-60-weight"
       >
@@ -27,46 +57,64 @@
       </text>
       <text
           class="custom_tag font-60-weight"
-          :class="isOnlyViewFranchisee?'purple_btn':'select_btn'"
+          :class="isOnlyViewFranchisee?'blue_btn':'black_btn'"
           @click="handleOnlyViewFranchisee"
       >
         只看加盟商
       </text>
     </div>
-    <el-main v-loading="isMobile?currentPage===1&&isLoading:isLoading">
+    <div v-loading="isMobile?currentPage===1&&isLoading:isLoading">
       <el-skeleton v-if="isMobile?currentPage===1&&isLoading:isLoading" :rows="5" />
       <el-empty v-else-if="isMobile?currentPage===1&&isLoadFailed:isLoadFailed">
         <template #description>
           <span class="fail_tips_text">加载失败，请稍后<el-link :underline="false" @click="reloadHandle">重试</el-link></span>
         </template>
       </el-empty>
-      <el-row v-else>
-        <template v-for="(item, index) in list" v-bind:key="item" :key="item.id">
-          <el-col
-            :span="24"
-            :md="index <= 1 ? { span: 24 } : { span: 12 }"
-            v-if="isMobile ? true : index < pageSize"
-          >
-            <SellerInfo
-              :province="item.province"
-              :name="item.company_name"
-              :is-franchisee="item.isFranchisee"
-              :is-blacklist="item.isBlacklist"
-              :credit-score="item.score"
-              :unified-social-credit-code="item.credit_code"
-              :legal-representative="item.corporation"
-              :time-of-establishment="item.foundation_date"
-              :registered-capital="item.registered_capital"
-              :address="item.address"
-              :range="item.business_scope"
-              :phone="item.contact_phone"
-              :is-show-goods="index <= 1"
-              :goods="item.goods"
-            />
-          </el-col>
-        </template>
-      </el-row>
-    </el-main>
+      <div v-for="(item,index) in list" :key="index" v-else>
+        <div class="first">
+<!--          不展示商品 start-->
+          <div class="padding-20 left" v-if="item.isBlacklist">
+            <div class="left_1">
+              <CreditScore :credit-score="item.score" credit-score-text="信用分" :font-size="40" height="80" width="100px"></CreditScore>
+              <div class="left_1_2">
+                <text class="font-18-size font-60-weight margin-10-left">{{ item.company_name }}</text>
+                <div class="left_1_2_2">
+                  <Tag class="tag" tag="黑名单" number="60" color="black" v-if="item.isBlacklist"></Tag>
+                  <Tag class="tag" tag="加盟商" number="60" color="orange" v-if="item.isFranchisee"></Tag>
+                  <Tag class="tag margin-10-left" :tag="item.province" number="60" color="blue"></Tag>
+                </div>
+              </div>
+            </div>
+            <SellerInfo :item="item"></SellerInfo>
+          </div>
+<!--          不展示商品end-->
+<!--          展示商品开始-->
+          <el-row :gutter="24" v-else>
+            <el-col :span="24" :md="12">
+              <div class="padding-20 left">
+                <div class="left_1">
+                  <CreditScore :credit-score="item.score" credit-score-text="信用分" :font-size="40" height="80" width="100px"></CreditScore>
+                  <div class="left_1_2">
+                    <text class="font-18-size font-60-weight margin-10-left">{{ item.company_name }}</text>
+                    <div class="left_1_2_2">
+                      <Tag class="tag" tag="黑名单" number="60" color="black" v-if="item.isBlacklist"></Tag>
+                      <Tag class="tag" tag="加盟商" number="60" color="orange" v-if="item.isFranchisee"></Tag>
+                      <Tag class="tag margin-10-left" :tag="item.province" number="60" color="blue"></Tag>
+                    </div>
+                  </div>
+                </div>
+                <SellerInfo :item="item"></SellerInfo>
+              </div>
+            </el-col>
+            <el-col :span="24" :md="12">
+              <GoodsList :list="item.goods"></GoodsList>
+            </el-col>
+          </el-row>
+<!--          展示商品结束-->
+        </div>
+      </div>
+      </div>
+
     <el-footer
       class="list_page_footer"
       v-if="isMobile ? (totalPage > 1 ? (currentPage >= 1 && currentPage <= totalPage) : false) : true"
@@ -95,9 +143,12 @@
 </template>
 <script setup>
 import '../assets/tag.css'
-import { nextTick, onUnmounted, ref, watchEffect } from 'vue'
+import CreditScore from "../components/CreditScore.vue";
+import GoodsList from "../components/GoodsList.vue";
+import { nextTick, onUnmounted, ref } from 'vue'
 import { getIndexDataApi } from "../api/list.js";
 import { useSearchStore } from '../pinia/search.js';
+import SellerInfo from "../components/SellerInfo.vue";
 const searchStore = useSearchStore()
 
 // 信用分升序或降序排序
@@ -303,6 +354,12 @@ onUnmounted(() => {
 loadmore()
 </script>
 <style scoped>
+.top_1_tag{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
 .el-header {
   line-height: var(--el-header-height);
 }
@@ -314,31 +371,6 @@ loadmore()
   .el-header .el-row:first-of-type {
     flex-wrap: nowrap;
   }
-}
-.purple_btn{
-  background-color: #e3e2ff;
-  color: #6160ff;
-  border:none;
-}
-.blue_btn{
-  background-color: #e9f9ff;
-  color: #2ab1e6;
-  border: none;
-}
-.green_btn{
-  background-color: #ebfdec;
-  color: #49a269;
-  border:none;
-}
-.yellow_btn{
-  background-color: #fdeb92;
-  color: #000;
-  border: none;
-}
-.select_btn {
-  background-color: #f5f5f5;
-  color: #333;
-  border:none;
 }
 .no_max_width {
   max-width: none;
