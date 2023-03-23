@@ -28,90 +28,65 @@
                 <template #reference>智能运费</template>
               </el-popover>
             </el-descriptions-item>
-            <el-descriptions-item>
+          </el-descriptions>
+        </el-col>
+        <el-col class="hidden-xs-only" :span="18" :offset="6">
+          <el-form
+            ref="formRef"
+            :inline-message="true"
+            :hide-required-asterisk="true"
+            label-width="100px"
+            :model="goodsForm"
+            :rules="goodsFormRules"
+          >
+            <el-form-item prop="specs" required>
               <template #label>
-                <el-row align="middle">
-                  <el-col class="pc_spec" :span="2" :sm="2" :md="1" :lg="1" :xl="1">规格</el-col>
-                  <el-col v-if="isShowAddNewSpecification" class="pc_spec_add" :span="2" :sm="2" :md="1" :lg="1" :xl="1">
+                <el-row justify="space-between" align="middle">
+                  <el-col class="pc_spec" :span="12">规格</el-col>
+                  <el-col v-if="isShowAddNewSpecification" class="pc_spec_add" :span="12">
                     <el-link type="danger" :underline="false" @click="addNewSpecification">新增</el-link>
                   </el-col>
                 </el-row>
               </template>
-              <el-table :data="specList" :show-header="false">
-                <el-table-column min-width="100">
-                  <template #default="scope">
-                    <!-- 常规规格 start -->
-                    <template
-                      v-if="scope.row.is_add_manual == 0 || scope.row.is_add_manual == false"
-                    >{{ scope.row.specifications }}</template>
-                    <!-- 常规规格 end -->
-                    <!-- 自定义规格 start -->
-                    <el-row v-else>
-                      <el-col>
-                        <el-input
-                          class="pc_spec-input"
-                          v-model="scope.row.long"
-                          type="number"
-                          step="0.01"
-                          size="small"
-                          placeholder="长"
-                        />×
-                        <el-input
-                          class="pc_spec-input"
-                          v-model="scope.row.width"
-                          type="number"
-                          step="0.01"
-                          size="small"
-                          placeholder="宽"
-                        />×
-                        <el-input
-                          class="pc_spec-input"
-                          v-model="scope.row.height"
-                          type="number"
-                          step="0.01"
-                          size="small"
-                          placeholder="高"
-                        />
-                      </el-col>
-                    </el-row>
-                    <!-- 自定义规格 end -->
-                  </template>
-                </el-table-column>
-                <el-table-column min-width="40">
-                  <template #default="scope">
-                    <template
-                      v-if="scope.row.is_add_manual == 0 || scope.row.is_add_manual == false"
-                    >{{ scope.row.goods_price }}元</template>
-                  </template>
-                </el-table-column>
-                <el-table-column min-width="50">
-                  <template #default="scope">
-                    <template
-                      v-if="scope.row.is_add_manual == 0 || scope.row.is_add_manual == false"
-                    >{{ scope.row.count }}{{ formatUnit(scope.row.count_unit) }}可售</template>
-                  </template>
-                </el-table-column>
-                <el-table-column>
-                  <template #default="scope">
-                    <el-input-number
-                      size="small"
-                      v-model="scope.row.select_count"
-                      :min="0"
-                      :max="scope.row.is_add_manual == 0 || scope.row.is_add_manual == false ? Number(scope.row.count) : Infinity"
-                      @change="handleSpecListCountChange"
-                    />
-                  </template>
-                </el-table-column>
-              </el-table>
-            </el-descriptions-item>
-            <el-descriptions-item>
-              <template #label>收货信息</template>
-              <EditAddress :id="selectedReceiveAddressId" :list="receiveAddressList" @changeId="recvAddIdChangeHandle" @changeList="recvAddListChangeHandle" />
-            </el-descriptions-item>
-            <el-descriptions-item>
+              <SelectSpecifications :type="type" :goodsId="goodsId" v-model="specList" @onChange="handleSpecListCountChange" />
+            </el-form-item>
+            <el-form-item prop="address_name" required>
+              <template #label>收货人姓名</template>
+              <el-input
+                v-model="goodsForm.address_name"
+                placeholder="请输入收货人姓名"
+                :validate-event="false"
+              />
+            </el-form-item>
+            <el-form-item prop="address_phone" required>
+              <template #label>收货电话</template>
+              <el-input
+                type="tel"
+                v-model="goodsForm.address_phone"
+                placeholder="请输入收货人手机号码"
+                :validate-event="false"
+              />
+            </el-form-item>
+            <el-form-item prop="address_detailed" required>
+              <template #label>收货地址</template>
+              <el-input
+                v-model="goodsForm.address_detailed"
+                placeholder="请输入详细收货地址"
+                :validate-event="false"
+              />
+            </el-form-item>
+            <el-form-item>
               <el-row>
                 <el-col :span="12">
-                  <el-input type="textarea" :rows="4" resize="none" v-model="remarkContent" placeholder="请输入订单备注" @change="remarkContentChangeHandle" />
+                  <el-input
+                    type="textarea"
+                    :rows="4"
+                    resize="none"
+                    v-model="goodsForm.order_notes"
+                    placeholder="请输入订单备注"
+                    @change="remarkContentChangeHandle"
+                    :validate-event="false"
+                  />
                 </el-col>
                 <el-col :span="12">
                   <el-row>
@@ -126,7 +101,12 @@
                         <el-col class="pc_form_item-title" :span="14">智能运费：</el-col>
                         <el-col class="pc_form_item-content" :span="10">
                           <template v-if="freightPrice > 0">{{ freightPrice }}元</template>
-                          <template v-else><el-link class="pc_form_item-content" :underline="false" @click="calcFreightPriceHandle">点击计算</el-link></template>
+                          <template v-else>
+                            <template v-if="isCalcingFreightPrice">正在计算中...</template>
+                            <template v-else>
+                              <el-link class="pc_form_item-content" :underline="false" @click="calcFreightPriceHandle">点击计算</el-link>
+                            </template>
+                          </template>
                         </el-col>
                       </el-row>
                     </el-col>
@@ -145,8 +125,40 @@
                   </el-row>
                 </el-col>
               </el-row>
-            </el-descriptions-item>
-          </el-descriptions>
+            </el-form-item>
+            <el-form-item>
+              <el-button size="large">咨询客服</el-button>
+              <el-button size="large" @click="submitOrderByPcHandle">扫码支付</el-button>
+              <PcPay
+                :isShow="isShowPcPayQrcode"
+                :outTradeNo="outTradeNo"
+                :codeUrl="pcPayQrcodeValue"
+                @onClose="pcPayCloseHandle"
+                @onGetPayResult="getPayResultHandle"
+              />
+            </el-form-item>
+            <el-form-item>
+              <template #label>买家服务</template>
+              <template v-for="(item, index) in buyerServices" v-bind:key="item">
+                <el-image class="pc_buyer_service-icon" :src="item.icon" fit="contain" />
+                {{ item.name }}
+                &nbsp;&nbsp;&nbsp;
+              </template>
+            </el-form-item>
+            <el-form-item>
+              <template #label>支付方式</template>
+              <template v-for="(item, index) in payTypes" v-bind:key="item">
+                {{ item }}
+                &nbsp;&nbsp;&nbsp;
+              </template>
+            </el-form-item>
+            <el-form-item>
+              <template v-for="(item, index) in tags" v-bind:key="item">
+                <el-tag class="pc_goods-tags-tag_item" type="info">{{ item }}</el-tag>
+                &nbsp;&nbsp;&nbsp;
+              </template>
+            </el-form-item>
+          </el-form>
         </el-col>
         <!-- pc端产品信息 end -->
         <!-- 移动端产品信息 start -->
@@ -162,7 +174,7 @@
             </el-descriptions-item>
             <el-descriptions-item>
               <template #label>选择</template>
-              <el-row class="mobile_select_spec" @click="changeDrawerShow">
+              <el-row class="mobile_select_spec" @click="gotoBuyNowHandle">
                 <el-col>
                   <el-row>
                     <el-col :span="22">尺寸分类：</el-col>
@@ -219,53 +231,6 @@
           </el-descriptions>
         </el-col>
         <!-- 移动端产品信息 end -->
-        <!-- pc端购买操作区域 start -->
-        <el-col class="hidden-xs-only" :span="18" :offset="6">
-          <el-button size="large">咨询客服</el-button>
-          <el-button size="large" @click="submitOrderByPcHandle">扫码支付</el-button>
-          <PcPay
-            :isShow="isShowPcPayQrcode"
-            :outTradeNo="outTradeNo"
-            :codeUrl="pcPayQrcodeValue"
-            @onClose="pcPayCloseHandle"
-            @onGetPayResult="getPayResultHandle"
-          />
-        </el-col>
-        <!-- pc端购买操作区域 end -->
-        <!-- pc端产品额外信息 start -->
-        <el-col class="hidden-xs-only" :span="18" :offset="6">
-          <el-descriptions :column="1">
-            <!-- 买家服务 start -->
-            <el-descriptions-item>
-              <template #label><br />买家服务</template>
-              <template v-for="(item, index) in buyerServices" v-bind:key="item">
-                <el-image class="pc_buyer_service-icon" :src="item.icon" fit="contain" />
-                {{ item.name }}
-                &nbsp;&nbsp;&nbsp;
-              </template>
-            </el-descriptions-item>
-            <!-- 买家服务 end -->
-            <!-- 支付方式 start -->
-            <el-descriptions-item>
-              <template #label><br />支付方式</template>
-              <template v-for="(item, index) in payTypes" v-bind:key="item">
-                {{ item }}
-                &nbsp;&nbsp;&nbsp;
-              </template>
-            </el-descriptions-item>
-            <!-- 支付方式 end -->
-            <!-- 商品标签 start -->
-            <el-descriptions-item>
-              <template #label><br /></template>
-              <template v-for="(item, index) in tags" v-bind:key="item">
-                <el-tag class="pc_goods-tags-tag_item" type="info">{{ item }}</el-tag>
-                &nbsp;&nbsp;&nbsp;
-              </template>
-            </el-descriptions-item>
-            <!-- 商品标签 end -->
-          </el-descriptions>
-        </el-col>
-        <!-- pc端产品额外信息 end -->
         <!-- 产品详情和交易记录 start -->
         <GoodsIntroduce
           :description="goodsDescription"
@@ -273,7 +238,128 @@
           :factoryFeatures="factoryFeatures"
           :imageList="goodsDetailImageList"
           :tradeLog="tradeLog"
-        />
+        >
+          <el-form
+            ref="formRef"
+            :inline-message="true"
+            :hide-required-asterisk="true"
+            label-position="top"
+            :model="goodsForm"
+            :rules="goodsFormRules"
+          >
+            <el-form-item prop="specs" required>
+              <template #label>
+                <el-row justify="space-between" align="middle">
+                  <el-col :span="6">
+                    <el-row justify="start" align="middle">
+                      <el-col class="pc_spec" :span="12">规格</el-col>
+                      <el-col v-if="isShowAddNewSpecification" class="pc_spec_add" :span="12">
+                        <el-link type="danger" :underline="false" @click="addNewSpecification">新增</el-link>
+                      </el-col>
+                    </el-row>
+                  </el-col>
+                  <el-col :span="18">
+                    <el-row justify="end" align="middle" style="text-align: right;">
+                      <el-col :span="16">请选择单位</el-col>
+                      <el-col :span="8">
+                        <el-select
+                          v-model="selectedUnitIndex"
+                          placeholder="请选择单位"
+                          size="small"
+                          @change="selectedUnitIndexChangeHandle"
+                          :validate-event="false"
+                        >
+                          <el-option
+                            v-for="(item, index) in unitArr"
+                            v-bind:key="item"
+                            :label="item.unit"
+                            :value="item.count_unit"
+                          />
+                        </el-select>
+                      </el-col>
+                    </el-row>
+                  </el-col>
+                </el-row>
+              </template>
+              <SelectSpecifications :type="type" :goodsId="goodsId" v-model="specList" @onChange="handleSpecListCountChange" />
+            </el-form-item>
+            <el-form-item prop="address_name" required>
+              <template #label>收货人姓名</template>
+              <el-input
+                v-model="goodsForm.address_name"
+                placeholder="请输入收货人姓名"
+                :validate-event="false"
+              />
+            </el-form-item>
+            <el-form-item prop="address_phone" required>
+              <template #label>收货电话</template>
+              <el-input
+                type="tel"
+                v-model="goodsForm.address_phone"
+                placeholder="请输入收货人手机号码"
+                :validate-event="false"
+              />
+            </el-form-item>
+            <el-form-item prop="address_detailed" required>
+              <template #label>收货地址</template>
+              <el-input
+                v-model="goodsForm.address_detailed"
+                placeholder="请输入详细收货地址"
+                :validate-event="false"
+              />
+            </el-form-item>
+            <el-form-item>
+              <template #label>推荐备注(选填)</template>
+              <el-checkbox-group
+                v-model="selectedRemarkListItems"
+                size="small"
+                @change="remarkListSelectedChangeHandle"
+                :validate-event="false"
+              >
+                <el-checkbox-button
+                  v-for="(item, index) in remarkList"
+                  v-bind:key="item"
+                  :key="item.name"
+                  :label="item.name"
+                  :validate-event="false"
+                >{{ item.name }}</el-checkbox-button>
+              </el-checkbox-group>
+            </el-form-item>
+            <el-form-item>
+              <template #label>留言</template>
+              <el-input
+                type="textarea"
+                :rows="2"
+                resize="none"
+                v-model="remarkContent"
+                placeholder="请勿包含加工要求信息。如无，可不输入"
+                @change="remarkContentChangeHandle"
+                :validate-event="false"
+              />
+            </el-form-item>
+            <el-form-item>
+              <el-descriptions :column="3" direction="vertical" style="width: 100%;">
+                <el-descriptions-item align="left" label="商品总价">{{ goodsTotalPrice > 0 ? goodsTotalPrice : '？' }}元</el-descriptions-item>
+                <el-descriptions-item align="left" label="智能运费">
+                  <template v-if="freightPrice > 0">{{ freightPrice }}元</template>
+                  <template v-else>
+                    <template v-if="isCalcingFreightPrice">正在计算中...</template>
+                    <template v-else>
+                      <el-link class="pc_form_item-content" :underline="false" @click="calcFreightPriceHandle">点击计算</el-link>
+                    </template>
+                  </template>
+                </el-descriptions-item>
+                <el-descriptions-item align="left" label="订单总价">{{ orderTotalPrice > 0 ? orderTotalPrice : '？' }}元</el-descriptions-item>
+              </el-descriptions>
+              <el-descriptions :column="1" direction="horizontal" style="width: 100%;">
+                <el-descriptions-item align="left" label="合计">￥{{ totalPrice > 0 ? totalPrice : '？' }}元</el-descriptions-item>
+              </el-descriptions>
+            </el-form-item>
+          </el-form>
+          <el-affix position="bottom" target=".el-tabs__content">
+            <el-button type="danger" class="goods_footer-large_btn" @click="submitOrderByMobileHandle">提交订单</el-button>
+          </el-affix>
+        </GoodsIntroduce>
         <!-- 产品详情和交易记录 end -->
         <!-- 产品信息 end -->
         <!-- 为你推荐 start -->
@@ -293,229 +379,31 @@
     </el-main>
     <!-- 加载失败 end -->
     <GoodsDetailSkeleton v-if="isLoading" />
-    <!-- 移动端购买弹窗 start -->
-    <el-drawer
-      v-model="isDrawerShow"
-      direction="btt"
-      size="90%"
-    >
-      <!-- 弹窗头部 start -->
-      <template #header>
-        <el-row align="middle">
-          <el-col :span="8" class="mobile_buy_drawer-header-image_container">
-            <el-image
-              class="mobile_buy_drawer-header-image"
-              :src="goodsMainImageList[0] ? goodsMainImageList[0] : ''"
-              fit="cover"
-            />
-          </el-col>
-          <el-col :span="16" :push="1">
-            <el-row>
-              <el-col class="font-size-extra-large font-weight-bold">{{ goodsTitle }}</el-col>
-              <el-col class="font-size-large mobile_buy_drawer-header-price">
-                <span class="font-size-extra-small">￥</span>{{ goodsTotalPrice > 0 && totalPrice > 0 ? totalPrice : goodsPrice }}
-              </el-col>
-              <el-col class="font-size-base">
-                库存{{ goodsStock }}{{ formatUnit(specList[0] ? specList[0].count_unit : 0) }}
-              </el-col>
-            </el-row>
-          </el-col>
-        </el-row>
-      </template>
-      <!-- 弹窗头部 end -->
-      <!-- 弹窗底部 start -->
-      <template #footer>
-        <el-button class="mobile_buy_drawer-footer-btn" type="danger" round @click="submitOrderByMobileHandle">
-          <template v-if="isBuyNow">立即购买</template>
-        </el-button>
-      </template>
-      <!-- 弹窗底部 end -->
-      <!-- 弹窗主体 start -->
-      <el-row>
-        <!-- 三维示意图 start -->
-        <el-col>
-          <el-image :src="threeDImage" fit="contain" />
-        </el-col>
-        <!-- 三维示意图 end -->
-        <!-- 规格 start -->
-        <!-- 规格提示区域 start -->
-        <el-col>
-          <el-row align="middle">
-            <el-col class="font-size-base" :span="isShowAddNewSpecification?6:9">请选择规格</el-col>
-            <el-col
-              v-if="isShowAddNewSpecification"
-              class="font-size-base mobile_buy_drawer-main-add_spec"
-              :span="3"
-            >
-              <el-link type="danger" :underline="false" @click="addNewSpecification">新增</el-link>
-            </el-col>
-            <el-col :span="15">
-              <el-row align="middle">
-                <el-col class="font-size-base text-align-right" :span="16">请选择单位</el-col>
-                <el-col :span="8">
-                  <el-select v-model="selectedUnitIndex" placeholder="请选择单位" size="small">
-                    <el-option
-                      v-for="(item, index) in unitArr"
-                      v-bind:key="item"
-                      :label="item.unit"
-                      :value="item.count_unit"
-                    />
-                  </el-select>
-                </el-col>
-              </el-row>
-            </el-col>
-          </el-row>
-        </el-col>
-        <!-- 规格提示区域 end -->
-        <!-- 规格详情 start -->
-        <el-col>
-          <el-table :data="specList" :show-header="false">
-            <el-table-column>
-              <template #default="scope">
-                <!-- 常规规格 start -->
-                <el-row v-if="scope.row.is_add_manual==0||scope.row.is_add_manual==false">
-                  <el-col class="font-size-base">{{ scope.row.specifications }}</el-col>
-                  <el-col class="font-size-small">
-                    <span class="font-size-extra-small">￥</span>{{ scope.row.goods_price }}
-                  </el-col>
-                </el-row>
-                <!-- 常规规格 end -->
-                <!-- 自定义规格 start -->
-                <el-row v-else>
-                  <el-col class="font-size-base">
-                    <el-input
-                      v-model="scope.row.long"
-                      type="number"
-                      step="0.01"
-                      size="small"
-                      placeholder="长"
-                      class="mobile_buy_drawer-main-spec_input"
-                    />×
-                    <el-input
-                      v-model="scope.row.width"
-                      type="number"
-                      step="0.01"
-                      size="small"
-                      placeholder="宽"
-                      class="mobile_buy_drawer-main-spec_input"
-                    />×
-                    <el-input
-                      v-model="scope.row.height"
-                      type="number"
-                      step="0.01"
-                      size="small"
-                      placeholder="高"
-                      class="mobile_buy_drawer-main-spec_input"
-                    />
-                  </el-col>
-                  <el-col class="font-size-small">特殊规格请手动输入</el-col>
-                </el-row>
-                <!-- 自定义规格 end -->
-              </template>
-            </el-table-column>
-            <el-table-column align="right">
-              <template #default="scope">
-                <el-input-number
-                  v-model="scope.row.select_count"
-                  :min="0"
-                  :max="scope.row.is_add_manual == 0 || scope.row.is_add_manual == false ? Number(scope.row.count) : Infinity"
-                  @change="handleSpecListCountChange"
-                  size="small"
-                />
-              </template>
-            </el-table-column>
-          </el-table>
-        </el-col>
-        <!-- 规格详情 end -->
-        <!-- 规格 end -->
-        <!-- 备注 start -->
-        <el-col>
-          <el-row>
-            <!-- 推荐备注 start -->
-            <el-col class="font-size-base">推荐备注(选填)</el-col>
-            <el-col>
-              <el-checkbox-group v-model="selectedRemarkListItems" size="small" @change="remarkListSelectedChangeHandle">
-                <el-checkbox-button
-                  v-for="(item, index) in remarkList"
-                  v-bind:key="item"
-                  :key="item.name"
-                  :label="item.name"
-                >{{ item.name }}</el-checkbox-button>
-              </el-checkbox-group>
-            </el-col>
-            <!-- 推荐备注 end -->
-            <!-- 留言 start -->
-            <el-col class="font-size-base">
-              <el-row align="middle">
-                <el-col :span="4">留言：</el-col>
-                <el-col :span="20">
-                  <el-input size="small" v-model="remarkContent" placeholder="请勿包含加工要求信息。如无，可不输入" @change="remarkContentChangeHandle" />
-                </el-col>
-              </el-row>
-            </el-col>
-            <!-- 留言 end -->
-          </el-row>
-        </el-col>
-        <!-- 备注 end -->
-      </el-row>
-      <!-- 弹窗主体 end -->
-    </el-drawer>
-    <!-- 移动端购买弹窗 end -->
-    <!-- 移动端底部栏 start -->
-    <el-affix class="hidden-sm-and-up" position="bottom">
-      <el-row class="goods_footer" align="middle">
-        <!-- 联系客服 start -->
-        <el-col :span="7" class="goods_footer-small_btn">
-          <el-icon class="goods_footer-small_btn-icon" @click="toContactService"><Service /></el-icon>
-          <br @click="toContactService" />
-          <span class="goods_footer-small_btn-text" @click="toContactService">客服</span>
-        </el-col>
-        <!-- 联系客服 end -->
-        <!-- 收藏 start -->
-        <el-col :span="7" class="goods_footer-small_btn">
-          <el-icon class="goods_footer-small_btn-icon" @click="changeCollectGoods">
-            <StarFilled v-if="isCollected" />
-            <Star v-else />
-          </el-icon>
-          <br @click="changeCollectGoods" />
-          <span class="goods_footer-small_btn-text" @click="changeCollectGoods">
-            <template v-if="isCollected">取消</template>收藏
-          </span>
-        </el-col>
-        <!-- 收藏 end -->
-        <!-- 立即购买 start -->
-        <el-col :span="10">
-          <el-button type="danger" class="goods_footer-large_btn" @click="showBuyNow">立即购买</el-button>
-        </el-col>
-        <!-- 立即购买 end -->
-      </el-row>
-    </el-affix>
-    <!-- 移动端底部栏 end -->
   </el-container>
 </template>
 <script setup>
-import { nextTick, ref } from 'vue'
+import { nextTick, ref, reactive, watchEffect } from 'vue'
 import { useRoute } from 'vue-router'
 import {
   getGoodsDetailApi,
-  addCollectApi,
-  cancelCollectApi,
   getGoodsSpecsPriceApi,
   getCalcFreightApi,
   submitOrderApi,
 } from '../api/goods.js'
 import { formatHttpsProtocol } from '../utils/httpReplace.js'
 import { formatUnit } from '../utils/good.js'
-import { useToPayOrderStore } from '../pinia/toPayOrder'
-// 引入用户信息
-import { useUserStore } from "../pinia/user.js";
-const userStore = useUserStore();
-const toPayOrderStore = useToPayOrderStore()
+import { useAddressStore } from '../pinia/address.js'
+import { useSelectedGoodsSpecsStore } from '../pinia/selectedGoodsSpecs.js'
+const addressStore = useAddressStore()
+const selectedGoodsSpecsStore = useSelectedGoodsSpecsStore()
 // 定义并获取url地址传进来的goods_id参数
 const goodsId = ref(useRoute().query.goods_id)
 const type = ref(useRoute().query.type)
 // 是否为移动端(屏幕宽度在768px以下)
-const isMobile = window.outerWidth < 768 ? true : false
+const isMobile = ref(window.outerWidth < 768 ? true : false)
+window.onresize = function () {
+  isMobile.value = window.outerWidth < 768 ? true : false
+}
 // 商家信息
 const businessInfo = ref(null)
 // 店铺信息
@@ -530,10 +418,12 @@ const goodsTitle = ref('')
 const goodsPrice = ref(0)
 // 发货地
 const sendArea = ref('')
-// 商品购买单位
-const unit = ref(-1)
 // 选中的购买单位下标
 const selectedUnitIndex = ref(-1)
+const selectedGoodsStore = selectedGoodsSpecsStore.getGoodsByGoodsId(type.value, goodsId.value)
+const selectedUnitIndexChangeHandle = (val) => {
+  selectedGoodsSpecsStore.setUnit(type.value, goodsId.value, val)
+}
 // 选中的购买单位名称
 const selectedUnitName = ref('')
 // 商品可选的购买单位
@@ -545,9 +435,14 @@ const isShowPcPayQrcode = ref(false)
 const pcPayQrcodeValue = ref('')
 const outTradeNo = ref('')
 // 修改规格的购买数量时
-const handleSpecListCountChange = (value) => {
-  console.log(value);
-  console.log(specList.value)
+const handleSpecListCountChange = () => {
+  goodsForm.specs = specList.value.filter(item => {
+    if (item.is_add_manual == 0 || item.is_add_manual == false || !item.is_add_manual) {
+      return Number(item.select_count) > 0
+    } else {
+      return Number(item.select_count) > 0 && Number(item.long) > 0 && Number(item.width) > 0 && Number(item.height) > 0
+    }
+  })
   getGoodsSpecsPriceApi({
     type: type.value,
     goods_id: goodsId.value,
@@ -564,12 +459,12 @@ const handleSpecListCountChange = (value) => {
       return false
     }
     goodsTotalPrice.value = res.data.data.goods_total_price
-    if (isMobile) {
+    if (isMobile.value) {
       freightPrice.value = res.data.data.freight_price
       orderTotalPrice.value = res.data.data.order_total_price
       totalPrice.value = res.data.data.total_price
     }
-    if (freightPrice.value > 0) {
+    if (goodsForm.address_name.length>0&&goodsForm.address_phone.length>0&&goodsForm.address_detailed.length>0&&freightPrice.value > 0) {
       calcFreightPriceHandle()
     }
   }).catch(() => {
@@ -627,12 +522,8 @@ const selectedRemarkListItems = ref([])
 const threeDImage = ref('')
 // 用户下单时手动输入的备注内容
 const remarkContent = ref('')
-// 是否展示移动端的购买弹窗
-const isDrawerShow = ref(false)
 // 是否已经收藏了该商品
 const isCollected = ref(false)
-// 是否展示移动端的购买弹窗的立即购买按钮，即判断是否为立即购买
-const isBuyNow = ref(true)
 // 交易记录
 const tradeLog = ref([])
 // 为你推荐
@@ -643,14 +534,60 @@ const isLoading = ref(true)
 const isSuccess = ref(false)
 // 是否加载出错了
 const isFailed = ref(false)
-// 收货地址列表
-const receiveAddressList = ref([])
-// 选中的收货地址下标
-const selectedReceiveAddressId = ref('')
+const formRef = ref(null)
+const goodsForm = reactive({
+  specs: [],
+  address_name: addressStore.name || '',
+  address_phone: addressStore.phone || '',
+  address_detailed: addressStore.address_detailed || '',
+  order_notes: '',
+})
+const goodsFormRules = {
+  specs: [
+    {
+      required: true,
+      message: '请选择规格',
+      validator (rule, value, callback) {
+        if (JSON.parse(JSON.stringify(value)).length === 0) {
+          return callback(new Error('请选择规格'))
+        }
+        return callback()
+      },
+    }
+  ],
+  address_name: [
+    {
+      required: true,
+      message: '收货人姓名不能为空',
+    }
+  ],
+  address_phone: [
+    {
+      required: true,
+      message: '收货人手机号码不能为空'
+    },
+    {
+      validator (rule, value, callback) {
+        const regMobilePhone = /^(13[0-9]|14[01456879]|15[0-35-9]|16[2567]|17[0-8]|18[0-9]|19[0-35-9])\d{8}$/
+        if (!regMobilePhone.test(value)) {
+          return callback(new Error('请输入正确的手机号码'))
+        }
+        return callback()
+      },
+    },
+  ],
+  address_detailed: [
+    {
+      required: true,
+      message: '收货地址不能为空',
+    }
+  ],
+}
 // 商品总价
 const goodsTotalPrice = ref(0)
 // 运费
 const freightPrice = ref(0)
+const isCalcingFreightPrice = ref(false)
 // 订单总价
 const orderTotalPrice = ref(0)
 // 合计
@@ -658,19 +595,6 @@ const totalPrice = ref(0)
 const freightTitle = ref('')
 // 是否显示新增规格按钮和自定义规格输入框
 const isShowAddNewSpecification = ref(false)
-// 监听收货地址id变化
-const recvAddIdChangeHandle = (id) => {
-  console.log(id)
-  selectedReceiveAddressId.value = id
-  if (freightPrice.value > 0) {
-    calcFreightPriceHandle()
-  }
-}
-// 监听收货地址列表变化
-const recvAddListChangeHandle = (list) => {
-  console.log(list)
-  receiveAddressList.value = list
-}
 // 监听订单备注变化
 const orderNotesChangeHandle = () => {
   getGoodsSpecsPriceApi({
@@ -689,7 +613,7 @@ const orderNotesChangeHandle = () => {
       return false
     }
     goodsTotalPrice.value = res.data.data.goods_total_price
-    if (isMobile) {
+    if (isMobile.value) {
       freightPrice.value = res.data.data.freight_price
       orderTotalPrice.value = res.data.data.order_total_price
       totalPrice.value = res.data.data.total_price
@@ -715,87 +639,47 @@ const remarkListSelectedChangeHandle = (value) => {
 const remarkContentChangeHandle = (value) => {
   console.log(value)
   orderNotes.value = selectedRemarkListItems.value.join(',') + (selectedRemarkListItems.value.length > 0 && value.length > 0 ? ',' : '') + value
+  selectedGoodsSpecsStore.setOrderNotes(type.value, goodsId.value, orderNotes.value)
   orderNotesChangeHandle()
 }
-// 展示或隐藏移动端的购买弹窗
-const changeDrawerShow = () => {
-  if ((isLoading.value || !isSuccess.value) && !isDrawerShow.value) {
-    return false;
-  }
-  isDrawerShow.value =!isDrawerShow.value
-}
-const showBuyNow = () => {
-  if (isLoading.value || !isSuccess.value) {
-    return false;
-  }
-  isBuyNow.value = true
-  changeDrawerShow()
+// 跳转到立即购买
+const gotoBuyNowHandle = () => {
 }
 // 新增自定义规格
-const addNewSpecification = (isFromGetGoodsDetail = false) => {
+const addNewSpecification = (isFromGetGoodsDetail = false, long = '', width = '', height = '', select_count = 0) => {
   if (
     (typeof isFromGetGoodsDetail === 'boolean' && isFromGetGoodsDetail !== true)
     || (!isFromGetGoodsDetail && !isLoading.value && isSuccess.value)
   ) {
     return false;
   }
+  let specification = ''
+  if (Number(long) > 0 && Number(width) > 0 && Number(height) > 0) {
+    specification = long + 'cm*' + width + 'cm*' + height + 'cm'
+  }
   specList.value.push({
     count: 0,
-    select_count: 0,
+    select_count: select_count,
     is_add_manual: 1,
     count_unit: specList.value[0].count_unit,
     goods_id: specList.value[0].goods_id,
     s_img: specList.value[0].s_img,
-    specifications: '',
-    long: '',
-    width: '',
-    height: '',
+    specifications: specification,
+    long: Number(long),
+    width: Number(width),
+    height: Number(height),
     start_quantity: specList.value[0].start_quantity,
     user_id: specList.value[0].user_id,
   })
   console.log(specList.value);
 }
-// 联系客服
-const toContactService = () => {
-  if (isLoading.value || !isSuccess.value) {
-    return false;
-  }
-  console.log('联系客服')
-}
-// 收藏或取消收藏操作
-const changeCollectGoods = () => {
-  if (isLoading.value || !isSuccess.value) {
-    return false;
-  }
-  console.log(isCollected.value ? '取消收藏商品' : '收藏商品')
-  if (isCollected.value) {
-    cancelCollectApi({
-      user_id: userStore.userId,
-      phone: userStore.phone,
-      type: type.value,
-      goods_id: goodsId.value,
-    }).then(res => {
-      isCollected.value = false
-    })
-  } else {
-    addCollectApi({
-      user_id: userStore.userId,
-      phone: userStore.phone,
-      type: type.value,
-      goods_id: goodsId.value,
-    }).then(res => {
-      isCollected.value = true
-    })
-  }
-}
 // 获取商品详情信息
 const getGoodsDetail = () => {
   // 获取商品详细信息
   getGoodsDetailApi({
+    phone: goodsForm.address_phone,
     type: type.value,
     goods_id: goodsId.value,
-    user_id: userStore.userId,
-    phone: userStore.phone,
   }).then(res => {
     console.log(res)
     if (res.status != 200 || res.data.status != 1000) {
@@ -851,15 +735,37 @@ const getGoodsDetail = () => {
       return item
     })
     // 获取商品规格列表
+    let isAutoCalcSpecsPrice = false
     specList.value = res.data.data.specifications
+    specList.value.map(item => {
+      let selectedSpec = selectedGoodsSpecsStore.getSpecBySpec(type.value, goodsId.value, item.s_id, item.specifications)
+      if (Number(selectedSpec.select_count) > 0) {
+        item.select_count = selectedSpec.select_count
+        isAutoCalcSpecsPrice = true
+      }
+      return item
+    })
     console.log(specList.value);
     if (res.data.data.hasOwnProperty('is_agree') && res.data.data.is_agree == '2') {
       isShowAddNewSpecification.value = true
+      if (selectedGoodsStore && selectedGoodsStore.specs) {
+        selectedGoodsStore.specs.filter(item=>Number(item.is_add_manual)===1).forEach(item => {
+          let specArr = JSON.parse(JSON.stringify(item.specification.split('*'))).map(item=>item.replace('cm',''))
+          if (specArr.length !== 3) {
+            return false
+          }
+          addNewSpecification(true, specArr[0], specArr[1], specArr[2], item.select_count)
+          isAutoCalcSpecsPrice = true
+        })
+      }
       // 添加一行新的自定义规格
       console.log(nextTick(() => {
         console.log('goto addNewSpecification');
         addNewSpecification(true)
       }))
+    }
+    if (selectedGoodsStore && selectedGoodsStore.order_notes) {
+      goodsForm.order_notes = selectedGoodsStore.order_notes
     }
     // 获取浏览数
     viewCount.value = res.data.data.view_count
@@ -886,6 +792,10 @@ const getGoodsDetail = () => {
     selectedUnitIndex.value = res.data.data.units[0].count_unit
     // 获取默认的购买单位名称
     selectedUnitName.value = res.data.data.units[0].unit
+    if (selectedGoodsStore && Number(selectedGoodsStore.unit) > -1 && unitArr.value.filter(item => Number(item.count_unit) === Number(selectedGoodsStore.unit)) > -1) {
+      selectedUnitIndex.value = Number(selectedGoodsStore.unit)
+      selectedUnitName.value = formatUnit(Number(selectedGoodsStore.unit))
+    }
     // 可选备注列表添加是否选中等字段
     res.data.data.remark_list = res.data.data.remark_list.map(item => {
       item.is_selected = 0
@@ -893,6 +803,15 @@ const getGoodsDetail = () => {
     })
     // 获取备注列表
     remarkList.value = res.data.data.remark_list
+    remarkContent.value = selectedGoodsStore.order_notes.split(/,/g).filter(item => {
+      let isInclude = remarkList.value.map(item1=>item1.name).includes(item)
+      if (isInclude) {
+        selectedRemarkListItems.value.push(item)
+        return false
+      }
+      return true
+    }).join(',')
+    orderNotes.value = selectedGoodsStore.order_notes
     // 获取三维图示
     threeDImage.value = formatHttpsProtocol(res.data.data.three_d_image)
     // 获取是否已经收藏该商品
@@ -900,13 +819,8 @@ const getGoodsDetail = () => {
     // 获取交易记录
     tradeLog.value = res.data.data.trade_log
     otherSee.value = res.data.data.other_see
-    // 获取收货地址
-    if (typeof res.data.data.receive_addresses === 'object' && res.data.data.receive_addresses instanceof Array) {
-      receiveAddressList.value = res.data.data.receive_addresses
-      let selectedIndex = res.data.data.receive_addresses.findIndex(item => item.is_default==1)
-      if (selectedIndex > -1) {
-        selectedReceiveAddressId.value = res.data.data.receive_addresses[selectedIndex].id
-      }
+    if (isAutoCalcSpecsPrice) {
+      handleSpecListCountChange()
     }
   }).catch((reason) => {
     console.log(reason)
@@ -917,92 +831,156 @@ const getGoodsDetail = () => {
   })
 }
 // 计算运费
-const calcFreightPriceHandle = () => {
-  if (selectedReceiveAddressId.value == '' || selectedReceiveAddressId.value == -1 || selectedReceiveAddressId.value == 0) {
+const calcFreightPriceHandle = async () => {
+  const isValid = (await validateForm()).status
+  if (!isValid) {
     return false
   }
   freightPrice.value = 0
   orderTotalPrice.value = 0
   totalPrice.value = 0
-  getCalcFreightApi({
-    user_id: userStore.userId,
-    phone: userStore.phone,
-    type: type.value,
-    goods_id: goodsId.value,
-    receive_id: selectedReceiveAddressId.value,
-    openid: '',
-    p_price: goodsTotalPrice.value,
-    s_id: specList.value,
-  }).then(res => {
-    if (res.status != 200 || res.data.status != 1000) {
-      return false
+  return await new Promise((resolve, reject) => {
+    isCalcingFreightPrice.value = true
+    getCalcFreightApi({
+      phone: goodsForm.address_phone,
+      type: type.value,
+      goods_id: goodsId.value,
+      openid: '',
+      p_price: goodsTotalPrice.value,
+      s_id: specList.value,
+      address_name: goodsForm.address_name,
+      address_phone: goodsForm.address_phone,
+      address_detailed: goodsForm.address_detailed,
+    }).then(res => {
+      if (res.status != 200 || res.data.status != 1000) {
+        resolve(false)
+        return false
+      }
+      freightPrice.value = res.data.data.freight
+      orderTotalPrice.value = res.data.data.payMoney
+      totalPrice.value = res.data.data.payMoney
+      freightTitle.value = res.data.data.title
+      resolve(res.data.data.title)
+    }).catch(() => {
+      resolve(false)
+    }).finally(() => {
+      isCalcingFreightPrice.value = false
+    })
+  })
+}
+const validateForm = async () => {
+  return await new Promise((resolve, reject) => {
+    if (!formRef.value) {
+      resolve({status: false})
     }
-    freightPrice.value = res.data.data.freight
-    orderTotalPrice.value = res.data.data.payMoney
-    totalPrice.value = res.data.data.payMoney
-    freightTitle.value = res.data.data.title
-  }).catch(() => {
-  }).finally(() => {
+    formRef.value.validate((isValid, invalidFields) => {
+      if (isValid) {
+        resolve({status: true})
+      } else {
+        resolve({status: false, ...invalidFields})
+      }
+    })
   })
 }
-// 移动端生成订单
-const submitOrderByMobileHandle = () => {
-  toPayOrderStore._type = type.value
-  toPayOrderStore._goodsId = goodsId.value
-  toPayOrderStore._goodsName = goodsTitle.value
-  toPayOrderStore._sId = specList.value
-  toPayOrderStore._unit = selectedUnitIndex.value
-  toPayOrderStore._remarks = orderNotes.value
-  toPayOrderStore._is_agree = Number(type.value) == 1 && isShowAddNewSpecification.value == true ? 1 : 0
-  nextTick(() => {
-    window.location.assign('/goods/to-pay-order')
-  })
-}
-// Pc端提交订单
-const submitOrderByPcHandle = () => {
+const submitOrderApiHandle = async (is_new_pay = '1', callback = function (res) {}) => {
+  const isValid = (await validateForm()).status
+  if (!isValid) {
+    return false
+  }
+  if (!freightTitle.value || freightTitle.value == '') {
+    await calcFreightPriceHandle()
+  }
   let sid = []
   let totalCount = 0
-  specList.value.forEach(item => {
-    if (Number(item.select_count) === 0) {
-      return false
-    }
-    if (item.is_add_manual == 1) {
-      item.specifications = item.long+"cm*"+item.width+"cm*"+item.height+"cm"
-    }
+  goodsForm.specs.forEach(item => {
     sid.push({
       count: Number(item.select_count),
       count_unit: selectedUnitIndex.value,
       is_add_manual: item.s_id ? 0 : 1,
-      s_id: item.s_id ? item.s_id : 0,
+      sid : item.s_id ? item.s_id : 0,
       s_img: '',
       spec: item.specifications,
     })
     totalCount += Number(item.count)
   })
   submitOrderApi({
-    user_id: userStore.userId,
-    phone: userStore.phone,
+    phone: goodsForm.address_phone,
     sid: sid,
     num: totalCount,
     type: type.value,
     goods_id: goodsId.value,
     price: goodsTotalPrice.value,
-    address_id: selectedReceiveAddressId.value,
+    address_name: goodsForm.address_name,
+    address_phone: goodsForm.address_phone,
+    address_detailed: goodsForm.address_detailed,
     freight_title: freightTitle.value,
     order_notes: orderNotes.value,
-    is_new_pay: '3',
+    is_new_pay: is_new_pay,
   }).then(res => {
     if (res.status != 200 || res.data.status != 1000) {
       return false
     }
+    !!callback&&callback(res)
+  }).catch(() => {
+  }).finally(() => {
+  })
+}
+const isWeChat = () => {
+  //window.navigator.userAgent属性包含了浏览器类型、版本、操作系统类型、浏览器引擎类型等信息，这个属性可以用来判断浏览器类型
+  var ua = window.navigator.userAgent.toLowerCase();
+  //通过正则表达式匹配ua中是否含有MicroMessenger字符串
+  if (ua.match(/MicroMessenger/i) == 'micromessenger') {
+    return true;
+  } else {
+    return false;
+  }
+}
+// 移动端生成订单
+const submitOrderByMobileHandle = async () => {
+  await submitOrderApiHandle(isWeChat() ? '1' : '4', (res) => {
+    if (isWeChat()) {
+      // 在微信内，调用微信js支付
+      let onBridgeReady = () => {
+        WeixinJSBridge.invoke('getBrandWCPayRequest', res.data.data, function (res) {
+          isShowPayResult.value = true
+          if (res.err_msg == "get_brand_wcpay_request:ok") {
+            // 支付成功
+            isPaySuccess.value = true
+          } else if (res.err_msg == "get_brand_wcpay_request:fail") {
+            // 支付失败
+            isPaySuccess.value = false
+          } else if (res.err_msg == "get_brand_wcpay_request:cancel") {
+            // 用户取消支付
+            isPaySuccess.value = false
+          }
+        })
+      }
+      if (typeof WeixinJSBridge == "undefined") {
+        if( document.addEventListener ){
+          document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
+        }else if (document.attachEvent){
+          document.attachEvent('WeixinJSBridgeReady', onBridgeReady); 
+          document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
+        }
+      } else {
+        onBridgeReady()
+      }
+    } else {
+      // 移动端非微信浏览器，h5支付。支付完回调地址为确认订单页，附带参数 out_trade_no 支付的订单号
+      let redirectUrl = window.location.href + (window.location.search.trim() == "" ? '?' : '&') + 'out_trade_no=' + res.data.data.out_trade_no
+      window.location.href = res.data.data.mweb_url + encodeURIComponent(redirectUrl)
+    }
+  })
+}
+// Pc端提交订单
+const submitOrderByPcHandle = async () => {
+  await submitOrderApiHandle('3', (res) => {
     if (!res.data.data) {
       return false
     }
     pcPayQrcodeValue.value = res.data.data.code_url
     outTradeNo.value = res.data.data.out_trade_no
     isShowPcPayQrcode.value = true
-  }).catch(() => {
-  }).finally(() => {
   })
 }
 const pcPayCloseHandle = () => {
@@ -1020,8 +998,16 @@ const reloadHandle = () => {
   getGoodsDetail()
 }
 getGoodsDetail()
+watchEffect(() => {
+  addressStore.name = goodsForm.address_name
+  addressStore.phone = goodsForm.address_phone
+  addressStore.address_detailed = goodsForm.address_detailed
+})
 </script>
 <style scoped>
+.form_field_empty_tips {
+  color: var(--el-color-danger);
+}
 .goods_footer {
   height: var(--navbar-height);
   /* line-height: var(--navbar-line-height); */
@@ -1040,7 +1026,7 @@ getGoodsDetail()
 .goods_footer-large_btn {
   width: 100%;
   height: var(--navbar-height);
-  border-radius: 0;
+  border-radius: var(--el-border-radius-base);
 }
 .el-affix,
 .el-affix--fixed {

@@ -51,6 +51,8 @@ import {
     ElResult,
     ElSwitch,
     ElMessage,
+    ElSpace,
+    ElAlert,
 } from 'element-plus'
 
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
@@ -96,6 +98,8 @@ app.use(ElContainer)
     .use(ElResult)
     .use(ElSwitch)
     .use(ElMessage)
+    .use(ElSpace)
+    .use(ElAlert)
 
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
     app.component(key, component)

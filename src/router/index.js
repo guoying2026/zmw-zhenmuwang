@@ -34,11 +34,6 @@ const router = createRouter({
             path: '/goods/detail',
             name: 'goods_detail',
             component: () => import(/* webpackChunkName: "GoodsDetail" */ '../views/GoodsDetail.vue')
-        },
-        {
-            path: '/goods/to-pay-order',
-            name: 'to-pay-order',
-            component: () => import(/* webpackChunkName: "ToPayOrder" */ '../views/ToPayOrder.vue')
         }
     ]
 })

@@ -93,6 +93,9 @@
         </el-row>
       </el-tab-pane>
       <!-- 产品详情 end -->
+      <!-- 立即购买 start -->
+      <el-tab-pane label="立即购买" v-if="isMobile"><slot></slot></el-tab-pane>
+      <!-- 立即购买 end -->
       <!-- 交易记录 start -->
       <el-tab-pane label="交易记录">
         <el-table :data="tradeLog" empty-text="您未在该商家下过单哦">
@@ -112,6 +115,7 @@
   </el-col>
 </template>
 <script setup>
+import { ref } from 'vue';
 import { formatUnit } from '../utils/good.js'
 const props = defineProps({
   description: {
@@ -150,6 +154,7 @@ const props = defineProps({
     }
   },
 })
+const isMobile = ref(window.innerWidth<768)
 </script>
 <style scoped>
 .goods_introduce-item {
