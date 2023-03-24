@@ -11,11 +11,15 @@
   </div>
   <div class="mini-live-search-cont miniSlideDown">
     <label class="cf-one" for="mini-ls-input">搜索你想要的任何</label>
-    <input v-model="input" type="text" id="mini-ls-input" name="live-posts-search" placeholder="加盟" @change="handleInput">
-    <div class="mini-ls-loader" role="status">
+    <input type="text" id="mini-ls-input" name="live-posts-search" placeholder="加盟" @change="handleInput">
+<!--    toShow这个样式就是展示搜索中 开始-->
+    <div class="mini-ls-loader to-show" role="status">
       <span></span>
     </div>
+<!--    搜索完成，只需要把 to-show去掉-->
+<!--    展示搜索结果 开始-->
     <div class="mini-ls-results" style="display: none;"></div>
+<!--  展示搜索结果结束  -->
   </div>
 <!--  router-view和router-link是由vue-router注册的全局组件，
 router-link负责跳转不同的页面，相当于vue世界中的超链接a标签
@@ -25,11 +29,6 @@ router-view负责渲染路由匹配的组件，可以通过把router-view放在�
 <script setup>
 import { onMounted, ref } from "vue";
 
-const input = ref('')
-const handleInput = (value) => {
-  input.value = value
-  console.log(input.value);
-}
 </script>
 <style scoped>
 .nav_header {

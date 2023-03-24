@@ -25,7 +25,11 @@
     <el-row :gutter="24">
       <el-col :span="24" :md="12" class="top_1_parent">
         <div class="top margin-20-top">
-          <CreditScore :credit-score="100"></CreditScore>
+          <CreditScore
+              :credit-score="100"
+              height="200"
+              width="300px">
+          </CreditScore>
         </div>
       </el-col>
       <el-col :span="24" :md="12">
@@ -318,6 +322,7 @@ const text = ref('')
   letter-spacing: 2px;
   padding: 20px;
   width: 90%;
+  box-sizing: unset;
 }
 .top_2{
   display: flex;
