@@ -8,6 +8,7 @@ const router = createRouter({
         {
             path: '/',
             name: 'list',
+            alias: '/list',
             //以.vue作为后缀的文件，是vue单文件组件的写法
             //关于路由优化
             //参考这个链接https://router.vuejs.org/zh/guide/advanced/lazy-loading.html#%E6%8A%8A%E7%BB%84%E4%BB%B6%E6%8C%89%E7%BB%84%E5%88%86%E5%9D%97

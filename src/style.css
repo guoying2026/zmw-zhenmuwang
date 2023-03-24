@@ -10,7 +10,9 @@
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
 }
-
+*,::after,:hover{
+  box-sizing: border-box;
+}
 a {
   font-weight: 500;
   color: #646cff;
@@ -32,7 +34,7 @@ a:hover {
 body {
   margin: 0;
   display: flex;
-  min-height: 100vh;
+  /*min-height: 100vh;*/
 }
 
 h1 {
@@ -71,6 +73,8 @@ button:focus-visible {
   overflow-x: hidden;
   letter-spacing: 2px;
   min-height: calc(100vh - 42px);
+  margin: 0 auto;
+  max-width: 100%;
 }
 
 @media (prefers-color-scheme: light) {
