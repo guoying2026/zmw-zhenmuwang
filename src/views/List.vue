@@ -139,7 +139,6 @@
       ></el-row>
     </el-footer>
   </el-container>
-  <el-backtop class="hidden-sm-and-up" :right="20" :bottom="30" />
 </template>
 <script setup>
 import '../assets/tag.css'
