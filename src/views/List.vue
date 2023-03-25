@@ -32,10 +32,6 @@
   <el-container
     direction="vertical"
     :gutter="24"
-    v-infinite-scroll="loadmore"
-    :infinite-scroll-disabled="!isMobile||currentPage<=1||currentPage>totalPage"
-    :infinite-scroll-immediate="false"
-    :infinite-scroll-distance="120"
   >
     <div class="top_1_tag font-15-size">
       <div
@@ -63,7 +59,8 @@
         只看加盟商
       </text>
     </div>
-    <div v-loading="isMobile?currentPage===1&&isLoading:isLoading">
+    <div>
+      <!-- pc端在加载时显示骨架屏，移动端在加载第一页时显示骨架屏，其它页底部显示骨架屏 -->
       <el-skeleton v-if="isMobile?currentPage===1&&isLoading:isLoading" :rows="5" />
       <el-empty v-else-if="isMobile?currentPage===1&&isLoadFailed:isLoadFailed">
         <template #description>
@@ -113,11 +110,11 @@
 <!--          展示商品结束-->
         </div>
       </div>
-      </div>
+    </div>
 
     <el-footer
       class="list_page_footer"
-      v-if="isMobile ? (totalPage > 1 ? (currentPage >= 1 && currentPage <= totalPage) : false) : true"
+      v-if="!isMobile"
     >
       <el-row :gutter="1" justify="center" class="hidden-xs-only">
         <el-col :span="1" class="no_max_width">
@@ -131,12 +128,6 @@
           />
         </el-col>
       </el-row>
-      <el-row
-        :gutter="1"
-        justify="center"
-        class="hidden-sm-and-up mobile_load_more_tips"
-        v-loading="true"
-      ></el-row>
     </el-footer>
   </el-container>
 </template>
@@ -144,7 +135,7 @@
 import '../assets/tag.css'
 import CreditScore from "../components/CreditScore.vue";
 import GoodsList from "../components/GoodsList.vue";
-import { nextTick, onUnmounted, ref } from 'vue'
+import { nextTick, onMounted, onUnmounted, ref } from 'vue'
 import { getIndexDataApi } from "../api/list.js";
 import { useSearchStore } from '../pinia/search.js';
 import SellerInfo from "../components/SellerInfo.vue";
@@ -199,7 +190,7 @@ const loadmore = () => {
   if (isLoading.value) {
     return false
   }
-  if (isMobile && currentPage.value === 1) {
+  if (!isMobile || (isMobile && currentPage.value === 1)) {
     list.value = []
     document.querySelector('html').scrollTo(0,0)
   }
@@ -345,8 +336,28 @@ const unsubscribeSearchStore = searchStore.$subscribe((mutation, state) => {
   // 如果设置detached值为 true 时，即使所在组件被卸载，订阅依然在生效
   // 参考文档：https://pinia.web3doc.top/core-concepts/state.html#%E8%AE%A2%E9%98%85%E7%8A%B6%E6%80%81
 })
+const threshold = 4000
+const pageScrollHandle = () => {
+  if (!isMobile) {
+    return false
+  }
+  if (isLoading.value) {
+    return false
+  }
+  let scrollTop = document.documentElement.scrollTop || document.body.scrollTop
+  let windowHeight = document.documentElement.clientHeight || document.body.clientHeight
+  let scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight
+  if (scrollTop + windowHeight + threshold >= scrollHeight) {
+    console.log('到达底部');
+    loadmore()
+  }
+}
+onMounted(() => {
+  window.addEventListener('scroll', pageScrollHandle)
+})
 // 卸载时要取消监听事件
 onUnmounted(() => {
+  window.removeEventListener('scroll', pageScrollHandle)
   unsubscribeSearchStore()
 })
 // 默认进来的时候就加载数据
