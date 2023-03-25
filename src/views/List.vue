@@ -114,9 +114,8 @@
 
     <el-footer
       class="list_page_footer"
-      v-if="!isMobile"
     >
-      <el-row :gutter="1" justify="center" class="hidden-xs-only">
+      <el-row v-if="!isMobile" :gutter="1" justify="center" class="hidden-xs-only">
         <el-col :span="1" class="no_max_width">
           <el-pagination
             background
@@ -193,6 +192,9 @@ const loadmore = () => {
   if (!isMobile || (isMobile && currentPage.value === 1)) {
     list.value = []
     document.querySelector('html').scrollTo(0,0)
+  }
+  if (totalPage.value > 0 && currentPage.value > totalPage.value) {
+    return false
   }
   isLoading.value = true
   isLoadFailed.value = false
