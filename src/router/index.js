@@ -40,7 +40,12 @@ const router = createRouter({
             path: '/goodsDetail',
             name: 'goods_detail',
             component: () => import(/* webpackChunkName: "GoodsDetail" */ '../views/GoodsDetail.vue')
-        }
+        },
+        {
+            path: '/forum',
+            name: 'forum',
+            component: () => import('../views/Forum.vue')
+        },
     ]
 })
 
