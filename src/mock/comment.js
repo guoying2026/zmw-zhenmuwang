@@ -61,7 +61,7 @@ Mock.mock(regUrl("https://api.zhenmuwang.com/Pc/CompanyComment/companyComment"),
     })
 })
 
-Mock.mock("https://api.zhenmuwang.com/Pc/CompanyComment/likedComment","get",function(option){
+Mock.mock("https://api.zhenmuwang.com/Pc/CompanyComment/likedComment","post",function(option){
     return Mock.mock({
         liked_id: '@natural(1,300)',
         is_liked: '@boolean()',

@@ -231,7 +231,7 @@ const liked_comment = (index,comment_id,is_liked,liked_id,like_count) => {
   if(is_liked === false){
     list.arr[index].is_liked = true;
     list.arr[index].like_count = like_count * 1 + 1;
-    // likedCommentApi({'comment_id':comment_id,'liked_id':liked_id,'user_id':userStore.userId}).then(async(res) => {
+    // likedCommentApi({'company_info_id':prop.companyInfoId,'company_comment_id':comment_id,'liked_id':liked_id,'user_id':userStore.userId}).then(async(res) => {
     //   console.log(res);
     //   //连接后端api再取消注释
     //   let result = res.data;
