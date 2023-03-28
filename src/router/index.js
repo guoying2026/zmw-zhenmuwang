@@ -46,6 +46,11 @@ const router = createRouter({
             name: 'forum',
             component: () => import('../views/Forum.vue')
         },
+        {
+            path: '/search',
+            name: 'search',
+            component: () => import(/* webpackChunkName: "SearchResult" */ '../views/SearchResult.vue')
+        },
     ]
 })
 

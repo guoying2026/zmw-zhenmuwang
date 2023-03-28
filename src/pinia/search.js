@@ -1,5 +1,5 @@
 import { defineStore } from "pinia"
-import { getSearchResultApi } from "../api/search"
+import { searchApi } from "../api/search"
 
 export const useSearchStore = defineStore('searchStore', {
   state: () => {
@@ -40,7 +40,7 @@ export const useSearchStore = defineStore('searchStore', {
       this._isLoading = true
       this._isSuccess = false
       this._isFailed = false
-      getSearchResultApi(data).then(res => {
+      searchApi(data).then(res => {
         if (res.status != 200 || res.data.status != 1000) {
           this._isFailed = true
           return false
