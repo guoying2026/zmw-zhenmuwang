@@ -1,393 +1,203 @@
 <template>
-  <el-container direction="vertical" :gutter="24">
-    <el-main v-if="!isLoading&&isSuccess">
-      <el-row>
-        <!-- 产品图轮播 start -->
-        <GoodsCarousel :list="goodsMainImageList" />
-        <!-- 产品图轮播 end -->
-        <!-- 产品信息 start -->
-        <!-- pc端产品信息 start -->
-        <el-col class="hidden-xs-only" :span="18" :offset="1" :xs="0">
-          <el-row>
-            <el-col>
-              <el-descriptions :title="goodsTitle" :column="1">
-                <el-descriptions-item label-align="right">
-                  <template #label>价格</template>
-                  ￥{{ goodsPrice }}元起
-                </el-descriptions-item>
-                <el-descriptions-item label-align="right">
-                  <template #label>发货地</template>
-                  {{ sendArea }}
-                </el-descriptions-item>
-                <el-descriptions-item label-align="right">
-                  <template #label>发货物流</template>
-                  <el-popover
-                    placement="top-start"
-                    :width="200"
-                    trigger="hover"
-                    content="智能运费是指真木网大数据算法智能计算出的运费，系统将根据您购买的木材体积、重量、配送距离等向您收取一定的运费。"
-                  >
-                    <template #reference>智能运费</template>
-                  </el-popover>
-                </el-descriptions-item>
-              </el-descriptions>
-            </el-col>
-            <el-col>
-              <el-form
-                ref="formRef"
-                :inline-message="true"
-                :hide-required-asterisk="true"
-                label-width="100px"
-                label-position="right"
-                :model="goodsForm"
-                :rules="goodsFormRules"
-              >
-                <el-form-item prop="specs" required>
-                  <template #label>
-                    <el-row justify="space-between" align="middle">
-                      <el-col class="pc_spec" :span="isShowAddNewSpecification?12:24">规格</el-col>
-                      <el-col v-if="isShowAddNewSpecification" class="pc_spec_add" :span="12">
-                        <el-link type="danger" :underline="false" @click="addNewSpecification">新增</el-link>
-                      </el-col>
-                    </el-row>
-                  </template>
-                  <SelectSpecifications :type="type" :goodsId="goodsId" v-model="specList" @onChange="handleSpecListCountChange" />
-                </el-form-item>
-                <el-form-item prop="address_name" required>
-                  <template #label>收货人姓名</template>
-                  <el-input
-                    v-model="goodsForm.address_name"
-                    placeholder="请输入收货人姓名"
-                    :validate-event="false"
-                  />
-                </el-form-item>
-                <el-form-item prop="address_phone" required>
-                  <template #label>收货电话</template>
-                  <el-input
-                    type="tel"
-                    v-model="goodsForm.address_phone"
-                    placeholder="请输入收货人手机号码"
-                    :validate-event="false"
-                  />
-                </el-form-item>
-                <el-form-item prop="address_detailed" required>
-                  <template #label>收货地址</template>
-                  <el-input
-                    v-model="goodsForm.address_detailed"
-                    placeholder="请输入详细收货地址"
-                    :validate-event="false"
-                  />
-                </el-form-item>
-                <el-form-item>
-                  <el-row>
-                    <el-col :span="12">
-                      <el-input
-                        type="textarea"
-                        :rows="4"
-                        resize="none"
-                        v-model="goodsForm.order_notes"
-                        placeholder="请输入订单备注"
-                        @change="remarkContentChangeHandle"
-                        :validate-event="false"
-                      />
-                    </el-col>
-                    <el-col :span="12">
-                      <el-row>
-                        <el-col>
-                          <el-row>
-                            <el-col class="pc_form_item-title" :span="14">商品总价：</el-col>
-                            <el-col class="pc_form_item-content" :span="10">{{ goodsTotalPrice > 0 ? goodsTotalPrice : '？' }}元</el-col>
-                          </el-row>
-                        </el-col>
-                        <el-col>
-                          <el-row>
-                            <el-col class="pc_form_item-title" :span="14">智能运费：</el-col>
-                            <el-col class="pc_form_item-content" :span="10">
-                              <template v-if="freightPrice > 0">{{ freightPrice }}元</template>
-                              <template v-else>
-                                <template v-if="isCalcingFreightPrice">正在计算中...</template>
-                                <template v-else>
-                                  <el-link class="pc_form_item-content" :underline="false" @click="calcFreightPriceHandle">点击计算</el-link>
-                                </template>
-                              </template>
-                            </el-col>
-                          </el-row>
-                        </el-col>
-                        <el-col>
-                          <el-row>
-                            <el-col class="pc_form_item-title" :span="14">订单总价：</el-col>
-                            <el-col class="pc_form_item-content" :span="10">{{ orderTotalPrice > 0 ? orderTotalPrice : '？' }}元</el-col>
-                          </el-row>
-                        </el-col>
-                        <el-col>
-                          <el-row>
-                            <el-col class="pc_form_item-title" :span="14">合计：</el-col>
-                            <el-col class="pc_form_item-content" :span="10">{{ totalPrice > 0 ? totalPrice : '？' }}元</el-col>
-                          </el-row>
-                        </el-col>
-                      </el-row>
-                    </el-col>
-                  </el-row>
-                </el-form-item>
-                <el-form-item>
-                  <el-button size="large">咨询客服</el-button>
-                  <el-button size="large" @click="submitOrderByPcHandle">扫码支付</el-button>
-                  <PcPay
-                    :isShow="isShowPcPayQrcode"
-                    :outTradeNo="outTradeNo"
-                    :codeUrl="pcPayQrcodeValue"
-                    @onClose="pcPayCloseHandle"
-                    @onGetPayResult="getPayResultHandle"
-                  />
-                </el-form-item>
-                <el-form-item>
-                  <template #label>买家服务</template>
-                  <template v-for="(item, index) in buyerServices" v-bind:key="item">
-                    <el-image class="pc_buyer_service-icon" :src="item.icon" fit="contain" />
-                    {{ item.name }}
-                    &nbsp;&nbsp;&nbsp;
-                  </template>
-                </el-form-item>
-                <el-form-item>
-                  <template #label>支付方式</template>
-                  <template v-for="(item, index) in payTypes" v-bind:key="item">
-                    {{ item }}
-                    &nbsp;&nbsp;&nbsp;
-                  </template>
-                </el-form-item>
-                <el-form-item>
-                  <template v-for="(item, index) in tags" v-bind:key="item">
-                    <el-tag class="pc_goods-tags-tag_item" type="info">{{ item }}</el-tag>
-                    &nbsp;&nbsp;&nbsp;
-                  </template>
-                </el-form-item>
-              </el-form>
-            </el-col>
-          </el-row>
-        </el-col>
-        <!-- pc端产品信息 end -->
-        <!-- 移动端产品信息 start -->
-        <el-col class="hidden-sm-and-up" :sm="0" :md="0" :lg="0" :xl="0">
-          <el-descriptions :title="goodsTitle" :column="1">
-            <el-descriptions-item>
-              <template #label>价格</template>
-              ￥{{ goodsPrice }}元起
-            </el-descriptions-item>
-            <el-descriptions-item>
-              <template #label>起拍量</template>
-              {{ specList[0] ? specList[0].start_quantity : 0 }}{{ formatUnit(specList[0] ? specList[0].count_unit : 0) }}起
-            </el-descriptions-item>
-            <el-descriptions-item>
-              <template #label>选择</template>
-              <el-row class="mobile_select_spec" @click="gotoBuyNowHandle">
-                <el-col>
-                  <el-row>
-                    <el-col :span="22">尺寸分类：</el-col>
-                    <el-col :span="2" class="mobile_select_spec-arrow_right">
-                      <el-icon><arrow-right /></el-icon>
-                    </el-col>
-                  </el-row>
-                </el-col>
-                <el-col>
-                  <el-row align="middle">
-                    <!-- span计算：获取总常规规格数量，如果规格数量大于3，则定义为3个，每个规格占用的span为3 -->
-                    <el-col
-                      :span="(specList.filter(item => item.is_add_manual == 0 || item.is_add_manual == false).length > 3 ? 3 : specList.filter(item => item.is_add_manual == 0 || item.is_add_manual == false).length) * 3"
-                    >
-                      <template v-for="(item, index) in specList" v-bind:key="item">
-                        <el-image
-                          v-if="(item.is_add_manual == 0 || item.is_add_manual == false) && index < 3"
-                          class="mobile_select_spec-thumb_icon"
-                          :src="item.s_img"
-                          fit="cover"
-                        />
-                      </template>
-                    </el-col>
-                    <!-- span计算：获取总常规规格数量，如果规格数量大于3,则设定规格数量为3，3减去规格数量，得出上面的规格数量没有占用的span个数乘以每个规格占用的span为3 -->
-                    <el-col
-                      class="font-size-small"
-                      :span="10 + ((3 - (specList.filter(item => item.is_add_manual == 0 || item.is_add_manual == false).length > 3 ? 3 : specList.filter(item => item.is_add_manual == 0 || item.is_add_manual == false).length)) * 3)"
-                    >
-                      共{{ specList.filter(item => item.is_add_manual == 0 || item.is_add_manual == false).length }}种尺寸规格
-                    </el-col>
-                    <el-col class="text-align-right" :span="5">
-                      <el-tag type="info" size="small">更多</el-tag>
-                    </el-col>
-                  </el-row>
-                </el-col>
-              </el-row>
-            </el-descriptions-item>
-            <el-descriptions-item>
-              <el-row align="middle">
-                <el-col :span="4" :xs="3">
-                  <el-image :src="businessInfo ? businessInfo.user_img : ''" />
-                </el-col>
-                <el-col :span="16" :xs="14">
-                  <el-row>
-                    <el-col class="mobile_shop_info-title">{{ shopInfo ? shopInfo.name : '' }}</el-col>
-                    <el-col class="mobile_shop_info-view_cnt">浏览数：{{ viewCount }}</el-col>
-                  </el-row>
-                </el-col>
-                <el-col class="text-align-center" :span="4" :xs="7">
-                  <el-button size="small" type="danger">进店逛逛</el-button>
-                </el-col>
-              </el-row>
-            </el-descriptions-item>
-          </el-descriptions>
-        </el-col>
-        <!-- 移动端产品信息 end -->
-        <!-- 产品详情和交易记录 start -->
-        <GoodsIntroduce
-          :description="goodsDescription"
-          :goodsFeatures="goodsFeatures"
-          :factoryFeatures="factoryFeatures"
-          :imageList="goodsDetailImageList"
-          :tradeLog="tradeLog"
-        >
-          <el-form
-            ref="formRef"
-            :inline-message="true"
-            :hide-required-asterisk="true"
-            label-position="top"
-            :model="goodsForm"
-            :rules="goodsFormRules"
-          >
-            <el-form-item prop="specs" required>
-              <template #label>
-                <el-row justify="space-between" align="middle">
-                  <el-col :span="6">
-                    <el-row justify="start" align="middle">
-                      <el-col class="pc_spec" :span="12">规格</el-col>
-                      <el-col v-if="isShowAddNewSpecification" class="pc_spec_add" :span="12">
-                        <el-link type="danger" :underline="false" @click="addNewSpecification">新增</el-link>
-                      </el-col>
-                    </el-row>
-                  </el-col>
-                  <el-col :span="18">
-                    <el-row justify="end" align="middle" style="text-align: right;">
-                      <el-col :span="16">请选择单位</el-col>
-                      <el-col :span="8">
-                        <el-select
-                          v-model="selectedUnitIndex"
-                          placeholder="请选择单位"
-                          size="small"
-                          @change="selectedUnitIndexChangeHandle"
-                          :validate-event="false"
-                        >
-                          <el-option
-                            v-for="(item, index) in unitArr"
-                            v-bind:key="item"
-                            :label="item.unit"
-                            :value="item.count_unit"
-                          />
-                        </el-select>
-                      </el-col>
-                    </el-row>
-                  </el-col>
-                </el-row>
-              </template>
-              <SelectSpecifications :type="type" :goodsId="goodsId" v-model="specList" @onChange="handleSpecListCountChange" />
-            </el-form-item>
-            <el-form-item prop="address_name" required>
-              <template #label>收货人姓名</template>
-              <el-input
-                v-model="goodsForm.address_name"
-                placeholder="请输入收货人姓名"
-                :validate-event="false"
-              />
-            </el-form-item>
-            <el-form-item prop="address_phone" required>
-              <template #label>收货电话</template>
-              <el-input
-                type="tel"
-                v-model="goodsForm.address_phone"
-                placeholder="请输入收货人手机号码"
-                :validate-event="false"
-              />
-            </el-form-item>
-            <el-form-item prop="address_detailed" required>
-              <template #label>收货地址</template>
-              <el-input
-                v-model="goodsForm.address_detailed"
-                placeholder="请输入详细收货地址"
-                :validate-event="false"
-              />
-            </el-form-item>
-            <el-form-item>
-              <template #label>推荐备注(选填)</template>
-              <el-checkbox-group
-                v-model="selectedRemarkListItems"
-                size="small"
-                @change="remarkListSelectedChangeHandle"
-                :validate-event="false"
-              >
-                <el-checkbox-button
-                  v-for="(item, index) in remarkList"
-                  v-bind:key="item"
-                  :key="item.name"
-                  :label="item.name"
-                  :validate-event="false"
-                >{{ item.name }}</el-checkbox-button>
-              </el-checkbox-group>
-            </el-form-item>
-            <el-form-item>
-              <template #label>留言</template>
-              <el-input
-                type="textarea"
-                :rows="2"
-                resize="none"
-                v-model="remarkContent"
-                placeholder="请勿包含加工要求信息。如无，可不输入"
-                @change="remarkContentChangeHandle"
-                :validate-event="false"
-              />
-            </el-form-item>
-            <el-form-item>
-              <el-descriptions :column="3" direction="vertical" style="width: 100%;">
-                <el-descriptions-item align="left" label="商品总价">{{ goodsTotalPrice > 0 ? goodsTotalPrice : '？' }}元</el-descriptions-item>
-                <el-descriptions-item align="left" label="智能运费">
-                  <template v-if="freightPrice > 0">{{ freightPrice }}元</template>
-                  <template v-else>
-                    <template v-if="isCalcingFreightPrice">正在计算中...</template>
-                    <template v-else>
-                      <el-link class="pc_form_item-content" :underline="false" @click="calcFreightPriceHandle">点击计算</el-link>
-                    </template>
-                  </template>
-                </el-descriptions-item>
-                <el-descriptions-item align="left" label="订单总价">{{ orderTotalPrice > 0 ? orderTotalPrice : '？' }}元</el-descriptions-item>
-              </el-descriptions>
-              <el-descriptions :column="1" direction="horizontal" style="width: 100%;">
-                <el-descriptions-item align="left" label="合计">￥{{ totalPrice > 0 ? totalPrice : '？' }}元</el-descriptions-item>
-              </el-descriptions>
-            </el-form-item>
-          </el-form>
-          <el-affix position="bottom" target=".el-tabs__content">
-            <el-button type="danger" class="goods_footer-large_btn" @click="submitOrderByMobileHandle">提交订单</el-button>
-          </el-affix>
-        </GoodsIntroduce>
-        <!-- 产品详情和交易记录 end -->
-        <!-- 产品信息 end -->
-        <!-- 为你推荐 start -->
-        <GoodsRecommends :list="otherSee" :type="type" />
-        <!-- 为你推荐 end -->
-      </el-row>
-    </el-main>
-    <!-- 加载失败 start -->
-    <el-main v-if="!isLoading&&!isSuccess">
-      <el-empty>
-        <template #description>
-          <span class="fail_tips_text">
-            加载失败，请稍后<el-link :underline="false" @click="reloadHandle">重试</el-link>
-          </span>
+  <div class="padding-10 margin-10-top" v-if="!isLoading&&isSuccess">
+    <div class="top_1_tag">
+      <template v-for="(item, index) in tags" v-bind:key="item">
+        <Tag :tag="item" number="60" :color="tagsColorList[index%tagsColorList.length]"></Tag>
+      </template>
+    </div>
+    <div class="top_2 margin-20-top">
+      <div class="margin-10-top top_2_1">
+        <div class="svg_hello">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36"><path fill="#EF9645" d="M4.861 9.147c.94-.657 2.357-.531 3.201.166l-.968-1.407c-.779-1.111-.5-2.313.612-3.093 1.112-.777 4.263 1.312 4.263 1.312-.786-1.122-.639-2.544.483-3.331 1.122-.784 2.67-.513 3.456.611l10.42 14.72L25 31l-11.083-4.042L4.25 12.625c-.793-1.129-.519-2.686.611-3.478z"/><path fill="#FFDC5D" d="M2.695 17.336s-1.132-1.65.519-2.781c1.649-1.131 2.78.518 2.78.518l5.251 7.658c.181-.302.379-.6.6-.894L4.557 11.21s-1.131-1.649.519-2.78c1.649-1.131 2.78.518 2.78.518l6.855 9.997c.255-.208.516-.417.785-.622L7.549 6.732s-1.131-1.649.519-2.78c1.649-1.131 2.78.518 2.78.518l7.947 11.589c.292-.179.581-.334.871-.498L12.238 4.729s-1.131-1.649.518-2.78c1.649-1.131 2.78.518 2.78.518l7.854 11.454 1.194 1.742c-4.948 3.394-5.419 9.779-2.592 13.902.565.825 1.39.26 1.39.26-3.393-4.949-2.357-10.51 2.592-13.903L24.515 8.62s-.545-1.924 1.378-2.47c1.924-.545 2.47 1.379 2.47 1.379l1.685 5.004c.668 1.984 1.379 3.961 2.32 5.831 2.657 5.28 1.07 11.842-3.94 15.279-5.465 3.747-12.936 2.354-16.684-3.11L2.695 17.336z"/><g fill="#5DADEC"><path d="M12 32.042C8 32.042 3.958 28 3.958 24c0-.553-.405-1-.958-1s-1.042.447-1.042 1C1.958 30 6 34.042 12 34.042c.553 0 1-.489 1-1.042s-.447-.958-1-.958z"/><path d="M7 34c-3 0-5-2-5-5 0-.553-.447-1-1-1s-1 .447-1 1c0 4 3 7 7 7 .553 0 1-.447 1-1s-.447-1-1-1zM24 2c-.552 0-1 .448-1 1s.448 1 1 1c4 0 8 3.589 8 8 0 .552.448 1 1 1s1-.448 1-1c0-5.514-4-10-10-10z"/><path d="M29 .042c-.552 0-1 .406-1 .958s.448 1.042 1 1.042c3 0 4.958 2.225 4.958 4.958 0 .552.489 1 1.042 1s.958-.448.958-1C35.958 3.163 33 .042 29 .042z"/></g></svg>
+        </div>
+      </div>
+      <el-carousel class="margin-10-top" :autoplay="true" style="width: 60%;height: 100%;border-radius: var(--el-border-radius-base);">
+        <template v-for="(item, index) in goodsMainImageList" v-bind:key="item">
+          <el-carousel-item>
+            <el-image
+              :src="item"
+              fit="cover"
+              :hide-on-click-modal="true"
+              :preview-src-list="goodsMainImageList"
+              :initial-index="index"
+              :close-on-press-escape="true"
+              :preview-teleported="true"
+              style="width: 100%;height: 100%;"
+            />
+          </el-carousel-item>
         </template>
-      </el-empty>
-    </el-main>
-    <!-- 加载失败 end -->
-    <GoodsDetailSkeleton v-if="isLoading" />
+      </el-carousel>
+      <text class="margin-20-top emphasize">{{ goodsTitle }}</text>
+      <text class="margin-20-top">{{ shopInfo ? shopInfo.name : '' }}</text>
+    </div>
+    <el-row :gutter="24">
+      <el-col :span="24" class="top_1_parent">
+        <div class="top margin-20-top">
+          <div class="top_2">
+            <text class="margin-20-top font-14-size">价格</text>
+            <text class="margin-20-top font-12-size emphasize">￥{{ goodsPrice }}元起</text>
+            <text class="margin-20-top font-14-size">起拍量</text>
+            <text class="margin-20-top font-12-size emphasize">{{ specList[0] ? specList[0].start_quantity : 0 }}{{ formatUnit(specList[0] ? specList[0].count_unit : 0) }}起</text>
+          </div>
+        </div>
+      </el-col>
+    </el-row>
+  </div>
+  <el-container direction="vertical" :gutter="24" class="margin-20-top" v-if="!isLoading&&isSuccess">
+    <el-row>
+      <GoodsIntroduce
+        :description="goodsDescription"
+        :goodsFeatures="goodsFeatures"
+        :factoryFeatures="factoryFeatures"
+        :imageList="goodsDetailImageList"
+        :tradeLog="tradeLog"
+      >
+        <el-form
+          ref="formRef"
+          :inline-message="true"
+          :hide-required-asterisk="true"
+          label-position="top"
+          :model="goodsForm"
+          :rules="goodsFormRules"
+          style="padding-left: 10px;padding-right: 10px;"
+        >
+          <el-form-item prop="specs" required>
+            <template #label>
+              <el-row justify="space-between" align="middle">
+                <el-col :span="6">
+                  <el-row justify="start" align="middle">
+                    <el-col class="pc_spec" :span="12">规格</el-col>
+                    <el-col v-if="isShowAddNewSpecification" class="pc_spec_add" :span="12">
+                      <el-link type="danger" :underline="false" @click="addNewSpecification">新增</el-link>
+                    </el-col>
+                  </el-row>
+                </el-col>
+                <el-col :span="18">
+                  <el-row justify="end" align="middle" style="text-align: right;">
+                    <el-col :span="16">请选择单位</el-col>
+                    <el-col :span="8">
+                      <el-select
+                        v-model="selectedUnitIndex"
+                        placeholder="请选择单位"
+                        size="small"
+                        @change="selectedUnitIndexChangeHandle"
+                        :validate-event="false"
+                      >
+                        <el-option
+                          v-for="(item, index) in unitArr"
+                          v-bind:key="item"
+                          :label="item.unit"
+                          :value="item.count_unit"
+                        />
+                      </el-select>
+                    </el-col>
+                  </el-row>
+                </el-col>
+              </el-row>
+            </template>
+            <SelectSpecifications :type="type" :goodsId="goodsId" v-model="specList" @onChange="handleSpecListCountChange" />
+          </el-form-item>
+          <el-form-item prop="address_name" required>
+            <template #label>收货人姓名</template>
+            <el-input
+              v-model="goodsForm.address_name"
+              placeholder="请输入收货人姓名"
+              :validate-event="false"
+            />
+          </el-form-item>
+          <el-form-item prop="address_phone" required>
+            <template #label>收货电话</template>
+            <el-input
+              type="tel"
+              v-model="goodsForm.address_phone"
+              placeholder="请输入收货人手机号码"
+              :validate-event="false"
+            />
+          </el-form-item>
+          <el-form-item prop="address_detailed" required>
+            <template #label>收货地址</template>
+            <el-input
+              v-model="goodsForm.address_detailed"
+              placeholder="请输入详细收货地址"
+              :validate-event="false"
+            />
+          </el-form-item>
+          <el-form-item>
+            <template #label>推荐备注(选填)</template>
+            <el-checkbox-group
+              v-model="selectedRemarkListItems"
+              size="small"
+              @change="remarkListSelectedChangeHandle"
+              :validate-event="false"
+            >
+              <el-checkbox-button
+                v-for="(item, index) in remarkList"
+                v-bind:key="item"
+                :key="item.name"
+                :label="item.name"
+                :validate-event="false"
+              >{{ item.name }}</el-checkbox-button>
+            </el-checkbox-group>
+          </el-form-item>
+          <el-form-item>
+            <template #label>留言</template>
+            <el-input
+              type="textarea"
+              :rows="2"
+              resize="none"
+              v-model="remarkContent"
+              placeholder="请勿包含加工要求信息。如无，可不输入"
+              @change="remarkContentChangeHandle"
+              :validate-event="false"
+            />
+          </el-form-item>
+          <el-form-item>
+            <el-descriptions :column="3" direction="vertical" style="width: 100%;">
+              <el-descriptions-item align="left" label="商品总价">{{ goodsTotalPrice > 0 ? goodsTotalPrice : '？' }}元</el-descriptions-item>
+              <el-descriptions-item align="left" label="智能运费">
+                <template v-if="freightPrice > 0">{{ freightPrice }}元</template>
+                <template v-else>
+                  <template v-if="isCalcingFreightPrice">正在计算中...</template>
+                  <template v-else>
+                    <el-link class="pc_form_item-content" :underline="false" @click="calcFreightPriceHandle">点击计算</el-link>
+                  </template>
+                </template>
+              </el-descriptions-item>
+              <el-descriptions-item align="left" label="订单总价">{{ orderTotalPrice > 0 ? orderTotalPrice : '？' }}元</el-descriptions-item>
+            </el-descriptions>
+            <el-descriptions :column="1" direction="horizontal" style="width: 100%;">
+              <el-descriptions-item align="left" label="合计">￥{{ totalPrice > 0 ? totalPrice : '？' }}元</el-descriptions-item>
+            </el-descriptions>
+          </el-form-item>
+        </el-form>
+        <el-affix position="bottom" target=".el-tabs__content">
+          <el-button type="danger" class="goods_footer-large_btn" @click="isMobile?submitOrderByMobileHandle():submitOrderByPcHandle()">提交订单</el-button>
+        </el-affix>
+        <PcPay
+          :isShow="isShowPcPayQrcode"
+          :outTradeNo="outTradeNo"
+          :codeUrl="pcPayQrcodeValue"
+          @onClose="pcPayCloseHandle"
+          @onGetPayResult="getPayResultHandle"
+        />
+      </GoodsIntroduce>
+      <GoodsRecommends :list="otherSee" :type="type" />
+    </el-row>
   </el-container>
+  <!-- 加载失败 start -->
+  <el-main v-if="!isLoading&&!isSuccess">
+    <el-empty>
+      <template #description>
+        <span class="fail_tips_text">
+          加载失败，请稍后<el-link :underline="false" @click="reloadHandle">重试</el-link>
+        </span>
+      </template>
+    </el-empty>
+  </el-main>
+  <!-- 加载失败 end -->
+  <GoodsDetailSkeleton v-if="isLoading" />
 </template>
 <script setup>
-import GoodsCarousel from '../components/GoodsCarousel.vue'
 import SelectSpecifications from '../components/SelectSpecifications.vue'
 import GoodsDetailSkeleton from '../components/GoodsDetailSkeleton.vue'
 import GoodsIntroduce from '../components/GoodsIntroduce.vue'
@@ -454,11 +264,22 @@ const handleSpecListCountChange = () => {
       return Number(item.select_count) > 0 && Number(item.long) > 0 && Number(item.width) > 0 && Number(item.height) > 0
     }
   })
+  let s_id = JSON.parse(JSON.stringify(specList.value))
+  s_id = s_id.filter(item => {
+    return Number(item.select_count)>0
+  })
+  if (selectedUnitIndex.value > -1) {
+    s_id = s_id.map(item => {
+      item.unit = selectedUnitIndex.value
+      item.count_unit = selectedUnitIndex.value
+      return item
+    })
+  }
   getGoodsSpecsPriceApi({
     type: type.value,
     goods_id: goodsId.value,
     unit: selectedUnitIndex.value,
-    s_id: specList.value,
+    s_id: s_id,
     order_notes: orderNotes.value,
   }).then(res => {
     console.log(res);
@@ -483,33 +304,9 @@ const handleSpecListCountChange = () => {
 }
 // 浏览数
 const viewCount = ref(0)
-// pc端的买家服务
-const buyerServices = ref([
-  {
-    icon: 'https://www.zhenmuwang.com/Tpl/Home/egou2.0/upimages/jinkou/fahuo.png',
-    name: '快速发货',
-  },
-  {
-    icon: 'https://www.zhenmuwang.com/Tpl/Home/egou2.0/upimages/jinkou/tuikuan.png',
-    name: '急速退款',
-  },
-  {
-    icon: 'https://www.zhenmuwang.com/Tpl/Home/egou2.0/upimages/jinkou/peichang.png',
-    name: '少货必赔',
-  },
-  {
-    icon: 'https://www.zhenmuwang.com/Tpl/Home/egou2.0/upimages/jinkou/anquan.png',
-    name: '买家保障',
-  },
-])
-// pc端的支付方式
-const payTypes = ref([
-  '微信',
-  '网上银行',
-  '大额支付',
-])
 // pc端的商品标签
 const tags = ref([])
+const tagsColorList = ref(['orange', 'yellow', 'purple', 'blue', 'green'])
 // 商品的产品介绍
 const goodsDescription = ref('')
 // 产品优势
@@ -603,11 +400,22 @@ const freightTitle = ref('')
 const isShowAddNewSpecification = ref(false)
 // 监听订单备注变化
 const orderNotesChangeHandle = () => {
+  let s_id = JSON.parse(JSON.stringify(specList.value))
+  s_id = s_id.filter(item => {
+    return Number(item.select_count)>0
+  })
+  if (selectedUnitIndex.value > -1) {
+    s_id = s_id.map(item => {
+      item.unit = selectedUnitIndex.value
+      item.count_unit = selectedUnitIndex.value
+      return item
+    })
+  }
   getGoodsSpecsPriceApi({
     type: type.value,
     goods_id: goodsId.value,
     unit: selectedUnitIndex.value,
-    s_id: specList.value,
+    s_id: s_id,
     order_notes: orderNotes.value,
   }).then(res => {
     console.log(res);
@@ -642,9 +450,6 @@ const remarkContentChangeHandle = (value) => {
   orderNotes.value = selectedRemarkListItems.value.join(',') + (selectedRemarkListItems.value.length > 0 && value.length > 0 ? ',' : '') + value
   selectedGoodsSpecsStore.setOrderNotes(type.value, goodsId.value, orderNotes.value)
   orderNotesChangeHandle()
-}
-// 跳转到立即购买
-const gotoBuyNowHandle = () => {
 }
 // 新增自定义规格
 const addNewSpecification = (isFromGetGoodsDetail = false, long = '', width = '', height = '', select_count = 0) => {
@@ -1006,6 +811,181 @@ watchEffect(() => {
 })
 </script>
 <style scoped>
+.top_1_tag{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.fifth{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  letter-spacing: 2px;
+  padding: 0 20px 20px 20px;
+}
+.fifth_item{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 10px;
+}
+.el-col{
+  margin-bottom: 10px;
+}
+.icon{
+  width: 30px;
+  height: 30px;
+}
+.top_1_parent{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+}
+.adv_1{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(109.6deg, rgb(53 53 53) 11.2%, rgb(98 83 133) 91.1%);
+}
+.top_1_2{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  background: #000;
+}
+.top_1_2 .top_1_2_left{
+  padding: 20px;
+  background-color: #000;
+  color: #fff;
+}
+.top_1_2 .top_1_2_right{
+  display: flex;
+  flex-direction: column;
+  background-color: #645386;
+  color: #fff;
+  padding: 20px;
+  letter-spacing: 2px;
+  align-items: flex-start;
+}
+.top_1_2:hover{
+  transform: scale(1.1);
+  transition-duration: 80ms;
+}
+.el-container>>>.el-tabs__header{
+  position: -webkit-sticky;
+  position: sticky;
+  background: #fff;
+  top: 50px;
+  z-index: 1000;
+  opacity: 0.8;
+}
+.el-container>>>.el-tabs__nav-wrap{
+  padding: 0 20px;
+  letter-spacing: 2px;
+}
+.el-container>>>.el-tabs__nav-scroll{
+  overflow-x: auto;
+}
+.el-descriptions{
+  padding:0 10px;
+}
+.el-container>>>.el-tabs__nav-scroll::-webkit-scrollbar{
+  display: none;
+}
+.el-container>>>.el-tabs__nav-wrap::after{
+  background-color: unset !important;
+}
+.el-container>>>.el-tabs__item.is-active {
+  color: #000;
+}
+.el-container>>>.el-tabs__active-bar{
+  background-color: #000;
+}
+.el-container>>>.el-tabs__item:hover{
+  color:#000;
+}
+.el-container>>>.el-descriptions__header{
+  margin-bottom: 0;
+  padding: 10px 0px;
+}
+.top_tip_2{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-around;
+}
+.top_tip_2_2{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.svg_happy{
+  width: 50px;
+  height: 50px;
+}
+.top_tip{
+  width: 90%;
+  padding: 15px;
+  color: #11269a;
+  background-image: linear-gradient(109.6deg, rgb(156, 252, 248) 11.2%, rgb(110, 123, 251) 91.1%);
+  /*border-radius: 62% 47% 82% 35%/45% 45% 80% 66%;*/
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+}
+.top_2_1{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.light_emphasize{
+  font-weight: 600;
+  text-align: center;
+}
+.emphasize{
+  font-weight: 900;
+  font-size: 24px;
+  text-align: center;
+}
+.top{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  /*background-color: #151515;*/
+  /*color: #fff;*/
+  background-color: #fff;
+  border-radius: 30px;
+  box-shadow: 0 2.8px 2.2px rgba(0,0,0,.034), 0 6.7px 5.3px rgba(0,0,0,.048), 0 12.5px 10px rgba(0,0,0,.06), 0 22.3px 17.9px rgba(0,0,0,.072), 0 41.8px 33.4px rgba(0,0,0,.086), 0 100px 80px rgba(0,0,0,.12);
+  letter-spacing: 2px;
+  padding: 20px;
+  width: 90%;
+  box-sizing: unset;
+}
+.top_2{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.svg_hello{
+  height: 2em !important;
+  width: 2em !important;
+}
+
+.padding-10{
+  padding: 0 10px 20px 10px;
+  letter-spacing: 2px;
+}
+.demo-tabs > .el-tabs__content {
+  padding: 32px;
+  color: #6b778c;
+  font-size: 32px;
+  font-weight: 600;
+}
+
 .form_field_empty_tips {
   color: var(--el-color-danger);
 }

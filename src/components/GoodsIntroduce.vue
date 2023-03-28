@@ -1,5 +1,5 @@
 <template>
-  <el-col :span="15" :offset="0" :xs="{span:24,offset:0}">
+  <el-col :span="14" :offset="1" :xs="{span:24,offset:0}">
     <el-tabs>
       <!-- 产品详情 start -->
       <el-tab-pane label="产品详情">
@@ -38,14 +38,14 @@
               <el-col class="goods_introduce-item-title">工厂优势</el-col>
               <template v-for="(item, index) in factoryFeatures" v-bind:key="item">
                 <el-col class="goods_introduce-item-factory_features_item">
-                  <el-row align="middle" class="goods_introduce-item-factory_features_item-row">
-                    <el-col :span="11" :offset="index % 2 == 0 ? 0 : 2">
+                  <el-row justify="space-around" align="middle" class="goods_introduce-item-factory_features_item-row">
+                    <el-col :span="11">
                       <el-row>
                         <el-col class="font-size-base font-weight-bold">{{ item.name }}</el-col>
                         <el-col class="font-size-small">{{ item.wenan }}</el-col>
                       </el-row>
                     </el-col>
-                    <el-col :span="11" :offset="index % 2 == 0 ? 2 : 0">
+                    <el-col :span="11">
                       <el-image :src="item.image" />
                     </el-col>
                   </el-row>
@@ -99,7 +99,7 @@
       </el-tab-pane>
       <!-- 产品详情 end -->
       <!-- 立即购买 start -->
-      <el-tab-pane label="立即购买" v-if="isMobile"><slot></slot></el-tab-pane>
+      <el-tab-pane label="立即购买"><slot></slot></el-tab-pane>
       <!-- 立即购买 end -->
       <!-- 交易记录 start -->
       <el-tab-pane label="交易记录">
@@ -206,6 +206,11 @@ const isMobile = ref(window.innerWidth<768)
 }
 .goods_introduce-item-factory_features_item:nth-of-type(even) .goods_introduce-item-factory_features_item-row {
   flex-direction: row;
+}
+.goods_introduce-item-factory_features_item .goods_introduce-item-factory_features_item-row > .el-col {
+  display: flex;
+  justify-content: center;
+  max-width: 288px;
 }
 .goods_detail-detail_image {
   width: 100%;

@@ -7,7 +7,7 @@
  * @Description: 
 -->
 <template>
-  <el-col class="hidden-xs-only" :span="8" :offset="1" :xs="0">
+  <el-col class="hidden-xs-only" :span="8" :offset="0" :xs="0">
     <el-card shadow="hover">
       <el-row>
         <el-col>为你推荐</el-col>
