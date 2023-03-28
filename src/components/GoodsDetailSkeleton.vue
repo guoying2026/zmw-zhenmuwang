@@ -1,6 +1,6 @@
 <template>
   <!-- PC端骨架屏 start -->
-  <el-main class="hidden-xs-only pc_loading_main">
+  <el-main class="hidden-xs-only pc_loading_main" :xs="0">
     <el-skeleton :animated="true" :loading="isLoading">
       <template #template>
         <el-row justify="start" align="middle">
@@ -63,7 +63,7 @@
   </el-main>
   <!-- PC端骨架屏 end -->
   <!-- 移动端骨架屏 start -->
-  <el-main class="hidden-sm-and-up mobile_loading_main">
+  <el-main class="hidden-sm-and-up mobile_loading_main" :sm="0" :md="0" :lg="0" :xl="0">
     <el-skeleton :animated="true" :loading="isLoading">
       <template #template>
         <el-row align="middle">

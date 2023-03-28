@@ -115,7 +115,7 @@
     <el-footer
       class="list_page_footer"
     >
-      <el-row v-if="!isMobile" :gutter="1" justify="center" class="hidden-xs-only">
+      <el-row v-if="!isMobile" :gutter="1" justify="center" class="hidden-xs-only" :xs="0">
         <el-col :span="1" class="no_max_width">
           <el-pagination
             background

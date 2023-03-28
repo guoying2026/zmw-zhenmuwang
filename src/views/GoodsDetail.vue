@@ -7,7 +7,7 @@
         <!-- 产品图轮播 end -->
         <!-- 产品信息 start -->
         <!-- pc端产品信息 start -->
-        <el-col class="hidden-xs-only" :span="18" :offset="1">
+        <el-col class="hidden-xs-only" :span="18" :offset="1" :xs="0">
           <el-descriptions :title="goodsTitle" :column="1">
             <el-descriptions-item>
               <template #label>价格</template>
@@ -30,7 +30,7 @@
             </el-descriptions-item>
           </el-descriptions>
         </el-col>
-        <el-col class="hidden-xs-only" :span="18" :offset="6">
+        <el-col class="hidden-xs-only" :span="18" :offset="6" :xs="0">
           <el-form
             ref="formRef"
             :inline-message="true"
@@ -162,7 +162,7 @@
         </el-col>
         <!-- pc端产品信息 end -->
         <!-- 移动端产品信息 start -->
-        <el-col class="hidden-sm-and-up">
+        <el-col class="hidden-sm-and-up" :sm="0" :md="0" :lg="0" :xl="0">
           <el-descriptions :title="goodsTitle" :column="1">
             <el-descriptions-item>
               <template #label>价格</template>

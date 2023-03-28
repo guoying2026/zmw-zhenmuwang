@@ -1,6 +1,6 @@
 <template>
   <!-- pc端产品图轮播 start -->
-  <el-col class="hidden-xs-only" :span="5">
+  <el-col class="hidden-xs-only" :span="5" :xs="0">
     <el-carousel :autoplay="false" height="calc((100vw - (var(--el-main-padding) * 2)) * 0.208333333333)">
       <template v-for="(item, index) in list" v-bind:key="item">
         <el-carousel-item>
@@ -11,7 +11,7 @@
   </el-col>
   <!-- pc端产品图轮播 end -->
   <!-- 移动端产品图轮播 start -->
-  <el-col class="hidden-sm-and-up">
+  <el-col class="hidden-sm-and-up" :sm="0" :md="0" :lg="0" :xl="0">
     <el-carousel>
       <template v-for="(item, index) in list" v-bind:key="item">
         <el-carousel-item>

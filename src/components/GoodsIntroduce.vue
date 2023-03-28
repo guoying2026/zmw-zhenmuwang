@@ -62,6 +62,7 @@
                   <!-- pc端产品详情图 start -->
                   <el-image
                     class="hidden-xs-only goods_detail-detail_image pc_goods_detail-detail_image"
+                    :xs="0"
                     fit="cover"
                     :src="item"
                     :hide-on-click-modal="true"
@@ -74,6 +75,10 @@
                   <!-- 移动端产品详情图 start -->
                   <el-image
                     class="hidden-sm-and-up goods_detail-detail_image"
+                    :sm="0"
+                    :md="0"
+                    :lg="0"
+                    :xl="0"
                     :src="item"
                     :hide-on-click-modal="true"
                     :preview-src-list="imageList"
