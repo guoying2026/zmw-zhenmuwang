@@ -151,7 +151,7 @@ import {goodsListApi} from "../api/goods.js";
 import CreditScore from "../components/CreditScore.vue";
 //
 const company_info_id = ref(0);
-company_info_id.value = 255;
+company_info_id.value = 18;
 
 //导航栏切换开始
 const activeName = ref('first')

@@ -19,7 +19,7 @@
     <div class="ask_item margin-10-top">
       <div class="ask_item_top">
         <text class="ask_item_1">{{item.question}}</text>
-        <text class="ask_item_2 margin-10-left">{{item.ask_count}}个回答</text>
+        <text class="ask_item_2 margin-10-left">{{item.answer_count}}个回答</text>
       </div>
       <el-row :gutter="8" class="margin-10-top">
         <el-col
@@ -59,7 +59,7 @@
       </AddComment>
     </div>
     <div class="answer_item margin-10-top"
-         v-for="(itemAsk,indexAsk) in item.ask_list" :key="indexAsk">
+         v-for="(itemAsk,indexAsk) in item.answer_list" :key="indexAsk">
       <div class="answer_item_left">
         <el-avatar
             :size="48"
@@ -67,7 +67,7 @@
         />
         <div class="answer_item_left_2">
             <text>{{itemAsk.name}}</text>
-            <text class="margin-10-top">{{itemAsk.ask}}</text>
+            <text class="margin-10-top">{{itemAsk.answer}}</text>
             <el-row :gutter="8" class="margin-10-top">
               <el-col
                 v-for="(itemAskImage, indexAskImage) in itemAsk.image"
@@ -143,30 +143,30 @@ onMounted(() => {
 const liked_question = (index,indexAsk,id,is_useful,useful_count,useless_count) => {
   //如果is_useful是1。就是有用，再点赞就是取消有用
   if(is_useful === 1){
-    list.arr[index].ask_list[indexAsk].is_useful = 0;
+    list.arr[index].answer_list[indexAsk].is_useful = 0;
     if(useful_count * 1 > 1){
-      list.arr[index].ask_list[indexAsk].useful_count = useful_count * 1 - 1;
+      list.arr[index].answer_list[indexAsk].useful_count = useful_count * 1 - 1;
     } else {
-      list.arr[index].ask_list[indexAsk].useful_count = 0;
+      list.arr[index].answer_list[indexAsk].useful_count = 0;
     }
     // cancelQuestionApi({id: id,user_id: userStore.userId}).then(async(res) => {
     //   if(res.data.status === false){
-    //     list.arr[index].ask_list[indexAsk].is_useful = 1;
+    //     list.arr[index].answer_list[indexAsk].is_useful = 1;
     //   }
     // })
   } else {
     if(is_useful === 2){//如果从无用变成有用，需要减少无用数量
       if(useless_count * 1 > 1){
-        list.arr[index].ask_list[indexAsk].useless_count = useless_count * 1 - 1;
+        list.arr[index].answer_list[indexAsk].useless_count = useless_count * 1 - 1;
       } else {
-        list.arr[index].ask_list[indexAsk].useless_count = 0;
+        list.arr[index].answer_list[indexAsk].useless_count = 0;
       }
     }
-    list.arr[index].ask_list[indexAsk].is_useful = 1;
-    list.arr[index].ask_list[indexAsk].useful_count = useful_count * 1 + 1;
+    list.arr[index].answer_list[indexAsk].is_useful = 1;
+    list.arr[index].answer_list[indexAsk].useful_count = useful_count * 1 + 1;
     // likeQuestionApi({id: id,user_id: userStore.userId}).then(async(res) => {
     //   if(res.data.status === false){
-    //     list.arr[index].ask_list[indexAsk].is_useful = is_useful;
+    //     list.arr[index].answer_list[indexAsk].is_useful = is_useful;
     //   }
     // })
   }
@@ -176,30 +176,30 @@ const liked_question = (index,indexAsk,id,is_useful,useful_count,useless_count) 
 const disliked_question = (index,indexAsk,id,is_useful,useful_count,useless_count) => {
   //如果is_useful是2。就是没用，再点赞就是取消没用
   if(is_useful === 2){
-    list.arr[index].ask_list[indexAsk].is_useful = 0;
+    list.arr[index].answer_list[indexAsk].is_useful = 0;
     if(useless_count * 1 > 1){
-      list.arr[index].ask_list[indexAsk].useless_count = useless_count * 1 - 1;
+      list.arr[index].answer_list[indexAsk].useless_count = useless_count * 1 - 1;
     } else {
-      list.arr[index].ask_list[indexAsk].useless_count = 0;
+      list.arr[index].answer_list[indexAsk].useless_count = 0;
     }
     // cancelQuestionApi({id: id,user_id: userStore.userId}).then(async(res) => {
     //   if(res.data.status === false){
-    //     list.arr[index].ask_list[indexAsk].is_useful = 1;
+    //     list.arr[index].answer_list[indexAsk].is_useful = 1;
     //   }
     // })
   } else {
     if(is_useful === 1){//如果从有用变成无用，需要减少有用数量
       if(useful_count * 1 > 1){
-        list.arr[index].ask_list[indexAsk].useful_count = useful_count * 1 - 1;
+        list.arr[index].answer_list[indexAsk].useful_count = useful_count * 1 - 1;
       } else {
-        list.arr[index].ask_list[indexAsk].useful_count = 0;
+        list.arr[index].answer_list[indexAsk].useful_count = 0;
       }
     }
-    list.arr[index].ask_list[indexAsk].is_useful = 2;
-    list.arr[index].ask_list[indexAsk].useless_count = useless_count * 1 + 1;
+    list.arr[index].answer_list[indexAsk].is_useful = 2;
+    list.arr[index].answer_list[indexAsk].useless_count = useless_count * 1 + 1;
     // dislikeQuestionApi({id:id,user_id: userStore.userId}).then(async(res) => {
     //   if(res.data.status === false){
-    //     list.arr[index].ask_list[indexAsk].is_useful = is_useful;
+    //     list.arr[index].answer_list[indexAsk].is_useful = is_useful;
     //   }
     // })
   }
@@ -216,17 +216,17 @@ const receiveChildAddComment = (param) => {
       name: userStore.phone,
       question: question.question,
       created_time: question.created_time,
-      ask_count: 0,
+      answer_count: 0,
       image: question.image,
-      ask_list:[]
+      answer_list:[]
     })
   } else {
-    list.arr[param.questionIndex].ask_list.unshift({
+    list.arr[param.questionIndex].answer_list.unshift({
       id: question.id,
       user_id: userStore.userId,
       name: userStore.phone,
       created_time: question.created_time,
-      ask: question.question,
+      answer: question.question,
       useful_count: 0,
       useless_count: 0,
       is_useful: 0,
