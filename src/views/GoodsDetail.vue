@@ -36,13 +36,14 @@
             :inline-message="true"
             :hide-required-asterisk="true"
             label-width="100px"
+            label-position="right"
             :model="goodsForm"
             :rules="goodsFormRules"
           >
             <el-form-item prop="specs" required>
               <template #label>
                 <el-row justify="space-between" align="middle">
-                  <el-col class="pc_spec" :span="12">规格</el-col>
+                  <el-col class="pc_spec" :span="isShowAddNewSpecification?12:24">规格</el-col>
                   <el-col v-if="isShowAddNewSpecification" class="pc_spec_add" :span="12">
                     <el-link type="danger" :underline="false" @click="addNewSpecification">新增</el-link>
                   </el-col>
@@ -382,6 +383,12 @@
   </el-container>
 </template>
 <script setup>
+import GoodsCarousel from '../components/GoodsCarousel.vue'
+import SelectSpecifications from '../components/SelectSpecifications.vue'
+import GoodsDetailSkeleton from '../components/GoodsDetailSkeleton.vue'
+import GoodsIntroduce from '../components/GoodsIntroduce.vue'
+import PcPay from '../components/PcPay.vue'
+import GoodsRecommends from '../components/GoodsRecommends.vue'
 import { nextTick, ref, reactive, watchEffect } from 'vue'
 import { useRoute } from 'vue-router'
 import {
