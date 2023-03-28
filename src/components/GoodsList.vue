@@ -17,7 +17,7 @@
             lazy
         />
         <div class="goods_item font-12-size">
-          <text class="font-15-size">{{item.goods_title}}</text>
+          <text class="font-15-size"><el-link type="info" :underline="false" :href="'/goodsDetail?type=1&goods_id='+item.goods_id" target="_blank">{{item.goods_title}}</el-link></text>
           <text class="margin-10-top">详细发货地址：{{item.area}}</text>
           <div class="margin-10-top green_btn buy_btn">
             <text>¥ </text>

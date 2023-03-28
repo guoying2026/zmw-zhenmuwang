@@ -2,12 +2,12 @@
  * @Author: joytou
  * @Date: 2023-03-17
  * @LastEditors: joytou
- * @LastEditTime: 2023-03-17
+ * @LastEditTime: 2023-03-28
  * @FilePath: /zmw-zhenmuwang/src/components/GoodsRecommends.vue
  * @Description: 
 -->
 <template>
-  <el-col class="hidden-xs-only" :span="8" :offset="1">
+  <el-col class="hidden-xs-only" :span="8" :offset="1" :xs="0">
     <el-card shadow="hover">
       <el-row>
         <el-col>为你推荐</el-col>
@@ -19,7 +19,7 @@
               </el-col>
               <el-col class="recommend_goods-item-info">
                 <el-row justify="center">
-                  <el-col class="recommend_goods-item-info-title">{{ item.goods_name }}</el-col>
+                  <el-col class="recommend_goods-item-info-title"><el-link type="info" :underline="false" :href="'/goodsDetail?type='+type+'&goods_id='+item.goods_id">{{ item.goods_name }}</el-link></el-col>
                   <el-col class="recommend_goods-item-info-price">
                     <span class="font-size-extra-small">￥</span>{{ item.spell_price }}&nbsp;/&nbsp;{{ item.unit }}
                   </el-col>
@@ -39,6 +39,13 @@ const props = defineProps({
     required: true,
     default () {
       return []
+    }
+  },
+  type: {
+    type: String,
+    required: true,
+    default () {
+      return '0'
     }
   },
 })
