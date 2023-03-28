@@ -8,158 +8,162 @@
         <!-- 产品信息 start -->
         <!-- pc端产品信息 start -->
         <el-col class="hidden-xs-only" :span="18" :offset="1" :xs="0">
-          <el-descriptions :title="goodsTitle" :column="1">
-            <el-descriptions-item>
-              <template #label>价格</template>
-              ￥{{ goodsPrice }}元起
-            </el-descriptions-item>
-            <el-descriptions-item>
-              <template #label>发货地</template>
-              {{ sendArea }}
-            </el-descriptions-item>
-            <el-descriptions-item>
-              <template #label>发货物流</template>
-              <el-popover
-                placement="top-start"
-                :width="200"
-                trigger="hover"
-                content="智能运费是指真木网大数据算法智能计算出的运费，系统将根据您购买的木材体积、重量、配送距离等向您收取一定的运费。"
+          <el-row>
+            <el-col>
+              <el-descriptions :title="goodsTitle" :column="1">
+                <el-descriptions-item label-align="right">
+                  <template #label>价格</template>
+                  ￥{{ goodsPrice }}元起
+                </el-descriptions-item>
+                <el-descriptions-item label-align="right">
+                  <template #label>发货地</template>
+                  {{ sendArea }}
+                </el-descriptions-item>
+                <el-descriptions-item label-align="right">
+                  <template #label>发货物流</template>
+                  <el-popover
+                    placement="top-start"
+                    :width="200"
+                    trigger="hover"
+                    content="智能运费是指真木网大数据算法智能计算出的运费，系统将根据您购买的木材体积、重量、配送距离等向您收取一定的运费。"
+                  >
+                    <template #reference>智能运费</template>
+                  </el-popover>
+                </el-descriptions-item>
+              </el-descriptions>
+            </el-col>
+            <el-col>
+              <el-form
+                ref="formRef"
+                :inline-message="true"
+                :hide-required-asterisk="true"
+                label-width="100px"
+                label-position="right"
+                :model="goodsForm"
+                :rules="goodsFormRules"
               >
-                <template #reference>智能运费</template>
-              </el-popover>
-            </el-descriptions-item>
-          </el-descriptions>
-        </el-col>
-        <el-col class="hidden-xs-only" :span="18" :offset="6" :xs="0">
-          <el-form
-            ref="formRef"
-            :inline-message="true"
-            :hide-required-asterisk="true"
-            label-width="100px"
-            label-position="right"
-            :model="goodsForm"
-            :rules="goodsFormRules"
-          >
-            <el-form-item prop="specs" required>
-              <template #label>
-                <el-row justify="space-between" align="middle">
-                  <el-col class="pc_spec" :span="isShowAddNewSpecification?12:24">规格</el-col>
-                  <el-col v-if="isShowAddNewSpecification" class="pc_spec_add" :span="12">
-                    <el-link type="danger" :underline="false" @click="addNewSpecification">新增</el-link>
-                  </el-col>
-                </el-row>
-              </template>
-              <SelectSpecifications :type="type" :goodsId="goodsId" v-model="specList" @onChange="handleSpecListCountChange" />
-            </el-form-item>
-            <el-form-item prop="address_name" required>
-              <template #label>收货人姓名</template>
-              <el-input
-                v-model="goodsForm.address_name"
-                placeholder="请输入收货人姓名"
-                :validate-event="false"
-              />
-            </el-form-item>
-            <el-form-item prop="address_phone" required>
-              <template #label>收货电话</template>
-              <el-input
-                type="tel"
-                v-model="goodsForm.address_phone"
-                placeholder="请输入收货人手机号码"
-                :validate-event="false"
-              />
-            </el-form-item>
-            <el-form-item prop="address_detailed" required>
-              <template #label>收货地址</template>
-              <el-input
-                v-model="goodsForm.address_detailed"
-                placeholder="请输入详细收货地址"
-                :validate-event="false"
-              />
-            </el-form-item>
-            <el-form-item>
-              <el-row>
-                <el-col :span="12">
+                <el-form-item prop="specs" required>
+                  <template #label>
+                    <el-row justify="space-between" align="middle">
+                      <el-col class="pc_spec" :span="isShowAddNewSpecification?12:24">规格</el-col>
+                      <el-col v-if="isShowAddNewSpecification" class="pc_spec_add" :span="12">
+                        <el-link type="danger" :underline="false" @click="addNewSpecification">新增</el-link>
+                      </el-col>
+                    </el-row>
+                  </template>
+                  <SelectSpecifications :type="type" :goodsId="goodsId" v-model="specList" @onChange="handleSpecListCountChange" />
+                </el-form-item>
+                <el-form-item prop="address_name" required>
+                  <template #label>收货人姓名</template>
                   <el-input
-                    type="textarea"
-                    :rows="4"
-                    resize="none"
-                    v-model="goodsForm.order_notes"
-                    placeholder="请输入订单备注"
-                    @change="remarkContentChangeHandle"
+                    v-model="goodsForm.address_name"
+                    placeholder="请输入收货人姓名"
                     :validate-event="false"
                   />
-                </el-col>
-                <el-col :span="12">
+                </el-form-item>
+                <el-form-item prop="address_phone" required>
+                  <template #label>收货电话</template>
+                  <el-input
+                    type="tel"
+                    v-model="goodsForm.address_phone"
+                    placeholder="请输入收货人手机号码"
+                    :validate-event="false"
+                  />
+                </el-form-item>
+                <el-form-item prop="address_detailed" required>
+                  <template #label>收货地址</template>
+                  <el-input
+                    v-model="goodsForm.address_detailed"
+                    placeholder="请输入详细收货地址"
+                    :validate-event="false"
+                  />
+                </el-form-item>
+                <el-form-item>
                   <el-row>
-                    <el-col>
-                      <el-row>
-                        <el-col class="pc_form_item-title" :span="14">商品总价：</el-col>
-                        <el-col class="pc_form_item-content" :span="10">{{ goodsTotalPrice > 0 ? goodsTotalPrice : '？' }}元</el-col>
-                      </el-row>
+                    <el-col :span="12">
+                      <el-input
+                        type="textarea"
+                        :rows="4"
+                        resize="none"
+                        v-model="goodsForm.order_notes"
+                        placeholder="请输入订单备注"
+                        @change="remarkContentChangeHandle"
+                        :validate-event="false"
+                      />
                     </el-col>
-                    <el-col>
+                    <el-col :span="12">
                       <el-row>
-                        <el-col class="pc_form_item-title" :span="14">智能运费：</el-col>
-                        <el-col class="pc_form_item-content" :span="10">
-                          <template v-if="freightPrice > 0">{{ freightPrice }}元</template>
-                          <template v-else>
-                            <template v-if="isCalcingFreightPrice">正在计算中...</template>
-                            <template v-else>
-                              <el-link class="pc_form_item-content" :underline="false" @click="calcFreightPriceHandle">点击计算</el-link>
-                            </template>
-                          </template>
+                        <el-col>
+                          <el-row>
+                            <el-col class="pc_form_item-title" :span="14">商品总价：</el-col>
+                            <el-col class="pc_form_item-content" :span="10">{{ goodsTotalPrice > 0 ? goodsTotalPrice : '？' }}元</el-col>
+                          </el-row>
+                        </el-col>
+                        <el-col>
+                          <el-row>
+                            <el-col class="pc_form_item-title" :span="14">智能运费：</el-col>
+                            <el-col class="pc_form_item-content" :span="10">
+                              <template v-if="freightPrice > 0">{{ freightPrice }}元</template>
+                              <template v-else>
+                                <template v-if="isCalcingFreightPrice">正在计算中...</template>
+                                <template v-else>
+                                  <el-link class="pc_form_item-content" :underline="false" @click="calcFreightPriceHandle">点击计算</el-link>
+                                </template>
+                              </template>
+                            </el-col>
+                          </el-row>
+                        </el-col>
+                        <el-col>
+                          <el-row>
+                            <el-col class="pc_form_item-title" :span="14">订单总价：</el-col>
+                            <el-col class="pc_form_item-content" :span="10">{{ orderTotalPrice > 0 ? orderTotalPrice : '？' }}元</el-col>
+                          </el-row>
+                        </el-col>
+                        <el-col>
+                          <el-row>
+                            <el-col class="pc_form_item-title" :span="14">合计：</el-col>
+                            <el-col class="pc_form_item-content" :span="10">{{ totalPrice > 0 ? totalPrice : '？' }}元</el-col>
+                          </el-row>
                         </el-col>
                       </el-row>
                     </el-col>
-                    <el-col>
-                      <el-row>
-                        <el-col class="pc_form_item-title" :span="14">订单总价：</el-col>
-                        <el-col class="pc_form_item-content" :span="10">{{ orderTotalPrice > 0 ? orderTotalPrice : '？' }}元</el-col>
-                      </el-row>
-                    </el-col>
-                    <el-col>
-                      <el-row>
-                        <el-col class="pc_form_item-title" :span="14">合计：</el-col>
-                        <el-col class="pc_form_item-content" :span="10">{{ totalPrice > 0 ? totalPrice : '？' }}元</el-col>
-                      </el-row>
-                    </el-col>
                   </el-row>
-                </el-col>
-              </el-row>
-            </el-form-item>
-            <el-form-item>
-              <el-button size="large">咨询客服</el-button>
-              <el-button size="large" @click="submitOrderByPcHandle">扫码支付</el-button>
-              <PcPay
-                :isShow="isShowPcPayQrcode"
-                :outTradeNo="outTradeNo"
-                :codeUrl="pcPayQrcodeValue"
-                @onClose="pcPayCloseHandle"
-                @onGetPayResult="getPayResultHandle"
-              />
-            </el-form-item>
-            <el-form-item>
-              <template #label>买家服务</template>
-              <template v-for="(item, index) in buyerServices" v-bind:key="item">
-                <el-image class="pc_buyer_service-icon" :src="item.icon" fit="contain" />
-                {{ item.name }}
-                &nbsp;&nbsp;&nbsp;
-              </template>
-            </el-form-item>
-            <el-form-item>
-              <template #label>支付方式</template>
-              <template v-for="(item, index) in payTypes" v-bind:key="item">
-                {{ item }}
-                &nbsp;&nbsp;&nbsp;
-              </template>
-            </el-form-item>
-            <el-form-item>
-              <template v-for="(item, index) in tags" v-bind:key="item">
-                <el-tag class="pc_goods-tags-tag_item" type="info">{{ item }}</el-tag>
-                &nbsp;&nbsp;&nbsp;
-              </template>
-            </el-form-item>
-          </el-form>
+                </el-form-item>
+                <el-form-item>
+                  <el-button size="large">咨询客服</el-button>
+                  <el-button size="large" @click="submitOrderByPcHandle">扫码支付</el-button>
+                  <PcPay
+                    :isShow="isShowPcPayQrcode"
+                    :outTradeNo="outTradeNo"
+                    :codeUrl="pcPayQrcodeValue"
+                    @onClose="pcPayCloseHandle"
+                    @onGetPayResult="getPayResultHandle"
+                  />
+                </el-form-item>
+                <el-form-item>
+                  <template #label>买家服务</template>
+                  <template v-for="(item, index) in buyerServices" v-bind:key="item">
+                    <el-image class="pc_buyer_service-icon" :src="item.icon" fit="contain" />
+                    {{ item.name }}
+                    &nbsp;&nbsp;&nbsp;
+                  </template>
+                </el-form-item>
+                <el-form-item>
+                  <template #label>支付方式</template>
+                  <template v-for="(item, index) in payTypes" v-bind:key="item">
+                    {{ item }}
+                    &nbsp;&nbsp;&nbsp;
+                  </template>
+                </el-form-item>
+                <el-form-item>
+                  <template v-for="(item, index) in tags" v-bind:key="item">
+                    <el-tag class="pc_goods-tags-tag_item" type="info">{{ item }}</el-tag>
+                    &nbsp;&nbsp;&nbsp;
+                  </template>
+                </el-form-item>
+              </el-form>
+            </el-col>
+          </el-row>
         </el-col>
         <!-- pc端产品信息 end -->
         <!-- 移动端产品信息 start -->
@@ -1131,6 +1135,13 @@ watchEffect(() => {
   text-align: center;
 }
 .text-align-right {
+  text-align: right;
+}
+</style>
+<style>
+.hidden-xs-only .el-descriptions .el-descriptions__table .el-descriptions__label {
+  display: inline-block;
+  width: 84px;
   text-align: right;
 }
 </style>
