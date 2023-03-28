@@ -30,12 +30,31 @@
 .el-col{
   margin-bottom: 10px;
 }
+.pages.is-background {
+  justify-content: center;
+}
+.pages.is-background .el-pager .number {
+  padding: 0.5rem 1rem;
+}
+.pages.is-background .el-pager .number
+,.pages.is-background .el-pager .more.btn-quicknext
+,.pages.is-background .el-pager .more.btn-quickprev
+,.pages.is-background .btn-prev
+,.pages.is-background .btn-next {
+  outline: 0;
+  text-decoration: none;
+  transition: .3s;
+  margin: 1rem 0.2rem;
+  background-color: #151515;
+  color: #fff;
+  border-radius: 6px;
+}
+.pages.is-background .el-pager .number.is-active {
+  background: none;
+  color: #151515;
+}
 </style>
 <template>
-  <el-container
-    direction="vertical"
-    :gutter="24"
-  >
     <div class="top_1_tag font-15-size">
       <div
           class="custom_tag font-60-weight"
@@ -107,7 +126,7 @@
               </div>
             </el-col>
             <el-col :span="24" :md="12">
-              <GoodsList :list="item.goods"></GoodsList>
+              <GoodsList :list="item.goods" v-if="item.goods.length>0"></GoodsList>
             </el-col>
           </el-row>
 <!--          展示商品结束-->
@@ -115,14 +134,12 @@
       </div>
     </div>
 
-    <el-footer
-      class="list_page_footer"
-    >
       <el-row v-if="!isMobile" :gutter="1" justify="center" class="hidden-xs-only" :xs="0">
         <el-col :span="1" class="no_max_width">
           <el-pagination
+            class="pages"
             background
-            layout="prev, pager, next"
+            :layout="(currentPage<=1?'':'prev, ')+'pager'+(currentPage>=totalPage?'':', next')"
             :total="total"
             v-model:current-page="currentPage"
             v-model:page-size="pageSize"
@@ -130,8 +147,6 @@
           />
         </el-col>
       </el-row>
-    </el-footer>
-  </el-container>
 </template>
 <script setup>
 import '../assets/tag.css'
