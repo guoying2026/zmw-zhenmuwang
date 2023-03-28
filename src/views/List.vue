@@ -154,9 +154,7 @@ import CreditScore from "../components/CreditScore.vue";
 import GoodsList from "../components/GoodsList.vue";
 import { nextTick, onMounted, onUnmounted, ref } from 'vue'
 import { getIndexDataApi } from "../api/list.js";
-import { useSearchStore } from '../pinia/search.js';
 import SellerInfo from "../components/SellerInfo.vue";
-const searchStore = useSearchStore()
 
 // 信用分升序或降序排序
 const isCreditScoreDesc = ref(true)
@@ -184,8 +182,6 @@ const isShowBlacklist = ref(true)
 const isOnlyViewBlackList = ref(false)
 // 是否只看加盟商
 const isOnlyViewFranchisee = ref(false)
-// 是否显示搜索结果
-const isShowSearchResult = ref(false)
 // 是否初始化完成
 const isInited = ref(false)
 // 是否为移动端(屏幕宽度在768px以下)
@@ -217,14 +213,6 @@ const loadmore = () => {
   isLoading.value = true
   isLoadFailed.value = false
   nextTick(() => {
-    if (isShowSearchResult.value) {
-      searchStore.search({
-        page: currentPage.value,
-        size: searchStore._pageSize,
-        name: searchStore._name,
-      })
-      return false
-    }
     getIndexDataApi({
       is_show_recommend: isShowRecommend.value ? 1 : 0,
       is_show_franchisee: isShowFranchisee.value ? 1 : 0,
@@ -321,41 +309,6 @@ const handleOnlyViewFranchisee = () => {
   currentPage.value = 1
   loadmore()
 }
-// 订阅搜索
-const unsubscribeSearchStore = searchStore.$subscribe((mutation, state) => {
-  /*
-   * mutation主要包含三个属性值：
-   *   events：当前state改变的具体数据，包括改变前的值和改变后的值等等数据
-   *   storeId：是当前store的id
-   *   type：用于记录这次数据变化是通过什么途径，主要有三个分别是
-   *         “direct” ：通过 action 变化的
-   *         ”patch object“ ：通过 $patch 传递对象的方式改变的
-   *         “patch function” ：通过 $patch 传递函数的方式改变的
-   *
-   *
-   */
-  // 在此处监听store中值的变化，当变化为某个值的时候，做一些业务操作
-  console.log(mutation, state)
-  if (Number(state._currentPage) === 1) {
-    document.querySelector('html').scrollTo(0,0)
-  }
-  isShowSearchResult.value = true
-  total.value = state._totalSize
-  totalPage.value = state._totalPage
-  pageSize.value = state._pageSize
-  currentPage.value = isMobile && isShowSearchResult.value ? Number(state._currentPage) + 1 : state._currentPage
-  if (!state._isLoading && state._isSuccess) {
-    list.value = isMobile && Number(state._currentPage) === 1 ? state._list : list.value.concat(state._list)
-  }
-  isLoading.value = state._isLoading
-  isLoadFailed.value = state._isFailed
-  isInited.value = state._list.length > 0
-}, {
-  detached: false,
-  // detached:布尔值，默认是 false，正常情况下，当订阅所在的组件被卸载时，订阅将被停止删除，
-  // 如果设置detached值为 true 时，即使所在组件被卸载，订阅依然在生效
-  // 参考文档：https://pinia.web3doc.top/core-concepts/state.html#%E8%AE%A2%E9%98%85%E7%8A%B6%E6%80%81
-})
 const threshold = 4000
 const pageScrollHandle = () => {
   if (!isMobile) {
@@ -378,7 +331,6 @@ onMounted(() => {
 // 卸载时要取消监听事件
 onUnmounted(() => {
   window.removeEventListener('scroll', pageScrollHandle)
-  unsubscribeSearchStore()
 })
 // 默认进来的时候就加载数据
 loadmore()
