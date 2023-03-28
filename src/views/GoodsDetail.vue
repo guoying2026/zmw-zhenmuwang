@@ -363,7 +363,7 @@
         <!-- 产品详情和交易记录 end -->
         <!-- 产品信息 end -->
         <!-- 为你推荐 start -->
-        <GoodsRecommends :list="otherSee" />
+        <GoodsRecommends :list="otherSee" :type="type" />
         <!-- 为你推荐 end -->
       </el-row>
     </el-main>

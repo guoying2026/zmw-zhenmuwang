@@ -19,7 +19,7 @@
               </el-col>
               <el-col class="recommend_goods-item-info">
                 <el-row justify="center">
-                  <el-col class="recommend_goods-item-info-title">{{ item.goods_name }}</el-col>
+                  <el-col class="recommend_goods-item-info-title"><el-link type="info" :underline="false" :href="'/goodsDetail?type='+type+'&goods_id='+item.goods_id">{{ item.goods_name }}</el-link></el-col>
                   <el-col class="recommend_goods-item-info-price">
                     <span class="font-size-extra-small">￥</span>{{ item.spell_price }}&nbsp;/&nbsp;{{ item.unit }}
                   </el-col>
@@ -39,6 +39,13 @@ const props = defineProps({
     required: true,
     default () {
       return []
+    }
+  },
+  type: {
+    type: String,
+    required: true,
+    default () {
+      return '0'
     }
   },
 })

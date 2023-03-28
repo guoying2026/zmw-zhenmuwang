@@ -1,4 +1,7 @@
 <style>
+.el-link {
+  color: inherit;
+}
 .left_1{
   display: flex;
   flex-direction: row;
@@ -74,7 +77,7 @@
             <div class="left_1">
               <CreditScore :credit-score="item.score" credit-score-text="信用分" :font-size="40" height="80" width="100px"></CreditScore>
               <div class="left_1_2">
-                <text class="font-18-size font-60-weight margin-10-left">{{ item.company_name }}</text>
+                <el-link type="info" :underline="false" :href="'/detail?company_info_id='+item.id" target="_blank"><text class="font-18-size font-60-weight margin-10-left">{{ item.company_name }}</text></el-link>
                 <div class="left_1_2_2">
                   <Tag class="tag" tag="黑名单" number="60" color="black" v-if="item.isBlacklist"></Tag>
                   <Tag class="tag" tag="加盟商" number="60" color="orange" v-if="item.isFranchisee"></Tag>
@@ -92,7 +95,7 @@
                 <div class="left_1">
                   <CreditScore :credit-score="item.score" credit-score-text="信用分" :font-size="40" height="80" width="100px"></CreditScore>
                   <div class="left_1_2">
-                    <text class="font-18-size font-60-weight margin-10-left">{{ item.company_name }}</text>
+                    <el-link type="info" :underline="false" :href="'/detail?company_info_id='+item.id" target="_blank"><text class="font-18-size font-60-weight margin-10-left">{{ item.company_name }}</text></el-link>
                     <div class="left_1_2_2">
                       <Tag class="tag" tag="黑名单" number="60" color="black" v-if="item.isBlacklist"></Tag>
                       <Tag class="tag" tag="加盟商" number="60" color="orange" v-if="item.isFranchisee"></Tag>
