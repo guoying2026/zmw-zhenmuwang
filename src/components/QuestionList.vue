@@ -128,8 +128,7 @@ export default{
 }
 </script>
 <script setup>
-import { reactive,onMounted,ref } from "vue";
-import { likeQuestionApi,dislikeQuestionApi,cancelQuestionApi } from "../api/question.js";
+import { usefulAnswerApi,uselessAnswerApi,cancelAnswerApi } from "../api/question.js";
 
 //引入用户信息开始
 import { useUserStore } from "../pinia/user.js";
@@ -151,32 +150,30 @@ const props = defineProps({
 const liked_question = (index,indexAsk,id,is_useful,useful_count,useless_count) => {
   //如果is_useful是1。就是有用，再点赞就是取消有用
   if(is_useful === 1){
-    list.arr[index].answer_list[indexAsk].is_useful = 0;
-    if(useful_count * 1 > 1){
-      list.arr[index].answer_list[indexAsk].useful_count = useful_count * 1 - 1;
-    } else {
-      list.arr[index].answer_list[indexAsk].useful_count = 0;
-    }
-    // cancelQuestionApi({id: id,user_id: userStore.userId}).then(async(res) => {
-    //   if(res.data.status === false){
-    //     list.arr[index].answer_list[indexAsk].is_useful = 1;
-    //   }
-    // })
-  } else {
-    if(is_useful === 2){//如果从无用变成有用，需要减少无用数量
-      if(useless_count * 1 > 1){
-        list.arr[index].answer_list[indexAsk].useless_count = useless_count * 1 - 1;
-      } else {
-        list.arr[index].answer_list[indexAsk].useless_count = 0;
+    cancelAnswerApi({company_info_id:props.companyInfoId,answer_id: id,user_id: userStore.userId}).then(async(res) => {
+      if(res.status === 200 && res.data.useful_id > 0){
+        props.list[index].answer_list[indexAsk].is_useful = 0;
+        if(useful_count * 1 > 1){
+          props.list[index].answer_list[indexAsk].useful_count = useful_count * 1 - 1;
+        } else {
+          props.list[index].answer_list[indexAsk].useful_count = 0;
+        }
       }
-    }
-    list.arr[index].answer_list[indexAsk].is_useful = 1;
-    list.arr[index].answer_list[indexAsk].useful_count = useful_count * 1 + 1;
-    // likeQuestionApi({id: id,user_id: userStore.userId}).then(async(res) => {
-    //   if(res.data.status === false){
-    //     list.arr[index].answer_list[indexAsk].is_useful = is_useful;
-    //   }
-    // })
+    })
+  } else {
+    usefulAnswerApi({company_info_id:props.companyInfoId,answer_id: id,user_id: userStore.userId}).then(async(res) => {
+      if(res.status === 200 && res.data.useful_id > 0){
+        if(is_useful === 2){//如果从无用变成有用，需要减少无用数量
+          if(useless_count * 1 > 1){
+            props.list[index].answer_list[indexAsk].useless_count = useless_count * 1 - 1;
+          } else {
+            props.list[index].answer_list[indexAsk].useless_count = 0;
+          }
+        }
+        props.list[index].answer_list[indexAsk].is_useful = 1;
+        props.list[index].answer_list[indexAsk].useful_count = useful_count * 1 + 1;
+      }
+    })
   }
 }
 //有用结束
@@ -184,32 +181,30 @@ const liked_question = (index,indexAsk,id,is_useful,useful_count,useless_count) 
 const disliked_question = (index,indexAsk,id,is_useful,useful_count,useless_count) => {
   //如果is_useful是2。就是没用，再点赞就是取消没用
   if(is_useful === 2){
-    list.arr[index].answer_list[indexAsk].is_useful = 0;
-    if(useless_count * 1 > 1){
-      list.arr[index].answer_list[indexAsk].useless_count = useless_count * 1 - 1;
-    } else {
-      list.arr[index].answer_list[indexAsk].useless_count = 0;
-    }
-    // cancelQuestionApi({id: id,user_id: userStore.userId}).then(async(res) => {
-    //   if(res.data.status === false){
-    //     list.arr[index].answer_list[indexAsk].is_useful = 1;
-    //   }
-    // })
-  } else {
-    if(is_useful === 1){//如果从有用变成无用，需要减少有用数量
-      if(useful_count * 1 > 1){
-        list.arr[index].answer_list[indexAsk].useful_count = useful_count * 1 - 1;
-      } else {
-        list.arr[index].answer_list[indexAsk].useful_count = 0;
+    cancelAnswerApi({company_info_id:props.companyInfoId,answer_id: id,user_id: userStore.userId}).then(async(res) => {
+      if(res.status === 200 && res.data.useful_id > 0){
+        props.list[index].answer_list[indexAsk].is_useful = 0;
+        if(useless_count * 1 > 1){
+          props.list[index].answer_list[indexAsk].useless_count = useless_count * 1 - 1;
+        } else {
+          props.list[index].answer_list[indexAsk].useless_count = 0;
+        }
       }
-    }
-    list.arr[index].answer_list[indexAsk].is_useful = 2;
-    list.arr[index].answer_list[indexAsk].useless_count = useless_count * 1 + 1;
-    // dislikeQuestionApi({id:id,user_id: userStore.userId}).then(async(res) => {
-    //   if(res.data.status === false){
-    //     list.arr[index].answer_list[indexAsk].is_useful = is_useful;
-    //   }
-    // })
+    })
+  } else {
+    uselessAnswerApi({company_info_id:props.companyInfoId,answer_id:id,user_id: userStore.userId}).then(async(res) => {
+      if(res.status === 200 && res.data.useful_id > 0){
+        if(is_useful === 1){//如果从有用变成无用，需要减少有用数量
+          if(useful_count * 1 > 1){
+            props.list[index].answer_list[indexAsk].useful_count = useful_count * 1 - 1;
+          } else {
+            props.list[index].answer_list[indexAsk].useful_count = 0;
+          }
+        }
+        props.list[index].answer_list[indexAsk].is_useful = 2;
+        props.list[index].answer_list[indexAsk].useless_count = useless_count * 1 + 1;
+      }
+    })
   }
 }
 //没用结束
@@ -218,7 +213,7 @@ const receiveChildAddComment = (param) => {
   console.log(param);
   let question = param.question;
   if(param.questionType === 'question'){
-    list.arr.unshift({
+    props.list.unshift({
       id: question.id,
       user_id: userStore.userId,
       name: userStore.phone,
@@ -229,7 +224,7 @@ const receiveChildAddComment = (param) => {
       answer_list:[]
     })
   } else {
-    list.arr[param.questionIndex].answer_list.unshift({
+    props.list[param.questionIndex].answer_list.unshift({
       id: question.id,
       user_id: userStore.userId,
       name: userStore.phone,

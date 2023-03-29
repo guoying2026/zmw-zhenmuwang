@@ -25,25 +25,25 @@ export const publishAnswerApi = (data) => {
     })
 }
 //有用接口
-export const likeQuestionApi = (data) => {
+export const usefulAnswerApi = (data) => {
     return axiosRequest({
-        url: "/Pc/Question/likeQuestion",
+        url: "/Pc/Question/usefulAnswer",
         method: 'post',
         data
     })
 }
 //没用接口
-export const dislikeQuestionApi = (data) => {
+export const uselessAnswerApi = (data) => {
     return axiosRequest({
-        url: '/Pc/Question/disLikeQuestion',
+        url: '/Pc/Question/uselessAnswer',
         method: 'post',
         data
     })
 }
 //取消说有用还是没用接口
-export const cancelQuestionApi = (data) => {
+export const cancelAnswerApi = (data) => {
     return axiosRequest({
-        url: '/Pc/Question/cancelQuestion',
+        url: '/Pc/Question/cancelAnswer',
         method: 'post',
         data
     })
