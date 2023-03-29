@@ -84,7 +84,7 @@
           </el-descriptions>
 <!--        问答列表开始-->
           <QuestionList
-            :company-info-id="company_info_id"
+            :company-info-id="company_info_id_text"
             :list="questionList.arr"
           >
           </QuestionList>
@@ -100,7 +100,9 @@
             </el-descriptions>
             <!--        评论列表开始-->
             <CommentList
-                :company-info-id="company_info_id">
+                :company-info-id="company_info_id_text"
+                :list="commentList.arr"
+            >
             </CommentList>
             <!--        评论列表结束-->
             <!--        公司首页的大众评论结束-->
@@ -110,14 +112,14 @@
       </el-tab-pane>
       <el-tab-pane label="问大家" name="third">
         <QuestionList
-            :company-info-id="company_info_id"
+            :company-info-id="company_info_id_text"
             :list="questionList.arr"
         >
         </QuestionList>
       </el-tab-pane>
       <el-tab-pane label="大众评论" name="fourth">
         <CommentList
-            :company-info-id="company_info_id"
+            :company-info-id="company_info_id_text"
             :list="commentList.arr"
         >
         </CommentList>
