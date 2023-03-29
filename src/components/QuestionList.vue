@@ -1,5 +1,5 @@
 <template>
-  <div class="ask" :class="[index % 2 == 0?'grey_bg':'']" v-for="(item, index) in list.arr" :key="index">
+  <div class="ask" :class="[index % 2 == 0?'grey_bg':'']" v-for="(item, index) in list.arr" :key="index" v-if="list.arr.length > 0">
     <div class="general_item font-12-size">
       <text class="general_item_1">问</text>
       <AddComment
@@ -21,7 +21,7 @@
         <text class="ask_item_1">{{item.question}}</text>
         <text class="ask_item_2 margin-10-left">{{item.answer_count}}个回答</text>
       </div>
-      <el-row :gutter="8" class="margin-10-top">
+      <el-row :gutter="8" class="margin-10-top" v-if="item.image">
         <el-col
             v-for="(itemImage, indexImage) in item.image"
             :key="indexImage"
@@ -31,7 +31,7 @@
           <el-image
               :hide-on-click-modal=true
               :src="itemImage"
-              style="width:100%;height: 18vw;"
+              style="width:100%;height: 20vw;"
               fit="fill"
               :zoom-rate="1.2"
               :preview-src-list="item.image"
@@ -51,7 +51,7 @@
           :question-id="item.id"
           :question-index="index"
           addType="question"
-          questionType="ask"
+          questionType="answer"
       >
         <template #clickDrawer>
           <text class="general_item_2 margin-10-left green_btn">我要回答</text>
@@ -59,7 +59,7 @@
       </AddComment>
     </div>
     <div class="answer_item margin-10-top"
-         v-for="(itemAsk,indexAsk) in item.answer_list" :key="indexAsk">
+         v-for="(itemAsk,indexAsk) in item.answer_list" :key="indexAsk" v-if="item.answer_list">
       <div class="answer_item_left">
         <el-avatar
             :size="48"
@@ -107,6 +107,20 @@
       </div>
     </div>
   </div>
+  <AddComment
+      placeholder-text="我要提问"
+      cancel-text="取消提问"
+      confirm-text="发布提问"
+      @toFatherQuestionList="receiveChildAddComment"
+      :company-info-id="companyInfoId"
+      addType="question"
+      questionType="question"
+      v-else
+  >
+    <template #clickDrawer>
+      <text class="general_item_2 blue_btn margin-10-left">我要提问</text>
+    </template>
+  </AddComment>
 </template>
 <script>
 export default{
@@ -133,7 +147,7 @@ const list = reactive({
   arr: []
 });
 onMounted(() => {
-  questionListApi({},props.companyInfoId).then(async(res) => {
+  questionListApi({company_info_id: props.companyInfoId}).then(async(res) => {
     console.log(res);
     console.log(res.data.data);
     list.arr = res.data.data;
@@ -281,6 +295,7 @@ const receiveChildAddComment = (param) => {
   display: flex;
   flex-direction: column;
   max-width: 800px;
+  width: 100%;
 }
 .ask .ask_item .ask_item_top{
   display: flex;

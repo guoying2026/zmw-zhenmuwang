@@ -1,17 +1,25 @@
 import axiosRequest from "../utils/axiosRequest.js";
 
 //获取问答列表接口
-export const questionListApi = (data,comment_info_id) => {
+export const questionListApi = (data) => {
     return axiosRequest({
-        url: "/Pc/CompanyComment/questionList?comment_info_id="+comment_info_id,
+        url: "/Pc/Question/questionList",
         method: 'get',
+        params: data,
+    })
+}
+//发布问题接口
+export const publishQuestionApi = (data) => {
+    return axiosRequest({
+        url: "/Pc/Question/publishQuestion",
+        method: 'post',
         data
     })
 }
-//发布问答列表接口
-export const publishQuestionApi = (data) => {
+//发布回答接口
+export const publishAnswerApi = (data) => {
     return axiosRequest({
-        url: "/Pc/CompanyComment/publishQuestion",
+        url: "/Pc/Question/publishAnswer",
         method: 'post',
         data
     })
@@ -19,7 +27,7 @@ export const publishQuestionApi = (data) => {
 //有用接口
 export const likeQuestionApi = (data) => {
     return axiosRequest({
-        url: "/Pc/CompanyComment/likeQuestion",
+        url: "/Pc/Question/likeQuestion",
         method: 'post',
         data
     })
@@ -27,7 +35,7 @@ export const likeQuestionApi = (data) => {
 //没用接口
 export const dislikeQuestionApi = (data) => {
     return axiosRequest({
-        url: '/Pc/CompanyComment/disLikeQuestion',
+        url: '/Pc/Question/disLikeQuestion',
         method: 'post',
         data
     })
@@ -35,7 +43,7 @@ export const dislikeQuestionApi = (data) => {
 //取消说有用还是没用接口
 export const cancelQuestionApi = (data) => {
     return axiosRequest({
-        url: '/Pc/CompanyComment/cancelQuestion',
+        url: '/Pc/Question/cancelQuestion',
         method: 'post',
         data
     })

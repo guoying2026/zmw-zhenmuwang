@@ -211,7 +211,7 @@ const receiveChildAddComment = (param) => {
 }
 //引入评论api
 onMounted(() => {
-  commentListApi({},props.companyInfoId).then(async(res) => {
+  commentListApi({company_info_id:props.companyInfoId}).then(async(res) => {
     console.log(res);
     console.log(res.data.data);
     list.arr = res.data.data;

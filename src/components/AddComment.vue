@@ -62,7 +62,7 @@ import { ref } from 'vue'
 import { getAnswerOssSignatureApi,pushAnswerOssApi } from "../api/ossUploadFile.js";
 import { handeSrcHttpsUtil,guidUtil } from "../utils/httpReplace.js";
 import { publishCommentApi } from "../api/comment.js";
-import { publishQuestionApi } from "../api/question.js";
+import { publishQuestionApi,publishAnswerApi } from "../api/question.js";
 
 //引入用户信息开始
 import { useUserStore } from "../pinia/user.js";
@@ -117,7 +117,7 @@ const props = defineProps({
   },
   //提出问题需要prop
   questionId:{
-    type: Number,
+    type: [Number,String],
     default: 0,
   },
   questionIndex:{
@@ -261,42 +261,73 @@ const publishComment = () => {
 const publishQuestion = () => {
   console.log(props.companyInfoId);
   console.log(submitFileList.value);
-  let data = {
-    'company_info_id': props.companyInfoId,//某个公司下的问答
-    'question': textarea.value,
-    'image': submitFileList.value,
-    'user_id': userStore.userId,
-    'parent_id': props.questionId,
-  };
-  //提出一个问题
-  publishQuestionApi(data).then(async(res) => {
-    console.log(res);
-    console.log(res.data.status);
-    if(res.data.status === true){
-      console.log('public success');
-      drawer.value = false;
-      textarea.value = '';
-      fileList.value = [];
-      const toFatherImage = [];
-      for(const item of submitFileList.value){
-        console.log(Object.values(item)[0]);
-        toFatherImage.push(Object.values(item)[0]);
+  const toFatherImage = [];
+  for(const item of submitFileList.value){
+    console.log(Object.values(item)[0]);
+    toFatherImage.push(Object.values(item)[0]);
+  }
+  if(props.questionType === 'question'){
+    let data = {
+      'company_info_id': props.companyInfoId,//某个公司下的问答
+      'question': textarea.value,
+      'image': toFatherImage,
+      'user_id': userStore.userId,
+    };
+    //提出一个问题
+    publishQuestionApi(data).then(async(res) => {
+      console.log(res);
+      if(res.status === 200){
+        console.log('public success');
+        drawer.value = false;
+        textarea.value = '';
+        fileList.value = [];
+        //把问答内容传给父组件进行展示
+        emit('toFatherQuestionList',{
+          questionIndex: props.questionIndex,
+          questionType: props.questionType,
+          question: {
+            id: res.data.id,
+            user_id: userStore.userId,
+            name: userStore.phone,
+            question: data.question,
+            created_time: res.data.created_time,
+            image: toFatherImage,
+          }
+        })
       }
-      //把问答内容传给父组件进行展示
-      emit('toFatherQuestionList',{
-        questionIndex: props.questionIndex,
-        questionType: props.questionType,
-        question: {
-          id: res.data.id,
-          user_id: userStore.userId,
-          name: userStore.phone,
-          question: data.question,
-          created_time: res.data.created_time,
-          image: toFatherImage,
-        }
-      })
-    }
-  })
+    })
+  } else {//回答问题
+    let data = {
+      'company_info_id': props.companyInfoId,//某个公司下的问答
+      'answer_question_id': props.questionId,
+      'answer': textarea.value,
+      'image': toFatherImage,
+      'user_id': userStore.userId,
+    };
+    //提出一个问题
+    publishAnswerApi(data).then(async(res) => {
+      console.log(res);
+      if(res.status === 200){
+        console.log('public success');
+        drawer.value = false;
+        textarea.value = '';
+        fileList.value = [];
+        //把问答内容传给父组件进行展示
+        emit('toFatherQuestionList',{
+          questionIndex: props.questionIndex,
+          questionType: props.questionType,
+          question: {
+            id: res.data.id,
+            user_id: userStore.userId,
+            name: userStore.phone,
+            question: data.question,
+            created_time: res.data.created_time,
+            image: toFatherImage,
+          }
+        })
+      }
+    })
+  }
 }
 //发布问答结束
 </script>

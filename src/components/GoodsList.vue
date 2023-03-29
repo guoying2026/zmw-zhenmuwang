@@ -10,7 +10,7 @@
         <el-image
             :src="item.mainurl"
             :hide-on-click-modal=true
-            style="width:100%; height: 200px"
+            style="width:100%; height: 30vh"
             fit="fill"
             :zoom-rate="1.2"
             :initial-index="index"
