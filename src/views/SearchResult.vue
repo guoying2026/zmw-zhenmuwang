@@ -68,11 +68,11 @@
       <el-row justify="center" align="middle">
         <el-col>
           <el-pagination
-            v-model="page"
+            v-model:current-page="page"
             class="pages"
             background
             :layout="(page==1?'':'prev, ')+'pager'+(page==totalPage?'':', next')"
-            :page-count="totalPage"
+            v-model:page-count="totalPage"
             @current-change="loadmore"
           />
         </el-col>
@@ -186,7 +186,7 @@ const loadmore = (current_page) => {
   })
   Promise.all(promiseArr).then(() => {
     console.log('total page is ', tempTotalPgae);
-    totalPage.value = tempTotalPgae
+    totalPage.value = Number(tempTotalPgae)
     // totalPage.value = 3
   }).finally(() => {
     isLoading.value = false

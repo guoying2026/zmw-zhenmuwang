@@ -2,12 +2,46 @@
   <div class="nav_header">
     <div class="nav">
       <span class="font-60-weight font-10-size">ZMW</span>
-      <el-icon class="font-20-size"><search></search></el-icon>
+      <el-link type="info" :underline="false" @click="searchSlideDown"><el-icon class="font-20-size"><search></search></el-icon></el-link>
       <UserLogin/>
     </div>
   </div>
   <div class="space">
 
+  </div>
+  <!-- 搜索框遮罩层 -->
+  <div @click="searchSlideUp" :style="(isSearchSlideDown?'':'display: none;')+'position: fixed;top: 0;left: 0;width: 100vw;height: 100vh;z-index: 9999;'"></div>
+  <!-- 搜索框主体 -->
+  <div :class="'mini-live-search-cont '+(isSearchSlideDown?'miniSlideDown':'')">
+    <label class="cf-one" for="mini-ls-input">请输入企业名、人名等关键词查询</label>
+    <input type="text" id="mini-ls-input" name="live-posts-search" v-model.trim="searchContent" @keyup.enter="searchKeyUpEnter" placeholder="请输入企业名、人名等关键词查询">
+    <div :class="'mini-ls-loader'+(isSearching?' to-show':'')" role="status">
+      <span></span>
+    </div>
+    <div class="mini-ls-results">
+      <div class="mini-ls-scroller" v-if="searchResult.length>0">
+        <template v-for="(item, index) in searchResult" :key="index">
+          <a
+            class="mini-ls-item cf-one"
+            :href="item.type==0?('/detail?company_info_id='+item.id):('/goodsDetail?type=1&goods_id='+item.goods_id)"
+            :title="item.type==0?item.company_name:item.goods_title"
+          >
+            <img
+              width="150"
+              height="150"
+              :src="item.type==0?(item.miniapp_img?formatHttpsProtocol(item.miniapp_img):'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png'):(item.main_url?formatHttpsProtocol(item.main_url):'https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png')"
+              class="mini-ls-thumb wp-post-image"
+              alt=""
+              decoding="async"
+              loading="lazy"
+              :srcset="(item.type==0?(item.miniapp_img?formatHttpsProtocol(item.miniapp_img):'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png'):(item.main_url?formatHttpsProtocol(item.main_url):'https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png'))+' 150w, '+item.type==0?(item.miniapp_img?formatHttpsProtocol(item.miniapp_img):'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png'):(item.main_url?formatHttpsProtocol(item.main_url):'https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png')+' 300w, '+item.type==0?(item.miniapp_img?formatHttpsProtocol(item.miniapp_img):'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png'):(item.main_url?formatHttpsProtocol(item.main_url):'https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png')+' 100w'"
+              sizes="(max-width: 150px) 100vw, 150px"
+            >
+            <div class="mini-ls-title">{{ item.type==0?item.company_name:item.goods_title }}</div>
+          </a>
+        </template>
+      </div>
+    </div>
   </div>
 <!--  <div class="mini-live-search-cont miniSlideDown">-->
 <!--    <label class="cf-one" for="mini-ls-input">搜索你想要的任何</label>-->
@@ -210,12 +244,76 @@ import { onMounted, ref } from "vue";
   align-items: center;
   padding: 10px 20px 0 20px;
 }
+.el-link {
+  color: inherit;
+}
 </style>
 <script>
 import "./assets/liveSearch.scss"
 // import SearchBar from "./components/SearchBar.vue";
 import UserLogin from "./components/UserLogin.vue";
+import { getSearchResultApi } from "./api/search.js";
+import { formatHttpsProtocol } from "./utils/httpReplace";
+const delay = (function () {
+  let timer = 0
+  return function (callback, ms) {
+    clearTimeout(timer)
+    timer = setTimeout(callback, ms)
+  }
+})()
 export default {
-  components: {UserLogin}
+  components: {UserLogin},
+  data () {
+    return {
+      isSearchSlideDown: false,
+      isSearching: false,
+      searchContent: '',
+      searchResult: [],
+    }
+  },
+  watch: {
+    searchContent () {
+      delay(() => {
+        let promiseArr = []
+        this.searchResult = []
+        if (this.searchContent.length === 0) {
+          return false
+        }
+        this.isSearching = true
+        for (let i = 0; i < 3; i++) {
+          promiseArr.push(getSearchResultApi({
+            type: i,
+            name: this.searchContent,
+            page: 1,
+          }).then(res => {
+            if (res.status != 200 || res.data.status != 1000) {
+              return false
+            }
+            res.data.data.forEach(item => {
+              item.type = i
+              this.searchResult.push(item)
+            })
+          }))
+        }
+        Promise.all(promiseArr).finally(() => {
+          this.isSearching = false
+        })
+      }, 500)
+    },
+  },
+  methods: {
+    searchSlideDown () {
+      this.isSearchSlideDown = true
+    },
+    searchSlideUp () {
+      this.isSearchSlideDown = false
+      this.isSearching = false
+      this.searchContent = ''
+      this.searchResult = []
+    },
+    searchKeyUpEnter () {
+      window.open('/search?name='+this.searchContent, '_blank')
+    },
+  },
 }
 </script>
