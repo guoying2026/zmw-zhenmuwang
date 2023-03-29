@@ -120,7 +120,7 @@
   </el-col>
 </template>
 <script setup>
-import { ref } from 'vue';
+import { onBeforeUnmount, onMounted, ref } from 'vue';
 import { formatUnit } from '../utils/good.js'
 const props = defineProps({
   description: {
@@ -160,6 +160,26 @@ const props = defineProps({
   },
 })
 const isMobile = ref(window.innerWidth<768)
+const scrollHandle = () => {
+  if (document.querySelector('.el-tabs').parentNode.getBoundingClientRect().top < 30) {
+    // console.log('到达顶部')
+    document.querySelector('.el-tabs .el-tabs__header').style.position = "fixed"
+    document.querySelector('.el-tabs .el-tabs__header').style.top = document.querySelector('.nav_header').getBoundingClientRect().height + "px"
+    document.querySelector('.el-tabs .el-tabs__header').style.width = document.querySelector('.el-tabs').getBoundingClientRect().width + "px"
+    document.querySelector('.el-tabs .el-tabs__content').style.marginTop = document.querySelector('.el-tabs .el-tabs__header').getBoundingClientRect().height + "px"
+  } else {
+    document.querySelector('.el-tabs .el-tabs__header').style.position = "sticky"
+    document.querySelector('.el-tabs .el-tabs__header').style.top = "50px"
+    document.querySelector('.el-tabs .el-tabs__header').style.width = ''
+    document.querySelector('.el-tabs .el-tabs__content').style.marginTop = ''
+  }
+}
+onMounted(() => {
+  window.addEventListener('scroll', scrollHandle)
+})
+onBeforeUnmount(() => {
+  window.removeEventListener('scroll', scrollHandle)
+})
 </script>
 <style scoped>
 .goods_introduce-item {
