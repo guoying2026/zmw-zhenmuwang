@@ -71,6 +71,12 @@ const props = defineProps({
   text-align: center;
   font-size: var(--el-font-size-base);
 }
+.el-link {
+  color: inherit;
+}
+.el-link:hover {
+  color: var(--el-color-info);
+}
 .recommend_goods-item-info-price {
   text-align: center;
   font-size: var(--el-font-size-base);
