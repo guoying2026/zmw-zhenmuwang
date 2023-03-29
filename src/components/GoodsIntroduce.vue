@@ -1,5 +1,5 @@
 <template>
-  <el-col :span="14" :offset="1" :xs="{span:24,offset:0}">
+  <el-col :span="16" :offset="1" :xs="{span:24,offset:0}">
     <el-tabs>
       <!-- 产品详情 start -->
       <el-tab-pane label="产品详情">

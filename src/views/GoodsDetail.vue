@@ -325,8 +325,6 @@ const selectedRemarkListItems = ref([])
 const threeDImage = ref('')
 // 用户下单时手动输入的备注内容
 const remarkContent = ref('')
-// 是否已经收藏了该商品
-const isCollected = ref(false)
 // 交易记录
 const tradeLog = ref([])
 // 为你推荐
@@ -620,8 +618,6 @@ const getGoodsDetail = () => {
     orderNotes.value = selectedGoodsStore.order_notes
     // 获取三维图示
     threeDImage.value = formatHttpsProtocol(res.data.data.three_d_image)
-    // 获取是否已经收藏该商品
-    isCollected.value = Number(res.data.data.is_collect) == 1
     // 获取交易记录
     tradeLog.value = res.data.data.trade_log
     otherSee.value = res.data.data.other_see

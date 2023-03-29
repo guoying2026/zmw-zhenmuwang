@@ -2,12 +2,12 @@
  * @Author: joytou
  * @Date: 2023-03-17
  * @LastEditors: joytou
- * @LastEditTime: 2023-03-28
+ * @LastEditTime: 2023-03-29
  * @FilePath: /zmw-zhenmuwang/src/components/GoodsRecommends.vue
  * @Description: 
 -->
 <template>
-  <el-col class="hidden-xs-only" :span="8" :offset="0" :xs="0">
+  <el-col class="hidden-xs-only" :span="6" :offset="0" :xs="0">
     <el-card shadow="hover">
       <el-row>
         <el-col>为你推荐</el-col>
