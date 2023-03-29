@@ -5,7 +5,7 @@
       <el-tab-pane label="产品详情">
         <el-row>
           <!-- 产品介绍 start -->
-          <el-col class="goods_introduce-item">
+          <el-col class="goods_introduce-item" v-if="description">
             <el-row>
               <el-col class="goods_introduce-item-title">产品介绍</el-col>
               <el-col class="font-size-base">{{ description }}</el-col>
@@ -13,7 +13,7 @@
           </el-col>
           <!-- 产品介绍 end -->
           <!-- 产品优势 start -->
-          <el-col class="goods_introduce-item">
+          <el-col class="goods_introduce-item" v-if="goodsFeatures&&goodsFeatures.length>0">
             <el-row>
               <el-col class="goods_introduce-item-title">产品优势</el-col>
               <template v-for="(item, index) in goodsFeatures" v-bind:key="item">
@@ -33,7 +33,7 @@
           </el-col>
           <!-- 产品优势 end -->
           <!-- 工厂优势 start -->
-          <el-col class="goods_introduce-item">
+          <el-col class="goods_introduce-item" v-if="factoryFeatures&&factoryFeatures.length>0">
             <el-row>
               <el-col class="goods_introduce-item-title">工厂优势</el-col>
               <template v-for="(item, index) in factoryFeatures" v-bind:key="item">

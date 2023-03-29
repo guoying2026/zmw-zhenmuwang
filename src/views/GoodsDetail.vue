@@ -575,16 +575,27 @@ const getGoodsDetail = () => {
     viewCount.value = res.data.data.view_count
     // 获取商品标签
     tags.value = res.data.data.tags
-    // 获取商品的产品介绍
-    goodsDescription.value = res.data.data.productDescription.cpjs
-    // 获取产品优势
-    goodsFeatures.value = res.data.data.productDescription.cpys
-    // 获取工厂优势
-    res.data.data.productDescription.gcys = res.data.data.productDescription.gcys.map((item,index) => {
-      item.image = formatHttpsProtocol(res.data.data.productDescription.cpimg[index].data)
-      return item
-    })
-    factoryFeatures.value = res.data.data.productDescription.gcys
+    tags.value.sort((a,b)=>a.length-b.length)
+    if (res.data.data.productDescription) {
+      // 获取商品的产品介绍
+      if (res.data.data.productDescription.cpjs) {
+        goodsDescription.value = res.data.data.productDescription.cpjs
+      }
+      // 获取产品优势
+      if (res.data.data.productDescription.cpys) {
+        goodsFeatures.value = res.data.data.productDescription.cpys
+      }
+      // 获取工厂优势
+      if (res.data.data.productDescription.gcys) {
+        res.data.data.productDescription.gcys = res.data.data.productDescription.gcys.map((item,index) => {
+          item.image = formatHttpsProtocol(res.data.data.productDescription.cpimg[index].data)
+          return item
+        })
+      }
+      if (res.data.data.productDescription.gcys) {
+        factoryFeatures.value = res.data.data.productDescription.gcys
+      }
+    }
     // 获取商品的库存
     goodsStock.value = res.data.data.goods_stock
     if (res.data.data.store_count) {
