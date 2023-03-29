@@ -59,8 +59,8 @@ const props = defineProps({
   z-index: 0;
 }
 .recommend_goods-item-image {
-  width: calc((100vw - (var(--el-main-padding) * 2)) * 0.2);
-  height: calc((100vw - (var(--el-main-padding) * 2)) * 0.2);
+  width: calc((100vw - 40px) * 0.2);
+  height: calc((100vw - 40px) * 0.3);
 }
 .recommend_goods-item-info {
   margin-top: -25px;

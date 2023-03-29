@@ -166,7 +166,7 @@ const scrollHandle = () => {
     document.querySelector('.el-tabs .el-tabs__header').style.position = "fixed"
     document.querySelector('.el-tabs .el-tabs__header').style.top = document.querySelector('.nav_header').getBoundingClientRect().height + "px"
     document.querySelector('.el-tabs .el-tabs__header').style.width = document.querySelector('.el-tabs').getBoundingClientRect().width + "px"
-    document.querySelector('.el-tabs .el-tabs__content').style.marginTop = document.querySelector('.el-tabs .el-tabs__header').getBoundingClientRect().height + "px"
+    document.querySelector('.el-tabs .el-tabs__content').style.marginTop = (document.querySelector('.el-tabs .el-tabs__header').getBoundingClientRect().height + 15) + "px"
   } else {
     document.querySelector('.el-tabs .el-tabs__header').style.position = "sticky"
     document.querySelector('.el-tabs .el-tabs__header').style.top = "50px"
@@ -182,6 +182,9 @@ onBeforeUnmount(() => {
 })
 </script>
 <style scoped>
+.el-col:has(.el-tabs) {
+  min-height: calc(100vh - 40px);
+}
 .goods_introduce-item {
   padding: 5px 10px;
 }
