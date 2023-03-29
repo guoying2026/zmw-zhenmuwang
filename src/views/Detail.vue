@@ -4,12 +4,9 @@
       <Tag tag="加盟商" number="60" color="orange"></Tag>
       <Tag tag="信用分100" number="60" color="yellow"></Tag>
       <Tag tag="入驻真木网" number="60" color="purple"></Tag>
-      <Tag tag="刨花板" number="60" color="blue"></Tag>
-      <Tag tag="密度板" number="60" color="blue"></Tag>
-      <Tag tag="杉木实木多层板" number="60" color="blue"></Tag>
-      <Tag tag="杉木实木多层板" number="60" color="blue"></Tag>
-      <Tag tag="杉木实木多层板" number="60" color="blue"></Tag>
-      <Tag tag="刨花板" number="60" color="blue"></Tag>
+      <template v-for="(item,index) in wood_name" :key="index">
+        <Tag :tag="item" number="60" color="blue"></Tag>
+      </template>
     </div>
     <div class="top_2 margin-20-top">
       <div class="margin-10-top top_2_1">
@@ -42,9 +39,10 @@
                   <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36"><path fill="#FFCC4D" d="M36 18c0 9.941-8.059 18-18 18S0 27.941 0 18 8.059 0 18 0s18 8.059 18 18"/><path fill="#664500" d="M18 21c-3.623 0-6.027-.422-9-1-.679-.131-2 0-2 2 0 4 4.595 9 11 9 6.404 0 11-5 11-9 0-2-1.321-2.132-2-2-2.973.578-5.377 1-9 1z"/><path fill="#FFF" d="M9 22s3 1 9 1 9-1 9-1-2 4-9 4-9-4-9-4z"/><path fill="#E95F28" d="M15.682 4.413l-4.542.801L8.8.961C8.542.492 8.012.241 7.488.333c-.527.093-.937.511-1.019 1.039l-.745 4.797-4.542.801c-.535.094-.948.525-1.021 1.064s.211 1.063.703 1.297l4.07 1.932-.748 4.812c-.083.536.189 1.064.673 1.309.179.09.371.133.562.133.327 0 .65-.128.891-.372l3.512-3.561 4.518 2.145c.49.232 1.074.123 1.446-.272.372-.395.446-.984.185-1.459L13.625 9.73l3.165-3.208c.382-.387.469-.977.217-1.459-.254-.482-.793-.743-1.325-.65zm4.636 0l4.542.801L27.2.961c.258-.469.788-.72 1.312-.628.526.093.936.511 1.018 1.039l.745 4.797 4.542.801c.536.094.949.524 1.021 1.063s-.211 1.063-.703 1.297l-4.07 1.932.748 4.812c.083.536-.189 1.064-.673 1.309-.179.09-.371.133-.562.133-.327 0-.65-.128-.891-.372l-3.512-3.561-4.518 2.145c-.49.232-1.074.123-1.446-.272-.372-.395-.446-.984-.185-1.459l2.348-4.267-3.165-3.208c-.382-.387-.469-.977-.217-1.459.255-.482.794-.743 1.326-.65z"/></svg>
                 </div>
                 <div class="font-18-size top_tip_2_2">
-                  <text class="emphasize">刨花板</text>
-                  <text class="margin-10-top emphasize">密度板</text>
-                  <text class="margin-10-top emphasize">杉木实木多层板</text>
+                  <template v-for="(item,index) in wood_name" :key="index">
+                    <text v-if="index === 0" class="emphasize">{{item}}</text>
+                    <text v-else class="margin-10-top emphasize">{{item}}</text>
+                  </template>
                 </div>
               </div>
             </div>
@@ -158,10 +156,15 @@ import {goodsListApi} from "../api/goods.js";
 import CreditScore from "../components/CreditScore.vue";
 import {questionListApi} from "../api/question.js";
 import {commentListApi} from "../api/comment.js";
+import {shopDetailApi} from "../api/shopDetail.js";
+import { useUserStore } from "../pinia/user.js";
+const userStore = useUserStore();
 //
+const text = ref('')
+const company_info_id_text = ref(0);
+company_info_id_text.value = 18;
 const company_info_id = ref(0);
-company_info_id.value = 18;
-
+company_info_id.value = 2644899;
 //导航栏切换开始
 const activeName = ref('first')
 const handleClick = (tab, event) => {
@@ -179,22 +182,31 @@ const questionList = reactive({
 const list = reactive({
   arr: []
 });
+const wood_name = ref([])
+const shopDetail = ref([])
 onMounted(() => {
-  goodsListApi({company_info_id:company_info_id.value}).then(async(res) => {
-    list.arr =  res.data.data;
+  shopDetailApi({company_info_id:company_info_id.value}).then(async(res) => {
+    shopDetail.value = res.data;
+    console.log(res.data);
   })
-  questionListApi({company_info_id: company_info_id.value}).then(async(res) => {
-    console.log(res);
+  goodsListApi({company_info_id:company_info_id.value}).then(async(res) => {
+    list.arr =  res.data;
+    console.log(res.data);
+    wood_name.value = res.data.map((item) => {
+      return item = item.wood_name
+    })
+    wood_name.value = Array.from(new Set(wood_name.value));
+    console.log(wood_name.value);
+  })
+  questionListApi({company_info_id: company_info_id_text.value,user_id: userStore.userId}).then(async(res) => {
     console.log(res.data.data);
     questionList.arr = res.data.data;
   })
-  commentListApi({company_info_id:company_info_id.value}).then(async(res) => {
-    console.log(res);
+  commentListApi({company_info_id:company_info_id_text.value,user_id: userStore.userId}).then(async(res) => {
     console.log(res.data.data);
     commentList.arr = res.data.data;
   })
 })
-const text = ref('')
 </script>
 <style scoped>
 .top_1_tag{

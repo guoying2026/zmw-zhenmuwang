@@ -4,7 +4,7 @@ import { formatUnit } from '../utils/good.js'
 //获取商品列表
 export const goodsListApi = (data) => {
   return axiosRequest({
-    url: '/Pc/Goods/goodsList',
+    url: '/Pc/Index/getAllGoodsByCompanyInfoId',
     method: 'get',
     params: data
   })
