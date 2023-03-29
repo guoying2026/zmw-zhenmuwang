@@ -699,7 +699,8 @@ const submitOrderApiHandle = async (is_new_pay = '1', callback = function (res) 
       count: Number(item.select_count),
       count_unit: selectedUnitIndex.value,
       is_add_manual: item.s_id ? 0 : 1,
-      sid : item.s_id ? item.s_id : 0,
+      sid: item.s_id ? item.s_id : 0,
+      s_id: item.s_id ? item.s_id : 0,
       s_img: '',
       spec: item.specifications,
     })
