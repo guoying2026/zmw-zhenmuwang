@@ -1,5 +1,5 @@
 <template>
-  <div class="comment_list" v-for="(item, index) in list.arr" :key="index">
+  <div class="comment_list" v-for="(item, index) in list" :key="index">
     <div class="comment_list_item">
       <div class="comment_list_item_space">
         <!--            头像开始-->
@@ -154,7 +154,7 @@ export default{
 </script>
 <script setup>
 import { ref,reactive,onMounted } from 'vue'
-import { commentListApi, likedCommentApi, dislikedCommentApi, likedCommentReplyApi, dislikedCommentReplyApi } from "../api/comment.js";
+import { likedCommentApi, dislikedCommentApi, likedCommentReplyApi, dislikedCommentReplyApi } from "../api/comment.js";
 //引入用户信息开始
 import { useUserStore } from "../pinia/user.js";
 const userStore = useUserStore();
@@ -165,13 +165,12 @@ const props = defineProps({
     type: Number,
     default: 0
   },
+  list:{
+    type: Array,
+    default:[]
+  }
 })
 //父组件给该组件CommentList传递的值，就定义在defineProps,结束
-//评论开始
-// 数据列表
-const list = reactive({
-  arr:[]
-});
 //发布评论之后将评论内容放到评论列表
 const receiveChildAddComment = (param) => {
   console.log(param);
@@ -209,14 +208,6 @@ const receiveChildAddComment = (param) => {
     })
   }
 }
-//引入评论api
-onMounted(() => {
-  commentListApi({company_info_id:props.companyInfoId}).then(async(res) => {
-    console.log(res);
-    console.log(res.data.data);
-    list.arr = res.data.data;
-  })
-})
 //引入点击评论组件
 import AddComment from "../components/AddComment.vue";
 import ClickLike from "./ClickLike.vue";

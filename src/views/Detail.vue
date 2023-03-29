@@ -95,7 +95,9 @@
           </el-descriptions>
 <!--        问答列表开始-->
           <QuestionList
-            :company-info-id="company_info_id">
+            :company-info-id="company_info_id"
+            :list="questionList.arr"
+          >
           </QuestionList>
 <!--        问答列表结束-->
 <!--        公司首页的问大家结束-->
@@ -119,12 +121,16 @@
       </el-tab-pane>
       <el-tab-pane label="问大家" name="third">
         <QuestionList
-            :company-info-id="company_info_id">
+            :company-info-id="company_info_id"
+            :list="questionList.arr"
+        >
         </QuestionList>
       </el-tab-pane>
       <el-tab-pane label="大众评论" name="fourth">
         <CommentList
-            :company-info-id="company_info_id">
+            :company-info-id="company_info_id"
+            :list="commentList.arr"
+        >
         </CommentList>
       </el-tab-pane>
       <el-tab-pane label="联系公司" name="fifth">
@@ -145,10 +151,13 @@
 <script setup>
 import { ref,onMounted,reactive } from 'vue'
 import QuestionList from "../components/QuestionList.vue";
-import CommentList from '../components/CommentList.vue'
+import CommentList from '../components/CommentList.vue';
+import GoodsList from "../components/GoodsList.vue";
 import "../assets/tag.css"
 import {goodsListApi} from "../api/goods.js";
 import CreditScore from "../components/CreditScore.vue";
+import {questionListApi} from "../api/question.js";
+import {commentListApi} from "../api/comment.js";
 //
 const company_info_id = ref(0);
 company_info_id.value = 18;
@@ -158,13 +167,31 @@ const activeName = ref('first')
 const handleClick = (tab, event) => {
   console.log(tab, event)
 }
+//评论开始
+// 数据列表
+const commentList = reactive({
+  arr:[]
+});
+const questionList = reactive({
+  arr: []
+});
 //导航栏切换结束
 const list = reactive({
   arr: []
 });
 onMounted(() => {
-  goodsListApi({},company_info_id.value).then(async(res) => {
+  goodsListApi({company_info_id:company_info_id.value}).then(async(res) => {
     list.arr =  res.data.data;
+  })
+  questionListApi({company_info_id: company_info_id.value}).then(async(res) => {
+    console.log(res);
+    console.log(res.data.data);
+    questionList.arr = res.data.data;
+  })
+  commentListApi({company_info_id:company_info_id.value}).then(async(res) => {
+    console.log(res);
+    console.log(res.data.data);
+    commentList.arr = res.data.data;
   })
 })
 const text = ref('')

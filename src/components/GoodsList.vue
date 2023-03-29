@@ -46,7 +46,6 @@ export default{
   margin-bottom: 10px;
 }
 .goods_card{
-  height: 100%;
   background-color: #fff;
   border-radius: 10px;
 }

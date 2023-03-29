@@ -1,5 +1,5 @@
 <template>
-  <div class="ask" :class="[index % 2 == 0?'grey_bg':'']" v-for="(item, index) in list.arr" :key="index" v-if="list.arr.length > 0">
+  <div class="ask" :class="[index % 2 == 0?'grey_bg':'']" v-for="(item, index) in list" :key="index" v-if="list.length > 0">
     <div class="general_item font-12-size">
       <text class="general_item_1">问</text>
       <AddComment
@@ -128,8 +128,8 @@ export default{
 }
 </script>
 <script setup>
-import { reactive,onMounted } from "vue";
-import { questionListApi,likeQuestionApi,dislikeQuestionApi,cancelQuestionApi } from "../api/question.js";
+import { reactive,onMounted,ref } from "vue";
+import { likeQuestionApi,dislikeQuestionApi,cancelQuestionApi } from "../api/question.js";
 
 //引入用户信息开始
 import { useUserStore } from "../pinia/user.js";
@@ -142,16 +142,10 @@ const props = defineProps({
     type: Number,
     default: 0
   },
-})
-const list = reactive({
-  arr: []
-});
-onMounted(() => {
-  questionListApi({company_info_id: props.companyInfoId}).then(async(res) => {
-    console.log(res);
-    console.log(res.data.data);
-    list.arr = res.data.data;
-  })
+  list:{
+    type: Array,
+    default: []
+  }
 })
 //有用开始
 const liked_question = (index,indexAsk,id,is_useful,useful_count,useless_count) => {
@@ -248,7 +242,6 @@ const receiveChildAddComment = (param) => {
       image: question.image
     })
   }
-  console.log(list.arr);
 }
 </script>
 <style scoped>
