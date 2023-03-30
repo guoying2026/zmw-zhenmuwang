@@ -142,6 +142,7 @@
 </template>
 <script setup>
 import { ref,onMounted,reactive } from 'vue'
+import { useRoute } from 'vue-router'
 import QuestionList from "../components/QuestionList.vue";
 import CommentList from '../components/CommentList.vue';
 import GoodsList from "../components/GoodsList.vue";
@@ -158,7 +159,8 @@ const text = ref('')
 const company_info_id_text = ref(0);
 company_info_id_text.value = 18;
 const company_info_id = ref(0);
-company_info_id.value = 2644899;
+// company_info_id.value = 2644899;
+company_info_id.value = useRoute().query.company_info_id
 //导航栏切换开始
 const activeName = ref('first')
 const handleClick = (tab, event) => {

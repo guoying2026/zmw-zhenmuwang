@@ -59,8 +59,8 @@ const props = defineProps({
   z-index: 0;
 }
 .recommend_goods-item-image {
-  width: calc((100vw - (var(--el-main-padding) * 2)) * 0.2);
-  height: calc((100vw - (var(--el-main-padding) * 2)) * 0.2);
+  width: calc((100vw - 40px) * 0.2);
+  height: calc((100vw - 40px) * 0.3);
 }
 .recommend_goods-item-info {
   margin-top: -25px;
@@ -70,6 +70,12 @@ const props = defineProps({
 .recommend_goods-item-info-title {
   text-align: center;
   font-size: var(--el-font-size-base);
+}
+.el-link {
+  color: inherit;
+}
+.el-link:hover {
+  color: var(--el-color-info);
 }
 .recommend_goods-item-info-price {
   text-align: center;
