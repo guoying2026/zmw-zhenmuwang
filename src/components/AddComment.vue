@@ -86,33 +86,33 @@ const props = defineProps({
   },
   //评论回复需要的prop
   commentId:{
-    type: Number,
+    type: [String,Number],
     default: 0,
   },
   commentReplyId:{
-    type: Number,
+    type: [String,Number],
     default: 0,
   },
   replyToUserId:{
     type: [String, Number],
   },
   companyInfoId:{
-    type: Number,
+    type: [String,Number],
     default: 0,
   },
   commentIndex:{
-    type: Number,
+    type: [String,Number],
     default: 0,
   },
   commentReplyIndex:{
-    type: Number,
+    type: [String,Number],
     default: 0,
   },
   replyToName:{
     type: [String, Number],
   },
   replyCount:{
-    type: Number,
+    type: [String,Number],
     default: 0,
   },
   //提出问题需要prop

@@ -18,7 +18,6 @@ export default{
 }
 </script>
 <script setup>
-import { ref } from 'vue'
 const props = defineProps({
   likeBool:{
     type: Boolean,
@@ -29,7 +28,6 @@ const props = defineProps({
     default: '',
   }
 })
-const likeBool = props.likeBool
 </script>
 <style scoped>
 .like{

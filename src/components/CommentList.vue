@@ -39,7 +39,7 @@
             <text>{{item.created_time}}</text>
             <div class="comment_list_1_right_2_right margin-15-top">
               <div class="comment_list_1_right_2_right" @click="liked_comment(index,item.id,item.is_liked,item.liked_id,item.like_count)">
-                <ClickLike text='' v-if="item.is_liked === true" :like-bool=true></ClickLike>
+                <ClickLike text='' v-if="item.is_liked > 0" :like-bool=true></ClickLike>
                 <ClickLike text="" v-else :like-bool=false></ClickLike>
                 <text class="margin-10-left">{{item.like_count}}</text>
               </div>
@@ -115,7 +115,7 @@
             <text>{{itemReply.created_time}}</text>
             <div class="comment_list_1_right_2_right margin-15-top">
               <div class="comment_list_1_right_2_right" @click="liked_comment_reply(index,indexReply,item.id,itemReply.id,itemReply.is_liked,itemReply.liked_id,itemReply.like_count)">
-                <ClickLike text='' v-if="itemReply.is_liked === true" :like-bool=true></ClickLike>
+                <ClickLike text='' v-if="itemReply.is_liked > 0" :like-bool=true></ClickLike>
                 <ClickLike text="" v-else :like-bool=false></ClickLike>
                 <text class="margin-10-left">{{itemReply.like_count}}</text>
               </div>
@@ -230,7 +230,7 @@ const receiveChildAddComment = (param) => {
       reply_to_user_id: reply.reply_to_user_id,
       reply_to_name: reply.reply_to_name,
       liked_id: 0,
-      is_liked: false,
+      is_liked: 0,
       image: reply.image,
     })
   } else if(param.commentId > 0 && param.commentReplyId > 0){//回复-》回复
@@ -245,7 +245,7 @@ const receiveChildAddComment = (param) => {
       reply_to_user_id: reply.reply_to_user_id,
       reply_to_name: reply.reply_to_name,
       liked_id: 0,
-      is_liked: false,
+      is_liked: 0,
       image: reply.image,
     })
   }
@@ -260,63 +260,64 @@ const confirmText = ref('发布评论');
 //给添加评论组件传值结束
 //给评论点赞开始
 const liked_comment = (index,comment_id,is_liked,liked_id,like_count) => {
-  console.log(userStore.userId);
-  if(is_liked === false){
-    props.list[index].is_liked = true;
-    props.list[index].like_count = like_count * 1 + 1;
-    // likedCommentApi({'company_info_id':prop.companyInfoId,'company_comment_id':comment_id,'liked_id':liked_id,'user_id':userStore.userId}).then(async(res) => {
-    //   console.log(res);
-    //   //连接后端api再取消注释
-    //   let result = res.data;
-    //   if(result.is_liked === false){
-    //     props.list[index].is_liked = false;
-    //   }
-    // })
-  } else if(is_liked === true){
-    props.list[index].is_liked = false;
-    if(like_count * 1 > 1){
-      props.list[index].like_count = like_count * 1 - 1;
-    } else {
-      props.list[index].like_count = 0;
-    }
-    // dislikedCommentApi({'comment_id':comment_id,'liked_id':liked_id,'user_id':userStore.userId}).then(async(res) => {
-    //   console.log(res);
-    //   //连接后端api再取消注释
-    //   let result = res.data;
-    //   if(result.is_liked === true){
-    //     props.list[index].is_liked = true;
-    //   }
-    // })
+  console.log(index);
+  console.log(comment_id);
+  console.log(is_liked);
+  console.log(liked_id);
+  console.log(like_count);
+  if(is_liked === 1){
+    dislikedCommentApi({'comment_id':comment_id,'company_info_id': props.companyInfoId,'user_id':userStore.userId}).then(async(res) => {
+      console.log(res);
+      //连接后端api再取消注释
+      if(res.status === 200){
+        props.list[index].is_liked = 0;
+        if(like_count * 1 > 1){
+          props.list[index].like_count = like_count * 1 - 1;
+        } else {
+          props.list[index].like_count = 0;
+        }
+      }
+    })
+  } else {
+    likedCommentApi({'company_info_id':props.companyInfoId,'company_comment_id':comment_id,'user_id':userStore.userId}).then(async(res) => {
+      console.log(res);
+      if(res.status === 200){
+        props.list[index].is_liked = 1;
+        props.list[index].like_count = like_count * 1 + 1;
+      }
+    })
   }
 }
 //给回复点赞开始
 const liked_comment_reply = (index,indexReply,comment_id,comment_reply_id,is_liked,liked_id,like_count) => {
-  if(is_liked === false){
-    props.list[index].comment_reply[indexReply].is_liked = true;
-    props.list[index].comment_reply[indexReply].like_count = like_count *1 + 1;
-    // likedCommentReplyApi({'comment_id':comment_id,'comment_reply_id':comment_reply_id,'is_liked':is_liked,'liked_id':liked_id,'user_id':userStore.userId}).then(async(res) => {
-    //   console.log(res);
-    //   //连接后端api再取消注释
-    //   let result = res.data;
-    //   if(result.is_liked === false){
-    //     props.list[index].comment_reply[indexReply].is_liked = false;
-    //   }
-    // })
-  } else if(is_liked === true){
-    props.list[index].comment_reply[indexReply].is_liked = false;
-    if(like_count * 1 > 1){
-      props.list[index].comment_reply[indexReply].like_count = like_count * 1 - 1;
-    } else {
-      props.list[index].comment_reply[indexReply].like_count = 0;
-    }
-    // dislikedCommentReplyApi({'comment_id':comment_id,'comment_reply_id':comment_reply_id,'liked_id':liked_id,'user_id':userStore.userId}).then(async(res) => {
-    //   console.log(res);
-    //   //连接后端api再取消注释
-    //   let result = res.data;
-    //   if(result.is_liked === true){
-    //     props.list[index].comment_reply[indexReply].is_liked = true;
-    //   }
-    // })
+  console.log(index);
+  console.log(indexReply);
+  console.log(comment_id);
+  console.log(comment_reply_id);
+  console.log(is_liked);
+  console.log(liked_id);
+  console.log(like_count);
+  if(is_liked === 1){
+    dislikedCommentReplyApi({'company_info_id':props.companyInfoId,'company_comment_id':comment_id,'company_comment_reply_id':comment_reply_id,'user_id':userStore.userId}).then(async(res) => {
+      console.log(res);
+      if(res.status === 200){
+        props.list[index].comment_reply[indexReply].is_liked = 0;
+        if(like_count * 1 > 1){
+          props.list[index].comment_reply[indexReply].like_count = like_count * 1 - 1;
+        } else {
+          props.list[index].comment_reply[indexReply].like_count = 0;
+        }
+      }
+    })
+  } else {
+    likedCommentReplyApi({'company_info_id':props.companyInfoId,'company_comment_id':comment_id,'company_comment_reply_id':comment_reply_id,'user_id':userStore.userId}).then(async(res) => {
+      console.log(res);
+      //连接后端api再取消注释
+      if(res.status === 200){
+        props.list[index].comment_reply[indexReply].is_liked = 1;
+        props.list[index].comment_reply[indexReply].like_count = like_count *1 + 1;
+      }
+    })
   }
 }
 //点赞结束
@@ -337,6 +338,7 @@ const liked_comment_reply = (index,indexReply,comment_id,comment_reply_id,is_lik
   padding: 0 20px 20px 0px;
   display: flex;
   flex-direction: row;
+  width: 100%;
 }
 .reply_list{
   display: flex;
