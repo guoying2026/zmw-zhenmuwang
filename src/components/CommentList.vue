@@ -1,5 +1,5 @@
 <template>
-  <div class="comment_list" v-for="(item, index) in list" :key="index">
+  <div class="comment_list" v-for="(item, index) in list" :key="index" v-if="list.length > 0">
     <div class="comment_list_item">
       <div class="comment_list_item_space">
         <!--            头像开始-->
@@ -58,6 +58,8 @@
                     :comment-reply-index="0"
                     :reply-to-name="item.name"
                     :reply-count="item.reply_count"
+                    add-type="comment"
+                    comment-type="reply"
                 >
                   <template #clickDrawer>
                     <!-- AddComment 插槽的内容放这里开始-->
@@ -131,6 +133,8 @@
                   :comment-reply-index="indexReply"
                   :reply-to-name="itemReply.name"
                   :reply-count="item.reply_count"
+                  add-type="comment"
+                  comment-type="reply"
               >
                 <template #clickDrawer>
                   <!-- AddComment 插槽的内容放这里开始-->
@@ -146,6 +150,28 @@
     </div>
     <!--        该评论的回复列表结束-->
   </div>
+  <AddComment
+      :placeholder-text="placeholderText"
+      :cancel-text="cancelText"
+      :confirm-text="confirmText"
+      :comment-id="0"
+      :comment-reply-id="0"
+      :reply-to-user-id="0"
+      :company-info-id="companyInfoId"
+      @toFatherCommentList="receiveChildAddComment"
+      :comment-index="0"
+      :comment-reply-index="0"
+      reply-to-name=""
+      :reply-count="0"
+      add-type="comment"
+      comment-type="comment"
+      v-else
+  >
+    <template #clickDrawer>
+      <!-- AddComment 插槽的内容放这里开始-->
+      <el-icon class="margin-20-left icon-size"><ChatRound /></el-icon>
+    </template>
+  </AddComment>
 </template>
 <script>
 export default{
@@ -177,9 +203,24 @@ const receiveChildAddComment = (param) => {
   const reply = param.commentReply;
   console.log('commentReplyId');
   console.log(param.commentReplyId);
-  list.arr[param.commentIndex].reply_count = param.reply_count * 1 + 1;
-  if(param.commentReplyId === 0){//回复主评论
-    list.arr[param.commentIndex].comment_reply.unshift({
+  props.list[param.commentIndex].reply_count = param.reply_count * 1 + 1;
+  if(param.commentId === 0){//主评论
+    props.list.unshift({
+      id: reply.id,
+      user_id: userStore.userId,
+      name: reply.name,
+      comment: reply.comment,
+      created_time: reply.created_time,
+      is_show: 1,
+      like_count: 0,
+      reply_count: 0,
+      liked_id: 0,
+      is_liked: 0,
+      image: reply.image,
+      comment_reply: [],
+    });
+  } else if(param.commentId > 0 && param.commentReplyId === 0){//回复主评论
+    props.list[param.commentIndex].comment_reply.unshift({
       id: reply.id,
       user_id: reply.user_id,
       name: reply.name,
@@ -192,8 +233,8 @@ const receiveChildAddComment = (param) => {
       is_liked: false,
       image: reply.image,
     })
-  } else {//回复-》回复
-    list.arr[param.commentIndex].comment_reply.splice(param.commentReplyIndex+1,0,{
+  } else if(param.commentId > 0 && param.commentReplyId > 0){//回复-》回复
+    props.list[param.commentIndex].comment_reply.splice(param.commentReplyIndex+1,0,{
       id: reply.id,
       user_id: reply.user_id,
       name: reply.name,
@@ -220,29 +261,29 @@ const confirmText = ref('发布评论');
 const liked_comment = (index,comment_id,is_liked,liked_id,like_count) => {
   console.log(userStore.userId);
   if(is_liked === false){
-    list.arr[index].is_liked = true;
-    list.arr[index].like_count = like_count * 1 + 1;
+    props.list[index].is_liked = true;
+    props.list[index].like_count = like_count * 1 + 1;
     // likedCommentApi({'company_info_id':prop.companyInfoId,'company_comment_id':comment_id,'liked_id':liked_id,'user_id':userStore.userId}).then(async(res) => {
     //   console.log(res);
     //   //连接后端api再取消注释
     //   let result = res.data;
     //   if(result.is_liked === false){
-    //     list.arr[index].is_liked = false;
+    //     props.list[index].is_liked = false;
     //   }
     // })
   } else if(is_liked === true){
-    list.arr[index].is_liked = false;
+    props.list[index].is_liked = false;
     if(like_count * 1 > 1){
-      list.arr[index].like_count = like_count * 1 - 1;
+      props.list[index].like_count = like_count * 1 - 1;
     } else {
-      list.arr[index].like_count = 0;
+      props.list[index].like_count = 0;
     }
     // dislikedCommentApi({'comment_id':comment_id,'liked_id':liked_id,'user_id':userStore.userId}).then(async(res) => {
     //   console.log(res);
     //   //连接后端api再取消注释
     //   let result = res.data;
     //   if(result.is_liked === true){
-    //     list.arr[index].is_liked = true;
+    //     props.list[index].is_liked = true;
     //   }
     // })
   }
@@ -250,29 +291,29 @@ const liked_comment = (index,comment_id,is_liked,liked_id,like_count) => {
 //给回复点赞开始
 const liked_comment_reply = (index,indexReply,comment_id,comment_reply_id,is_liked,liked_id,like_count) => {
   if(is_liked === false){
-    list.arr[index].comment_reply[indexReply].is_liked = true;
-    list.arr[index].comment_reply[indexReply].like_count = like_count *1 + 1;
+    props.list[index].comment_reply[indexReply].is_liked = true;
+    props.list[index].comment_reply[indexReply].like_count = like_count *1 + 1;
     // likedCommentReplyApi({'comment_id':comment_id,'comment_reply_id':comment_reply_id,'is_liked':is_liked,'liked_id':liked_id,'user_id':userStore.userId}).then(async(res) => {
     //   console.log(res);
     //   //连接后端api再取消注释
     //   let result = res.data;
     //   if(result.is_liked === false){
-    //     list.arr[index].comment_reply[indexReply].is_liked = false;
+    //     props.list[index].comment_reply[indexReply].is_liked = false;
     //   }
     // })
   } else if(is_liked === true){
-    list.arr[index].comment_reply[indexReply].is_liked = false;
+    props.list[index].comment_reply[indexReply].is_liked = false;
     if(like_count * 1 > 1){
-      list.arr[index].comment_reply[indexReply].like_count = like_count * 1 - 1;
+      props.list[index].comment_reply[indexReply].like_count = like_count * 1 - 1;
     } else {
-      list.arr[index].comment_reply[indexReply].like_count = 0;
+      props.list[index].comment_reply[indexReply].like_count = 0;
     }
     // dislikedCommentReplyApi({'comment_id':comment_id,'comment_reply_id':comment_reply_id,'liked_id':liked_id,'user_id':userStore.userId}).then(async(res) => {
     //   console.log(res);
     //   //连接后端api再取消注释
     //   let result = res.data;
     //   if(result.is_liked === true){
-    //     list.arr[index].comment_reply[indexReply].is_liked = true;
+    //     props.list[index].comment_reply[indexReply].is_liked = true;
     //   }
     // })
   }

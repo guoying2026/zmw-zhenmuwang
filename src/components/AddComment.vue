@@ -61,7 +61,7 @@ export default{
 import { ref } from 'vue'
 import { getAnswerOssSignatureApi,pushAnswerOssApi } from "../api/ossUploadFile.js";
 import { handeSrcHttpsUtil,guidUtil } from "../utils/httpReplace.js";
-import { publishCommentApi } from "../api/comment.js";
+import { publishCommentApi,publishCommentReplyApi } from "../api/comment.js";
 import { publishQuestionApi,publishAnswerApi } from "../api/question.js";
 
 //引入用户信息开始
@@ -124,11 +124,16 @@ const props = defineProps({
     type: Number,
     default: 0,
   },
+  //类型
   addType:{
     type: String,
     default: ''
   },
   questionType:{
+    type: String,
+    default: ''
+  },
+  commentType:{
     type: String,
     default: ''
   }
@@ -212,48 +217,78 @@ const publishComment = () => {
   console.log(props.commentId);
   console.log(submitFileList.value);
   console.log(props.replyToUserId);
-  let data = {
-    'company_info_id': props.companyInfoId,//某个公司下的评论
-    'comment_id':props.commentId,
-    'comment_reply_id': props.commentReplyId,
-    'comment': textarea.value,
-    'image': submitFileList.value,
-    'user_id': userStore.userId,
-    'reply_to_user_id': props.replyToUserId,//如果是回复别人记得传回复人的id
-  };
-  publishCommentApi(data).then(async(res) => {
-    console.log(res);
-    console.log(res.data.status);
-    if(res.data.status === true){
-      console.log('public success');
-      drawer.value = false;
-      textarea.value = '';
-      fileList.value = [];
-      const toFatherImage = [];
-      for(const item of submitFileList.value){
-        console.log(Object.values(item)[0]);
-        toFatherImage.push(Object.values(item)[0]);
+  const toFatherImage = [];
+  for(const item of submitFileList.value){
+    console.log(Object.values(item)[0]);
+    toFatherImage.push(Object.values(item)[0]);
+  }
+  if(props.commentType === 'comment'){
+    let data = {
+      'company_info_id': props.companyInfoId,//某个公司下的评论
+      'comment': textarea.value,
+      'image': toFatherImage,
+      'user_id': userStore.userId,
+    };
+    publishCommentApi(data).then(async(res) => {
+      if(res.status === 200){
+        drawer.value = false;
+        textarea.value = '';
+        fileList.value = [];
+        //把评论内容传给父组件进行展示
+        emit('toFatherCommentList',{
+          commentIndex: 0,
+          commentReplyIndex: 0,
+          commentId: res.data.id,
+          commentReplyId: 0,
+          reply_count: props.replyCount,
+          commentReply: {
+            id: res.data.id,
+            user_id: userStore.userId,
+            name: userStore.phone,
+            comment: data.comment,
+            created_time: res.data.created_time,
+            reply_to_user_id: 0,
+            reply_to_name: '',
+            image: toFatherImage,
+          }
+        })
       }
-      //把评论内容传给父组件进行展示
-      emit('toFatherCommentList',{
-        commentIndex: props.commentIndex,
-        commentReplyIndex: props.commentReplyIndex,
-        commentId: props.commentId,
-        commentReplyId: props.commentReplyId,
-        reply_count: props.replyCount,
-        commentReply: {
-          id: res.data.id,
-          user_id: userStore.userId,
-          name: userStore.phone,
-          comment: data.comment,
-          created_time: res.data.created_time,
-          reply_to_user_id: props.replyToUserId,
-          reply_to_name: props.replyToName,
-          image: toFatherImage,
-        }
-      })
-    }
-  })
+    })
+  } else {
+    let data = {
+      'company_info_id': props.companyInfoId,//某个公司下的评论
+      'company_comment_id': props.commentId,
+      'company_comment_reply_id': props.commentReplyId,
+      'comment': textarea.value,
+      'image': toFatherImage,
+      'user_id': userStore.userId,
+    };
+    publishCommentReplyApi(data).then(async(res) => {
+      if(res.status === 200){
+        drawer.value = false;
+        textarea.value = '';
+        fileList.value = [];
+        //把评论内容传给父组件进行展示
+        emit('toFatherCommentList',{
+          commentIndex: props.commentIndex,
+          commentReplyIndex: props.commentReplyIndex,
+          commentId: props.commentId,
+          commentReplyId: props.commentReplyId,
+          reply_count: props.replyCount,
+          commentReply: {
+            id: res.data.id,
+            user_id: userStore.userId,
+            name: userStore.phone,
+            comment: data.comment,
+            created_time: res.data.created_time,
+            reply_to_user_id: props.replyToUserId,
+            reply_to_name: props.replyToName,
+            image: toFatherImage,
+          }
+        })
+      }
+    })
+  }
 }
 //发布评论结束
 //添加评论结束

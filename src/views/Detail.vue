@@ -98,6 +98,7 @@
                 </el-button>
               </template>
             </el-descriptions>
+
             <!--        评论列表开始-->
             <CommentList
                 :company-info-id="company_info_id_text"

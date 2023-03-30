@@ -48,4 +48,12 @@ export const publishCommentApi = (data) => {
         data
     })
 }
+//发布回复接口
+export const publishCommentReplyApi = (data) => {
+    return axiosRequest({
+        url: '/Pc/CompanyComment/publishCommentReply',
+        method:'post',
+        data
+    })
+}
 
