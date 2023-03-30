@@ -241,25 +241,30 @@ const submitForm = (formEl) => {
 }
 </script>
 <style scoped>
-.input_btn>>>input::placeholder{
+/* .input_btn>>>input::placeholder{ */
+.input_btn:deep(input::placeholder) {
   letter-spacing: 2px;
 }
-.input_btn>>>.el-input__wrapper{
+/* .input_btn>>>.el-input__wrapper{ */
+.input_btn:deep(.el-input__wrapper) {
   box-shadow: none !important;
   z-index: 100;
 }
-.input_btn>>>.el-input-group__append{
+/* .input_btn>>>.el-input-group__append{ */
+.input_btn:deep(.el-input-group__append) {
   box-shadow: none !important;
   z-index: 100;
   background-image: linear-gradient(109.6deg, rgb(218 213 237) 11.2%, rgb(208 210 237) 91.1%);
   color: #9f5be6;
   opacity: 0.8;
 }
-.input_btn>>>span{
+/* .input_btn>>>span{ */
+.input_btn:deep(span) {
   letter-spacing: 2px;
   font-size: 13px;
 }
-.input_btn>>>.el-form-item__error{
+/* .input_btn>>>.el-form-item__error{ */
+.input_btn:deep(.el-form-item__error) {
   letter-spacing: 2px;
   font-size: 14px;
 }
