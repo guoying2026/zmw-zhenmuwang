@@ -3,9 +3,16 @@ import vue from '@vitejs/plugin-vue'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
+import path from 'path'
 
 export default defineConfig({
   // ...
+  "resolve.alias": {
+    // 键必须以斜线开始和结束
+    '/@/': path.resolve(__dirname, './src')
+  },
+  // base: path.resolve(__dirname, './dist/'),	// 新增
+  base: './',
   plugins: [
     vue(),
     // ...

@@ -1,0 +1,41 @@
+server {
+    listen 80 default;
+    server_name ${SITE_DOMAIN};
+
+    set $myroot ${WWWROOT}/dist;
+    root $myroot;
+    location / {
+    	gzip_static on;
+        try_files $uri $uri/ /index.html =404;
+        index index.html;
+    }
+    set $preroot ${PREWWWROOT};
+    location /login{
+        add_header Cache-Control no-cache;
+    	root $preroot;
+    	index login.html;
+        if ($request_filename ~* .*.(html|htm)$)
+        {
+            expires -1s;
+        }
+    }
+    location /recharge{
+            add_header Cache-Control no-cache;
+        	root $preroot;
+        	index recharge.html;
+            if ($request_filename ~* .*.(html|htm)$)
+            {
+                expires -1s;
+            }
+    }
+    location /map{
+            add_header Cache-Control no-cache;
+        	root $preroot;
+        	index map.html;
+            if ($request_filename ~* .*.(html|htm)$)
+            {
+                expires -1s;
+            }
+    }
+    error_page 404 /index.html;
+}

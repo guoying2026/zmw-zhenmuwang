@@ -1,0 +1,47 @@
+FROM nginx:1.9
+
+ADD sources.list /etc/apt/sources.list
+ADD node-v19.6.0-linux-x64.tar.xz /usr/local
+ADD render-templates.sh /render-templates.sh
+ADD substitute-env-vars.sh /substitute-env-vars.sh
+ADD sites-enabled/*tmpl    /etc/nginx/sites-templates/
+ADD install.sh    /install.sh
+#RUN mkdir -p /wwwroot
+
+
+
+RUN ln -s /usr/local/node-v19.6.0-linux-x64/bin/* /usr/bin
+RUN apt-get update && apt-get install -y curl vim git && rm -rf /var/lib/apt/lists/*
+RUN chmod +x /*.sh
+#RUN /install.sh
+
+RUN mkdir -p /etc/nginx/sites-templates
+ADD nginx.conf /etc/nginx/nginx.conf
+RUN rm -f /etc/nginx/conf.d/default.conf
+
+#ADD app.tar    /wwwroot
+#RUN ["/bin/bash", "-c", "set -o pipefail && set -o pipefail && cd /wwwroot && npm config set registry https://registry.npm.taobao.org && npm install"]
+#RUN ["/bin/bash", "-c", "set -o pipefail && cd /wwwroot && npm run lint"]
+#RUN ["/bin/bash", "-c", "set -o pipefail && cd /wwwroot && npm run build"] 
+#RUN ["/bin/bash", "-c", "set -o pipefail && cd /wwwroot && cp -rf pre-dist/* dist/"]
+#RUN cd /wwwroot && npm --registry https://registry.npm.taobao.org install
+#RUN cd /wwwroot && npm install -g cnpm --registry=https://registry.npm.taobao.org && cnpm install
+#VOLUME ["/localroot"]
+EXPOSE 80
+ADD entrypoint.dev.sh /entrypoint.dev.sh
+RUN chmod +x /*.sh
+
+ENV SITE_DOMAIN localhost
+ENV WWWROOT /workspaces/zmw-wx/dist
+ENV PREWWWROOT /workspaces/zmw-wx/
+ENV URL_PATH ''
+ENV FAKE_OPENID=123
+ENV FAKE_USERID=1234
+ENV TRACK_ENABLE false
+ENV TRACK_HOST ''
+ENV TRACK_PROJECT ''
+ENV TRACK_STORE ''
+ENV API_HOST http://zmwapi.jinrongwan.cn
+ENV SITEROOT /workspaces/zmw-wx
+ENV HAWK_API https://hawkdata.jinrongwan.cn/sa
+ENTRYPOINT ["/entrypoint.dev.sh"]
