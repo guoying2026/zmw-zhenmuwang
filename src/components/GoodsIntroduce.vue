@@ -182,7 +182,7 @@ onBeforeUnmount(() => {
 })
 </script>
 <style scoped>
-.el-col:has(.el-tabs) {
+.el-tabs {
   min-height: calc(100vh - 40px);
 }
 .goods_introduce-item {
