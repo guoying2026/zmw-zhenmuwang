@@ -46,6 +46,7 @@ export default{
   margin-bottom: 10px;
 }
 .goods_card{
+  height: 100%;
   background-color: #fff;
   border-radius: 10px;
 }
@@ -64,5 +65,10 @@ export default{
   flex-direction: column;
   padding: 10px;
   letter-spacing: 2px;
+  height: calc(100% - 30vh - 5px);
+  justify-content: space-between;
+}
+.el-link {
+  color: inherit;
 }
 </style>
