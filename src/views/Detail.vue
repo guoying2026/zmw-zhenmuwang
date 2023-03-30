@@ -206,7 +206,7 @@ onMounted(() => {
     console.log(res.data.data);
     questionList.arr = res.data.data;
   })
-  commentListApi({company_info_id:company_info_id_text.value,user_id: userStore.userId}).then(async(res) => {
+  commentListApi({company_info_id: company_info_id_text.value,user_id: userStore.userId}).then(async(res) => {
     console.log(res);
     commentList.arr = res.data.data;
   })
