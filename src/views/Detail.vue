@@ -158,7 +158,7 @@ const userStore = useUserStore();
 const text = ref('')
 const company_info_id_text = ref(0);
 company_info_id_text.value = 18;
-const company_info_id = ref(0);
+const company_info_id = ref(null);
 // company_info_id.value = 2644899;
 company_info_id.value = useRoute().query.company_info_id
 //导航栏切换开始
@@ -207,7 +207,7 @@ onMounted(() => {
     questionList.arr = res.data.data;
   })
   commentListApi({company_info_id:company_info_id_text.value,user_id: userStore.userId}).then(async(res) => {
-    console.log(res.data.data);
+    console.log(res);
     commentList.arr = res.data.data;
   })
 })

@@ -154,15 +154,15 @@
       :placeholder-text="placeholderText"
       :cancel-text="cancelText"
       :confirm-text="confirmText"
-      comment-id=0
-      comment-reply-id=0
-      reply-to-user-id=0
+      :comment-id=0
+      :comment-reply-id=0
+      :reply-to-user-id=0
       :company-info-id="companyInfoId"
       @toFatherCommentList="receiveChildAddComment"
-      comment-index=0
-      comment-reply-index=0
+      :comment-index=0
+      :comment-reply-index=0
       reply-to-name=""
-      reply-count=0
+      :reply-count=0
       add-type="comment"
       comment-type="comment"
       v-else
@@ -203,7 +203,6 @@ const receiveChildAddComment = (param) => {
   const reply = param.commentReply;
   console.log('commentReplyId');
   console.log(param.commentReplyId);
-  props.list[param.commentIndex].reply_count = param.reply_count * 1 + 1;
   if(param.commentId === 0){//主评论
     props.list.unshift({
       id: reply.id,
@@ -220,6 +219,7 @@ const receiveChildAddComment = (param) => {
       comment_reply: [],
     });
   } else if(param.commentId > 0 && param.commentReplyId === 0){//回复主评论
+    props.list[param.commentIndex].reply_count = param.reply_count * 1 + 1;
     props.list[param.commentIndex].comment_reply.unshift({
       id: reply.id,
       user_id: reply.user_id,
@@ -234,6 +234,7 @@ const receiveChildAddComment = (param) => {
       image: reply.image,
     })
   } else if(param.commentId > 0 && param.commentReplyId > 0){//回复-》回复
+    props.list[param.commentIndex].reply_count = param.reply_count * 1 + 1;
     props.list[param.commentIndex].comment_reply.splice(param.commentReplyIndex+1,0,{
       id: reply.id,
       user_id: reply.user_id,

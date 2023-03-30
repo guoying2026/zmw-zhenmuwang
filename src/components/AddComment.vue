@@ -240,7 +240,7 @@ const publishComment = () => {
           commentReplyIndex: 0,
           commentId: res.data.id,
           commentReplyId: 0,
-          reply_count: props.replyCount,
+          reply_count: 0,
           commentReply: {
             id: res.data.id,
             user_id: userStore.userId,
