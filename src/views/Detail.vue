@@ -191,7 +191,6 @@ onMounted(() => {
     credit_score_text.value = '信用分 '+ credit_score.value
     credit_code.value = res.data.company_info.credit_code
     isFranchisee.value = res.data.isFranchisee
-    console.log(res.data);
   })
   goodsListApi({company_info_id:company_info_id.value}).then(async(res) => {
     list.arr =  res.data;
@@ -200,10 +199,8 @@ onMounted(() => {
       return item = item.wood_name
     })
     wood_name.value = Array.from(new Set(wood_name.value));
-    console.log(wood_name.value);
   })
   questionListApi({company_info_id: company_info_id_text.value,user_id: userStore.userId}).then(async(res) => {
-    console.log(res.data.data);
     questionList.arr = res.data.data;
   })
   commentListApi({company_info_id: company_info_id_text.value,user_id: userStore.userId}).then(async(res) => {

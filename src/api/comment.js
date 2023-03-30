@@ -5,7 +5,7 @@ export const commentListApi = (data) => {
     return axiosRequest({
         url: "/Pc/CompanyComment/companyCommentList",
         method: 'get',
-        param: data,
+        params: data,
     })
 }
 //评论的点赞接口
