@@ -65,4 +65,7 @@ export default{
   padding: 10px;
   letter-spacing: 2px;
 }
+.el-link {
+  color: inherit;
+}
 </style>
