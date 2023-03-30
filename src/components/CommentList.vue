@@ -154,15 +154,15 @@
       :placeholder-text="placeholderText"
       :cancel-text="cancelText"
       :confirm-text="confirmText"
-      :comment-id="0"
-      :comment-reply-id="0"
-      :reply-to-user-id="0"
+      comment-id=0
+      comment-reply-id=0
+      reply-to-user-id=0
       :company-info-id="companyInfoId"
       @toFatherCommentList="receiveChildAddComment"
-      :comment-index="0"
-      :comment-reply-index="0"
+      comment-index=0
+      comment-reply-index=0
       reply-to-name=""
-      :reply-count="0"
+      reply-count=0
       add-type="comment"
       comment-type="comment"
       v-else
