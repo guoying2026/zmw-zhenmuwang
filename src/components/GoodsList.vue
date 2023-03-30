@@ -60,10 +60,8 @@ export default{
   align-self: flex-end;
 }
 .goods_item {
-  height: calc(100% - 200px);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
   padding: 10px;
   letter-spacing: 2px;
 }

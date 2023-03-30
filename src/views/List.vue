@@ -30,6 +30,13 @@
 .el-col{
   margin-bottom: 10px;
 }
+.goods_card {
+  height: 100%;
+}
+.goods_item {
+  height: calc(100% - 30vh - 5px);
+  justify-content: space-between;
+}
 .pages.is-background {
   justify-content: center;
 }
