@@ -6,9 +6,6 @@
       <UserLogin/>
     </div>
   </div>
-  <div class="space">
-
-  </div>
   <!-- 搜索框遮罩层 -->
   <div @click="searchSlideUp" :style="(isSearchSlideDown?'':'display: none;')+'position: fixed;top: 0;left: 0;width: 100vw;height: 100vh;z-index: 9999;'"></div>
   <!-- 搜索框主体 -->
@@ -219,10 +216,6 @@ router-link负责跳转不同的页面，相当于vue世界中的超链接a标�
 router-view负责渲染路由匹配的组件，可以通过把router-view放在不同的地方，实现复杂项目的页面布局-->
   <router-view/>
 </template>
-<script setup>
-import { onMounted, ref } from "vue";
-
-</script>
 <style scoped>
 .nav_header {
   position: fixed;
@@ -233,16 +226,12 @@ import { onMounted, ref } from "vue";
   opacity:0.8;
   z-index: 100;
 }
-.space{
-  height: 42px;
-  width: 100%;
-}
 .nav{
   display: flex;
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 10px 20px 0 20px;
+  padding: 20px 20px 10px 20px;
 }
 .el-link {
   color: inherit;
@@ -250,7 +239,6 @@ import { onMounted, ref } from "vue";
 </style>
 <script>
 import "./assets/liveSearch.scss"
-// import SearchBar from "./components/SearchBar.vue";
 import UserLogin from "./components/UserLogin.vue";
 import { getSearchResultApi } from "./api/search.js";
 import { formatHttpsProtocol } from "./utils/httpReplace";

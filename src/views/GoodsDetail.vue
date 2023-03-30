@@ -1,5 +1,5 @@
 <template>
-  <div class="padding-10 margin-10-top" v-if="!isLoading&&isSuccess">
+  <div class="padding-10 margin-60-top" v-if="!isLoading&&isSuccess">
     <div class="top_1_tag">
       <template v-for="(item, index) in tags" v-bind:key="item">
         <Tag :tag="item" number="60" :color="tagsColorList[index%tagsColorList.length]"></Tag>
@@ -43,7 +43,7 @@
       </el-col>
     </el-row>
   </div>
-  <el-container direction="vertical" :gutter="24" class="margin-20-top" v-if="!isLoading&&isSuccess">
+  <el-container direction="vertical" :gutter="24" class="margin-60-top" v-if="!isLoading&&isSuccess">
     <el-row>
       <GoodsIntroduce
         :description="goodsDescription"
@@ -773,7 +773,7 @@ const submitOrderByMobileHandle = async () => {
         if( document.addEventListener ){
           document.addEventListener('WeixinJSBridgeReady', onBridgeReady, false);
         }else if (document.attachEvent){
-          document.attachEvent('WeixinJSBridgeReady', onBridgeReady); 
+          document.attachEvent('WeixinJSBridgeReady', onBridgeReady);
           document.attachEvent('onWeixinJSBridgeReady', onBridgeReady);
         }
       } else {

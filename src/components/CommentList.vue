@@ -1,5 +1,53 @@
 <template>
-  <div class="comment_list" v-for="(item, index) in list" :key="index" v-if="list.length > 0">
+  <div class="projects-section">
+    <div class="projects-section-header">
+      <p>评论区</p>
+<!--      <p class="time">December, 12</p>-->
+    </div>
+    <div class="projects-section-line">
+      <div class="projects-status">
+        <div class="item-status">
+          <span class="status-number">45</span>
+          <span class="status-type">评论总数</span>
+        </div>
+        <div class="item-status">
+          <span class="status-number">24</span>
+          <span class="status-type">回复总数</span>
+        </div>
+        <div class="item-status">
+          <span class="status-number">62</span>
+          <span class="status-type">点赞总数</span>
+        </div>
+      </div>
+      <div class="view-actions">
+        <AddComment
+            :placeholder-text="placeholderText"
+            :cancel-text="cancelText"
+            :confirm-text="confirmText"
+            :comment-id=0
+            :comment-reply-id=0
+            :reply-to-user-id=0
+            :company-info-id="companyInfoId"
+            @toFatherCommentList="receiveChildAddComment"
+            :comment-index=0
+            :comment-reply-index=0
+            reply-to-name=""
+            :reply-count=0
+            add-type="comment"
+            comment-type="comment"
+        >
+          <template #clickDrawer>
+            <!-- AddComment 插槽的内容放这里开始-->
+            <div class="icon_div">
+              <span>我有话说</span>
+              <el-icon class="margin-10-left icon-size"><ChatRound /></el-icon>
+            </div>
+          </template>
+        </AddComment>
+      </div>
+    </div>
+  </div>
+  <div class="comment_list" v-for="(item, index) in list" :key="index">
     <div class="comment_list_item">
       <div class="comment_list_item_space">
         <!--            头像开始-->
@@ -150,28 +198,6 @@
     </div>
     <!--        该评论的回复列表结束-->
   </div>
-  <AddComment
-      :placeholder-text="placeholderText"
-      :cancel-text="cancelText"
-      :confirm-text="confirmText"
-      :comment-id=0
-      :comment-reply-id=0
-      :reply-to-user-id=0
-      :company-info-id="companyInfoId"
-      @toFatherCommentList="receiveChildAddComment"
-      :comment-index=0
-      :comment-reply-index=0
-      reply-to-name=""
-      :reply-count=0
-      add-type="comment"
-      comment-type="comment"
-      v-else
-  >
-    <template #clickDrawer>
-      <!-- AddComment 插槽的内容放这里开始-->
-      <el-icon class="margin-20-left icon-size"><ChatRound /></el-icon>
-    </template>
-  </AddComment>
 </template>
 <script>
 export default{
@@ -181,6 +207,8 @@ export default{
 <script setup>
 import { ref,reactive,onMounted } from 'vue'
 import { likedCommentApi, dislikedCommentApi, likedCommentReplyApi, dislikedCommentReplyApi } from "../api/comment.js";
+import "../assets/comment.scss"
+import "../assets/fonts.css"
 //引入用户信息开始
 import { useUserStore } from "../pinia/user.js";
 const userStore = useUserStore();
@@ -324,6 +352,12 @@ const liked_comment_reply = (index,indexReply,comment_id,comment_reply_id,is_lik
 //评论结束
 </script>
 <style scoped>
+.icon_div{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: baseline;
+}
 .icon-size{
   font-size: 24px;
 }

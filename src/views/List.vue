@@ -62,7 +62,7 @@
 }
 </style>
 <template>
-    <div class="top_1_tag font-15-size">
+    <div class="top_1_tag font-15-size margin-60-top">
       <div
           class="custom_tag font-60-weight"
           :class="isCreditScoreDesc?'green_btn':'blue_btn'"

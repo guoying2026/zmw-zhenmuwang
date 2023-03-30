@@ -1,5 +1,42 @@
 <template>
-  <div class="ask" :class="[index % 2 == 0?'grey_bg':'']" v-for="(item, index) in list" :key="index" v-if="list.length > 0">
+  <div class="projects-section">
+    <div class="projects-section-header">
+      <p>问答区</p>
+<!--      <p class="time">December, 12</p>-->
+    </div>
+    <div class="projects-section-line">
+      <div class="projects-status">
+        <div class="item-status">
+          <span class="status-number">45</span>
+          <span class="status-type">问题总数</span>
+        </div>
+        <div class="item-status">
+          <span class="status-number">24</span>
+          <span class="status-type">回复总数</span>
+        </div>
+        <div class="item-status">
+          <span class="status-number">62</span>
+          <span class="status-type">有用总数</span>
+        </div>
+      </div>
+      <div class="view-actions">
+        <AddComment
+            placeholder-text="我要提问"
+            cancel-text="取消提问"
+            confirm-text="发布提问"
+            @toFatherQuestionList="receiveChildAddComment"
+            :company-info-id="companyInfoId"
+            addType="question"
+            questionType="question"
+        >
+          <template #clickDrawer>
+            <text class="general_item_2 blue_btn margin-10-left">我要提问</text>
+          </template>
+        </AddComment>
+      </div>
+    </div>
+  </div>
+  <div class="ask" :class="[index % 2 == 0?'grey_bg':'']" v-for="(item, index) in list" :key="index">
     <div class="general_item font-12-size">
       <text class="general_item_1">问</text>
       <AddComment
@@ -107,20 +144,6 @@
       </div>
     </div>
   </div>
-  <AddComment
-      placeholder-text="我要提问"
-      cancel-text="取消提问"
-      confirm-text="发布提问"
-      @toFatherQuestionList="receiveChildAddComment"
-      :company-info-id="companyInfoId"
-      addType="question"
-      questionType="question"
-      v-else
-  >
-    <template #clickDrawer>
-      <text class="general_item_2 blue_btn margin-10-left">我要提问</text>
-    </template>
-  </AddComment>
 </template>
 <script>
 export default{
@@ -129,6 +152,8 @@ export default{
 </script>
 <script setup>
 import { usefulAnswerApi,uselessAnswerApi,cancelAnswerApi } from "../api/question.js";
+import "../assets/comment.scss"
+import "../assets/fonts.css"
 
 //引入用户信息开始
 import { useUserStore } from "../pinia/user.js";
@@ -306,7 +331,7 @@ const receiveChildAddComment = (param) => {
   border-radius: 10px;
   font-weight: bold;
 }
-.general_item .general_item_2{
+.general_item_2{
   padding: 10px 15px;
   border-radius: 10px;
   font-weight: bold;

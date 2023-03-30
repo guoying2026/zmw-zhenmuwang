@@ -1,5 +1,5 @@
 <template>
-  <div class="padding-10 margin-10-top">
+  <div class="padding-10 margin-10-top margin-60-top">
     <div class="top_1_tag">
       <Tag v-if="isFranchisee" tag="加盟商" number="60" color="orange"></Tag>
       <Tag :tag="credit_score_text" number="60" color="yellow"></Tag>
@@ -56,13 +56,13 @@
     <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick" stretch>
       <el-tab-pane label="公司首页" name="first">
 <!--        公司首页的精选商品开始-->
-        <el-descriptions title="精选商品">
-          <template #extra>
-            <el-button type="" text>
-              查看全部<el-icon class="el-icon--right"><ArrowRight /></el-icon>
-            </el-button>
-          </template>
-        </el-descriptions>
+<!--        <el-descriptions title="精选商品">-->
+<!--          <template #extra>-->
+<!--            <el-button type="" text>-->
+<!--              查看全部<el-icon class="el-icon&#45;&#45;right"><ArrowRight /></el-icon>-->
+<!--            </el-button>-->
+<!--          </template>-->
+<!--        </el-descriptions>-->
         <GoodsList :list="list.arr"></GoodsList>
         <div class="adv_1">
           <div class="top_1_2">
@@ -75,13 +75,13 @@
         </div>
 <!--        公司首页的精选商品结束-->
 <!--        公司首页的问大家开始-->
-          <el-descriptions title="问大家">
-          <template #extra>
-            <el-button type="" text>
-              查看全部<el-icon class="el-icon--right"><ArrowRight /></el-icon>
-            </el-button>
-          </template>
-          </el-descriptions>
+<!--          <el-descriptions title="问大家">-->
+<!--          <template #extra>-->
+<!--            <el-button type="" text>-->
+<!--              查看全部<el-icon class="el-icon&#45;&#45;right"><ArrowRight /></el-icon>-->
+<!--            </el-button>-->
+<!--          </template>-->
+<!--          </el-descriptions>-->
 <!--        问答列表开始-->
           <QuestionList
             :company-info-id="company_info_id_text"
@@ -91,13 +91,13 @@
 <!--        问答列表结束-->
 <!--        公司首页的问大家结束-->
             <!--        公司首页的大众评论开始-->
-            <el-descriptions title="大众评论">
-              <template #extra>
-                <el-button type="" text>
-                  查看全部<el-icon class="el-icon--right"><ArrowRight /></el-icon>
-                </el-button>
-              </template>
-            </el-descriptions>
+<!--            <el-descriptions title="大众评论">-->
+<!--              <template #extra>-->
+<!--                <el-button type="" text>-->
+<!--                  查看全部<el-icon class="el-icon&#45;&#45;right"><ArrowRight /></el-icon>-->
+<!--                </el-button>-->
+<!--              </template>-->
+<!--            </el-descriptions>-->
 
             <!--        评论列表开始-->
             <CommentList

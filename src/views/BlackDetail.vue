@@ -1,5 +1,5 @@
 <template>
-  <div class="all">
+  <div class="all margin-60-top">
     <div class="top_1_tag">
       <text class="black_btn custom_tag font-60-weight">黑名单</text>
     </div>
