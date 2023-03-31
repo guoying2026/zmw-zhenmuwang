@@ -240,6 +240,9 @@ const loadmore = () => {
           item1.goods_price = Number(item1.goods_price)
           return item1
         })
+        if (item.hasOwnProperty('credit_score') && !item.hasOwnProperty('score')) {
+          item.score = item.credit_score
+        }
         return item
       })
       isInited.value = true
