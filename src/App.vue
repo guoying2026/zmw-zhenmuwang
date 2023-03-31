@@ -26,12 +26,12 @@
             <img
               width="150"
               height="150"
-              :src="item.type==0?(item.miniapp_img?formatHttpsProtocol(item.miniapp_img):'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png'):(item.main_url?formatHttpsProtocol(item.main_url):'https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png')"
+              :src="item.type==0?item.miniapp_img:item.main_url"
               class="mini-ls-thumb wp-post-image"
               alt=""
               decoding="async"
               loading="lazy"
-              :srcset="(item.type==0?(item.miniapp_img?formatHttpsProtocol(item.miniapp_img):'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png'):(item.main_url?formatHttpsProtocol(item.main_url):'https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png'))+' 150w, '+item.type==0?(item.miniapp_img?formatHttpsProtocol(item.miniapp_img):'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png'):(item.main_url?formatHttpsProtocol(item.main_url):'https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png')+' 300w, '+item.type==0?(item.miniapp_img?formatHttpsProtocol(item.miniapp_img):'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png'):(item.main_url?formatHttpsProtocol(item.main_url):'https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png')+' 100w'"
+              :srcset="(item.type==0?item.miniapp_img:item.main_url)+' 150w, '+(item.type==0?item.miniapp_img:item.main_url)+' 300w, '+(item.type==0?item.miniapp_img:item.main_url)+' 100w'"
               sizes="(max-width: 150px) 100vw, 150px"
             >
             <div class="mini-ls-title">{{ item.type==0?item.company_name:item.goods_title }}</div>
@@ -241,7 +241,7 @@ router-view负责渲染路由匹配的组件，可以通过把router-view放在�
 import "./assets/liveSearch.scss"
 import UserLogin from "./components/UserLogin.vue";
 import { getSearchResultApi } from "./api/search.js";
-import { formatHttpsProtocol } from "./utils/httpReplace";
+import { formatHttpsProtocol } from "./utils/httpReplace.js";
 const delay = (function () {
   let timer = 0
   return function (callback, ms) {
@@ -279,6 +279,19 @@ export default {
             }
             res.data.data.forEach(item => {
               item.type = i
+              if (item.type == 0) {
+                if (item.miniapp_img) {
+                  item.miniapp_img = formatHttpsProtocol(item.miniapp_img)
+                } else {
+                  item.miniapp_img = 'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png'
+                }
+              } else {
+                if (item.main_url) {
+                  item.main_url = formatHttpsProtocol(item.main_url)
+                } else {
+                  item.main_url = 'https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png'
+                }
+              }
               this.searchResult.push(item)
             })
           }))
