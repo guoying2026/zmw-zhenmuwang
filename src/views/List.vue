@@ -103,7 +103,12 @@
             <div class="left_1">
               <CreditScore :credit-score="item.score" credit-score-text="信用分" :font-size="40" height="80" width="100px"></CreditScore>
               <div class="left_1_2">
-                <el-link type="info" :underline="false" :href="'/detail?company_info_id='+item.id" target="_blank"><text class="font-18-size font-60-weight margin-10-left">{{ item.company_name }}</text></el-link>
+                <template v-if="item.id&&item.id!='0'&&item.id!=0&&item.id.length>0">
+                  <el-link type="info" :underline="false" :href="'/detail?company_info_id='+item.id" target="_blank"><text class="font-18-size font-60-weight margin-10-left">{{ item.company_name }}</text></el-link>
+                </template>
+                <template v-else>
+                  <el-link type="info" :underline="false" @click="hasNoItemIdTips"><text class="font-18-size font-60-weight margin-10-left">{{ item.company_name }}</text></el-link>
+                </template>
                 <div class="left_1_2_2">
                   <Tag class="tag" tag="黑名单" number="60" color="black" v-if="item.isBlacklist"></Tag>
                   <Tag class="tag" tag="加盟商" number="60" color="orange" v-if="item.isFranchisee"></Tag>
@@ -121,7 +126,12 @@
                 <div class="left_1">
                   <CreditScore :credit-score="item.score" credit-score-text="信用分" :font-size="40" height="80" width="100px"></CreditScore>
                   <div class="left_1_2">
-                    <el-link type="info" :underline="false" :href="'/detail?company_info_id='+item.id" target="_blank"><text class="font-18-size font-60-weight margin-10-left">{{ item.company_name }}</text></el-link>
+                    <template v-if="item.id&&item.id!='0'&&item.id!=0&&item.id.length>0">
+                      <el-link type="info" :underline="false" :href="'/detail?company_info_id='+item.id" target="_blank"><text class="font-18-size font-60-weight margin-10-left">{{ item.company_name }}</text></el-link>
+                    </template>
+                    <template v-else>
+                      <el-link type="info" :underline="false" @click="hasNoItemIdTips"><text class="font-18-size font-60-weight margin-10-left">{{ item.company_name }}</text></el-link>
+                    </template>
                     <div class="left_1_2_2">
                       <Tag class="tag" tag="黑名单" number="60" color="black" v-if="item.isBlacklist"></Tag>
                       <Tag class="tag" tag="加盟商" number="60" color="orange" v-if="item.isFranchisee"></Tag>
@@ -318,6 +328,13 @@ const handleOnlyViewFranchisee = () => {
   }
   currentPage.value = 1
   loadmore()
+}
+// 点击了没有id的商家的链接时，给出提示
+const hasNoItemIdTips = () => {
+  ElMessage({
+    message: '很抱歉，暂时没有该商家的详细信息哦',
+    type: 'warning',
+  })
 }
 const threshold = 4000
 const pageScrollHandle = () => {
