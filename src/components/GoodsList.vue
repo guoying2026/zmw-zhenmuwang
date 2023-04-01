@@ -7,8 +7,9 @@
         :md="6"
     >
       <div class="goods_card">
+        <!-- x-oss-process=image/resize参数可参考https://help.aliyun.com/document_detail/44688.html -->
         <el-image
-            :src="item.mainurl"
+            :src="item.mainurl+(size>0?'?x-oss-process=image/resize,m_lfit,h_'+size+',w_'+size+'':'')"
             :hide-on-click-modal=true
             style="width:100%; height: 30vh"
             fit="fill"
@@ -33,7 +34,11 @@ const props = defineProps({
   list:{
     type: Array,
     default: [],
-  }
+  },
+  size: {
+    type: Number,
+    default: -1,
+  },
 })
 </script>
 <script>

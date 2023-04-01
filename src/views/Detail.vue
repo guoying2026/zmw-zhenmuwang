@@ -63,7 +63,7 @@
 <!--            </el-button>-->
 <!--          </template>-->
 <!--        </el-descriptions>-->
-        <GoodsList :list="list.arr"></GoodsList>
+        <GoodsList :list="list.arr" :size="300"></GoodsList>
         <div class="adv_1">
           <div class="top_1_2">
             <text class="top_1_2_left emphasize">ZMW</text>
@@ -109,7 +109,7 @@
             <!--        公司首页的大众评论结束-->
       </el-tab-pane>
       <el-tab-pane label="商品" name="second">
-        <GoodsList :list="list.arr"></GoodsList>
+        <GoodsList :list="list.arr" :size="300"></GoodsList>
       </el-tab-pane>
       <el-tab-pane label="问大家" name="third">
         <QuestionList

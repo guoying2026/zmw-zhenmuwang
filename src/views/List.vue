@@ -143,7 +143,7 @@
               </div>
             </el-col>
             <el-col :span="24" :md="12">
-              <GoodsList :list="item.goods" v-if="item.goods.length>0"></GoodsList>
+              <GoodsList :list="item.goods" :size="300" v-if="item.goods.length>0"></GoodsList>
             </el-col>
           </el-row>
 <!--          展示商品结束-->
