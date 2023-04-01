@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
+import List from '../views/List.vue'
 
 //createRouter是用来新建路由实例
 const router = createRouter({
@@ -14,7 +15,10 @@ const router = createRouter({
             //参考这个链接https://router.vuejs.org/zh/guide/advanced/lazy-loading.html#%E6%8A%8A%E7%BB%84%E4%BB%B6%E6%8C%89%E7%BB%84%E5%88%86%E5%9D%97
             ///* webpackChunkName: "List" */这种特殊注释语法是webpack工具打包用到的，
             // 但我们的项目是用vite构建的，所以之后会在vite.config.js按照上面那个链接进行配置
-            component: () => import(/* webpackChunkName: "List" */ '../views/List.vue'),
+            // component: () => import(/* webpackChunkName: "List" */ '../views/List.vue'),
+            // 减少首屏使用文件大小
+            // 首屏组件不要设置为异步加载
+            component: List,
             meta: {
                 title:"木材商信用-真木网",
                 description: "真木网是一家木材行业的电商平台，其包含木材竞拍、木材团购、木材质押、求购木材、真木金融。帮你搜索全国低价原木板材买卖资源，发布原木求购资源，打破木材传统线下交易模式，实现木材线上交易新生态圈，致力于打造成木材行业一站式服务电商平台。",
