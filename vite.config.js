@@ -26,6 +26,8 @@ export default defineConfig({
     viteCompression(),
   ],
   build: {
+    // 压缩代码，包含删除空格、重命名变量、修改语法使语法更简练
+    minify: true,
     // 关闭文件计算
     reportCompressedSize: false,
     // 关闭生成map文件，可以达到缩小打包体积
