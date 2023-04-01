@@ -40,7 +40,7 @@
             <!-- AddComment 插槽的内容放这里开始-->
             <div class="icon_div">
               <span>我有话说</span>
-              <el-icon class="margin-10-left icon-size"><ChatRound /></el-icon>
+              <el-icon class="margin-10-left font-48-size"><ChatRound /></el-icon>
             </div>
           </template>
         </AddComment>

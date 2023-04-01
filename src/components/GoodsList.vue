@@ -1,5 +1,5 @@
 <template>
-  <el-row :gutter="8" class="goods" >
+  <el-row :gutter="8" class="goods" :class="isGrey? 'grey_bg':'white_bg'">
     <el-col
         v-for="(item,index) in list"
         :key="index"
@@ -39,6 +39,10 @@ const props = defineProps({
     type: Number,
     default: -1,
   },
+  isGrey:{
+    type: Number,
+    default: 0,
+  }
 })
 </script>
 <script>
@@ -55,8 +59,10 @@ export default{
   background-color: #fff;
   border-radius: 10px;
 }
+.white_back{
+  background-color: #fff;
+}
 .goods{
-  background-color: #f0f2f7;
   padding: 10px 10px 0 10px;
 }
 .buy_btn{
