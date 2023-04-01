@@ -4,6 +4,7 @@ import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import path from 'path'
+import viteCompression from 'vite-plugin-compression'
 
 export default defineConfig({
   // ...
@@ -22,8 +23,13 @@ export default defineConfig({
     Components({
       resolvers: [ElementPlusResolver()],
     }),
+    viteCompression(),
   ],
   build: {
+    // 关闭文件计算
+    reportCompressedSize: false,
+    // 关闭生成map文件，可以达到缩小打包体积
+    sourcemap: false,
     chunkSizeWarningLimit: 500,
     rollupOptions: {
       output: {
@@ -34,7 +40,19 @@ export default defineConfig({
               .split('node_modules/')[1]
               .split('/')[0]
               .toString();
-          }
+          }/*  else if (id.includes('/src/views/')) {
+            return id
+              .toString()
+              .split('/src/views/')[1]
+              .split('.vue')[0]
+              .toString();
+          } else if (id.includes('/src/components/')) {
+            return id
+              .toString()
+              .split('/src/components/')[1]
+              .split('.vue')[0]
+              .toString();
+          } */
         },
       },
     },
