@@ -203,6 +203,7 @@ import GoodsDetailSkeleton from '../components/GoodsDetailSkeleton.vue'
 import GoodsIntroduce from '../components/GoodsIntroduce.vue'
 import PcPay from '../components/PcPay.vue'
 import GoodsRecommends from '../components/GoodsRecommends.vue'
+import Tag from "../components/Tag.vue"
 import { nextTick, ref, reactive, watchEffect } from 'vue'
 import { useRoute } from 'vue-router'
 import {

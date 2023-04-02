@@ -172,6 +172,7 @@ import GoodsList from "../components/GoodsList.vue";
 import { nextTick, onMounted, onUnmounted, ref } from 'vue'
 import { getIndexDataApi } from "../api/list.js";
 import SellerInfo from "../components/SellerInfo.vue";
+import Tag from "../components/Tag.vue"
 
 // 信用分升序或降序排序
 const isCreditScoreDesc = ref(true)
