@@ -163,6 +163,7 @@ import {questionListApi} from "../api/question.js";
 import {commentListApi} from "../api/comment.js";
 import {shopDetailApi} from "../api/shopDetail.js";
 import { useUserStore } from "../pinia/user.js";
+import Tag from "../components/Tag.vue"
 const userStore = useUserStore();
 //
 const text = ref('')

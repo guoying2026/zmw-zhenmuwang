@@ -1,6 +1,6 @@
 <template>
   <!-- PC端骨架屏 start -->
-  <el-main class="hidden-xs-only pc_loading_main" :xs="0">
+  <el-main class="hidden-xs-only pc_loading_main margin-60-top" :xs="0">
     <el-skeleton :animated="true" :loading="isLoading">
       <template #template>
         <el-row justify="start" align="middle">

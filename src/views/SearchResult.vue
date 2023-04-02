@@ -1,5 +1,5 @@
 <template>
-  <el-row v-if="searchResult.length>0">
+  <el-row class="margin-60-top" v-if="searchResult.length>0">
     <el-col>
       <el-row class="list_container">
         <template v-for="(item, index) in searchResult" :key="index">
@@ -80,8 +80,8 @@
     </el-col>
   </el-row>
   <template v-else>
-    <el-skeleton v-if="isLoading"></el-skeleton>
-    <el-empty v-else>
+    <el-skeleton class="margin-60-top" v-if="isLoading"></el-skeleton>
+    <el-empty class="margin-60-top" v-else>
     <template #description>没有关于<strong>{{ name }}</strong>的搜索内容哦</template>
   </el-empty>
   </template>

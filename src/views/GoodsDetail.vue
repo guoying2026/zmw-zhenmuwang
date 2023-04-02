@@ -185,7 +185,7 @@
     </el-row>
   </el-container>
   <!-- 加载失败 start -->
-  <el-main v-if="!isLoading&&!isSuccess">
+  <el-main class="margin-60-top" v-if="!isLoading&&!isSuccess">
     <el-empty>
       <template #description>
         <span class="fail_tips_text">
@@ -203,6 +203,7 @@ import GoodsDetailSkeleton from '../components/GoodsDetailSkeleton.vue'
 import GoodsIntroduce from '../components/GoodsIntroduce.vue'
 import PcPay from '../components/PcPay.vue'
 import GoodsRecommends from '../components/GoodsRecommends.vue'
+import Tag from "../components/Tag.vue"
 import { nextTick, ref, reactive, watchEffect } from 'vue'
 import { useRoute } from 'vue-router'
 import {
