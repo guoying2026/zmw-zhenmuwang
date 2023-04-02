@@ -36,6 +36,7 @@
             :reply-count=0
             add-type="comment"
             comment-type="comment"
+            v-if="userStore.userId > 0"
         >
           <template #clickDrawer>
             <!-- AddComment 插槽的内容放这里开始-->
@@ -45,6 +46,12 @@
             </div>
           </template>
         </AddComment>
+        <router-link to="/login" v-else>
+          <div class="icon_div">
+            <span>我有话说</span>
+            <el-icon class="margin-10-left font-48-size"><ChatRound /></el-icon>
+          </div>
+        </router-link>
       </div>
     </div>
     <div class="project-boxes jsGridView">
@@ -77,9 +84,34 @@
               <img src="https://images.unsplash.com/photo-1587628604439-3b9a0aa7a163?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MjR8fHdvbWFufGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=900&q=60" alt="participant">
               <img src="https://images.unsplash.com/photo-1596815064285-45ed8a9c0463?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1215&q=80" alt="participant">
             </div>
-            <div class="days-left" style="color: #096c86;">
-              去说点儿什么
-            </div>
+            <AddComment
+                :placeholder-text="placeholderText"
+                :cancel-text="cancelText"
+                :confirm-text="confirmText"
+                :comment-id=0
+                :comment-reply-id=0
+                :reply-to-user-id=0
+                :company-info-id="companyInfoId"
+                @toFatherCommentList="receiveChildAddComment"
+                :comment-index=0
+                :comment-reply-index=0
+                reply-to-name=""
+                :reply-count=0
+                add-type="comment"
+                comment-type="comment"
+                v-if="userStore.userId > 0"
+            >
+              <template #clickDrawer>
+              <div class="days-left" style="color: #096c86;">
+                去说点儿什么
+              </div>
+              </template>
+            </AddComment>
+            <router-link to="/login" v-else>
+              <div class="days-left" style="color: #096c86;">
+                去说点儿什么
+              </div>
+            </router-link>
           </div>
         </div>
       </div>
@@ -112,9 +144,34 @@
               <img src="https://images.unsplash.com/photo-1600486913747-55e5470d6f40?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2550&q=80" alt="participant">
               <img src="https://images.unsplash.com/photo-1587628604439-3b9a0aa7a163?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MjR8fHdvbWFufGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=900&q=60" alt="participant">
             </div>
-            <div class="days-left" style="color: #df3670;">
-               去说点儿什么
-            </div>
+            <AddComment
+                :placeholder-text="placeholderText"
+                :cancel-text="cancelText"
+                :confirm-text="confirmText"
+                :comment-id=0
+                :comment-reply-id=0
+                :reply-to-user-id=0
+                :company-info-id="companyInfoId"
+                @toFatherCommentList="receiveChildAddComment"
+                :comment-index=0
+                :comment-reply-index=0
+                reply-to-name=""
+                :reply-count=0
+                add-type="comment"
+                comment-type="comment"
+                v-if="userStore.userId > 0"
+            >
+              <template #clickDrawer>
+                <div class="days-left" style="color: #096c86;">
+                  去说点儿什么
+                </div>
+              </template>
+            </AddComment>
+            <router-link to="/login" v-else>
+              <div class="days-left" style="color: #096c86;">
+                去说点儿什么
+              </div>
+            </router-link>
           </div>
         </div>
       </div>
@@ -147,9 +204,34 @@
               <img src="https://images.unsplash.com/photo-1600486913747-55e5470d6f40?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2550&q=80" alt="participant">
               <img src="https://images.unsplash.com/photo-1583195764036-6dc248ac07d9?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2555&q=80" alt="participant">
             </div>
-            <div class="days-left" style="color: #4067f9;">
-              去说点儿什么
-            </div>
+            <AddComment
+                :placeholder-text="placeholderText"
+                :cancel-text="cancelText"
+                :confirm-text="confirmText"
+                :comment-id=0
+                :comment-reply-id=0
+                :reply-to-user-id=0
+                :company-info-id="companyInfoId"
+                @toFatherCommentList="receiveChildAddComment"
+                :comment-index=0
+                :comment-reply-index=0
+                reply-to-name=""
+                :reply-count=0
+                add-type="comment"
+                comment-type="comment"
+                v-if="userStore.userId > 0"
+            >
+              <template #clickDrawer>
+                <div class="days-left" style="color: #096c86;">
+                  去说点儿什么
+                </div>
+              </template>
+            </AddComment>
+            <router-link to="/login" v-else>
+              <div class="days-left" style="color: #096c86;">
+                去说点儿什么
+              </div>
+            </router-link>
           </div>
         </div>
       </div>

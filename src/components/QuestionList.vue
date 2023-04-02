@@ -29,11 +29,15 @@
               :company-info-id="companyInfoId"
               addType="question"
               questionType="question"
+              v-if="userStore.userId > 0"
           >
             <template #clickDrawer>
               <text class="general_item_2 blue_btn margin-10-left">我要提问</text>
             </template>
           </AddComment>
+          <router-link to="/login" v-else>
+            <text class="general_item_2 blue_btn margin-10-left">我要提问</text>
+          </router-link>
         </div>
       </div>
       <div class="project-boxes jsGridView">
@@ -66,9 +70,27 @@
                 <img src="https://images.unsplash.com/photo-1596815064285-45ed8a9c0463?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1215&q=80" alt="participant">
                 <img src="https://images.unsplash.com/photo-1583195764036-6dc248ac07d9?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2555&q=80" alt="participant">
               </div>
+              <AddComment
+                  placeholder-text="我要提问"
+                  cancel-text="取消提问"
+                  confirm-text="发布提问"
+                  @toFatherQuestionList="receiveChildAddComment"
+                  :company-info-id="companyInfoId"
+                  addType="question"
+                  questionType="question"
+                  v-if="userStore.userId > 0"
+              >
+                <template #clickDrawer>
               <div class="days-left" style="color: #4f3ff0;">
                 去提问
               </div>
+                </template>
+              </AddComment>
+              <router-link to="/login" v-else>
+                <div class="days-left" style="color: #34c471;">
+                  去提问
+                </div>
+              </router-link>
             </div>
           </div>
         </div>
@@ -101,9 +123,27 @@
                 <img src="https://images.unsplash.com/photo-1587628604439-3b9a0aa7a163?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MjR8fHdvbWFufGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=900&q=60" alt="participant">
                 <img src="https://images.unsplash.com/photo-1596815064285-45ed8a9c0463?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1215&q=80" alt="participant">
               </div>
+              <AddComment
+                  placeholder-text="我要提问"
+                  cancel-text="取消提问"
+                  confirm-text="发布提问"
+                  @toFatherQuestionList="receiveChildAddComment"
+                  :company-info-id="companyInfoId"
+                  addType="question"
+                  questionType="question"
+                  v-if="userStore.userId > 0"
+              >
+                <template #clickDrawer>
               <div class="days-left" style="color: #096c86;">
                 去提问
               </div>
+                </template>
+              </AddComment>
+              <router-link to="/login" v-else>
+                <div class="days-left" style="color: #34c471;">
+                  去提问
+                </div>
+              </router-link>
             </div>
           </div>
         </div>
@@ -136,9 +176,27 @@
                 <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2550&q=80" alt="participant">
                 <img src="https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTB8fG1hbnxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=900&q=60" alt="participant">
               </div>
-              <div class="days-left" style="color: #34c471;">
-                去提问
-              </div>
+              <AddComment
+                  placeholder-text="我要提问"
+                  cancel-text="取消提问"
+                  confirm-text="发布提问"
+                  @toFatherQuestionList="receiveChildAddComment"
+                  :company-info-id="companyInfoId"
+                  addType="question"
+                  questionType="question"
+                  v-if="userStore.userId > 0"
+              >
+                <template #clickDrawer>
+                  <div class="days-left" style="color: #34c471;">
+                    去提问
+                  </div>
+                </template>
+              </AddComment>
+              <router-link to="/login" v-else>
+                <div class="days-left" style="color: #34c471;">
+                  去提问
+                </div>
+              </router-link>
             </div>
           </div>
         </div>
