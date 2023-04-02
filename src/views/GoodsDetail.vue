@@ -185,7 +185,7 @@
     </el-row>
   </el-container>
   <!-- 加载失败 start -->
-  <el-main v-if="!isLoading&&!isSuccess">
+  <el-main class="margin-60-top" v-if="!isLoading&&!isSuccess">
     <el-empty>
       <template #description>
         <span class="fail_tips_text">
