@@ -5,9 +5,20 @@
       :rules="rules"
       status-icon
       label-width="0"
-      class="demo-ruleForm login_el_form"
+      class="demo-ruleForm login_el_form colorful"
   >
-    <text class="first">真木网验证码登录</text>
+    <div class="all margin-60-top">
+      <text class="first">选择你心仪的头像</text>
+      <div class="second">
+        <div class="margin-20-top" v-for="(item,index) in image_arr" :key="index" @click="clickImageArr(index)">
+          <img :src="item" class="photo" :class="clickIndex == index?'click_photo':''"/>
+        </div>
+      </div>
+      <div class="margin-20-top">
+        <img :src="image_arr[clickIndex]" class="big_photo"/>
+      </div>
+      <text class="name">{{name_arr[clickIndex]}}</text>
+    </div>
     <div>
       <!--手机号开始-->
       <el-form-item prop="phone" class="input_btn">
@@ -54,7 +65,7 @@
       <el-button class="login_btn" size="large" @click="submitForm(ruleFormRef)">登录</el-button>
     </el-form-item>
     <!--登录结束-->
-    <div class="squared">
+    <div class="squared colorful">
       <div class="squared-item"></div>
       <div class="squared-item"></div>
       <div class="squared-item"></div>
@@ -77,16 +88,45 @@
 import '../assets/blockAnimation.scss';
 import { sendSMSVerificationCodeApi,loginApi } from "../api/user.js";
 import {onMounted, reactive, ref} from 'vue'
+import {useRouter} from 'vue-router'
 //把页面所有相关图形验证码注释掉
 // import GraphValidateCode from '../components/GraphValidateCode.vue'
 //登录成功后，需要把登录状态让多页面共享
 import { useUserStore } from "../pinia/user.js";
-
+const router = useRouter()
 const userStore = useUserStore();
 onMounted(()=>{
   console.log(userStore.userId);
   console.log(userStore.phone);
+  console.log(userStore.photo);
+  console.log(userStore.clickIndex)
 })
+const clickIndex = ref(userStore.clickIndex);
+const clickImageArr = (index) => {
+  clickIndex.value = index;
+}
+//定义头像数组
+const image_arr = reactive({
+  0:'https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_38a13736-acd2-478a-b830-1e36d37132ee.png',
+  1:'https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_ef07db35-e620-4519-bb45-495b5b676f49.png',
+  2:'https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_773ab3c9-610f-4f44-b3a7-56db33117dec.png',
+  3:'https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_bfdc2666-d025-43d3-04bc-8b83f7d70b6d.png',
+  4:'https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_2f3a39d7-bbfa-4c61-bc45-6cb1819f9d41.png',
+  5:'https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_b7709d35-5478-4129-bb7b-5e1204056c55.png',
+  6:'https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_65e5ae37-f641-4614-bdb0-71e3b217267c.png',
+})
+//定义name
+const name_arr = reactive({
+  0: 'Peace',
+  1: 'Patience',
+  2: 'Kindness',
+  3: 'Goodness',
+  4: 'Faithfulness',
+  5: 'Gentleness',
+  6: 'Joy',
+  7: 'Love'
+})
+
 //storeToRefs,它将为任何响应式属性创建refs，当我们使用pinia的状态但不调用任何操作时很有用
 // import { storeToRefs } from 'pinia'
 // const { token, userId, token_expired_time, phone } = storeToRefs(userStore)
@@ -227,7 +267,11 @@ const submitForm = (formEl) => {
           //不存_token就是不想让用户过期需要重新登录。但把_token列出来,怕之后请求某个接口需要判断token。所以为了以防万一，先列出来，但不存
           userStore.userId = result.user_id
           userStore.phone = ruleForm.phone
+          userStore.photo = image_arr[clickIndex.value]
+          userStore.clickIndex = clickIndex.value
+          userStore.userName = name_arr[clickIndex.value],
           console.log(userStore);
+          await router.push({path: '/'})
         } else {//登录失败请重试
 
         }
@@ -241,6 +285,38 @@ const submitForm = (formEl) => {
 }
 </script>
 <style scoped>
+.name{
+  color: #fff;
+}
+.big_photo{
+  width: 100px;
+  height: 100px;
+}
+.click_photo{
+  border: clamp(5px, 0.4vw, 5px) solid white;
+  border-radius: 100%;
+  flex-shrink: 0;
+  height: 100%;
+}
+.all{
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.second{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.photo{
+  width: 50px;
+  height: 50px;
+  margin: 10px;
+}
 /* .input_btn>>>input::placeholder{ */
 .input_btn:deep(input::placeholder) {
   letter-spacing: 2px;
@@ -254,8 +330,8 @@ const submitForm = (formEl) => {
 .input_btn:deep(.el-input-group__append) {
   box-shadow: none !important;
   z-index: 100;
-  background-image: linear-gradient(109.6deg, rgb(218 213 237) 11.2%, rgb(208 210 237) 91.1%);
-  color: #9f5be6;
+  /*background-image: linear-gradient(109.6deg, rgb(218 213 237) 11.2%, rgb(208 210 237) 91.1%);*/
+  color: #000000;
   opacity: 0.8;
 }
 /* .input_btn>>>span{ */
@@ -271,7 +347,7 @@ const submitForm = (formEl) => {
 .first{
   letter-spacing: 2px;
   color: #000;
-  font-weight: 300;
+  z-index: 100;
 }
 .login_el_form{
   height: 90vh;
@@ -285,8 +361,9 @@ const submitForm = (formEl) => {
   padding: 10px 95px;
   z-index: 100;
   border: none;
-  background-image: linear-gradient(109.6deg, rgb(176 163 224) 11.2%, rgb(208 210 237) 91.1%);
-  color: #7f20c2;
+  /*background-image: linear-gradient(109.6deg, rgb(176 163 224) 11.2%, rgb(208 210 237) 91.1%);*/
+  /*color: #7f20c2;*/
+  color: #000000;
   opacity: 0.8;
 }
 </style>

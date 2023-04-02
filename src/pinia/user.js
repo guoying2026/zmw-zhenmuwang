@@ -8,6 +8,9 @@ export const useUserStore = defineStore('userStore', {
         return {
             userId: 0,
             phone: '',
+            photo: '',
+            clickIndex: 0,
+            userName: '',
         }
     },
     //调用pinia-plugin-persistedstate插件进行持久化存储

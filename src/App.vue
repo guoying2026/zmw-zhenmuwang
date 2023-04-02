@@ -1,7 +1,9 @@
 <template>
   <div class="nav_header">
     <div class="nav">
-      <span class="font-60-weight font-10-size">ZMW</span>
+      <router-link to="/">
+        <span class="font-60-weight font-10-size black">ZMW</span>
+      </router-link>
       <el-link type="info" :underline="false" @click="searchSlideDown"><el-icon class="font-20-size"><search></search></el-icon></el-link>
       <UserLogin/>
     </div>
@@ -232,6 +234,9 @@ router-view负责渲染路由匹配的组件，可以通过把router-view放在�
   justify-content: space-between;
   align-items: center;
   padding: 20px 20px 10px 20px;
+}
+.black{
+  color: #000;
 }
 .el-link {
   color: inherit;
