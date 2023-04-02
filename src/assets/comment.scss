@@ -43,9 +43,10 @@ button, a {
      display: flex;
      flex-direction: column;
      height: 100%;
-     background-color: var(--app-container);
+     background-color: #f3f6fd;
      transition: .2s;
      max-width: 1800px;
+     align-items: center;
 
 button, input, optgroup, select, textarea {
     font-family: 'DM Sans', sans-serif;
@@ -241,13 +242,14 @@ span {
 
 .projects-section {
     flex: 2;
-    background-color: var(--projects-section);
+    background-color: #fff;
     border-radius: 32px;
     padding: 32px 32px 0 32px;
     overflow: hidden;
     height: 100%;
     display: flex;
     flex-direction: column;
+    width: 96%;
 
 &-line {
      display: flex;

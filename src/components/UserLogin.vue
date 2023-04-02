@@ -1,5 +1,7 @@
 <template>
-    <text class="font-10-size" v-if="userStore.userId == 0">登录</text>
+  <router-link to="/login" v-if="userStore.userId == 0">
+    <text class="font-10-size">登录</text>
+  </router-link>
     <el-icon v-else><HomeFilled /></el-icon>
 </template>
 <script setup>

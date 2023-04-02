@@ -85,28 +85,30 @@
 <!--          </template>-->
 <!--          </el-descriptions>-->
 <!--        问答列表开始-->
-          <QuestionList
-            :company-info-id="company_info_id_text"
-            :list="questionList.arr"
-          >
-          </QuestionList>
+        <el-row :gutter="24">
+          <el-col :span="24" :md="12">
+            <QuestionList
+                :company-info-id="company_info_id_text"
+                :list="questionList.arr"
+                :answer-count="answer_count"
+                :answer-question-count="answer_question_count"
+                :all-answer-useful-count="all_answer_useful_count"
+            >
+            </QuestionList>
+          </el-col>
 <!--        问答列表结束-->
-<!--        公司首页的问大家结束-->
-            <!--        公司首页的大众评论开始-->
-<!--            <el-descriptions title="大众评论">-->
-<!--              <template #extra>-->
-<!--                <el-button type="" text>-->
-<!--                  查看全部<el-icon class="el-icon&#45;&#45;right"><ArrowRight /></el-icon>-->
-<!--                </el-button>-->
-<!--              </template>-->
-<!--            </el-descriptions>-->
-
+          <el-col :span="24" :md="12">
             <!--        评论列表开始-->
             <CommentList
                 :company-info-id="company_info_id_text"
                 :list="commentList.arr"
+                :company-comment-count="company_comment_count"
+                :company-comment-reply-count="company_comment_reply_count"
+                :all-like-count="all_like_count"
             >
             </CommentList>
+          </el-col>
+        </el-row>
             <!--        评论列表结束-->
             <!--        公司首页的大众评论结束-->
       </el-tab-pane>
@@ -117,6 +119,9 @@
         <QuestionList
             :company-info-id="company_info_id_text"
             :list="questionList.arr"
+            :answer-count="answer_count"
+            :answer-question-count="answer_question_count"
+            :all-answer-useful-count="all_answer_useful_count"
         >
         </QuestionList>
       </el-tab-pane>
@@ -124,6 +129,9 @@
         <CommentList
             :company-info-id="company_info_id_text"
             :list="commentList.arr"
+            :company-comment-count="company_comment_count"
+            :company-comment-reply-count="company_comment_reply_count"
+            :all-like-count="all_like_count"
         >
         </CommentList>
       </el-tab-pane>
@@ -158,8 +166,9 @@ import { useUserStore } from "../pinia/user.js";
 const userStore = useUserStore();
 //
 const text = ref('')
-const company_info_id_text = ref(0);
-company_info_id_text.value = 18;
+const company_info_id_text = ref(null);
+company_info_id_text.value = useRoute().query.company_info_id;
+// company_info_id_text.value = 18;
 const company_info_id = ref(null);
 // company_info_id.value = 2644899;
 company_info_id.value = useRoute().query.company_info_id
@@ -186,6 +195,14 @@ const credit_score = ref('')
 const credit_score_text = ref('')
 const credit_code = ref('')
 const isFranchisee = ref(0)
+//评论
+const company_comment_count = ref(0)
+const company_comment_reply_count = ref(0)
+const all_like_count = ref(0)
+//问题
+const all_answer_useful_count = ref(0)
+const answer_count = ref(0)
+const answer_question_count = ref(0)
 onMounted(() => {
   shopDetailApi({company_info_id:company_info_id.value}).then(async(res) => {
     company_name.value = res.data.company_info.company_name
@@ -203,11 +220,20 @@ onMounted(() => {
     wood_name.value = Array.from(new Set(wood_name.value));
   })
   questionListApi({company_info_id: company_info_id_text.value,user_id: userStore.userId}).then(async(res) => {
+    console.log('question');
+    console.log(res);
     questionList.arr = res.data.data;
+    all_answer_useful_count.value = res.data.all_answer_useful_count;
+    answer_count.value = res.data.answer_count;
+    answer_question_count.value = res.data.answer_question_count;
   })
   commentListApi({company_info_id: company_info_id_text.value,user_id: userStore.userId}).then(async(res) => {
+    console.log('comment');
     console.log(res);
     commentList.arr = res.data.data;
+    company_comment_count.value = res.data.company_comment_count;
+    company_comment_reply_count.value = res.data.company_comment_reply_count;
+    all_like_count.value = res.data.all_like_count;
   })
 })
 </script>
@@ -389,10 +415,7 @@ onMounted(() => {
   padding: 0 10px 20px 10px;
   letter-spacing: 2px;
 }
-.demo-tabs > .el-tabs__content {
-  padding: 32px;
-  color: #6b778c;
-  font-size: 32px;
-  font-weight: 600;
+.el-container >>> .el-tabs__content {
+  background-color: #f3f6fd;
 }
 </style>

@@ -1,4 +1,5 @@
 <template>
+  <div class="app-container" :class="`margin-${margin}-top`">
   <div class="projects-section">
     <div class="projects-section-header">
       <p>评论区</p>
@@ -7,15 +8,15 @@
     <div class="projects-section-line">
       <div class="projects-status">
         <div class="item-status">
-          <span class="status-number">45</span>
+          <span class="status-number">{{companyCommentCount}}</span>
           <span class="status-type">评论总数</span>
         </div>
         <div class="item-status">
-          <span class="status-number">24</span>
+          <span class="status-number">{{companyCommentReplyCount}}</span>
           <span class="status-type">回复总数</span>
         </div>
         <div class="item-status">
-          <span class="status-number">62</span>
+          <span class="status-number">{{allLikeCount}}</span>
           <span class="status-type">点赞总数</span>
         </div>
       </div>
@@ -46,6 +47,114 @@
         </AddComment>
       </div>
     </div>
+    <div class="project-boxes jsGridView">
+      <div class="project-box-wrapper">
+        <div class="project-box">
+          <div class="project-box-header">
+            <span>对自己</span>
+            <div class="more-wrapper">
+              <button class="project-btn-more">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical">
+                  <circle cx="12" cy="12" r="1" />
+                  <circle cx="12" cy="5" r="1" />
+                  <circle cx="12" cy="19" r="1" /></svg>
+              </button>
+            </div>
+          </div>
+          <div class="project-box-content-header">
+            <p class="box-content-header">木材质量价格等信息</p>
+            <p class="box-content-subheader">拿到最符合心意的货</p>
+          </div>
+          <div class="box-progress-wrapper">
+            <p class="box-progress-header"></p>
+            <div class="box-progress-bar">
+              <span class="box-progress" style="width: 100%; background-color: #096c86"></span>
+            </div>
+            <p class="box-progress-percentage"></p>
+          </div>
+          <div class="project-box-footer">
+            <div class="participants">
+              <img src="https://images.unsplash.com/photo-1587628604439-3b9a0aa7a163?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MjR8fHdvbWFufGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=900&q=60" alt="participant">
+              <img src="https://images.unsplash.com/photo-1596815064285-45ed8a9c0463?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1215&q=80" alt="participant">
+            </div>
+            <div class="days-left" style="color: #096c86;">
+              去说点儿什么
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="project-box-wrapper">
+        <div class="project-box" style="background-color: #ffd3e2;">
+          <div class="project-box-header">
+            <span>对他人</span>
+            <div class="more-wrapper">
+              <button class="project-btn-more">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical">
+                  <circle cx="12" cy="12" r="1" />
+                  <circle cx="12" cy="5" r="1" />
+                  <circle cx="12" cy="19" r="1" /></svg>
+              </button>
+            </div>
+          </div>
+          <div class="project-box-content-header">
+            <p class="box-content-header">了解到你的真实经验</p>
+            <p class="box-content-subheader">远离不可靠的商家</p>
+          </div>
+          <div class="box-progress-wrapper">
+            <p class="box-progress-header"></p>
+            <div class="box-progress-bar">
+              <span class="box-progress" style="width: 100%; background-color: #df3670"></span>
+            </div>
+            <p class="box-progress-percentage"></p>
+          </div>
+          <div class="project-box-footer">
+            <div class="participants">
+              <img src="https://images.unsplash.com/photo-1600486913747-55e5470d6f40?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2550&q=80" alt="participant">
+              <img src="https://images.unsplash.com/photo-1587628604439-3b9a0aa7a163?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MjR8fHdvbWFufGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=900&q=60" alt="participant">
+            </div>
+            <div class="days-left" style="color: #df3670;">
+               去说点儿什么
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="project-box-wrapper">
+        <div class="project-box" style="background-color: #d5deff;">
+          <div class="project-box-header">
+            <span>对商家</span>
+            <div class="more-wrapper">
+              <button class="project-btn-more">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical">
+                  <circle cx="12" cy="12" r="1" />
+                  <circle cx="12" cy="5" r="1" />
+                  <circle cx="12" cy="19" r="1" /></svg>
+              </button>
+            </div>
+          </div>
+          <div class="project-box-content-header">
+            <p class="box-content-header">获取到你的真实反馈</p>
+            <p class="box-content-subheader">给你最满意的产品</p>
+          </div>
+          <div class="box-progress-wrapper">
+            <p class="box-progress-header"></p>
+            <div class="box-progress-bar">
+              <span class="box-progress" style="width: 100%; background-color: #4067f9"></span>
+            </div>
+            <p class="box-progress-percentage"></p>
+          </div>
+          <div class="project-box-footer">
+            <div class="participants">
+              <img src="https://images.unsplash.com/photo-1600486913747-55e5470d6f40?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2550&q=80" alt="participant">
+              <img src="https://images.unsplash.com/photo-1583195764036-6dc248ac07d9?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2555&q=80" alt="participant">
+            </div>
+            <div class="days-left" style="color: #4067f9;">
+              去说点儿什么
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
   </div>
   <div class="comment_list" v-for="(item, index) in list" :key="index">
     <div class="comment_list_item">
@@ -216,12 +325,28 @@ const userStore = useUserStore();
 //父组件给该组件CommentList传递的值，就定义在defineProps,开始
 const props = defineProps({
   companyInfoId:{
-    type: Number,
+    type: [Number,String],
     default: 0
   },
   list:{
     type: Array,
     default:[]
+  },
+  margin:{
+    type: [Number,String],
+    default: 0
+  },
+  companyCommentCount:{
+    type: [Number,String],
+    default: 0
+  },
+  companyCommentReplyCount:{
+    type:[Number,String],
+    default: 0
+  },
+  allLikeCount:{
+    type:[Number,String],
+    default: 0
   }
 })
 //父组件给该组件CommentList传递的值，就定义在defineProps,结束
