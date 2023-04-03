@@ -240,10 +240,12 @@
     <div class="messages-section" v-for="(item, index) in list.arr" :key="index">
       <div class="messages">
         <div class="message-box">
-          <img :src="image_arr[item.click_index]" alt="profile image" class="photo_img">
+          <img v-if="item.click_index" :src="image_arr[item.click_index]" alt="profile image" class="photo_img">
+          <img v-else :src="image_arr[0]" alt="profile image" class="photo_img">
           <div class="message-content">
             <div class="message-header">
-              <div class="name">🥳{{name_arr[item.click_index]}}</div>
+              <div class="name" v-if="item.click_index">🥳{{name_arr[item.click_index]}}</div>
+              <div class="name" v-else>🥳{{name_arr[0]}}</div>
               <div class="star-checkbox">
                 <input type="checkbox" id="star-1">
                 <label for="star-1">
@@ -310,11 +312,12 @@
           </div>
         </div>
         <div class="message-box" v-for="(itemReply, indexReply) in item['comment_reply']" :key="indexReply">
-          <img :src="image_arr[itemReply.click_index]" class="photo_img" alt="profile image">
+          <img v-if="itemReply.click_index" :src="image_arr[itemReply.click_index]" class="photo_img" alt="profile image">
+          <img v-else :src="image_arr[0]" class="photo_img" alt="profile image">
           <div class="message-content">
             <div class="message-header">
-              <div class="name" v-if="itemReply.company_comment_reply_id > 0">🥳{{name_arr[itemReply.click_index]}} @ {{name_arr[itemReply.reply_click_index]}}</div>
-              <div class="name" v-else>🥳{{name_arr[itemReply.click_index]}}</div>
+              <div class="name" v-if="itemReply.company_comment_reply_id > 0 && itemReply.click_index">🥳{{name_arr[itemReply.click_index]}} @ {{name_arr[itemReply.reply_click_index]}}</div>
+              <div class="name" v-else>🥳{{name_arr[0]}}</div>
               <div class="star-checkbox">
                 <input type="checkbox" id="star-1">
                 <label for="star-1">
@@ -497,6 +500,7 @@ const receiveChildAddComment = (param) => {
       liked_id: 0,
       is_liked: 0,
        click_index: reply.click_index,
+       reply_click_index: reply.click_index,
       image: reply.image,
     })
   }

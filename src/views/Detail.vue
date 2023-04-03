@@ -57,34 +57,7 @@
   <el-container direction="vertical" :gutter="18" class="margin-20-top">
     <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick" stretch>
       <el-tab-pane label="公司首页" name="first">
-<!--        公司首页的精选商品开始-->
-<!--        <el-descriptions title="精选商品">-->
-<!--          <template #extra>-->
-<!--            <el-button type="" text>-->
-<!--              查看全部<el-icon class="el-icon&#45;&#45;right"><ArrowRight /></el-icon>-->
-<!--            </el-button>-->
-<!--          </template>-->
-<!--        </el-descriptions>-->
         <GoodsList :list="list.arr" :is-grey="1" :size="300"></GoodsList>
-<!--        <div class="adv_1">-->
-<!--          <div class="top_1_2">-->
-<!--            <text class="top_1_2_left emphasize">ZMW</text>-->
-<!--            <div class="top_1_2_right font-10-size">-->
-<!--              <text class="light_emphasize font-15-size">加入真木网官方木材平台</text>-->
-<!--              <text>在买木头小程序以及ZMW端出售您的商品</text>-->
-<!--            </div>-->
-<!--          </div>-->
-<!--        </div>-->
-<!--        公司首页的精选商品结束-->
-<!--        公司首页的问大家开始-->
-<!--          <el-descriptions title="问大家">-->
-<!--          <template #extra>-->
-<!--            <el-button type="" text>-->
-<!--              查看全部<el-icon class="el-icon&#45;&#45;right"><ArrowRight /></el-icon>-->
-<!--            </el-button>-->
-<!--          </template>-->
-<!--          </el-descriptions>-->
-<!--        问答列表开始-->
         <el-row :gutter="24">
           <el-col :span="24" :md="12">
             <QuestionList
@@ -220,37 +193,6 @@ onMounted(() => {
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-}
-.adv_1{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-image: linear-gradient(109.6deg, rgb(53 53 53) 11.2%, rgb(98 83 133) 91.1%);
-}
-.top_1_2{
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  align-items: center;
-  background: #000;
-}
-.top_1_2 .top_1_2_left{
-  padding: 20px;
-  background-color: #000;
-  color: #fff;
-}
-.top_1_2 .top_1_2_right{
-  display: flex;
-  flex-direction: column;
-  background-color: #645386;
-  color: #fff;
-  padding: 20px;
-  letter-spacing: 2px;
-  align-items: flex-start;
-}
-.top_1_2:hover{
-  transform: scale(1.1);
-  transition-duration: 80ms;
 }
 /* .el-container>>>.el-tabs__header{ */
 .el-container:deep(.el-tabs__header) {
