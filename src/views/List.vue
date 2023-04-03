@@ -23,6 +23,7 @@
 .left{
   display: flex;
   flex-direction: column;
+  cursor: pointer;
 }
 .padding-20{
   padding: 0px 20px 0px 20px !important;
@@ -99,7 +100,7 @@
       <div v-for="(item,index) in list" :key="index" v-else>
         <div class="first">
 <!--          不展示商品 start-->
-          <div class="padding-20 left" v-if="item.isBlacklist">
+          <div class="padding-20 left" @click="gotoDetail(item.id)" v-if="item.isBlacklist">
             <div class="left_1">
               <CreditScore :credit-score="item.score" credit-score-text="信用分" :font-size="40" height="80" width="100px"></CreditScore>
               <div class="left_1_2">
@@ -122,7 +123,7 @@
 <!--          展示商品开始-->
           <el-row :gutter="24" v-else>
             <el-col :span="24" :md="12">
-              <div class="padding-20 left">
+              <div class="padding-20 left" @click="gotoDetail(item.id)">
                 <div class="left_1">
                   <CreditScore :credit-score="item.score" credit-score-text="信用分" :font-size="40" height="80" width="100px"></CreditScore>
                   <div class="left_1_2">
@@ -332,6 +333,9 @@ const handleOnlyViewFranchisee = () => {
   }
   currentPage.value = 1
   loadmore()
+}
+const gotoDetail = (companyInfoId) => {
+  window.open('/detail?company_info_id=' + companyInfoId, '_blank')
 }
 // 点击了没有id的商家的链接时，给出提示
 const hasNoItemIdTips = () => {

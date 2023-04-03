@@ -6,7 +6,7 @@
         :span="12"
         :md="6"
     >
-      <div class="goods_card">
+      <div class="goods_card" @click="gotoGoodsDetail(item.goods_id)">
         <!-- x-oss-process=image/resize参数可参考https://help.aliyun.com/document_detail/44688.html -->
         <el-image
             :src="item.mainurl+(size>0?'?x-oss-process=image/resize,m_lfit,h_'+size+',w_'+size+'/format,webp':'')"
@@ -47,6 +47,9 @@ const props = defineProps({
 })
 </script>
 <script>
+const gotoGoodsDetail = (goodsId) => {
+  window.open('/goodsDetail?type=1&goods_id=' + goodsId, '_blank')
+}
 export default{
   name: 'GoodsList'
 }
@@ -59,6 +62,7 @@ export default{
   height: 100%;
   background-color: #fff;
   border-radius: 10px;
+  cursor: pointer;
 }
 .white_back{
   background-color: #fff;
