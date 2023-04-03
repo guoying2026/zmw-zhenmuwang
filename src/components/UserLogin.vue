@@ -1,5 +1,5 @@
 <template>
-  <router-link to="/login" v-if="userStore.userId == 0">
+  <router-link to="/login" v-if="userStore.userId === 0">
     <text class="font-10-size black">登录</text>
   </router-link>
     <img v-else :src="userStore.photo" class="photo"/>

@@ -89,7 +89,7 @@ import '../assets/blockAnimation.scss';
 import { sendSMSVerificationCodeApi,loginApi } from "../api/user.js";
 import {onMounted, reactive, ref} from 'vue'
 import {useRouter} from 'vue-router'
-import '../utils/user.js'
+import { image_arr, name_arr} from "../utils/user.js";
 //把页面所有相关图形验证码注释掉
 // import GraphValidateCode from '../components/GraphValidateCode.vue'
 //登录成功后，需要把登录状态让多页面共享
@@ -230,7 +230,7 @@ const submitForm = (formEl) => {
         is_sms: 1,
         usercode: ruleForm.smsVerificationCode,
         distinct_id: 0,
-        cap_id: 0,
+        cap_id: 9,
         openid: '',
         province: '',
         is_driver: 0,

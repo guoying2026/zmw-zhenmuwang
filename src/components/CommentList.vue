@@ -237,25 +237,27 @@
       </div>
     </div>
   </div>
-  </div>
-  <div class="comment_list" v-for="(item, index) in list.arr" :key="index">
-    <div class="comment_list_item">
-      <div class="comment_list_item_space">
-        <!--            头像开始-->
-        <el-avatar
-            class="comment_list_1_left"
-            :size="48"
-            :src="image_arr[item.click_index]"
-        />
-        <!--            头像结束-->
-        <div class="comment_list_1_right">
-          <!--              主评论作者和内容开始-->
-          <div class="comment_list_1_right_1">
-            <text class="font-20-size">{{name_arr[item.click_index]}}</text>
-            <text class="font-15-size grey_color">{{item.comment}}</text>
-            <el-row :gutter="8" class="margin-15-top">
+    <div class="messages-section" v-for="(item, index) in list.arr" :key="index">
+      <div class="messages">
+        <div class="message-box">
+          <img :src="image_arr[item.click_index]" alt="profile image" class="photo_img">
+          <div class="message-content">
+            <div class="message-header">
+              <div class="name">🥳{{name_arr[item.click_index]}}</div>
+              <div class="star-checkbox">
+                <input type="checkbox" id="star-1">
+                <label for="star-1">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star">
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                    </polygon>
+                  </svg>
+                </label>
+              </div>
+            </div>
+            <p class="message-line"> {{item.comment}}</p>
+            <el-row :gutter="8" class="margin-10-top" v-if="item.image">
               <el-col
-                  v-for="(itemImage,indexImage) in item.image"
+                  v-for="(itemImage, indexImage) in item.image"
                   :key="indexImage"
                   :span="8"
                   :md="8"
@@ -268,19 +270,15 @@
                     :zoom-rate="1.2"
                     :preview-src-list="item.image"
                     :initial-index="indexImage"
-                    lazy/>
+                    lazy />
               </el-col>
             </el-row>
-          </div>
-          <!--              主评论作者和内容结束-->
-          <!--                    时间，点赞，回复开始-->
-          <div class="comment_list_1_right_2 margin-15-top">
-            <text class="font-12-size">{{item.created_time}}</text>
+            <p class="message-line time"> {{item.created_time}} </p>
             <div class="comment_list_1_right_2_right margin-15-top">
               <div class="comment_list_1_right_2_right" @click="liked_comment(index,item.id,item.is_liked,item.liked_id,item.like_count)">
                 <ClickLike text='' v-if="item.is_liked > 0" :like-bool=true></ClickLike>
                 <ClickLike text="" v-else :like-bool=false></ClickLike>
-                <text class="margin-10-left">{{item.like_count}}</text>
+                <text class="margin-10-left font-12-size grey_color">{{item.like_count}}</text>
               </div>
               <!--        添加评论组件开始-->
               <div class="comment_list_1_right_2_right">
@@ -305,31 +303,29 @@
                     <el-icon class="margin-20-left icon-size"><ChatRound /></el-icon>
                   </template>
                 </AddComment>
-                <text class="margin-10-left">{{item.reply_count}}</text>
+                <text class="margin-10-left font-12-size grey_color">{{item.reply_count}}</text>
               </div>
               <!--        添加评论组件结束-->
             </div>
           </div>
-          <!--                    时间，点赞，回复结束-->
         </div>
-      </div>
-    </div>
-    <!--        该评论的回复列表开始-->
-    <div class="reply_list margin-20-top" v-for="(itemReply, indexReply) in item['comment_reply']" :key="indexReply">
-      <div class="comment_list_1">
-        <!--            头像开始-->
-        <el-avatar
-            class="comment_list_1_left"
-            :size="48"
-            :src="image_arr[itemReply.click_index]"
-        />
-        <!--            头像结束-->
-        <div class="comment_list_1_right">
-          <!--              主评论作者和内容开始-->
-          <div class="comment_list_1_right_1">
-            <text v-if="itemReply.company_comment_reply_id > 0" class="font-20-size">{{name_arr[itemReply.click_index]}} @ {{name_arr[itemReply.reply_click_index]}}</text>
-            <text v-else class="font-20-size">{{name_arr[itemReply.click_index]}}</text>
-            <text class="font-15-size grey_color">{{itemReply.comment}}</text>
+        <div class="message-box" v-for="(itemReply, indexReply) in item['comment_reply']" :key="indexReply">
+          <img :src="image_arr[itemReply.click_index]" class="photo_img" alt="profile image">
+          <div class="message-content">
+            <div class="message-header">
+              <div class="name" v-if="itemReply.company_comment_reply_id > 0">🥳{{name_arr[itemReply.click_index]}} @ {{name_arr[itemReply.reply_click_index]}}</div>
+              <div class="name" v-else>🥳{{name_arr[itemReply.click_index]}}</div>
+              <div class="star-checkbox">
+                <input type="checkbox" id="star-1">
+                <label for="star-1">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star">
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                    </polygon>
+                  </svg>
+                </label>
+              </div>
+            </div>
+            <p class="message-line"> {{itemReply.comment}}</p>
             <el-row :gutter="8" class="margin-15-top">
               <el-col
                   v-for="(itemReplyImage, indexReplyImage) in itemReply.image"
@@ -348,47 +344,44 @@
                     lazy />
               </el-col>
             </el-row>
-          </div>
-          <!--              主评论作者和内容结束-->
-          <!--                    时间，点赞，回复开始-->
-          <div class="comment_list_1_right_2 margin-15-top">
-            <text class="font-12-size">{{itemReply.created_time}}</text>
+            <p class="message-line time"> {{itemReply.created_time}} </p>
+            <!--                    时间，点赞，回复开始-->
             <div class="comment_list_1_right_2_right margin-15-top">
-              <div class="comment_list_1_right_2_right" @click="liked_comment_reply(index,indexReply,item.id,itemReply.id,itemReply.is_liked,itemReply.liked_id,itemReply.like_count)">
-                <ClickLike text='' v-if="itemReply.is_liked > 0" :like-bool=true></ClickLike>
-                <ClickLike text="" v-else :like-bool=false></ClickLike>
-                <text class="margin-10-left">{{itemReply.like_count}}</text>
-              </div>
-              <!--        添加评论组件开始-->
-              <AddComment
-                  :placeholder-text="placeholderText"
-                  :cancel-text="cancelText"
-                  :confirm-text="confirmText"
-                  :comment-id="item.id"
-                  :comment-reply-id="itemReply.id"
-                  :reply-to-user-id="itemReply.user_id"
-                  :company-info-id="companyInfoId"
-                  @toFatherCommentList="receiveChildAddComment"
-                  :comment-index="index"
-                  :comment-reply-index="indexReply"
-                  :reply-to-name="itemReply.name"
-                  :reply-count="item.reply_count"
-                  add-type="comment"
-                  comment-type="reply"
-              >
-                <template #clickDrawer>
-                  <!-- AddComment 插槽的内容放这里开始-->
-                  <el-icon class="margin-20-left icon-size"><ChatRound /></el-icon>
-                </template>
-              </AddComment>
-              <!--        添加评论组件结束-->
+                <div class="comment_list_1_right_2_right" @click="liked_comment_reply(index,indexReply,item.id,itemReply.id,itemReply.is_liked,itemReply.liked_id,itemReply.like_count)">
+                  <ClickLike text='' v-if="itemReply.is_liked > 0" :like-bool=true></ClickLike>
+                  <ClickLike text="" v-else :like-bool=false></ClickLike>
+                  <text class="margin-10-left font-12-size grey_color">{{itemReply.like_count}}</text>
+                </div>
+                <!--        添加评论组件开始-->
+                <AddComment
+                    :placeholder-text="placeholderText"
+                    :cancel-text="cancelText"
+                    :confirm-text="confirmText"
+                    :comment-id="item.id"
+                    :comment-reply-id="itemReply.id"
+                    :reply-to-user-id="itemReply.user_id"
+                    :company-info-id="companyInfoId"
+                    @toFatherCommentList="receiveChildAddComment"
+                    :comment-index="index"
+                    :comment-reply-index="indexReply"
+                    :reply-to-name="itemReply.name"
+                    :reply-count="item.reply_count"
+                    add-type="comment"
+                    comment-type="reply"
+                >
+                  <template #clickDrawer>
+                    <!-- AddComment 插槽的内容放这里开始-->
+                    <el-icon class="margin-20-left icon-size"><ChatRound /></el-icon>
+                  </template>
+                </AddComment>
+                <!--        添加评论组件结束-->
             </div>
           </div>
-          <!--                    时间，点赞，回复结束-->
+            <!--                    时间，点赞，回复结束-->
         </div>
       </div>
     </div>
-    <!--        该评论的回复列表结束-->
+
   </div>
 </template>
 <script>
@@ -398,13 +391,21 @@ export default{
 </script>
 <script setup>
 import { ref,reactive,onMounted } from 'vue'
+// import {
+//   likedCommentApi,
+//   dislikedCommentApi,
+//   likedCommentReplyApi,
+//   dislikedCommentReplyApi,
+//   commentListApi
+// } from "../api/comment.js";
 import {
   likedCommentApi,
   dislikedCommentApi,
   likedCommentReplyApi,
   dislikedCommentReplyApi,
   commentListApi
-} from "../api/comment.js";
+} from "../api/commentTest.js";
+
 import "../assets/comment.scss"
 import "../assets/fonts.css"
 import {image_arr, name_arr} from "../utils/user.js";
@@ -608,62 +609,13 @@ const liked_comment_reply = (index,indexReply,comment_id,comment_reply_id,is_lik
   color: #000;
 }
 .icon-size{
-  font-size: 24px;
-}
-.comment_list_item{
+  font-size: 19px;
   display: flex;
-  max-width: 800px;
-  width: 100%;
-  /*box-shadow: 0 2.8px 2.2px rgba(0,0,0,.034), 0 6.7px 5.3px rgba(0,0,0,.048), 0 12.5px 10px rgba(0,0,0,.06), 0 22.3px 17.9px rgba(0,0,0,.072), 0 41.8px 33.4px rgba(0,0,0,.086), 0 100px 80px rgba(0,0,0,.12);*/
-  /*border-radius: 10px;*/
-  background: #fff;
-}
-.comment_list_item .comment_list_item_space{
-  /*padding: 0 20px 20px 0px;*/
-  padding: 20px;
-  display: flex;
-  flex-direction: row;
-  width: 100%;
-}
-.reply_list{
-  display: flex;
-  flex-direction: column;
-  max-width: 800px;
-  width: 100%;
-}
-.comment_list{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding:20px;
-}
- .comment_list_1{
-  display: flex;
-  flex-direction: row;
-}
-.comment_list_1_left{
-  width: 48px;
-  height: 48px;
-}
-.comment_list_1_right{
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  margin-left: 20px;
-}
-.comment_list_1_right .comment_list_1_right_1{
-  display: flex;
-  flex-direction: column;
-}
-.comment_list_1_right .comment_list_1_right_2{
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
 }
 .comment_list_1_right_2_right{
   display: flex;
   flex-direction: row;
   align-items: flex-start;
+  align-self: flex-end;
 }
 </style>

@@ -202,111 +202,109 @@
         </div>
       </div>
     </div>
-  </div>
-  <div class="ask" :class="[index % 2 == 0?'grey_bg':'']" v-for="(item, index) in list.arr" :key="index">
-    <div class="general_item font-12-size">
-      <text class="general_item_1">问</text>
-      <AddComment
-          placeholder-text="我要提问"
-          cancel-text="取消提问"
-          confirm-text="发布提问"
-          @toFatherQuestionList="receiveChildAddComment"
-          :company-info-id="companyInfoId"
-          addType="question"
-          questionType="question"
-      >
-        <template #clickDrawer>
-          <text class="general_item_2 blue_btn margin-10-left">我要提问</text>
-        </template>
-      </AddComment>
-    </div>
-    <div class="ask_item margin-10-top">
-      <div class="ask_item_top">
-        <text class="ask_item_1">{{item.question}}</text>
-        <text class="ask_item_2 margin-10-left">{{item.answer_count}}个回答</text>
+    <div class="messages-section" v-for="(item, index) in list.arr" :key="index">
+      <div class="projects-section-header general_item">
+        <p>{{item.question}}</p>
+        <div>
+          <AddComment
+              placeholder-text="我要提问"
+              cancel-text="取消提问"
+              confirm-text="发布提问"
+              @toFatherQuestionList="receiveChildAddComment"
+              :company-info-id="companyInfoId"
+              addType="question"
+              questionType="question"
+          >
+            <template #clickDrawer>
+              <text class="general_item_2 blue_btn margin-10-left">我要提问</text>
+            </template>
+          </AddComment>
+          <AddComment
+              placeholder-text="我要回答"
+              cancel-text="取消回答"
+              confirm-text="发布回答"
+              @toFatherQuestionList="receiveChildAddComment"
+              :company-info-id="companyInfoId"
+              :question-id="item.id"
+              :question-index="index"
+              addType="question"
+              questionType="answer"
+          >
+            <template #clickDrawer>
+              <text class="general_item_2 margin-10-left green_btn">我要回答</text>
+            </template>
+          </AddComment>
+        </div>
       </div>
-      <el-row :gutter="8" class="margin-10-top" v-if="item.image">
-        <el-col
-            v-for="(itemImage, indexImage) in item.image"
-            :key="indexImage"
-            :span="8"
-            :md="8"
-        >
-          <el-image
-              :hide-on-click-modal=true
-              :src="itemImage"
-              class="image_list"
-              fit="fill"
-              :zoom-rate="1.2"
-              :preview-src-list="item.image"
-              :initial-index="indexImage"
-              lazy />
-        </el-col>
-      </el-row>
-    </div>
-    <div class="answer_item general_item margin-10-top font-12-size">
-      <text class="general_item_1">答</text>
-      <AddComment
-          placeholder-text="我要回答"
-          cancel-text="取消回答"
-          confirm-text="发布回答"
-          @toFatherQuestionList="receiveChildAddComment"
-          :company-info-id="companyInfoId"
-          :question-id="item.id"
-          :question-index="index"
-          addType="question"
-          questionType="answer"
-      >
-        <template #clickDrawer>
-          <text class="general_item_2 margin-10-left green_btn">我要回答</text>
-        </template>
-      </AddComment>
-    </div>
-    <div class="answer_item margin-10-top"
-         v-for="(itemAsk,indexAsk) in item.answer_list" :key="indexAsk" v-if="item.answer_list">
-      <div class="answer_item_left">
-        <el-avatar
-            :size="48"
-            src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
-        />
-        <div class="answer_item_left_2">
-            <text>{{itemAsk.name}}</text>
-            <text class="margin-10-top">{{itemAsk.answer}}</text>
+      <div class="general_item">
+        <el-row :gutter="8" class="margin-10-top" v-if="item.image">
+          <el-col
+              v-for="(itemImage, indexImage) in item.image"
+              :key="indexImage"
+              :span="8"
+              :md="8"
+          >
+            <el-image
+                :hide-on-click-modal=true
+                :src="itemImage"
+                class="image_list"
+                fit="fill"
+                :zoom-rate="1.2"
+                :preview-src-list="item.image"
+                :initial-index="indexImage"
+                lazy />
+          </el-col>
+        </el-row>
+      </div>
+      <div class="messages">
+        <div class="message-box" v-for="(itemAsk,indexAsk) in item.answer_list" :key="indexAsk" v-if="item.answer_list">
+          <img class="photo_img" :src="image_arr[itemAsk.click_index]" alt="profile image">
+          <div class="message-content">
+              <div class="message-header">
+                <div class="name">🥳{{name_arr[itemAsk.click_index]}}</div>
+                <div class="star-checkbox">
+                  <input type="checkbox" id="star-1">
+                  <label for="star-1">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star">
+                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                      </polygon>
+                    </svg>
+                  </label>
+                </div>
+              </div>
+              <p class="message-line"> {{itemAsk.answer}}</p>
             <el-row :gutter="8" class="margin-10-top">
               <el-col
-                v-for="(itemAskImage, indexAskImage) in itemAsk.image"
-                :key="indexAskImage"
-                :span="8"
-                :md="8"
+                  v-for="(itemAskImage, indexAskImage) in itemAsk.image"
+                  :key="indexAskImage"
+                  :span="8"
+                  :md="8"
               >
                 <el-image
                     :hide-on-click-modal=true
-                  :src="itemAskImage"
+                    :src="itemAskImage"
                     class="image_list"
-                  :zoom-rate="1.2"
-                  :preview-src-list="itemAsk.image"
-                  :initial-index="indexAskImage"
-                  fit="fill"
-                  lazy />
+                    :zoom-rate="1.2"
+                    :preview-src-list="itemAsk.image"
+                    :initial-index="indexAskImage"
+                    fit="fill"
+                    lazy />
               </el-col>
             </el-row>
-
-          <div class="answer_item_left_2_3 margin-10-top">
-
-            <text>{{itemAsk.created_time}}</text>
+              <p class="message-line time"> {{itemAsk.created_time}} </p>
               <div class="answer_item_left_2_3_right margin-10-top">
-                <div class="answer_item_left_2_3_right" @click="liked_question(index,indexAsk,itemAsk.id,itemAsk.is_useful,itemAsk.useful_count,itemAsk.useless_count)">
-                  <ClickLike text="有用" v-if="itemAsk.is_useful == 1" :like-bool=true></ClickLike>
-                  <ClickLike text="有用" v-else :like-bool=false></ClickLike>
-                  <text class="margin-5-left">{{itemAsk.useful_count}}</text>
-                </div>
-                <div class="answer_item_left_2_3_right margin-20-left" @click="disliked_question(index,indexAsk,itemAsk.id,itemAsk.is_useful,itemAsk.useful_count,itemAsk.useless_count)">
-                  <ClickDislike text="没用" v-if="itemAsk.is_useful == 2" :dislike-bool=true></ClickDislike>
-                  <ClickDislike text="没用" v-else :dislike-bool=false></ClickDislike>
-                  <text class="margin-5-left">{{itemAsk.useless_count}}</text>
-                </div>
+              <div class="answer_item_left_2_3_right" @click="liked_question(index,indexAsk,itemAsk.id,itemAsk.is_useful,itemAsk.useful_count,itemAsk.useless_count)">
+                <ClickLike text="有用" v-if="itemAsk.is_useful == 1" :like-bool=true></ClickLike>
+                <ClickLike text="有用" v-else :like-bool=false></ClickLike>
+                <text class="margin-5-left font-12-size grey_color">{{itemAsk.useful_count}}</text>
               </div>
-            </div>
+              <div class="answer_item_left_2_3_right margin-20-left" @click="disliked_question(index,indexAsk,itemAsk.id,itemAsk.is_useful,itemAsk.useful_count,itemAsk.useless_count)">
+                <ClickDislike text="没用" v-if="itemAsk.is_useful == 2" :dislike-bool=true></ClickDislike>
+                <ClickDislike text="没用" v-else :dislike-bool=false></ClickDislike>
+                <text class="margin-5-left font-12-size grey_color">{{itemAsk.useless_count}}</text>
+              </div>
+              </div>
+          </div>
         </div>
       </div>
     </div>
@@ -318,7 +316,8 @@ export default{
 }
 </script>
 <script setup>
-import {usefulAnswerApi, uselessAnswerApi, cancelAnswerApi, questionListApi} from "../api/question.js";
+// import {usefulAnswerApi, uselessAnswerApi, cancelAnswerApi, questionListApi} from "../api/question.js";
+import {usefulAnswerApi, uselessAnswerApi, cancelAnswerApi, questionListApi} from "../api/questionTest.js";
 import "../assets/comment.scss"
 import "../assets/fonts.css"
 
@@ -328,6 +327,7 @@ import ClickLike from "./ClickLike.vue";
 import ClickDislike from "./ClickDislike.vue";
 import {onMounted, reactive, ref} from "vue";
 const userStore = useUserStore();
+import { image_arr, name_arr} from "../utils/user.js";
 
 const props = defineProps({
   companyInfoId:{
@@ -462,65 +462,19 @@ const receiveChildAddComment = (param) => {
     height: auto;
   }
 }
+.grey_color{
+  color: #4A4A4A;
+  opacity: 0.7;
+}
 /*回答开始*/
 .answer_item_left_2_3_right{
   display: flex;
   flex-direction: row;
-}
-.answer_item .answer_item_left .answer_item_left_2 .answer_item_left_2_3{
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-}
-.answer_item .answer_item_left .answer_item_left_2{
-  display: flex;
-  flex-direction: column;
-  flex:1;
-}
-.answer_item .answer_item_left{
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-start;
-  width: 100%;
-}
-.answer_item{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: flex-end;
-  margin-left: 20px;
-  max-width: 780px;
-  width: 100%;
-  padding-right: 20px;
-}
-.ask{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-  letter-spacing: 2px;
-  background: #fff;
-}
-.ask .ask_item{
-  display: flex;
-  flex-direction: column;
-  max-width: 800px;
-  width: 100%;
-}
-.ask .ask_item .ask_item_top{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  align-self: flex-end;
   align-items: center;
 }
-.ask .general_item{
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  max-width: 800px;
-  width: 100%;
+.general_item{
+  padding: 0px 0px 0px 20px;
 }
 .general_item .general_item_1{
   padding: 5px 10px;
@@ -534,13 +488,6 @@ const receiveChildAddComment = (param) => {
   border-radius: 10px;
   font-weight: bold;
   letter-spacing: 2px;
-}
-.ask .ask_item_1{
-  flex: 1;
-}
-.ask .ask_item_2{
-  min-width: 100px;
-  text-align: end;
 }
 /*回答结束*/
 </style>
