@@ -316,8 +316,7 @@ export default{
 }
 </script>
 <script setup>
-// import {usefulAnswerApi, uselessAnswerApi, cancelAnswerApi, questionListApi} from "../api/question.js";
-import {usefulAnswerApi, uselessAnswerApi, cancelAnswerApi, questionListApi} from "../api/questionTest.js";
+import {usefulAnswerApi, uselessAnswerApi, cancelAnswerApi, questionListApi} from "../api/question.js";
 import "../assets/comment.scss"
 import "../assets/fonts.css"
 

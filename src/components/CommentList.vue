@@ -391,20 +391,13 @@ export default{
 </script>
 <script setup>
 import { ref,reactive,onMounted } from 'vue'
-// import {
-//   likedCommentApi,
-//   dislikedCommentApi,
-//   likedCommentReplyApi,
-//   dislikedCommentReplyApi,
-//   commentListApi
-// } from "../api/comment.js";
 import {
   likedCommentApi,
   dislikedCommentApi,
   likedCommentReplyApi,
   dislikedCommentReplyApi,
   commentListApi
-} from "../api/commentTest.js";
+} from "../api/comment.js";
 
 import "../assets/comment.scss"
 import "../assets/fonts.css"
