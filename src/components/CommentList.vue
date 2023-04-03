@@ -252,7 +252,7 @@
           <!--              主评论作者和内容开始-->
           <div class="comment_list_1_right_1">
             <text class="font-20-size">{{name_arr[item.click_index]}}</text>
-            <text class="font-15-size">{{item.comment}}</text>
+            <text class="font-15-size grey_color">{{item.comment}}</text>
             <el-row :gutter="8" class="margin-15-top">
               <el-col
                   v-for="(itemImage,indexImage) in item.image"
@@ -275,7 +275,7 @@
           <!--              主评论作者和内容结束-->
           <!--                    时间，点赞，回复开始-->
           <div class="comment_list_1_right_2 margin-15-top">
-            <text>{{item.created_time}}</text>
+            <text class="font-12-size">{{item.created_time}}</text>
             <div class="comment_list_1_right_2_right margin-15-top">
               <div class="comment_list_1_right_2_right" @click="liked_comment(index,item.id,item.is_liked,item.liked_id,item.like_count)">
                 <ClickLike text='' v-if="item.is_liked > 0" :like-bool=true></ClickLike>
@@ -327,9 +327,9 @@
         <div class="comment_list_1_right">
           <!--              主评论作者和内容开始-->
           <div class="comment_list_1_right_1">
-            <text v-if="itemReply.company_comment_reply_id > 0">{{name_arr[itemReply.click_index]}} @ {{name_arr[itemReply.reply_click_index]}}</text>
-            <text v-else>{{name_arr[itemReply.click_index]}}</text>
-            <text>{{itemReply.comment}}</text>
+            <text v-if="itemReply.company_comment_reply_id > 0" class="font-20-size">{{name_arr[itemReply.click_index]}} @ {{name_arr[itemReply.reply_click_index]}}</text>
+            <text v-else class="font-20-size">{{name_arr[itemReply.click_index]}}</text>
+            <text class="font-15-size grey_color">{{itemReply.comment}}</text>
             <el-row :gutter="8" class="margin-15-top">
               <el-col
                   v-for="(itemReplyImage, indexReplyImage) in itemReply.image"
@@ -352,7 +352,7 @@
           <!--              主评论作者和内容结束-->
           <!--                    时间，点赞，回复开始-->
           <div class="comment_list_1_right_2 margin-15-top">
-            <text>{{itemReply.created_time}}</text>
+            <text class="font-12-size">{{itemReply.created_time}}</text>
             <div class="comment_list_1_right_2_right margin-15-top">
               <div class="comment_list_1_right_2_right" @click="liked_comment_reply(index,indexReply,item.id,itemReply.id,itemReply.is_liked,itemReply.liked_id,itemReply.like_count)">
                 <ClickLike text='' v-if="itemReply.is_liked > 0" :like-bool=true></ClickLike>
@@ -597,11 +597,15 @@ const liked_comment_reply = (index,indexReply,comment_id,comment_reply_id,is_lik
     height: auto;
   }
 }
+.grey_color{
+  color: #4A4A4A;
+}
 .icon_div{
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   align-items: baseline;
+  color: #000;
 }
 .icon-size{
   font-size: 24px;

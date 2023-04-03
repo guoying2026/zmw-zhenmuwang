@@ -8,15 +8,15 @@
       <div class="projects-section-line">
         <div class="projects-status">
           <div class="item-status">
-            <span class="status-number">{{answerQuestionCount}}</span>
+            <span class="status-number">{{answer_question_count}}</span>
             <span class="status-type">问题总数</span>
           </div>
           <div class="item-status">
-            <span class="status-number">{{answerCount}}</span>
+            <span class="status-number">{{answer_count}}</span>
             <span class="status-type">回复总数</span>
           </div>
           <div class="item-status">
-            <span class="status-number">{{allAnswerUsefulCount}}</span>
+            <span class="status-number">{{all_answer_useful_count}}</span>
             <span class="status-type">有用总数</span>
           </div>
         </div>
@@ -87,7 +87,7 @@
                 </template>
               </AddComment>
               <router-link to="/login" v-else>
-                <div class="days-left" style="color: #34c471;">
+                <div class="days-left" style="color: #4f3ff0;">
                   去提问
                 </div>
               </router-link>
@@ -140,7 +140,7 @@
                 </template>
               </AddComment>
               <router-link to="/login" v-else>
-                <div class="days-left" style="color: #34c471;">
+                <div class="days-left" style="color: #096c86;">
                   去提问
                 </div>
               </router-link>
@@ -203,7 +203,7 @@
       </div>
     </div>
   </div>
-  <div class="ask" :class="[index % 2 == 0?'grey_bg':'']" v-for="(item, index) in list" :key="index">
+  <div class="ask" :class="[index % 2 == 0?'grey_bg':'']" v-for="(item, index) in list.arr" :key="index">
     <div class="general_item font-12-size">
       <text class="general_item_1">问</text>
       <AddComment
@@ -235,7 +235,7 @@
           <el-image
               :hide-on-click-modal=true
               :src="itemImage"
-              style="width:100%;height: 20vw;"
+              class="image_list"
               fit="fill"
               :zoom-rate="1.2"
               :preview-src-list="item.image"
@@ -282,7 +282,7 @@
                 <el-image
                     :hide-on-click-modal=true
                   :src="itemAskImage"
-                  style="width:100%;height: 18vw;"
+                    class="image_list"
                   :zoom-rate="1.2"
                   :preview-src-list="itemAsk.image"
                   :initial-index="indexAskImage"
@@ -318,7 +318,7 @@ export default{
 }
 </script>
 <script setup>
-import { usefulAnswerApi,uselessAnswerApi,cancelAnswerApi } from "../api/question.js";
+import {usefulAnswerApi, uselessAnswerApi, cancelAnswerApi, questionListApi} from "../api/question.js";
 import "../assets/comment.scss"
 import "../assets/fonts.css"
 
@@ -326,6 +326,7 @@ import "../assets/fonts.css"
 import { useUserStore } from "../pinia/user.js";
 import ClickLike from "./ClickLike.vue";
 import ClickDislike from "./ClickDislike.vue";
+import {onMounted, reactive, ref} from "vue";
 const userStore = useUserStore();
 
 const props = defineProps({
@@ -333,22 +334,24 @@ const props = defineProps({
     type: [Number,String],
     default: 0
   },
-  list:{
-    type: Array,
-    default: []
-  },
-  answerCount:{
-    type: [Number,String],
-    default: 0
-  },
-  answerQuestionCount:{
-    type: [Number,String],
-    default: 0
-  },
-  allAnswerUsefulCount:{
-    type: [Number,String],
-    default: 0
-  }
+})
+const list = reactive({
+  arr: []
+});
+//问题
+const all_answer_useful_count = ref(0)
+const answer_count = ref(0)
+const answer_question_count = ref(0)
+
+onMounted(() => {
+  questionListApi({company_info_id: props.companyInfoId,user_id: userStore.userId}).then(async(res) => {
+    console.log('question');
+    console.log(res);
+    list.arr = res.data.data;
+    all_answer_useful_count.value = res.data.all_answer_useful_count;
+    answer_count.value = res.data.answer_count;
+    answer_question_count.value = res.data.answer_question_count;
+  })
 })
 //有用开始
 const liked_question = (index,indexAsk,id,is_useful,useful_count,useless_count) => {
@@ -356,11 +359,12 @@ const liked_question = (index,indexAsk,id,is_useful,useful_count,useless_count) 
   if(is_useful === 1){
     cancelAnswerApi({company_info_id:props.companyInfoId,answer_id: id,user_id: userStore.userId}).then(async(res) => {
       if(res.status === 200 && res.data.useful_id > 0){
-        props.list[index].answer_list[indexAsk].is_useful = 0;
+         list.arr[index].answer_list[indexAsk].is_useful = 0;
+        all_answer_useful_count.value = all_answer_useful_count.value * 1 - 1;
         if(useful_count * 1 > 1){
-          props.list[index].answer_list[indexAsk].useful_count = useful_count * 1 - 1;
+           list.arr[index].answer_list[indexAsk].useful_count = useful_count * 1 - 1;
         } else {
-          props.list[index].answer_list[indexAsk].useful_count = 0;
+           list.arr[index].answer_list[indexAsk].useful_count = 0;
         }
       }
     })
@@ -369,14 +373,14 @@ const liked_question = (index,indexAsk,id,is_useful,useful_count,useless_count) 
       if(res.status === 200 && res.data.useful_id > 0){
         if(is_useful === 2){//如果从无用变成有用，需要减少无用数量
           if(useless_count * 1 > 1){
-            props.list[index].answer_list[indexAsk].useless_count = useless_count * 1 - 1;
+             list.arr[index].answer_list[indexAsk].useless_count = useless_count * 1 - 1;
           } else {
-            props.list[index].answer_list[indexAsk].useless_count = 0;
+             list.arr[index].answer_list[indexAsk].useless_count = 0;
           }
         }
-        props.list[index].answer_list[indexAsk].is_useful = 1;
-        props.list[index].answer_list[indexAsk].useful_count = useful_count * 1 + 1;
-        props.allAnswerUsefulCount = props.allAnswerUsefulCount * 1 + 1;
+         list.arr[index].answer_list[indexAsk].is_useful = 1;
+         list.arr[index].answer_list[indexAsk].useful_count = useful_count * 1 + 1;
+         all_answer_useful_count.value = all_answer_useful_count.value * 1 + 1;
       }
     })
   }
@@ -388,11 +392,11 @@ const disliked_question = (index,indexAsk,id,is_useful,useful_count,useless_coun
   if(is_useful === 2){
     cancelAnswerApi({company_info_id:props.companyInfoId,answer_id: id,user_id: userStore.userId}).then(async(res) => {
       if(res.status === 200 && res.data.useful_id > 0){
-        props.list[index].answer_list[indexAsk].is_useful = 0;
+         list.arr[index].answer_list[indexAsk].is_useful = 0;
         if(useless_count * 1 > 1){
-          props.list[index].answer_list[indexAsk].useless_count = useless_count * 1 - 1;
+           list.arr[index].answer_list[indexAsk].useless_count = useless_count * 1 - 1;
         } else {
-          props.list[index].answer_list[indexAsk].useless_count = 0;
+           list.arr[index].answer_list[indexAsk].useless_count = 0;
         }
       }
     })
@@ -400,14 +404,15 @@ const disliked_question = (index,indexAsk,id,is_useful,useful_count,useless_coun
     uselessAnswerApi({company_info_id:props.companyInfoId,answer_id:id,user_id: userStore.userId}).then(async(res) => {
       if(res.status === 200 && res.data.useful_id > 0){
         if(is_useful === 1){//如果从有用变成无用，需要减少有用数量
+          all_answer_useful_count.value = all_answer_useful_count.value * 1 - 1;
           if(useful_count * 1 > 1){
-            props.list[index].answer_list[indexAsk].useful_count = useful_count * 1 - 1;
+            list.arr[index].answer_list[indexAsk].useful_count = useful_count * 1 - 1;
           } else {
-            props.list[index].answer_list[indexAsk].useful_count = 0;
+             list.arr[index].answer_list[indexAsk].useful_count = 0;
           }
         }
-        props.list[index].answer_list[indexAsk].is_useful = 2;
-        props.list[index].answer_list[indexAsk].useless_count = useless_count * 1 + 1;
+         list.arr[index].answer_list[indexAsk].is_useful = 2;
+         list.arr[index].answer_list[indexAsk].useless_count = useless_count * 1 + 1;
       }
     })
   }
@@ -418,7 +423,7 @@ const receiveChildAddComment = (param) => {
   console.log(param);
   let question = param.question;
   if(param.questionType === 'question'){
-    props.list.unshift({
+     list.arr.unshift({
       id: question.id,
       user_id: userStore.userId,
       name: userStore.phone,
@@ -429,7 +434,7 @@ const receiveChildAddComment = (param) => {
       answer_list:[]
     })
   } else {
-    props.list[param.questionIndex].answer_list.unshift({
+     list.arr[param.questionIndex].answer_list.unshift({
       id: question.id,
       user_id: userStore.userId,
       name: userStore.phone,
@@ -445,6 +450,18 @@ const receiveChildAddComment = (param) => {
 }
 </script>
 <style scoped>
+@media screen and (max-width: 520px){
+  .image_list{
+    width:100%;
+    height: 50px;
+  }
+}
+@media screen and (max-width: 1200px){
+  .image_list{
+    width: 100%;
+    height: auto;
+  }
+}
 /*回答开始*/
 .answer_item_left_2_3_right{
   display: flex;
@@ -483,6 +500,7 @@ const receiveChildAddComment = (param) => {
   align-items: center;
   padding: 20px;
   letter-spacing: 2px;
+  background: #fff;
 }
 .ask .ask_item{
   display: flex;
