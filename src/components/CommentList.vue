@@ -8,15 +8,15 @@
     <div class="projects-section-line">
       <div class="projects-status">
         <div class="item-status">
-          <span class="status-number">{{companyCommentCount}}</span>
+          <span class="status-number">{{company_comment_count}}</span>
           <span class="status-type">评论总数</span>
         </div>
         <div class="item-status">
-          <span class="status-number">{{companyCommentReplyCount}}</span>
+          <span class="status-number">{{company_comment_reply_count}}</span>
           <span class="status-type">回复总数</span>
         </div>
         <div class="item-status">
-          <span class="status-number">{{allLikeCount}}</span>
+          <span class="status-number">{{all_like_count}}</span>
           <span class="status-type">点赞总数</span>
         </div>
       </div>
@@ -238,20 +238,20 @@
     </div>
   </div>
   </div>
-  <div class="comment_list" v-for="(item, index) in list" :key="index">
+  <div class="comment_list" v-for="(item, index) in list.arr" :key="index">
     <div class="comment_list_item">
       <div class="comment_list_item_space">
         <!--            头像开始-->
         <el-avatar
             class="comment_list_1_left"
             :size="48"
-            src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+            :src="image_arr[item.click_index]"
         />
         <!--            头像结束-->
         <div class="comment_list_1_right">
           <!--              主评论作者和内容开始-->
           <div class="comment_list_1_right_1">
-            <text>{{item.name}}</text>
+            <text>{{name_arr[item.click_index]}}</text>
             <text>{{item.comment}}</text>
             <el-row :gutter="8" class="margin-15-top">
               <el-col
@@ -263,7 +263,7 @@
                 <el-image
                     :hide-on-click-modal=true
                     :src="itemImage"
-                    style="width:100%;height: 18vw;"
+                    style="width:100%;height: 150px;"
                     fit="fill"
                     :zoom-rate="1.2"
                     :preview-src-list="item.image"
@@ -321,13 +321,14 @@
         <el-avatar
             class="comment_list_1_left"
             :size="48"
-            src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"
+            :src="image_arr[itemReply.click_index]"
         />
         <!--            头像结束-->
         <div class="comment_list_1_right">
           <!--              主评论作者和内容开始-->
           <div class="comment_list_1_right_1">
-            <text>{{itemReply.name}} @ {{itemReply.reply_to_name}}</text>
+            <text v-if="itemReply.company_comment_reply_id > 0">{{name_arr[itemReply.click_index]}} @ {{name_arr[itemReply.reply_click_index]}}</text>
+            <text v-else>{{name_arr[itemReply.click_index]}}</text>
             <text>{{itemReply.comment}}</text>
             <el-row :gutter="8" class="margin-15-top">
               <el-col
@@ -339,7 +340,7 @@
                 <el-image
                     :hide-on-click-modal=true
                     :src="itemReplyImage"
-                    style="width:100%;height: 18vw;"
+                    style="width:100%;height: 150px;"
                     fit="fill"
                     :zoom-rate="1.2"
                     :preview-src-list="itemReply.image"
@@ -397,39 +398,52 @@ export default{
 </script>
 <script setup>
 import { ref,reactive,onMounted } from 'vue'
-import { likedCommentApi, dislikedCommentApi, likedCommentReplyApi, dislikedCommentReplyApi } from "../api/comment.js";
+import {
+  likedCommentApi,
+  dislikedCommentApi,
+  likedCommentReplyApi,
+  dislikedCommentReplyApi,
+  commentListApi
+} from "../api/comment.js";
 import "../assets/comment.scss"
 import "../assets/fonts.css"
+import {image_arr, name_arr} from "../utils/user.js";
 //引入用户信息开始
 import { useUserStore } from "../pinia/user.js";
 const userStore = useUserStore();
 
+console.log(image_arr[0]);
+console.log(name_arr[0]);
 //父组件给该组件CommentList传递的值，就定义在defineProps,开始
 const props = defineProps({
   companyInfoId:{
     type: [Number,String],
     default: 0
   },
-  list:{
-    type: Array,
-    default:[]
-  },
   margin:{
     type: [Number,String],
     default: 0
   },
-  companyCommentCount:{
-    type: [Number,String],
-    default: 0
-  },
-  companyCommentReplyCount:{
-    type:[Number,String],
-    default: 0
-  },
-  allLikeCount:{
-    type:[Number,String],
-    default: 0
-  }
+})
+//list
+const list = reactive({
+  arr: []
+});
+
+//评论
+const company_comment_count = ref(0)
+const company_comment_reply_count = ref(0)
+const all_like_count = ref(0)
+
+onMounted(() => {
+  commentListApi({company_info_id: props.companyInfoId,user_id: userStore.userId}).then(async(res) => {
+    console.log('comment');
+    console.log(res);
+    list.arr = res.data.data;
+    company_comment_count.value = res.data.company_comment_count;
+    company_comment_reply_count.value = res.data.company_comment_reply_count;
+    all_like_count.value = res.data.all_like_count;
+  })
 })
 //父组件给该组件CommentList传递的值，就定义在defineProps,结束
 //发布评论之后将评论内容放到评论列表
@@ -438,10 +452,12 @@ const receiveChildAddComment = (param) => {
   const reply = param.commentReply;
   console.log('commentReplyId');
   console.log(param.commentReplyId);
-  if(param.commentId === 0){//主评论
-    props.list.unshift({
+  if(param.comment_type === 'comment'){//主评论
+    company_comment_count.value = company_comment_count.value * 1 + 1;
+     list.arr.unshift({
       id: reply.id,
       user_id: userStore.userId,
+       click_index: reply.click_index,
       name: reply.name,
       comment: reply.comment,
       created_time: reply.created_time,
@@ -453,9 +469,11 @@ const receiveChildAddComment = (param) => {
       image: reply.image,
       comment_reply: [],
     });
-  } else if(param.commentId > 0 && param.commentReplyId === 0){//回复主评论
-    props.list[param.commentIndex].reply_count = param.reply_count * 1 + 1;
-    props.list[param.commentIndex].comment_reply.unshift({
+  } else if(param.comment_type === 'reply' && param.commentReplyId === 0){//回复主评论
+    console.log('走到unshift');
+    company_comment_reply_count.value = company_comment_reply_count.value * 1 + 1;
+     list.arr[param.commentIndex].reply_count = param.reply_count * 1 + 1;
+     list.arr[param.commentIndex].comment_reply.unshift({
       id: reply.id,
       user_id: reply.user_id,
       name: reply.name,
@@ -466,11 +484,14 @@ const receiveChildAddComment = (param) => {
       reply_to_name: reply.reply_to_name,
       liked_id: 0,
       is_liked: 0,
+       click_index: reply.click_index,
       image: reply.image,
     })
-  } else if(param.commentId > 0 && param.commentReplyId > 0){//回复-》回复
-    props.list[param.commentIndex].reply_count = param.reply_count * 1 + 1;
-    props.list[param.commentIndex].comment_reply.splice(param.commentReplyIndex+1,0,{
+  } else if(param.comment_type === 'reply' && param.commentReplyId > 0){//回复-》回复
+    console.log('走到splice');
+    company_comment_reply_count.value = company_comment_reply_count.value * 1 + 1;
+    list.arr[param.commentIndex].reply_count = param.reply_count * 1 + 1;
+     list.arr[param.commentIndex].comment_reply.splice(param.commentReplyIndex+1,0,{
       id: reply.id,
       user_id: reply.user_id,
       name: reply.name,
@@ -481,6 +502,7 @@ const receiveChildAddComment = (param) => {
       reply_to_name: reply.reply_to_name,
       liked_id: 0,
       is_liked: 0,
+       click_index: reply.click_index,
       image: reply.image,
     })
   }
@@ -505,11 +527,12 @@ const liked_comment = (index,comment_id,is_liked,liked_id,like_count) => {
       console.log(res);
       //连接后端api再取消注释
       if(res.status === 200){
-        props.list[index].is_liked = 0;
+        all_like_count.value = all_like_count.value * 1 - 1;
+         list.arr[index].is_liked = 0;
         if(like_count * 1 > 1){
-          props.list[index].like_count = like_count * 1 - 1;
+           list.arr[index].like_count = like_count * 1 - 1;
         } else {
-          props.list[index].like_count = 0;
+           list.arr[index].like_count = 0;
         }
       }
     })
@@ -517,8 +540,9 @@ const liked_comment = (index,comment_id,is_liked,liked_id,like_count) => {
     likedCommentApi({'company_info_id':props.companyInfoId,'company_comment_id':comment_id,'user_id':userStore.userId}).then(async(res) => {
       console.log(res);
       if(res.status === 200){
-        props.list[index].is_liked = 1;
-        props.list[index].like_count = like_count * 1 + 1;
+        all_like_count.value = all_like_count.value * 1 + 1;
+        list.arr[index].is_liked = 1;
+         list.arr[index].like_count = like_count * 1 + 1;
       }
     })
   }
@@ -536,11 +560,12 @@ const liked_comment_reply = (index,indexReply,comment_id,comment_reply_id,is_lik
     dislikedCommentReplyApi({'company_info_id':props.companyInfoId,'company_comment_id':comment_id,'company_comment_reply_id':comment_reply_id,'user_id':userStore.userId}).then(async(res) => {
       console.log(res);
       if(res.status === 200){
-        props.list[index].comment_reply[indexReply].is_liked = 0;
+        all_like_count.value = all_like_count.value * 1 - 1;
+        list.arr[index].comment_reply[indexReply].is_liked = 0;
         if(like_count * 1 > 1){
-          props.list[index].comment_reply[indexReply].like_count = like_count * 1 - 1;
+           list.arr[index].comment_reply[indexReply].like_count = like_count * 1 - 1;
         } else {
-          props.list[index].comment_reply[indexReply].like_count = 0;
+           list.arr[index].comment_reply[indexReply].like_count = 0;
         }
       }
     })
@@ -549,8 +574,9 @@ const liked_comment_reply = (index,indexReply,comment_id,comment_reply_id,is_lik
       console.log(res);
       //连接后端api再取消注释
       if(res.status === 200){
-        props.list[index].comment_reply[indexReply].is_liked = 1;
-        props.list[index].comment_reply[indexReply].like_count = like_count *1 + 1;
+        all_like_count.value = all_like_count.value * 1 + 1;
+        list.arr[index].comment_reply[indexReply].is_liked = 1;
+         list.arr[index].comment_reply[indexReply].like_count = like_count *1 + 1;
       }
     })
   }

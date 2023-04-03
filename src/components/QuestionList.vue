@@ -44,7 +44,7 @@
         <div class="project-box-wrapper">
           <div class="project-box" style="background-color: #e9e7fd;">
             <div class="project-box-header">
-              <span>December 10, 2020</span>
+              <span>2023</span>
               <div class="more-wrapper">
                 <button class="project-btn-more">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical">
@@ -97,7 +97,7 @@
         <div class="project-box-wrapper">
           <div class="project-box">
             <div class="project-box-header">
-              <span>December 10, 2020</span>
+              <span>2023</span>
               <div class="more-wrapper">
                 <button class="project-btn-more">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical">
@@ -150,7 +150,7 @@
         <div class="project-box-wrapper">
           <div class="project-box" style="background-color: #c8f7dc;">
             <div class="project-box-header">
-              <span>December 10, 2020</span>
+              <span>2023</span>
               <div class="more-wrapper">
                 <button class="project-btn-more">
                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical">
@@ -376,6 +376,7 @@ const liked_question = (index,indexAsk,id,is_useful,useful_count,useless_count) 
         }
         props.list[index].answer_list[indexAsk].is_useful = 1;
         props.list[index].answer_list[indexAsk].useful_count = useful_count * 1 + 1;
+        props.allAnswerUsefulCount = props.allAnswerUsefulCount * 1 + 1;
       }
     })
   }

@@ -101,10 +101,6 @@
             <!--        评论列表开始-->
             <CommentList
                 :company-info-id="company_info_id_text"
-                :list="commentList.arr"
-                :company-comment-count="company_comment_count"
-                :company-comment-reply-count="company_comment_reply_count"
-                :all-like-count="all_like_count"
             >
             </CommentList>
           </el-col>
@@ -128,10 +124,6 @@
       <el-tab-pane label="大众评论" name="fourth">
         <CommentList
             :company-info-id="company_info_id_text"
-            :list="commentList.arr"
-            :company-comment-count="company_comment_count"
-            :company-comment-reply-count="company_comment_reply_count"
-            :all-like-count="all_like_count"
         >
         </CommentList>
       </el-tab-pane>
@@ -160,7 +152,6 @@ import "../assets/tag.css"
 import {goodsListApi} from "../api/goods.js";
 import CreditScore from "../components/CreditScore.vue";
 import {questionListApi} from "../api/question.js";
-import {commentListApi} from "../api/comment.js";
 import {shopDetailApi} from "../api/shopDetail.js";
 import { useUserStore } from "../pinia/user.js";
 import Tag from "../components/Tag.vue"
@@ -180,9 +171,6 @@ const handleClick = (tab, event) => {
 }
 //评论开始
 // 数据列表
-const commentList = reactive({
-  arr:[]
-});
 const questionList = reactive({
   arr: []
 });
@@ -196,10 +184,7 @@ const credit_score = ref('')
 const credit_score_text = ref('')
 const credit_code = ref('')
 const isFranchisee = ref(0)
-//评论
-const company_comment_count = ref(0)
-const company_comment_reply_count = ref(0)
-const all_like_count = ref(0)
+
 //问题
 const all_answer_useful_count = ref(0)
 const answer_count = ref(0)
@@ -227,14 +212,6 @@ onMounted(() => {
     all_answer_useful_count.value = res.data.all_answer_useful_count;
     answer_count.value = res.data.answer_count;
     answer_question_count.value = res.data.answer_question_count;
-  })
-  commentListApi({company_info_id: company_info_id_text.value,user_id: userStore.userId}).then(async(res) => {
-    console.log('comment');
-    console.log(res);
-    commentList.arr = res.data.data;
-    company_comment_count.value = res.data.company_comment_count;
-    company_comment_reply_count.value = res.data.company_comment_reply_count;
-    all_like_count.value = res.data.all_like_count;
   })
 })
 </script>

@@ -241,7 +241,9 @@ const publishComment = () => {
           commentId: res.data.id,
           commentReplyId: 0,
           reply_count: 0,
+          comment_type: props.commentType,
           commentReply: {
+            click_index: userStore.clickIndex,
             id: res.data.id,
             user_id: userStore.userId,
             name: userStore.phone,
@@ -275,7 +277,9 @@ const publishComment = () => {
           commentId: props.commentId,
           commentReplyId: props.commentReplyId,
           reply_count: props.replyCount,
+          comment_type: props.commentType,
           commentReply: {
+            click_index: userStore.clickIndex,
             id: res.data.id,
             user_id: userStore.userId,
             name: userStore.phone,
