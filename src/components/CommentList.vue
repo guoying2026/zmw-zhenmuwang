@@ -251,8 +251,8 @@
         <div class="comment_list_1_right">
           <!--              主评论作者和内容开始-->
           <div class="comment_list_1_right_1">
-            <text>{{name_arr[item.click_index]}}</text>
-            <text>{{item.comment}}</text>
+            <text class="font-20-size">{{name_arr[item.click_index]}}</text>
+            <text class="font-15-size">{{item.comment}}</text>
             <el-row :gutter="8" class="margin-15-top">
               <el-col
                   v-for="(itemImage,indexImage) in item.image"
@@ -263,7 +263,7 @@
                 <el-image
                     :hide-on-click-modal=true
                     :src="itemImage"
-                    style="width:100%;height: 150px;"
+                    class="image_list"
                     fit="fill"
                     :zoom-rate="1.2"
                     :preview-src-list="item.image"
@@ -340,7 +340,7 @@
                 <el-image
                     :hide-on-click-modal=true
                     :src="itemReplyImage"
-                    style="width:100%;height: 150px;"
+                    class="image_list"
                     fit="fill"
                     :zoom-rate="1.2"
                     :preview-src-list="itemReply.image"
@@ -585,6 +585,18 @@ const liked_comment_reply = (index,indexReply,comment_id,comment_reply_id,is_lik
 //评论结束
 </script>
 <style scoped>
+@media screen and (max-width: 520px){
+  .image_list{
+    width:100%;
+    height: 50px;
+  }
+}
+@media screen and (max-width: 1200px){
+  .image_list{
+    width: 100%;
+    height: auto;
+  }
+}
 .icon_div{
   display: flex;
   flex-direction: row;
@@ -598,11 +610,13 @@ const liked_comment_reply = (index,indexReply,comment_id,comment_reply_id,is_lik
   display: flex;
   max-width: 800px;
   width: 100%;
-  box-shadow: 0 2.8px 2.2px rgba(0,0,0,.034), 0 6.7px 5.3px rgba(0,0,0,.048), 0 12.5px 10px rgba(0,0,0,.06), 0 22.3px 17.9px rgba(0,0,0,.072), 0 41.8px 33.4px rgba(0,0,0,.086), 0 100px 80px rgba(0,0,0,.12);
-  border-radius: 10px;
+  /*box-shadow: 0 2.8px 2.2px rgba(0,0,0,.034), 0 6.7px 5.3px rgba(0,0,0,.048), 0 12.5px 10px rgba(0,0,0,.06), 0 22.3px 17.9px rgba(0,0,0,.072), 0 41.8px 33.4px rgba(0,0,0,.086), 0 100px 80px rgba(0,0,0,.12);*/
+  /*border-radius: 10px;*/
+  background: #fff;
 }
 .comment_list_item .comment_list_item_space{
-  padding: 0 20px 20px 0px;
+  /*padding: 0 20px 20px 0px;*/
+  padding: 20px;
   display: flex;
   flex-direction: row;
   width: 100%;
@@ -632,7 +646,7 @@ const liked_comment_reply = (index,indexReply,comment_id,comment_reply_id,is_lik
   flex: 1;
   display: flex;
   flex-direction: column;
-  margin-left: 10px;
+  margin-left: 20px;
 }
 .comment_list_1_right .comment_list_1_right_1{
   display: flex;
