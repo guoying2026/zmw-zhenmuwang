@@ -335,6 +335,10 @@ const handleOnlyViewFranchisee = () => {
   loadmore()
 }
 const gotoDetail = (companyInfoId) => {
+  if (Number(companyInfoId) === 0 || isNaN(Number(companyInfoId))) {
+    hasNoItemIdTips()
+    return false
+  }
   window.open('/detail?company_info_id=' + companyInfoId, '_blank')
 }
 // 点击了没有id的商家的链接时，给出提示
