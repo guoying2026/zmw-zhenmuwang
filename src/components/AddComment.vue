@@ -329,6 +329,7 @@ const publishQuestion = () => {
             user_id: userStore.userId,
             name: userStore.phone,
             question: data.question,
+            click_index: userStore.clickIndex,
             created_time: res.data.created_time,
             image: toFatherImage,
           }
@@ -358,6 +359,7 @@ const publishQuestion = () => {
           question: {
             id: res.data.id,
             user_id: userStore.userId,
+            click_index: userStore.clickIndex,
             name: userStore.phone,
             question: data.question,
             created_time: res.data.created_time,

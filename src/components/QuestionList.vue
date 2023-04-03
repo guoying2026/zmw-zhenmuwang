@@ -205,7 +205,28 @@
     <div class="messages-section" v-for="(item, index) in list.arr" :key="index">
       <div class="projects-section-header general_item">
         <p>{{item.question}}</p>
-        <div>
+      </div>
+      <div class="general_item">
+        <el-row :gutter="8" class="margin-10-top" v-if="item.image">
+          <el-col
+              v-for="(itemImage, indexImage) in item.image"
+              :key="indexImage"
+              :span="8"
+              :md="8"
+          >
+            <el-image
+                :hide-on-click-modal=true
+                :src="itemImage"
+                class="image_list"
+                fit="fill"
+                :zoom-rate="1.2"
+                :preview-src-list="item.image"
+                :initial-index="indexImage"
+                lazy />
+          </el-col>
+        </el-row>
+      </div>
+      <div class="general_item_1">
           <AddComment
               placeholder-text="我要提问"
               cancel-text="取消提问"
@@ -231,32 +252,11 @@
               questionType="answer"
           >
             <template #clickDrawer>
-              <text class="general_item_2 margin-10-left green_btn">我要回答</text>
+              <text class="general_item_2 margin-10-right margin-20-top green_btn">我要回答</text>
             </template>
           </AddComment>
-        </div>
       </div>
-      <div class="general_item">
-        <el-row :gutter="8" class="margin-10-top" v-if="item.image">
-          <el-col
-              v-for="(itemImage, indexImage) in item.image"
-              :key="indexImage"
-              :span="8"
-              :md="8"
-          >
-            <el-image
-                :hide-on-click-modal=true
-                :src="itemImage"
-                class="image_list"
-                fit="fill"
-                :zoom-rate="1.2"
-                :preview-src-list="item.image"
-                :initial-index="indexImage"
-                lazy />
-          </el-col>
-        </el-row>
-      </div>
-      <div class="messages">
+      <div class="messages margin-20-top">
         <div class="message-box" v-for="(itemAsk,indexAsk) in item.answer_list" :key="indexAsk" v-if="item.answer_list">
           <img class="photo_img" :src="image_arr[itemAsk.click_index]" alt="profile image">
           <div class="message-content">
@@ -422,18 +422,21 @@ const receiveChildAddComment = (param) => {
   console.log(param);
   let question = param.question;
   if(param.questionType === 'question'){
-     list.arr.unshift({
+    answer_question_count.value = answer_question_count.value * 1 + 1;
+    list.arr.unshift({
       id: question.id,
       user_id: userStore.userId,
       name: userStore.phone,
       question: question.question,
       created_time: question.created_time,
+      click_index: question.click_index,
       answer_count: 0,
       image: question.image,
       answer_list:[]
     })
   } else {
-     list.arr[param.questionIndex].answer_list.unshift({
+    answer_count.value = answer_count.value * 1 + 1;
+    list.arr[param.questionIndex].answer_list.unshift({
       id: question.id,
       user_id: userStore.userId,
       name: userStore.phone,
@@ -441,6 +444,7 @@ const receiveChildAddComment = (param) => {
       answer: question.question,
       useful_count: 0,
       useless_count: 0,
+      click_index: question.click_index,
       is_useful: 0,
       useful_id: 0,
       image: question.image
@@ -473,20 +477,20 @@ const receiveChildAddComment = (param) => {
   align-items: center;
 }
 .general_item{
-  padding: 0px 0px 0px 20px;
-}
-.general_item .general_item_1{
-  padding: 5px 10px;
-  background-color: #000;
-  color: #fff;
-  border-radius: 10px;
-  font-weight: bold;
+  padding: 20px 0px 0px 20px;
 }
 .general_item_2{
   padding: 10px 15px;
   border-radius: 10px;
   font-weight: bold;
   letter-spacing: 2px;
+  opacity: 0.8;
+}
+.general_item_1{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
 }
 /*回答结束*/
 </style>
