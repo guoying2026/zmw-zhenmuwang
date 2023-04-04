@@ -1,1364 +1,1204 @@
 <template>
-  <div class="app-container">
-    <div class="app-header">
-      <div class="app-header-left">
-        <span class="app-icon"></span>
-        <p class="app-name">Portfolio</p>
-        <div class="search-wrapper">
-          <input class="search-input" type="text" placeholder="Search">
-          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="feather feather-search" viewBox="0 0 24 24">
-            <defs></defs>
-            <circle cx="11" cy="11" r="8"></circle>
-            <path d="M21 21l-4.35-4.35"></path>
-          </svg>
+  <div class="app">
+    <header class="app-header">
+      <div class="app-header-logo">
+        <div class="logo">
+				<span class="logo-icon">
+					<img src="https://assets.codepen.io/285131/almeria-logo.svg" />
+				</span>
+          <h1 class="logo-title">
+            <span>Almeria</span>
+            <span>NeoBank</span>
+          </h1>
         </div>
       </div>
-      <div class="app-header-right">
-        <button class="mode-switch" title="Switch Theme">
-          <svg class="moon" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" width="24" height="24" viewBox="0 0 24 24">
-            <defs></defs>
-            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"></path>
-          </svg>
-        </button>
-        <button class="add-btn" title="Add New Project">
-          <svg  xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus">
-            <line x1="12" y1="5" x2="12" y2="19" />
-            <line x1="5" y1="12" x2="19" y2="12" /></svg>
-        </button>
-        <button class="notification-btn">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-bell">
-            <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9" />
-            <path d="M13.73 21a2 2 0 0 1-3.46 0" /></svg>
-        </button>
-        <button class="profile-btn">
-          <img src="https://assets.codepen.io/3306515/IMG_2025.jpg" />
-          <span>Aybüke C.</span>
-        </button>
-      </div>
-      <button class="messages-btn">
-        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-message-circle">
-          <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z" /></svg>
-      </button>
-    </div>
-    <div class="app-content">
-      <div class="app-sidebar">
-        <a href="" class="app-sidebar-link active">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-home">
-            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
-            <polyline points="9 22 9 12 15 12 15 22" /></svg>
-        </a>
-        <a href="" class="app-sidebar-link">
-          <svg  xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="feather feather-pie-chart" viewBox="0 0 24 24">
-            <defs />
-            <path d="M21.21 15.89A10 10 0 118 2.83M22 12A10 10 0 0012 2v10z" />
-          </svg>
-        </a>
-        <a href="" class="app-sidebar-link">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar">
-            <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
-            <line x1="16" y1="2" x2="16" y2="6" />
-            <line x1="8" y1="2" x2="8" y2="6" />
-            <line x1="3" y1="10" x2="21" y2="10" /></svg>
-        </a>
-        <a href="" class="app-sidebar-link">
-          <svg  xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="feather feather-settings" viewBox="0 0 24 24">
-            <defs />
-            <circle cx="12" cy="12" r="3" />
-            <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-2 2 2 2 0 01-2-2v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06a1.65 1.65 0 00.33-1.82 1.65 1.65 0 00-1.51-1H3a2 2 0 01-2-2 2 2 0 012-2h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06a1.65 1.65 0 001.82.33H9a1.65 1.65 0 001-1.51V3a2 2 0 012-2 2 2 0 012 2v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06a1.65 1.65 0 00-.33 1.82V9a1.65 1.65 0 001.51 1H21a2 2 0 012 2 2 2 0 01-2 2h-.09a1.65 1.65 0 00-1.51 1z" />
-          </svg>
-        </a>
-      </div>
-      <div class="projects-section">
-        <div class="projects-section-header">
-          <p>Projects</p>
-          <p class="time">December, 12</p>
+      <div class="app-header-navigation">
+        <div class="tabs">
+          <a href="#">
+            Overview
+          </a>
+          <a href="#" class="active">
+            Payments
+          </a>
+          <a href="#">
+            Cards
+          </a>
+          <a href="#">
+            Account
+          </a>
+          <a href="#">
+            System
+          </a>
+          <a href="#">
+            Business
+          </a>
         </div>
-        <div class="projects-section-line">
-          <div class="projects-status">
-            <div class="item-status">
-              <span class="status-number">45</span>
-              <span class="status-type">In Progress</span>
-            </div>
-            <div class="item-status">
-              <span class="status-number">24</span>
-              <span class="status-type">Upcoming</span>
-            </div>
-            <div class="item-status">
-              <span class="status-number">62</span>
-              <span class="status-type">Total Projects</span>
-            </div>
+      </div>
+      <div class="app-header-actions">
+        <button class="user-profile">
+          <span>Matheo Peterson</span>
+          <span>
+					<img src="https://assets.codepen.io/285131/almeria-avatar.jpeg" />
+				</span>
+        </button>
+        <div class="app-header-actions-buttons">
+          <button class="icon-button large">
+            <i class="ph-magnifying-glass"></i>
+          </button>
+          <button class="icon-button large">
+            <i class="ph-bell"></i>
+          </button>
+        </div>
+      </div>
+      <div class="app-header-mobile">
+        <button class="icon-button large">
+          <i class="ph-list"></i>
+        </button>
+      </div>
+
+    </header>
+    <div class="app-body">
+      <div class="app-body-navigation">
+        <nav class="navigation">
+          <a href="#">
+            <i class="ph-browsers"></i>
+            <span>Dashboard</span>
+          </a>
+          <a href="#">
+            <i class="ph-check-square"></i>
+            <span>Scheduled</span>
+          </a>
+          <a href="#">
+            <i class="ph-swap"></i>
+            <span>Transfers</span>
+          </a>
+          <a href="#">
+            <i class="ph-file-text"></i>
+            <span>Templates</span>
+          </a>
+          <a href="#">
+            <i class="ph-globe"></i>
+            <span>SWIFT</span>
+          </a>
+          <a href="#">
+            <i class="ph-clipboard-text"></i>
+            <span>Exchange</span>
+          </a>
+        </nav>
+        <footer class="footer">
+          <h1>Almeria<small>©</small></h1>
+          <div>
+            Almeria ©<br />
+            All Rights Reserved 2021
           </div>
-          <div class="view-actions">
-            <button class="view-btn list-view" title="List View">
-              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-list">
-                <line x1="8" y1="6" x2="21" y2="6" />
-                <line x1="8" y1="12" x2="21" y2="12" />
-                <line x1="8" y1="18" x2="21" y2="18" />
-                <line x1="3" y1="6" x2="3.01" y2="6" />
-                <line x1="3" y1="12" x2="3.01" y2="12" />
-                <line x1="3" y1="18" x2="3.01" y2="18" /></svg>
+        </footer>
+      </div>
+      <div class="app-body-main-content">
+        <section class="service-section">
+          <h2>Service</h2>
+          <div class="service-section-header">
+            <div class="search-field">
+              <i class="ph-magnifying-glass"></i>
+              <input type="text" placeholder="Account number">
+            </div>
+            <div class="dropdown-field">
+              <select>
+                <option>Home</option>
+                <option>Work</option>
+              </select>
+              <i class="ph-caret-down"></i>
+            </div>
+            <button class="flat-button">
+              Search
             </button>
-            <button class="view-btn grid-view active" title="Grid View">
-              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-grid">
-                <rect x="3" y="3" width="7" height="7" />
-                <rect x="14" y="3" width="7" height="7" />
-                <rect x="14" y="14" width="7" height="7" />
-                <rect x="3" y="14" width="7" height="7" /></svg>
+          </div>
+          <div class="mobile-only">
+            <button class="flat-button">
+              Toggle search
             </button>
           </div>
-        </div>
-        <div class="project-boxes jsGridView">
-          <div class="project-box-wrapper">
-            <div class="project-box" style="background-color: #fee4cb;">
-              <div class="project-box-header">
-                <span>December 10, 2020</span>
-                <div class="more-wrapper">
-                  <button class="project-btn-more">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical">
-                      <circle cx="12" cy="12" r="1" />
-                      <circle cx="12" cy="5" r="1" />
-                      <circle cx="12" cy="19" r="1" /></svg>
-                  </button>
-                </div>
+          <div class="tiles">
+            <article class="tile">
+              <div class="tile-header">
+                <i class="ph-lightning-light"></i>
+                <h3>
+                  <span>Electricity</span>
+                  <span>UrkEnergo LTD.</span>
+                </h3>
               </div>
-              <div class="project-box-content-header">
-                <p class="box-content-header">Web Designing</p>
-                <p class="box-content-subheader">Prototyping</p>
+              <a href="#">
+                <span>Go to service</span>
+                <span class="icon-button">
+								<i class="ph-caret-right-bold"></i>
+							</span>
+              </a>
+            </article>
+            <article class="tile">
+              <div class="tile-header">
+                <i class="ph-fire-simple-light"></i>
+                <h3>
+                  <span>Heating Gas</span>
+                  <span>Gazprom UA</span>
+                </h3>
               </div>
-              <div class="box-progress-wrapper">
-                <p class="box-progress-header">Progress</p>
-                <div class="box-progress-bar">
-                  <span class="box-progress" style="width: 60%; background-color: #ff942e"></span>
-                </div>
-                <p class="box-progress-percentage">60%</p>
+              <a href="#">
+                <span>Go to service</span>
+                <span class="icon-button">
+								<i class="ph-caret-right-bold"></i>
+							</span>
+              </a>
+            </article>
+            <article class="tile">
+              <div class="tile-header">
+                <i class="ph-file-light"></i>
+                <h3>
+                  <span>Tax online</span>
+                  <span>Kharkov 62 str.</span>
+                </h3>
               </div>
-              <div class="project-box-footer">
-                <div class="participants">
-                  <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2550&q=80" alt="participant">
-                  <img src="https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTB8fG1hbnxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=900&q=60" alt="participant">
-                  <button class="add-participant" style="color: #ff942e;">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus">
-                      <path d="M12 5v14M5 12h14" />
-                    </svg>
-                  </button>
+              <a href="#">
+                <span>Go to service</span>
+                <span class="icon-button">
+								<i class="ph-caret-right-bold"></i>
+							</span>
+              </a>
+            </article>
+          </div>
+          <div class="service-section-footer">
+            <p>Services are paid according to the current state of the currency and tariff.</p>
+          </div>
+        </section>
+        <section class="transfer-section">
+          <div class="transfer-section-header">
+            <h2>Latest transfers</h2>
+            <div class="filter-options">
+              <p>Filter selected: more than 100 $</p>
+              <button class="icon-button">
+                <i class="ph-funnel"></i>
+              </button>
+              <button class="icon-button">
+                <i class="ph-plus"></i>
+              </button>
+            </div>
+          </div>
+          <div class="transfers">
+            <div class="transfer">
+              <div class="transfer-logo">
+                <img src="https://assets.codepen.io/285131/apple.svg" />
+              </div>
+              <dl class="transfer-details">
+                <div>
+                  <dt>Apple Inc.</dt>
+                  <dd>Apple ID Payment</dd>
                 </div>
-                <div class="days-left" style="color: #ff942e;">
-                  2 Days Left
+                <div>
+                  <dt>4012</dt>
+                  <dd>Last four digits</dd>
                 </div>
+                <div>
+                  <dt>28 Oct. 21</dt>
+                  <dd>Date payment</dd>
+                </div>
+              </dl>
+              <div class="transfer-number">
+                - $ 550
+              </div>
+            </div>
+            <div class="transfer">
+              <div class="transfer-logo">
+                <img src="https://assets.codepen.io/285131/pinterest.svg" />
+              </div>
+              <dl class="transfer-details">
+                <div>
+                  <dt>Pinterest</dt>
+                  <dd>2 year subscription</dd>
+                </div>
+                <div>
+                  <dt>5214</dt>
+                  <dd>Last four digits</dd>
+                </div>
+                <div>
+                  <dt>26 Oct. 21</dt>
+                  <dd>Date payment</dd>
+                </div>
+              </dl>
+              <div class="transfer-number">
+                - $ 120
+              </div>
+            </div>
+            <div class="transfer">
+              <div class="transfer-logo">
+                <img src="https://assets.codepen.io/285131/warner-bros.svg" />
+              </div>
+              <dl class="transfer-details">
+                <div>
+                  <dt>Warner Bros.</dt>
+                  <dd>Cinema</dd>
+                </div>
+                <div>
+                  <dt>2228</dt>
+                  <dd>Last four digits</dd>
+                </div>
+                <div>
+                  <dt>22 Oct. 21</dt>
+                  <dd>Date payment</dd>
+                </div>
+              </dl>
+              <div class="transfer-number">
+                - $ 70
               </div>
             </div>
           </div>
-          <div class="project-box-wrapper">
-            <div class="project-box" style="background-color: #e9e7fd;">
-              <div class="project-box-header">
-                <span>December 10, 2020</span>
-                <div class="more-wrapper">
-                  <button class="project-btn-more">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical">
-                      <circle cx="12" cy="12" r="1" />
-                      <circle cx="12" cy="5" r="1" />
-                      <circle cx="12" cy="19" r="1" /></svg>
-                  </button>
-                </div>
-              </div>
-              <div class="project-box-content-header">
-                <p class="box-content-header">Testing</p>
-                <p class="box-content-subheader">Prototyping</p>
-              </div>
-              <div class="box-progress-wrapper">
-                <p class="box-progress-header">Progress</p>
-                <div class="box-progress-bar">
-                  <span class="box-progress" style="width: 50%; background-color: #4f3ff0"></span>
-                </div>
-                <p class="box-progress-percentage">50%</p>
-              </div>
-              <div class="project-box-footer">
-                <div class="participants">
-                  <img src="https://images.unsplash.com/photo-1596815064285-45ed8a9c0463?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1215&q=80" alt="participant">
-                  <img src="https://images.unsplash.com/photo-1583195764036-6dc248ac07d9?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2555&q=80" alt="participant">
-                  <button class="add-participant" style="color: #4f3ff0;">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus">
-                      <path d="M12 5v14M5 12h14" />
-                    </svg>
-                  </button>
-                </div>
-                <div class="days-left" style="color: #4f3ff0;">
-                  2 Days Left
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="project-box-wrapper">
-            <div class="project-box">
-              <div class="project-box-header">
-                <span>December 10, 2020</span>
-                <div class="more-wrapper">
-                  <button class="project-btn-more">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical">
-                      <circle cx="12" cy="12" r="1" />
-                      <circle cx="12" cy="5" r="1" />
-                      <circle cx="12" cy="19" r="1" /></svg>
-                  </button>
-                </div>
-              </div>
-              <div class="project-box-content-header">
-                <p class="box-content-header">Svg Animations</p>
-                <p class="box-content-subheader">Prototyping</p>
-              </div>
-              <div class="box-progress-wrapper">
-                <p class="box-progress-header">Progress</p>
-                <div class="box-progress-bar">
-                  <span class="box-progress" style="width: 80%; background-color: #096c86"></span>
-                </div>
-                <p class="box-progress-percentage">80%</p>
-              </div>
-              <div class="project-box-footer">
-                <div class="participants">
-                  <img src="https://images.unsplash.com/photo-1587628604439-3b9a0aa7a163?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MjR8fHdvbWFufGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=900&q=60" alt="participant">
-                  <img src="https://images.unsplash.com/photo-1596815064285-45ed8a9c0463?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1215&q=80" alt="participant">
-                  <button class="add-participant" style="color: #096c86;">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus">
-                      <path d="M12 5v14M5 12h14" />
-                    </svg>
-                  </button>
-                </div>
-                <div class="days-left" style="color: #096c86;">
-                  2 Days Left
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="project-box-wrapper">
-            <div class="project-box" style="background-color: #ffd3e2;">
-              <div class="project-box-header">
-                <span>December 10, 2020</span>
-                <div class="more-wrapper">
-                  <button class="project-btn-more">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical">
-                      <circle cx="12" cy="12" r="1" />
-                      <circle cx="12" cy="5" r="1" />
-                      <circle cx="12" cy="19" r="1" /></svg>
-                  </button>
-                </div>
-              </div>
-              <div class="project-box-content-header">
-                <p class="box-content-header">UI Development</p>
-                <p class="box-content-subheader">Prototyping</p>
-              </div>
-              <div class="box-progress-wrapper">
-                <p class="box-progress-header">Progress</p>
-                <div class="box-progress-bar">
-                  <span class="box-progress" style="width: 20%; background-color: #df3670"></span>
-                </div>
-                <p class="box-progress-percentage">20%</p>
-              </div>
-              <div class="project-box-footer">
-                <div class="participants">
-                  <img src="https://images.unsplash.com/photo-1600486913747-55e5470d6f40?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2550&q=80" alt="participant">
-                  <img src="https://images.unsplash.com/photo-1587628604439-3b9a0aa7a163?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MjR8fHdvbWFufGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=900&q=60" alt="participant">
-                  <button class="add-participant" style="color: #df3670;">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus">
-                      <path d="M12 5v14M5 12h14" />
-                    </svg>
-                  </button>
-                </div>
-                <div class="days-left" style="color: #df3670;">
-                  2 Days Left
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="project-box-wrapper">
-            <div class="project-box" style="background-color: #c8f7dc;">
-              <div class="project-box-header">
-                <span>December 10, 2020</span>
-                <div class="more-wrapper">
-                  <button class="project-btn-more">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical">
-                      <circle cx="12" cy="12" r="1" />
-                      <circle cx="12" cy="5" r="1" />
-                      <circle cx="12" cy="19" r="1" /></svg>
-                  </button>
-                </div>
-              </div>
-              <div class="project-box-content-header">
-                <p class="box-content-header">Data Analysis</p>
-                <p class="box-content-subheader">Prototyping</p>
-              </div>
-              <div class="box-progress-wrapper">
-                <p class="box-progress-header">Progress</p>
-                <div class="box-progress-bar">
-                  <span class="box-progress" style="width: 60%; background-color: #34c471"></span>
-                </div>
-                <p class="box-progress-percentage">60%</p>
-              </div>
-              <div class="project-box-footer">
-                <div class="participants">
-                  <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2550&q=80" alt="participant">
-                  <img src="https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTB8fG1hbnxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=900&q=60" alt="participant">
-                  <button class="add-participant" style="color: #34c471;">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus">
-                      <path d="M12 5v14M5 12h14" />
-                    </svg>
-                  </button>
-                </div>
-                <div class="days-left" style="color: #34c471;">
-                  2 Days Left
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="project-box-wrapper">
-            <div class="project-box" style="background-color: #d5deff;">
-              <div class="project-box-header">
-                <span>December 10, 2020</span>
-                <div class="more-wrapper">
-                  <button class="project-btn-more">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-more-vertical">
-                      <circle cx="12" cy="12" r="1" />
-                      <circle cx="12" cy="5" r="1" />
-                      <circle cx="12" cy="19" r="1" /></svg>
-                  </button>
-                </div>
-              </div>
-              <div class="project-box-content-header">
-                <p class="box-content-header">Web Designing</p>
-                <p class="box-content-subheader">Prototyping</p>
-              </div>
-              <div class="box-progress-wrapper">
-                <p class="box-progress-header">Progress</p>
-                <div class="box-progress-bar">
-                  <span class="box-progress" style="width: 40%; background-color: #4067f9"></span>
-                </div>
-                <p class="box-progress-percentage">40%</p>
-              </div>
-              <div class="project-box-footer">
-                <div class="participants">
-                  <img src="https://images.unsplash.com/photo-1600486913747-55e5470d6f40?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2550&q=80" alt="participant">
-                  <img src="https://images.unsplash.com/photo-1583195764036-6dc248ac07d9?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2555&q=80" alt="participant">
-                  <button class="add-participant" style="color: #4067f9;">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus">
-                      <path d="M12 5v14M5 12h14" />
-                    </svg>
-                  </button>
-                </div>
-                <div class="days-left" style="color: #4067f9;">
-                  2 Days Left
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        </section>
       </div>
-      <div class="messages-section">
-        <button class="messages-close">
-          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-x-circle">
-            <circle cx="12" cy="12" r="10" />
-            <line x1="15" y1="9" x2="9" y2="15" />
-            <line x1="9" y1="9" x2="15" y2="15" /></svg>
-        </button>
-        <div class="projects-section-header">
-          <p>Client Messages</p>
-        </div>
-        <div class="messages">
-          <div class="message-box">
-            <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2550&q=80" alt="profile image">
-            <div class="message-content">
-              <div class="message-header">
-                <div class="name">Stephanie</div>
-                <div class="star-checkbox">
-                  <input type="checkbox" id="star-1">
-                  <label for="star-1">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star">
-                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
-                  </label>
-                </div>
-              </div>
-              <p class="message-line">
-                I got your first assignment. It was quite good. 🥳 We can continue with the next assignment.
-              </p>
-              <p class="message-line time">
-                Dec, 12
-              </p>
+      <div class="app-body-sidebar">
+        <section class="payment-section">
+          <h2>New Payment</h2>
+          <div class="payment-section-header">
+            <p>Choose a card to transfer money</p>
+            <div>
+              <button class="card-button mastercard">
+                <svg width="2001" height="1237" viewBox="0 0 2001 1237" fill="none" xmlns="http://www.w3.org/2000/svg">
+                  <g id="a624784f2834e21c94a1c0c9a58bbbaa">
+                    <path id="7869b07bea546aa59a5ee138adbcfd5a" d="M1270.57 1104.15H729.71V132.15H1270.58L1270.57 1104.15Z" fill="currentColor"></path>
+                    <path id="b54e3ab4d7044a9f288082bc6b864ae6" d="M764 618.17C764 421 856.32 245.36 1000.08 132.17C891.261 46.3647 756.669 -0.204758 618.09 9.6031e-07C276.72 9.6031e-07 0 276.76 0 618.17C0 959.58 276.72 1236.34 618.09 1236.34C756.672 1236.55 891.268 1189.98 1000.09 1104.17C856.34 991 764 815.35 764 618.17Z" fill="currentColor"></path>
+                    <path id="67f94b4d1b83252a6619ed6e0cc0a3a1" d="M2000.25 618.17C2000.25 959.58 1723.53 1236.34 1382.16 1236.34C1243.56 1236.54 1108.95 1189.97 1000.11 1104.17C1143.91 990.98 1236.23 815.35 1236.23 618.17C1236.23 420.99 1143.91 245.36 1000.11 132.17C1108.95 46.3673 1243.56 -0.201169 1382.15 -2.24915e-05C1723.52 -2.24915e-05 2000.24 276.76 2000.24 618.17" fill="currentColor"></path>
+                  </g>
+                </svg>
+              </button>
+              <button class="card-button visa active">
+                <svg xmlns="http://www.w3.org/2000/svg" width="2500" height="2500" viewBox="0 0 141.732 141.732">
+                  <g fill="currentColor">
+                    <path d="M62.935 89.571h-9.733l6.083-37.384h9.734zM45.014 52.187L35.735 77.9l-1.098-5.537.001.002-3.275-16.812s-.396-3.366-4.617-3.366h-15.34l-.18.633s4.691.976 10.181 4.273l8.456 32.479h10.141l15.485-37.385H45.014zM121.569 89.571h8.937l-7.792-37.385h-7.824c-3.613 0-4.493 2.786-4.493 2.786L95.881 89.571h10.146l2.029-5.553h12.373l1.14 5.553zm-10.71-13.224l5.114-13.99 2.877 13.99h-7.991zM96.642 61.177l1.389-8.028s-4.286-1.63-8.754-1.63c-4.83 0-16.3 2.111-16.3 12.376 0 9.658 13.462 9.778 13.462 14.851s-12.075 4.164-16.06.965l-1.447 8.394s4.346 2.111 10.986 2.111c6.642 0 16.662-3.439 16.662-12.799 0-9.72-13.583-10.625-13.583-14.851.001-4.227 9.48-3.684 13.645-1.389z" />
+                  </g>
+                  <path d="M34.638 72.364l-3.275-16.812s-.396-3.366-4.617-3.366h-15.34l-.18.633s7.373 1.528 14.445 7.253c6.762 5.472 8.967 12.292 8.967 12.292z" fill="currentColor" />
+                  <path fill="none" d="M0 0h141.732v141.732H0z" />
+                </svg>
+              </button>
             </div>
           </div>
-          <div class="message-box">
-            <img src="https://images.unsplash.com/photo-1600486913747-55e5470d6f40?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=2550&q=80" alt="profile image">
-            <div class="message-content">
-              <div class="message-header">
-                <div class="name">Mark</div>
-                <div class="star-checkbox">
-                  <input type="checkbox" id="star-2">
-                  <label for="star-2">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star">
-                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
-                  </label>
+          <div class="payments">
+            <div class="payment">
+              <div class="card green">
+                <span>01/22</span>
+                <span>
+								•••• 4012
+							</span>
+              </div>
+              <div class="payment-details">
+                <h3>Internet</h3>
+                <div>
+                  <span>$ 2,110</span>
+                  <button class="icon-button">
+                    <i class="ph-caret-right-bold"></i>
+                  </button>
                 </div>
               </div>
-              <p class="message-line">
-                Hey, can tell me about progress of project? I'm waiting for your response.
-              </p>
-              <p class="message-line time">
-                Dec, 12
-              </p>
             </div>
-          </div>
-          <div class="message-box">
-            <img src="https://images.unsplash.com/photo-1543965170-4c01a586684e?ixid=MXwxMjA3fDB8MHxzZWFyY2h8NDZ8fG1hbnxlbnwwfDB8MHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=900&q=60" alt="profile image">
-            <div class="message-content">
-              <div class="message-header">
-                <div class="name">David</div>
-                <div class="star-checkbox">
-                  <input type="checkbox" id="star-3">
-                  <label for="star-3">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star">
-                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
-                  </label>
+            <div class="payment">
+              <div class="card olive">
+                <span>12/23</span>
+                <span>
+								•••• 2228
+							</span>
+              </div>
+              <div class="payment-details">
+                <h3>Universal</h3>
+                <div>
+                  <span>$ 5,621</span>
+                  <button class="icon-button">
+                    <i class="ph-caret-right-bold"></i>
+                  </button>
                 </div>
               </div>
-              <p class="message-line">
-                Awesome! 🤩 I like it. We can schedule a meeting for the next one.
-              </p>
-              <p class="message-line time">
-                Dec, 12
-              </p>
             </div>
-          </div>
-          <div class="message-box">
-            <img src="https://images.unsplash.com/photo-1533993192821-2cce3a8267d1?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MTl8fHdvbWFuJTIwbW9kZXJufGVufDB8fDB8&ixlib=rb-1.2.1&auto=format&fit=crop&w=900&q=60" alt="profile image">
-            <div class="message-content">
-              <div class="message-header">
-                <div class="name">Jessica</div>
-                <div class="star-checkbox">
-                  <input type="checkbox" id="star-4">
-                  <label for="star-4">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star">
-                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" /></svg>
-                  </label>
+            <div class="payment">
+              <div class="card gray">
+                <span>03/22</span>
+                <span>
+								•••• 5214
+							</span>
+              </div>
+              <div class="payment-details">
+                <h3>Gold</h3>
+                <div>
+                  <span>$ 3,473</span>
+                  <button class="icon-button">
+                    <i class="ph-caret-right-bold"></i>
+                  </button>
                 </div>
               </div>
-              <p class="message-line">
-                I am really impressed! Can't wait to see the final result.
-              </p>
-              <p class="message-line time">
-                Dec, 11
-              </p>
             </div>
           </div>
-        </div>
+          <div class="faq">
+            <p>Most frequently asked questions</p>
+            <div>
+              <label>Question</label>
+              <input type="text" placeholder="Type here">
+            </div>
+          </div>
+          <div class="payment-section-footer">
+            <button class="save-button">
+              Save
+            </button>
+            <button class="settings-button">
+              <i class="ph-gear"></i>
+              <span>More settings</span>
+            </button>
+          </div>
+        </section>
       </div>
     </div>
   </div>
 </template>
 <style lang="scss">
-@import url("https://fonts.googleapis.com/css?family=DM+Sans:400,500,700&display=swap");
-
-* {
-  box-sizing: border-box;
-}
+@import url("https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 
 :root {
-  --app-container: #f3f6fd;
-  --main-color: #1f1c2e;
-  --secondary-color: #4A4A4A;
-  --link-color: #1f1c2e;
-  --link-color-hover: #c3cff4;
-  --link-color-active: #fff;
-  --link-color-active-bg: #1f1c2e;
-  --projects-section: #fff;
-  --message-box-hover: #fafcff;
-  --message-box-border: #e9ebf0;
-  --more-list-bg: #fff;
-  --more-list-bg-hover:  #f6fbff;
-  --more-list-shadow: rgba(209, 209, 209, 0.4);
-  --button-bg: #1f1c24;
-  --search-area-bg: #fff;
-  --star: #1ff1c2e;
-  --message-btn: #fff;
-}
+  --c-gray-900: #000000;
+  --c-gray-800: #1f1f1f;
+  --c-gray-700: #2e2e2e;
+  --c-gray-600: #313131;
+  --c-gray-500: #969593;
+  --c-gray-400: #a6a6a6;
+  --c-gray-300: #bdbbb7;
+  --c-gray-200: #f1f1f1;
+  --c-gray-100: #ffffff;
 
-.dark:root {
-  --app-container: #1f1d2b;
-  --app-container: #111827;
-  --main-color: #fff;
-  --secondary-color: rgba(255,255,255,.8);
-  --projects-section: #1f2937;
-  --link-color: rgba(255,255,255,.8);
-  --link-color-hover: rgba(195, 207, 244, 0.1);
-  --link-color-active-bg: rgba(195, 207, 244, 0.2);
-  --button-bg: #1f2937;
-  --search-area-bg: #1f2937;
-  --message-box-hover: #243244;
-  --message-box-border: rgba(255,255,255,.1);
-  --star: #ffd92c;
-  --light-font: rgba(255,255,255,.8);
-  --more-list-bg: #2f3142;
-  --more-list-bg-hover:  rgba(195, 207, 244, 0.1);
-  --more-list-shadow: rgba(195, 207, 244, 0.1);
-  --message-btn: rgba(195, 207, 244, 0.1);
-}
+  --c-green-500: #45ffbc;
+  --c-olive-500: #e3ffa8;
 
-html, body {
-  width: 100%;
-  height: 100vh;
-  margin: 0;
+  --c-white: var(--c-gray-100);
+
+  --c-text-primary: var(--c-gray-100);
+  --c-text-secondary: var(--c-gray-200);
+  --c-text-tertiary: var(--c-gray-500);
 }
 
 body {
-  font-family: 'DM Sans', sans-serif;
-  overflow: hidden;
+  line-height: 1.5;
+  min-height: 100vh;
+  font-family: "Be Vietnam Pro", sans-serif;
+  background-color: var(--c-gray-900);
+  color: var(--c-text-primary);
   display: flex;
+  padding-top: 3vw;
+  padding-bottom: 3vw;
   justify-content: center;
-  background-color: var(--app-container);
 }
 
-button, a {
-  cursor: pointer;
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+button,
+select,
+input,
+textarea {
+  font: inherit;
+}
+
+a {
+  color: inherit;
+}
+
+.responsive-wrapper {
+  width: 90%;
+  max-width: 1600px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .app {
-  &-container {
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    background-color: var(--app-container);
-    transition: .2s;
-    max-width: 1800px;
-
-    button, input, optgroup, select, textarea {
-      font-family: 'DM Sans', sans-serif;
-    }
-  }
-
-  &-content {
-    display: flex;
-    height: 100%;
-    overflow: hidden;
-    padding: 16px 24px 24px 0;
-  }
-
-  &-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    width: 100%;
-    padding: 16px 24px;
-    position: relative;
-
-    &-left, &-right {
-      display: flex;
-      align-items: center;
-    }
-
-    &-left { flex-grow: 1; }
-
-    &-right button {
-      margin-left: 10px;
-    }
-  }
-
-  &-icon {
-    width: 26px;
-    height: 2px;
-    border-radius: 4px;
-    background-color: var(--main-color);
-    position: relative;
-
-    &:before, &:after {
-      content: '';
-      position: absolute;
-      width: 12px;
-      height: 2px;
-      border-radius: 4px;
-      background-color: var(--main-color);
-      left: 50%;
-      transform: translatex(-50%);
-    }
-
-    &:before { top: -6px; }
-    &:after { bottom: -6px; }
-  }
-
-  &-name {
-    color: var(--main-color);
-    margin: 0;
-    font-size: 20px;
-    line-height: 24px;
-    font-weight: 700;
-    margin: 0 32px;
-  }
-}
-
-.mode-switch {
-  background-color: transparent;
-  border: none;
-  padding: 0;
-  color: var(--main-color);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.search-wrapper {
-  border-radius: 20px;
-  background-color: var(--search-area-bg);
-  padding-right: 12px;
-  height: 40px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  max-width: 480px;
-  color: var(--light-font);
-  box-shadow: 0 2px 6px 0 rgba(136,148,171,.2),0 24px 20px -24px rgba(71,82,107,.1);
-  overflow: hidden;
-
-  .dark & { box-shadow: none; }
-}
-
-.search-input {
-  border: none;
-  flex: 1;
-  outline: none;
-  height: 100%;
-  padding: 0 20px;
-  font-size: 16px;
-  background-color: var(--search-area-bg);
-  color: var(--main-color);
-
-  &:placeholder {
-    color: var(--main-color);
-    opacity: .6;
-  }
-}
-
-.add-btn {
-  color: #fff;
-  background-color: var(--button-bg);
-  padding: 0;
-  border: 0;
-  border-radius: 50%;
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.notification-btn {
-  color: var(--main-color);
-  padding: 0;
-  border: 0;
-  background-color: transparent;
-  height: 32px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.profile-btn {
-  padding: 0;
-  border: 0;
-  background-color: transparent;
-  display: flex;
-  align-items: center;
-  padding-left: 12px;
-  border-left: 2px solid #ddd;
-
-  img {
-    width: 32px;
-    height: 32px;
-    object-fit: cover;
-    border-radius: 50%;
-    margin-right: 4px;
-  }
-
-  span {
-    color: var(--main-color);
-    font-size: 16px;
-    line-height: 24px;
-    font-weight: 700;
-  }
-}
-
-.page-content {
-  flex: 1;
-  width: 100%;
-}
-
-.app-sidebar {
-  padding: 40px 16px;
+  min-height: 80vh;
+  width: 95%;
+  max-width: 1600px;
+  background-color: var(--c-gray-800);
+  padding: 2vw 4vw 6vw;
   display: flex;
   flex-direction: column;
-  align-items: center;
-
-  &-link {
-    color: var(--main-color);
-    color: var(--link-color);
-    margin: 16px 0;
-    transition: .2s;
-    border-radius: 50%;
-    flex-shrink: 0;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    &:hover {
-      background-color: var(--link-color-hover);
-      color: var(--link-color-active);
-    }
-
-    &.active {
-      background-color: var(--link-color-active-bg);
-      color: var(--link-color-active);
-    }
-  }
 }
 
-.projects-section {
-  flex: 2;
-  background-color: var(--projects-section);
-  border-radius: 32px;
-  padding: 32px 32px 0 32px;
-  overflow: hidden;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-
-  &-line {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding-bottom: 32px;
-  }
-
-  &-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 24px;
-    color: var(--main-color);
-
-    p {
-      font-size: 24px;
-      line-height: 32px;
-      font-weight: 700;
-      opacity: .9;
-      margin: 0;
-      color: var(--main-color);
-    }
-
-    .time {
-      font-size: 20px;
-    }
-  }
-}
-
-.projects-status {
-  display: flex;
-}
-
-.item-status {
-  display: flex;
-  flex-direction: column;
-  margin-right: 16px;
-
-  &:not(:last-child) .status-type:after {
-    content: '';
-    position: absolute;
-    right: 8px;
-    top: 50%;
-    transform: translatey(-50%);
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    border: 1px solid var(--secondary-color);
-  }
-}
-
-.status-number {
-  font-size: 24px;
-  line-height: 32px;
-  font-weight: 700;
-  color: var(--main-color);
-}
-
-.status-type {
-  position: relative;
-  padding-right: 24px;
-  color: var(--secondary-color);
-}
-
-.view-actions {
-  display: flex;
-  align-items: center;
-}
-
-
-.view-btn {
-  width: 36px;
-  height: 36px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 6px;
-  border-radius: 4px;
-  background-color: transparent;
-  border: none;
-  color: var(--main-color);
-  margin-left: 8px;
-  transition: .2s;
-
-  &.active {
-    background-color: var(--link-color-active-bg);
-    color: var(--link-color-active);
-  }
-
-  &:not(.active):hover {
-    background-color:  var(--link-color-hover);
-    color: var(--link-color-active);
-  }
-}
-
-
-.messages-section {
-  flex-shrink: 0;
-  padding-bottom: 32px;
-  background-color: var(--projects-section);
-  margin-left: 24px;
-  flex: 1;
-  width: 100%;
-  border-radius: 30px;
-  position: relative;
-  overflow: auto;
-  transition: all 300ms cubic-bezier(0.19, 1, 0.56, 1);
-
-  .messages-close {
-    position: absolute;
-    top: 12px;
-    right: 12px;
-    z-index: 3;
-    border: none;
-    background-color: transparent;
-    color: var(--main-color);
-    display: none;
-  }
-
-  &.show {
-    transform: translateX(0);
-    opacity: 1;
-    margin-left: 0;
-  }
-
-  .projects-section-header {
-    position: sticky;
-    top: 0;
-    z-index: 1;
-    padding: 32px 24px 0 24px;
-    background-color:  var(--projects-section);
-  }
-}
-
-.message-box {
-  border-top: 1px solid var(--message-box-border);
-  padding: 16px;
-  display: flex;
-  align-items: flex-start;
-  width: 100%;
-
-  &:hover {
-    background-color: var(--message-box-hover);
-    border-top-color: var(--link-color-hover);
-
-    + .message-box {
-      border-top-color: var(--link-color-hover);
-    }
-  }
-
-  img {
-    border-radius: 50%;
-    object-fit: cover;
-    width: 40px;
-    height: 40px;
-  }
-}
-
-.message-header {
+.app-header {
+  display: grid;
+  grid-template-columns: minmax(min-content, 175px) minmax(max-content, 1fr) minmax(
+			max-content,
+      400px
+		);
+  column-gap: 4rem;
+  align-items: flex-end;
+@media (max-width: 1200px) {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  width: 100%;
-
-  .name {
-    font-size: 16px;
-    line-height: 24px;
-    font-weight: 700;
-    color: var(--main-color);
-    margin: 0;
-  }
+  border-bottom: 1px solid var(--c-gray-600);
+}
 }
 
-.message-content {
-  padding-left: 16px;
-  width: 100%;
-}
-
-.star-checkbox {
-  input {
-    opacity: 0;
-    position: absolute;
-    width: 0;
-    height: 0;
-  }
-
-  label {
-    width: 24px;
-    height: 24px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-  }
-
-  .dark & {
-    color: var(--secondary-color);
-
-
-
-    input:checked + label {
-      color: var(--star);
-    }
-  }
-
-  input:checked + label svg {
-    fill: var(--star);
-    transition: .2s;
-  }
-}
-
-.message-line {
-  font-size: 14px;
-  line-height: 20px;
-  margin: 8px 0;
-  color: var(--secondary-color);
-  opacity: .7;
-
-  &.time {
-    text-align: right;
-    margin-bottom: 0;
-  }
-}
-
-.project-boxes {
-  margin: 0 -8px;
-  overflow-y: auto;
-
-  &.jsGridView {
-    display: flex;
-    flex-wrap: wrap;
-
-    .project-box-wrapper {
-      width: 33.3%;
-    }
-  }
-
-  &.jsListView {
-    .project-box {
-      display: flex;
-      border-radius: 10px;
-      position: relative;
-      > * {
-        margin-right: 24px;
-      }
-    }
-
-    .more-wrapper {
-      position: absolute;
-      right: 16px;
-      top: 16px;
-    }
-
-    .project-box-content-header {
-      order: 1;
-      max-width: 120px;
-    }
-
-    .project-box-header {
-      order: 2;
-    }
-
-    .project-box-footer {
-      order: 3;
-      padding-top: 0;
-      flex-direction: column;
-      justify-content: flex-start;
-    }
-
-    .project-box-footer:after {
-      display: none;
-    }
-
-    .participants {
-      margin-bottom: 8px;
-    }
-
-    .project-box-content-header p {
-      text-align: left;
-      overflow: hidden;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-    }
-
-    .project-box-header > span {
-      position: absolute;
-      bottom: 16px;
-      left: 16px;
-      font-size: 12px;
-    }
-
-    .box-progress-wrapper {
-      order: 3;
-      flex: 1;
-    }
-  }
-}
-
-.project-box {
-  --main-color-card: #dbf6fd;
-  border-radius: 30px;
-  padding: 16px;
-  background-color: var(--main-color-card);
-
-  &-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 16px;
-    color: var(--main-color);
-
-    span {
-      color: #4A4A4A;
-      opacity: .7;
-      font-size: 14px;
-      line-height: 16px;
-    }
-  }
-
-  &-content-header {
-    text-align: center;
-    margin-bottom: 16px;
-
-    p { margin: 0; }
-  }
-
-  &-wrapper {
-    padding: 8px;
-    transition: .2s;
-  }
-}
-
-.project-btn-more {
-  padding: 0;
-  height: 14px;
-  width: 24px;
-  height: 24px;
-  position: relative;
-  background-color: transparent;
-  border: none;
-  flex-shrink: 0;
-
-  /*&:after, &:before {
-    content: '';
-    position: absolute;
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    background-color: var(--main-color);
-    opacity: .8;
-    left: 50%;
-    transform: translatex(-50%);
-  }
-
-  &:before { top: 0;}
-  &:after { bottom: 0; }*/
-}
-
-.more-wrapper {
-  position: relative;
-}
-
-.box-content-header {
-  font-size: 16px;
-  line-height: 24px;
-  font-weight: 700;
-  opacity: .7;
-}
-
-.box-content-subheader {
-  font-size: 14px;
-  line-height: 24px;
-  opacity: .7;
-}
-
-.box-progress {
-  display: block;
-  height: 4px;
-  border-radius: 6px;
-
-  &-bar {
-    width: 100%;
-    height: 4px;
-    border-radius: 6px;
-    overflow: hidden;
-    background-color: #fff;
-    margin: 8px 0;
-  }
-
-  &-header {
-    font-size: 14px;
-    font-weight: 700;
-    line-height: 16px;
-    margin: 0;
-  }
-
-  &-wrapper {
-
-  }
-
-  &-percentage {
-    text-align: right;
-    margin: 0;
-    font-size: 14px;
-    font-weight: 700;
-    line-height: 16px;
-  }
-}
-
-.project-box-footer {
-  display: flex;
-  justify-content: space-between;
-  padding-top: 16px;
-  position: relative;
-
-  &:after {
-    content: '';
-    position: absolute;
-    background-color: rgba(255,255,255,0.6);;
-    width: calc(100% + 32px);
-    top: 0;
-    left: -16px;
-    height: 1px;
-  }
-}
-
-.participants {
-  display: flex;
-  align-items: center;
-
-  img {
-    width: 20px;
-    height: 20px;
-    border-radius: 50%;
-    overflow: hidden;
-    object-fit: cover;
-
-    &:not(:first-child) {
-      margin-left: -8px;
-    }
-  }
-}
-
-.add-participant {
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  border: none;
-  background-color: rgba(255,255,255,0.6);
-  margin-left: 6px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 0;
-}
-
-.days-left {
-  background-color: rgba(255,255,255,0.6);
-  font-size: 12px;
-  border-radius: 20px;
-  flex-shrink: 0;
-  padding: 6px 16px;
-  font-weight: 700;
-}
-
-.mode-switch.active .moon {
-  fill: var(--main-color);
-}
-
-.messages-btn {
-  border-radius: 4px 0 0 4px;
-  position: absolute;
-  right: 0;
-  top: 58px;
-  background-color: var(--message-btn);
-  border: none;
-  color: var(--main-color);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 4px;
+.app-header-navigation {
+@media (max-width: 1200px) {
   display: none;
 }
-
-@media screen and (max-width: 980px) {
-  .project-boxes.jsGridView .project-box-wrapper {
-    width: 50%;
-  }
-
-  .status-number, .status-type {
-    font-size: 14px;
-  }
-
-  .status-type:after {
-    width: 4px;
-    height: 4px;
-  }
-
-  .item-status { margin-right: 0; }
 }
 
-@media screen and (max-width: 880px) {
-  .messages-section {
-    transform: translateX(100%);
-    position: absolute;
-    opacity: 0;
-    top: 0;
-    z-index: 2;
-    height: 100%;
-    width: 100%;
-
-    .messages-close { display: block; }
-  }
-
-  .messages-btn { display: flex; }
+.app-header-actions {
+  display: flex;
+  align-items: center;
+@media (max-width: 1200px) {
+  display: none;
+}
 }
 
-@media screen and (max-width: 720px) {
-  .app-name, .profile-btn span { display: none; }
+.app-header-actions-buttons {
+  display: flex;
+  border-left: 1px solid var(--c-gray-600);
+  margin-left: 2rem;
+  padding-left: 2rem;
 
-  .add-btn, .notification-btn, .mode-switch {
-    width: 20px;
-    height: 20px;
-
-    svg {
-      width: 16px;
-      height: 16px;
-    }
-  }
-
-  .app-header-right button {
-    margin-left: 4px;
+& > * + * {
+    margin-left: 1rem;
   }
 }
 
-@media screen and (max-width: 520px) {
-  .projects-section { overflow: auto; }
-  .project-boxes { overflow-y: visible; }
+.app-header-mobile {
+  display: none;
+@media (max-width: 1200px) {
+  display: flex;
+}
+}
 
-  .app-sidebar, .app-icon { display: none; }
+.app-body {
+  height: 100%;
+  display: grid;
+  grid-template-columns: minmax(min-content, 175px) minmax(max-content, 1fr) minmax(
+			min-content,
+      400px
+		);
 
-  .app-content { padding: 16px 12px 24px 12px;}
+  column-gap: 4rem;
+  padding-top: 2.5rem;
 
-  .status-number, .status-type {
-    font-size: 10px;
-  }
-
-  .view-btn {
-    width: 24px;
-    height: 24px;
-  }
-
-  .app-header {
-    padding: 16px 10px;
-  }
-
-  .search-input {
-    max-width: 120px;
-  }
-
-  .project-boxes.jsGridView .project-box-wrapper {
-    width: 100%;
-  }
-
-  .projects-section {
-    padding: 24px 16px 0 16px;
-  }
-
-  .profile-btn img {
-    width: 24px;
-    height: 24px;
-  }
-
-  .app-header {
-    padding: 10px;
-  }
-
-  .projects-section-header p,
-  .projects-section-header .time{
-    font-size: 18px;
-  }
-
-  .status-type {
-    padding-right: 4px;
-
-    &:after {
-      display: none;
-    }
-  }
-
-  .search-input {
-    font-size: 14px;
-  }
-
-  .messages-btn { top: 48px; }
-
-  .box-content-header {
-    font-size: 12px;
-    line-height: 16px;
-  }
-
-  .box-content-subheader {
-    font-size: 12px;
-    line-height: 16px;
-  }
-
-  .project-boxes.jsListView .project-box-header > span {
-    font-size: 10px;
-  }
-
-  .box-progress-header {
-    font-size: 12px;
-  }
-
-  .box-progress-percentage {
-    font-size: 10px;
-  }
-
-  .days-left {
-    font-size: 8px;
-    padding: 6px 6px;
-    text-align: center;
-  }
-
-  .project-boxes.jsListView .project-box > * {
-    margin-right: 10px;
-  }
-
-  .project-boxes.jsListView .more-wrapper {
-    right: 2px;
-    top: 10px;
+@media (max-width: 1200px) {
+  grid-template-columns: 1fr;
+& > * {
+    margin-bottom: 3.5rem;
   }
 }
+}
+
+.app-body-navigation {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+@media (max-width: 1200px) {
+  display: none;
+}
+}
+
+.app-body-sidebar {
+}
+
+.footer {
+  margin-top: auto;
+h1 {
+  font-size: 1.5rem;
+  line-height: 1.125;
+  display: flex;
+  align-items: flex-start;
+small {
+  font-size: 0.5em;
+  margin-left: 0.25em;
+}
+}
+
+div {
+  border-top: 1px solid var(--c-gray-600);
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  font-size: 0.75rem;
+  color: var(--c-text-tertiary);
+}
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  padding-bottom: 1rem;
+  padding-top: 1rem;
+  border-bottom: 1px solid var(--c-gray-600);
+@media (max-width: 1200px) {
+  border-bottom: 0;
+}
+}
+
+.logo-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+}
+
+.logo-title {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+  margin-left: 0.75rem;
+span:first-child {
+  color: var(--c-text-primary);
+}
+span:last-child {
+  color: var(--c-text-tertiary);
+}
+}
+
+.navigation {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  color: var(--c-text-tertiary);
+a {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  transition: 0.25s ease;
+
+* {
+  transition: 0.25s ease;
+}
+
+i {
+  margin-right: 0.75rem;
+  font-size: 1.25em;
+  flex-shrink: 0;
+}
+
+& + a {
+    margin-top: 1.25rem;
+  }
+
+&:hover,
+&:focus {
+   transform: translateX(4px);
+   color: var(--c-text-primary);
+ }
+}
+}
+
+.tabs {
+  display: flex;
+  justify-content: space-between;
+  color: var(--c-text-tertiary);
+  border-bottom: 1px solid var(--c-gray-600);
+
+a {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  text-decoration: none;
+  border-top: 2px solid transparent;
+  display: inline-flex;
+  transition: 0.25s ease;
+&.active,
+&:hover,
+&:focus {
+   color: var(--c-text-primary);
+   border-color: var(--c-text-primary);
+ }
+}
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  color: var(--c-text-tertiary);
+  transition: 0.25s ease;
+
+&:hover,
+&:focus {
+   color: var(--c-text-primary);
+span:last-child {
+  box-shadow: 0 0 0 4px var(--c-gray-800), 0 0 0 5px var(--c-text-tertiary);
+}
+}
+
+span:first-child {
+  display: flex;
+  font-size: 1.125rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid var(--c-gray-600);
+  font-weight: 300;
+}
+
+span:last-child {
+  transition: 0.25s ease;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-left: 1.5rem;
+  flex-shrink: 0;
+}
+}
+
+.icon-button {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  border: 0;
+  background-color: transparent;
+  border: 1px solid var(--c-gray-500);
+  color: var(--c-text-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: 0.25s ease;
+  flex-shrink: 0;
+&.large {
+   width: 42px;
+   height: 42px;
+   font-size: 1.25em;
+ }
+
+i {
+  transition: 0.25s ease;
+}
+
+&:hover,
+&:focus {
+   background-color: var(--c-gray-600);
+   box-shadow: 0 0 0 4px var(--c-gray-800), 0 0 0 5px var(--c-text-tertiary);
+ }
+}
+
+.tiles {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  column-gap: 1rem;
+  row-gap: 1rem;
+  margin-top: 1.25rem;
+@media (max-width: 700px) {
+  grid-template-columns: repeat(1, 1fr);
+}
+}
+
+.tile {
+  padding: 1rem;
+  border-radius: 8px;
+  background-color: var(--c-olive-500);
+  color: var(--c-gray-900);
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  position: relative;
+  transition: 0.25s ease;
+
+&:hover {
+   transform: translateY(-5px);
+ }
+
+&:focus-within {
+   box-shadow: 0 0 0 2px var(--c-gray-800), 0 0 0 4px var(--c-olive-500);
+ }
+
+&:nth-child(2) {
+   background-color: var(--c-green-500);
+&:focus-within {
+   box-shadow: 0 0 0 2px var(--c-gray-800), 0 0 0 4px var(--c-green-500);
+ }
+}
+&:nth-child(3) {
+   background-color: var(--c-gray-300);
+&:focus-within {
+   box-shadow: 0 0 0 2px var(--c-gray-800), 0 0 0 4px var(--c-gray-300);
+ }
+}
+
+a {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-weight: 600;
+
+.icon-button {
+  color: inherit;
+  border-color: inherit;
+&:hover,
+&:focus {
+   background-color: transparent;
+i {
+  transform: none;
+}
+}
+}
+
+&:focus {
+   box-shadow: none;
+ }
+
+&:after {
+   content: "";
+   display: block;
+   position: absolute;
+   top: 0;
+   left: 0;
+   right: 0;
+   bottom: 0;
+ }
+}
+}
+
+.tile-header {
+  display: flex;
+  align-items: center;
+i {
+  font-size: 2.5em;
+}
+
+h3 {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.375;
+  margin-left: 0.5rem;
+span:first-child {
+  font-weight: 600;
+}
+
+span:last-child {
+  font-size: 0.825em;
+  font-weight: 200;
+}
+}
+}
+
+.service-section {
+& > h2 {
+    font-size: 1.5rem;
+    margin-bottom: 1.25rem;
+  }
+}
+
+.service-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+& > * + * {
+    margin-left: 1.25rem;
+  }
+
+@media (max-width: 1000px) {
+  display: none;
+}
+}
+
+.service-section-footer {
+  color: var(--c-text-tertiary);
+  margin-top: 1rem;
+}
+
+.search-field {
+  display: flex;
+  flex-grow: 1;
+  position: relative;
+input {
+  width: 100%;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  border: 0;
+  border-bottom: 1px solid var(--c-gray-600);
+  background-color: transparent;
+  padding-left: 1.5rem;
+}
+
+i {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+}
+
+.dropdown-field {
+  display: flex;
+  flex-grow: 1;
+  position: relative;
+select {
+  width: 100%;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  border: 0;
+  border-bottom: 1px solid var(--c-gray-600);
+  background-color: transparent;
+  padding-right: 1.5rem;
+  appearance: none;
+  color: var(--c-text-tertiary);
+  width: 100%;
+}
+
+i {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+}
+
+.flat-button {
+  border-radius: 6px;
+  background-color: var(--c-gray-700);
+  padding: 0.5em 1.5em;
+  border: 0;
+  color: var(--c-text-secondary);
+  transition: 0.25s ease;
+  cursor: pointer;
+&:hover,
+&:focus {
+   background-color: var(--c-gray-600);
+ }
+}
+
+.mobile-only {
+  display: none;
+@media (max-width: 1000px) {
+  display: inline-flex;
+}
+}
+
+.transfer-section {
+  margin-top: 2.5rem;
+}
+
+.transfer-section-header {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--c-gray-600);
+h2 {
+  font-size: 1.5rem;
+}
+}
+
+.payments {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1.5rem;
+}
+
+.payment {
+  display: flex;
+  align-items: center;
+& + * {
+    margin-top: 1rem;
+  }
+}
+
+.card {
+  width: 125px;
+  padding: 0.375rem;
+  aspect-ratio: 3 / 2;
+  flex-shrink: 0;
+  border-radius: 6px;
+  color: var(--c-gray-800);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  font-size: 0.75rem;
+  font-weight: 600;
+&.green {
+   background-color: var(--c-green-500);
+ }
+
+&.olive {
+   background-color: var(--c-olive-500);
+ }
+
+&.gray {
+   background-color: var(--c-gray-300);
+ }
+
+span:last-child {
+  align-self: flex-end;
+}
+}
+
+.payment-details {
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  margin-left: 1.5rem;
+h3 {
+  font-size: 1rem;
+  color: var(--c-text-tertiary);
+}
+
+div {
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  border-top: 1px solid var(--c-gray-600);
+  border-bottom: 1px solid var(--c-gray-600);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex: 1;
+
+span {
+  font-size: 1.5rem;
+}
+}
+}
+
+.filter-options {
+  margin-left: 1.25rem;
+  padding-left: 1.25rem;
+  border-left: 1px solid var(--c-gray-600);
+  display: flex;
+  align-items: center;
+  flex: 1 1 auto;
+
+p {
+& + * {
+    margin-left: auto;
+    margin-right: 0.75rem;
+  }
+color: var(--c-text-tertiary);
+font-size: 0.875rem;
+@media (max-width: 1000px) {
+  display: none;
+}
+}
+}
+
+.transfers {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1.5rem;
+}
+
+.transfer {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  font-size: 0.875rem;
+@media (max-width: 1000px) {
+  align-items: flex-start;
+  flex-direction: column;
+}
+& + * {
+    margin-top: 2rem;
+  }
+}
+
+.transfer-logo {
+  background-color: var(--c-gray-200);
+  border-radius: 4px;
+  width: 42px;
+  height: 42px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+img {
+  width: 45%;
+}
+}
+
+.transfer-details {
+  margin-left: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex: 1;
+@media (max-width: 1000px) {
+  flex-wrap: wrap;
+  margin-left: 0;
+  margin-top: 1rem;
+}
+div {
+  width: calc(100% / 3 - 1rem);
+@media (max-width: 1000px) {
+  width: 100%;
+}
+& + div {
+    margin-left: 1rem;
+@media (max-width: 1000px) {
+  margin-left: 0;
+  margin-top: 1rem;
+}
+}
+}
+
+dd {
+  color: var(--c-text-tertiary);
+  margin-top: 2px;
+}
+}
+
+.transfer-number {
+  margin-left: 2rem;
+  font-size: 1.125rem;
+  flex-shrink: 0;
+  width: 15%;
+  display: flex;
+  justify-content: flex-end;
+@media (max-width: 1000px) {
+  margin-left: 0;
+  margin-top: 1.25rem;
+  width: 100%;
+  justify-content: flex-start;
+}
+}
+
+.payment-section {
+& > h2 {
+    font-size: 1.5rem;
+  }
+}
+
+.payment-section-header {
+  display: flex;
+  align-items: center;
+  margin-top: 1rem;
+p {
+  color: var(--c-text-tertiary);
+  font-size: 0.875rem;
+}
+
+div {
+  padding-left: 1rem;
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+& > * + * {
+    margin-left: 0.5rem;
+  }
+}
+}
+
+.card-button {
+  display: flex;
+  width: 50px;
+  height: 34px;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background-color: transparent;
+  transition: 0.25s ease;
+  border-radius: 4px;
+  border: 2px solid var(--c-gray-600);
+  color: var(--c-text-primary);
+  cursor: pointer;
+&.mastercard svg {
+   max-height: 15px;
+ }
+
+&:focus,
+&:hover,
+&.active {
+   color: var(--c-gray-800);
+   background-color: var(--c-white);
+   border-color: var(--c-white);
+ }
+}
+
+.faq {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+p {
+  color: var(--c-text-tertiary);
+  font-size: 0.875rem;
+}
+
+div {
+  margin-top: 0.75rem;
+  padding-top: 0.75rem;
+  padding-bottom: 0.75rem;
+  border-top: 1px solid var(--c-gray-600);
+  border-bottom: 1px solid var(--c-gray-600);
+  font-size: 0.875rem;
+  display: flex;
+  align-items: center;
+
+label {
+  padding-right: 1rem;
+  margin-right: 1rem;
+  border-right: 1px solid var(--c-gray-600);
+}
+
+input {
+  border: 0;
+  background-color: transparent;
+  padding: 0.25em 0;
+  width: 100%;
+}
+}
+}
+
+.payment-section-footer {
+  display: flex;
+  align-items: center;
+  margin-top: 1.5rem;
+}
+
+.save-button {
+  border: 1px solid currentColor;
+  color: var(--c-text-tertiary);
+  border-radius: 6px;
+  padding: 0.75em 2.5em;
+  background-color: transparent;
+  transition: 0.25s ease;
+  cursor: pointer;
+&:focus,
+&:hover {
+   color: var(--c-white);
+ }
+}
+
+.settings-button {
+  display: flex;
+  align-items: center;
+  color: var(--c-text-tertiary);
+  background-color: transparent;
+  border: 0;
+  padding: 0;
+  margin-left: 1.5rem;
+  cursor: pointer;
+  transition: 0.25s ease;
+i {
+  margin-right: 0.5rem;
+}
+&:focus,
+&:hover {
+   color: var(--c-white);
+ }
+}
+
+input,
+select,
+a,
+textarea,
+button {
+&:focus {
+   outline: 0;
+   box-shadow: 0 0 0 2px var(--c-gray-800), 0 0 0 4px var(--c-gray-300);
+ }
+}
+
 </style>

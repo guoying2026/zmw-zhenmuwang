@@ -592,7 +592,7 @@ const liked_comment_reply = (index,indexReply,comment_id,comment_reply_id,is_lik
     height: 50px;
   }
 }
-@media screen and (max-width: 1200px){
+@media screen and (min-width: 520px){
   .image_list{
     width: 100%;
     height: auto;

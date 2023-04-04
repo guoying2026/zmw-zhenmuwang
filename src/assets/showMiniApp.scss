@@ -1,0 +1,254 @@
+:root {
+  --light-blue: rgb(32, 18, 95);
+  --dark-blue: rgb(204, 100, 223);
+  --violet: rgb(119, 188, 236);
+
+  --background-left: rgb(29, 33, 68);
+  --background-right: rgb(30, 25, 47);
+
+  //--conic-gradient: conic-gradient(
+  //                var(--dark-blue),
+  //                var(--violet),
+  //                var(--light-blue),
+  //                var(--dark-blue)
+  //);
+  --conic-gradient: conic-gradient(
+                  rgb(158 99 205),
+                  var(--violet),
+                  rgb(129 56 213),
+                  rgb(255 255 255)
+  )
+}
+.white_color{
+  color: #fff;
+}
+.black_bg{
+  background: #000 !important;
+}
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes pulse {
+  from, 20%, 40%, 80%, to {
+    transform: scale(1);
+  }
+
+  10%, 60% {
+    transform: scale(1.1);
+  }
+}
+.column_name{
+  display: flex;
+  flex-direction: column;
+}
+.goods_show {
+  //background: linear-gradient(
+  //                to right,
+  //                var(--background-left),
+  //                var(--background-right)
+  //);
+  background:linear-gradient(to right,#5e8eee,#ae5fe6);
+  overflow: hidden;
+  margin: 0px;
+  padding: 0px;
+  width: 100%;
+  position: relative;
+}
+#background {
+  display: grid;
+  inset: 0px;
+  place-items: center;
+  position: absolute;
+  z-index: 1;
+}
+#circle {
+  animation: rotate 10s linear infinite;
+  //background:linear-gradient(to right,#5e8eee,#ae5fe6);
+  background: var(--conic-gradient);
+  border-radius: 70vh;
+  display: grid;
+  filter: blur(1.5vh);
+  place-items: center;
+  position: relative;
+}
+
+#circle-inner {
+  border-radius: inherit;
+  inset: 5%;
+  position: absolute;
+}
+
+#circle-glow {
+  animation: pulse 10s ease-in-out infinite;
+  //background:linear-gradient(to right,#5e8eee,#ae5fe6);
+  background: var(--conic-gradient);
+  border-radius: 100vh;
+  filter: blur(3vh);
+  height: 120%;
+  opacity: 0.25;
+  width: 120%;
+  z-index: 2;
+}
+
+#circle-inner {
+  //background: linear-gradient(
+  //                to right,
+  //                var(--background-left),
+  //                var(--background-right)
+  //);
+  background:linear-gradient(to right,#5e8eee,#ae5fe6);
+  z-index: 3;
+}
+#app1 {
+  display: grid;
+  place-items: center;
+  position: relative;
+  width: 100vw;
+  z-index: 2;
+  padding: 50px 0;
+}
+
+#profiles {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+}
+
+#profiles > .profile {
+  aspect-ratio: 7 / 8;
+  backdrop-filter: blur(0.75vw);
+  background-color: rgba(255, 255, 255, 0.06);
+  border-radius: 1vw;
+  cursor: pointer;
+  transition: background-color 250ms;
+  margin: 10px;
+}
+
+#profiles > .profile:hover {
+  backdrop-filter: blur(1vw);
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.profile > .profile-content {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  height: calc(100% - clamp(8px, 1vw, 12px));
+  justify-content: center;
+  padding: clamp(8px, 1vw, 12px);
+}
+.none_background{
+  background: none !important;
+}
+.profile > .profile-content > .profile-pic {
+  aspect-ratio: 1;
+  border: clamp(3px, 0.4vw, 5px) solid white;
+  border-radius: 100%;
+  flex-shrink: 0;
+  height: 70%;
+  position: relative;
+}
+.profile > .profile-content > .profile-pic > .profile-pic-image {
+  background-color: rgba(255, 255, 255, 0.06);
+  border-radius: 100%;
+  height: calc(100% - clamp(10px, 1.5vw, 20px));
+  margin: clamp(5px, 0.75vw, 10px);
+  object-fit: cover;
+  width: calc(100% - clamp(10px, 1.5vw, 20px));
+}
+
+.profile > .profile-content > .profile-name {
+  color: white;
+  font-family: 'Rubik', sans-serif;
+  font-size: clamp(1em, 2vw, 2em);
+  margin: 0px;
+  text-align: center;
+}
+@media only screen and (max-width: 520px){
+  #profiles{
+    width: 100%;
+  }
+  .profile{
+    width: 160px;
+  }
+  #circle{
+    width: 50vh;
+    height: 50vh;
+  }
+  .text_profile{
+    padding: 10px;
+  }
+  .font8-size{
+    font-size: 8px;
+  }
+  .font15-size{
+    font-size: 15px;
+  }
+  .font-item{
+    margin-top: 5px;
+  }
+}
+@media only screen and (min-width: 520px) {
+  #profiles{
+    width: 100%;
+  }
+  .profile{
+    width: 300px;
+  }
+  #circle{
+    width: 60vh;
+    height: 60vh;
+  }
+  .text_profile{
+    padding: 30px;
+  }
+  .font8-size{
+    font-size: 16px;
+  }
+  .font15-size{
+    font-size: 24px;
+  }
+  .font-item{
+    margin-top: 20px;
+  }
+}
+.text_profile{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+}
+.font-column{
+  display: flex;
+  flex-direction: column;
+}
+.text_profile_3{
+  display: flex;
+  flex-direction: row;
+}
+.flex-end{
+  align-self: flex-end;
+}
+
+#youtube-link > i {
+  color: rgb(239, 83, 80);
+}
+
+.link > i, .link > span {
+  height: 20px;
+  line-height: 20px;
+}
+
+.link > span {
+  color: white;
+  font-family: "Rubik", sans-serif;
+}
