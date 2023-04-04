@@ -28,12 +28,12 @@
             <img
               width="150"
               height="150"
-              :src="item.type==0?item.miniapp_img:item.main_url"
+              :src="(item.type==0?item.miniapp_img:item.main_url)+'?x-oss-process=image/format,webp'"
               class="mini-ls-thumb wp-post-image"
-              alt=""
+              :alt="item.type==0?item.company_name:item.goods_title"
               decoding="async"
               loading="lazy"
-              :srcset="(item.type==0?item.miniapp_img:item.main_url)+' 150w, '+(item.type==0?item.miniapp_img:item.main_url)+' 300w, '+(item.type==0?item.miniapp_img:item.main_url)+' 100w'"
+              :srcset="(item.type==0?item.miniapp_img:item.main_url)+'?x-oss-process=image/resize,m_lfit,h_150,w_150/format,webp 150w, '+(item.type==0?item.miniapp_img:item.main_url)+'?x-oss-process=image/resize,m_lfit,h_300,w_300/format,webp 300w, '+(item.type==0?item.miniapp_img:item.main_url)+'?x-oss-process=image/resize,m_lfit,h_100,w_100/format,webp 100w'"
               sizes="(max-width: 150px) 100vw, 150px"
             >
             <div class="mini-ls-title">{{ item.type==0?item.company_name:item.goods_title }}</div>

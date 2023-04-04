@@ -8,16 +8,15 @@
     >
       <div class="goods_card" @click="gotoGoodsDetail(item.goods_id)">
         <!-- x-oss-process=image/resize参数可参考https://help.aliyun.com/document_detail/44688.html -->
-        <el-image
-            :src="item.mainurl+(size>0?'?x-oss-process=image/resize,m_lfit,h_'+size+',w_'+size+'/format,webp':'')"
-            :alt="item.goods_title"
-            :hide-on-click-modal=true
-            style="width:100%; height: 30vh"
-            fit="fill"
-            :zoom-rate="1.2"
-            :initial-index="index"
-            lazy
-        />
+        <img
+          :src="item.mainurl+'?x-oss-process=image/format,webp'"
+          :alt="item.goods_title"
+          decoding="async"
+          loading="lazy"
+          :srcset="item.mainurl+'?x-oss-process=image/resize,m_lfit,h_150,w_150/format,webp 150w, '+item.mainurl+'?x-oss-process=image/resize,m_lfit,h_300,w_300/format,webp 300w, '+item.mainurl+'?x-oss-process=image/resize,m_lfit,h_100,w_100/format,webp 100w'"
+          sizes="(max-width: 150px) 100vw, 150px"
+          style="width:100%; height: 30vh;object-fit: fill;"
+        >
         <div class="goods_item font-12-size">
           <text class="font-15-size"><el-link type="info" :underline="false" :href="'/goodsDetail?type=1&goods_id='+item.goods_id" target="_blank">{{item.goods_title}}</el-link></text>
           <text class="margin-10-top">详细发货地址：{{item.area}}</text>
