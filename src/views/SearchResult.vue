@@ -120,7 +120,46 @@
     </el-col>
   </el-row>
   <template v-else>
-    <el-skeleton class="margin-60-top" v-if="isLoading"></el-skeleton>
+    <template v-if="isLoading">
+      <el-skeleton class="margin-60-top" animated>
+        <template #template>
+          <el-row class="list_container">
+            <el-col>
+              <el-row>
+                <el-col class="item-goods" style="padding-top: 0px;padding-bottom: 0px;" v-for="i in 10">
+                  <el-row align="middle">
+                    <el-col class="item-goods-image" :span="11" :xs="24">
+                      <el-skeleton-item variant="image" style="width: 100%;height: 210px;" />
+                    </el-col>
+                    <el-col :span="2" :xs="0"></el-col>
+                    <el-col :span="11" :xs="24">
+                      <el-row align="middle">
+                        <el-col class="item-goods-title">
+                          <el-skeleton-item variant="h1" />
+                        </el-col>
+                        <el-col class="item-goods-description">
+                          <el-skeleton-item variant="text" v-for="j in 3" />
+                        </el-col>
+                        <el-col class="item-goods-btns">
+                          <el-row justify="center" align="middle">
+                            <el-col class="item-goods-btns-detail" :span="5" :xs="24" :sm="9">
+                              <el-skeleton-item variant="text" />
+                            </el-col>
+                            <el-col class="item-goods-btns-detail" :span="5" :xs="24" :sm="9">
+                              <el-skeleton-item variant="button" />
+                            </el-col>
+                          </el-row>
+                        </el-col>
+                      </el-row>
+                    </el-col>
+                  </el-row>
+                </el-col>
+              </el-row>
+            </el-col>
+          </el-row>
+        </template>
+      </el-skeleton>
+    </template>
     <el-empty class="margin-60-top" v-else>
     <template #description>没有关于<strong>{{ name }}</strong>的搜索内容哦</template>
   </el-empty>
