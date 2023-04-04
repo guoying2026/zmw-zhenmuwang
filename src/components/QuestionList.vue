@@ -324,6 +324,7 @@ import "../assets/fonts.css"
 import { useUserStore } from "../pinia/user.js";
 import ClickLike from "./ClickLike.vue";
 import ClickDislike from "./ClickDislike.vue";
+import AddComment from "../components/AddComment.vue";
 import {onMounted, reactive, ref} from "vue";
 const userStore = useUserStore();
 import { image_arr, name_arr} from "../utils/user.js";
