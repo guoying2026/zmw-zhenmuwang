@@ -91,7 +91,50 @@
     </div>
     <div>
       <!-- pc端在加载时显示骨架屏，移动端在加载第一页时显示骨架屏，其它页底部显示骨架屏 -->
-      <el-skeleton v-if="isMobile?currentPage===1&&isLoading:isLoading" :rows="5" />
+      <template v-if="isMobile?currentPage===1&&isLoading:isLoading">
+        <el-skeleton animated>
+          <template #template>
+            <div v-for="i in 10">
+              <div class="first">
+                <el-row :gutter="24">
+                  <el-col :span="24" :md="12">
+                    <div class="padding-20 left" @click="gotoDetail(item.id)">
+                      <div class="left_1" style="align-items: flex-start;">
+                        <el-skeleton-item variant="image" style="height: 80px;width: 100px;" />
+                        <div class="left_1_2">
+                          <el-skeleton-item variant="h1" class="margin-10-left" style="width: 340px;height: 27px;" />
+                          <div class="left_1_2_2">
+                            <el-skeleton-item variant="rect" class="margin-10-left margin-10-top margin-10-bottom" style="width: 95px;height: 44px;" />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="info">
+                        <div class="item margin-10-top" v-for="j in 6">
+                          <el-skeleton-item variant="p" />
+                        </div>
+                      </div>
+                    </div>
+                  </el-col>
+                  <el-col :span="24" :md="12">
+                    <el-row :gutter="8" class="goods">
+                      <el-col v-for="j in 4" :span="12" :md="6">
+                        <div class="goods_card">
+                          <el-skeleton-item variant="image" style="width: 100%; height: 30vh;" />
+                          <div style="display: flex;flex-direction: column;justify-content: space-between;">
+                            <el-skeleton-item variant="h3" class="margin-10-top" style="width: 50%;" />
+                            <el-skeleton-item variant="text" class="margin-10-top" v-for="k in 2" />
+                            <el-skeleton-item variant="text" class="margin-10-top" style="width: 30%;align-self: flex-end;" />
+                          </div>
+                        </div>
+                      </el-col>
+                    </el-row>
+                  </el-col>
+                </el-row>
+              </div>
+            </div>
+          </template>
+        </el-skeleton>
+      </template>
       <el-empty v-else-if="isMobile?currentPage===1&&isLoadFailed:isLoadFailed">
         <template #description>
           <span class="fail_tips_text">加载失败，请稍后<el-link :underline="false" @click="reloadHandle">重试</el-link></span>
