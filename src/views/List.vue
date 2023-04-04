@@ -156,7 +156,7 @@
                 <div class="left_1_2_2">
                   <Tag class="tag" tag="黑名单" number="60" color="black" v-if="item.isBlacklist"></Tag>
                   <Tag class="tag" tag="加盟商" number="60" color="orange" v-if="item.isFranchisee"></Tag>
-                  <Tag class="tag margin-10-left" :tag="item.province" number="60" color="blue"></Tag>
+                  <Tag class="tag margin-10-left" v-if="item.province&&typeof item.province=='string'&&item.province.length>0" :tag="item.province" number="60" color="blue"></Tag>
                 </div>
               </div>
             </div>
