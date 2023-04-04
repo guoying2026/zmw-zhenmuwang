@@ -208,6 +208,13 @@
           />
         </el-col>
       </el-row>
+      <el-backtop :right="10" :bottom="10">
+        <i class="el-icon el-backtop__icon" style="color: #151515;">
+          <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+            <path fill="currentColor" d="M512 320 192 704h639.936z"></path>
+          </svg>
+        </i>
+      </el-backtop>
 </template>
 <script setup>
 import '../assets/tag.css'
