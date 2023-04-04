@@ -9,7 +9,27 @@
                 <el-col class="item-goods">
                   <el-row align="middle">
                     <el-col class="item-goods-image" :span="11" :xs="24">
-                      <el-image fit="cover" :src="subitem.main_url?formatHttpsProtocol(subitem.main_url):'https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png'" />
+                      <img
+                        v-if="subitem.main_url"
+                        :src="formatHttpsProtocol(subitem.main_url)+'?x-oss-process=image/format,webp'"
+                        :alt="subitem.goods_title"
+                        decoding="async"
+                        loading="lazy"
+                        :srcset="formatHttpsProtocol(subitem.main_url)+'?x-oss-process=image/resize,m_lfit,h_300,w_300/format,webp 150w, '+formatHttpsProtocol(subitem.main_url)+'?x-oss-process=image/resize,m_lfit,h_300,w_300/format,webp 300w, '+formatHttpsProtocol(subitem.main_url)+'?x-oss-process=image/resize,m_lfit,h_300,w_300/format,webp 100w'"
+                        sizes="(max-width: 150px) 100vw, 150px"
+                        style="object-fit: cover;"
+                        :onerror="'this.src=\''+goodsErrorImg+'\';this.srcset=\''+goodsErrorImg+' 150w, '+goodsErrorImg+' 300w, '+goodsErrorImg+' 100w\';'"
+                      />
+                      <img
+                        v-else
+                        :src="goodsErrorImg"
+                        :alt="subitem.goods_title"
+                        decoding="async"
+                        loading="lazy"
+                        :srcset="''+goodsErrorImg+' 150w, '+goodsErrorImg+' 300w, '+goodsErrorImg+' 100w'"
+                        sizes="(max-width: 150px) 100vw, 150px"
+                        style="object-fit: cover;"
+                      />
                     </el-col>
                     <el-col :span="2" :xs="0"></el-col>
                     <el-col :span="11" :xs="24">
@@ -39,7 +59,27 @@
                 <el-col class="item-business">
                   <el-row align="middle">
                     <el-col class="item-business-image" :span="4">
-                      <el-image fit="cover" :src="subitem.miniapp_img?formatHttpsProtocol(subitem.miniapp_img):'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png'" />
+                      <img
+                        v-if="subitem.miniapp_img"
+                        :src="formatHttpsProtocol(subitem.miniapp_img)+'?x-oss-process=image/format,webp'"
+                        :alt="subitem.goods_title"
+                        decoding="async"
+                        loading="lazy"
+                        :srcset="formatHttpsProtocol(subitem.miniapp_img)+'?x-oss-process=image/resize,m_lfit,h_300,w_300/format,webp 150w, '+formatHttpsProtocol(subitem.miniapp_img)+'?x-oss-process=image/resize,m_lfit,h_300,w_300/format,webp 300w, '+formatHttpsProtocol(subitem.miniapp_img)+'?x-oss-process=image/resize,m_lfit,h_300,w_300/format,webp 100w'"
+                        sizes="(max-width: 150px) 100vw, 150px"
+                        style="object-fit: cover;"
+                        :onerror="'this.src=\''+businessErrorImg+'\';this.srcset=\''+businessErrorImg+' 150w, '+businessErrorImg+' 300w, '+businessErrorImg+' 100w\';'"
+                      />
+                      <img
+                        v-else
+                        :src="businessErrorImg"
+                        :alt="subitem.goods_title"
+                        decoding="async"
+                        loading="lazy"
+                        :srcset="''+businessErrorImg+' 150w, '+businessErrorImg+' 300w, '+businessErrorImg+' 100w'"
+                        sizes="(max-width: 150px) 100vw, 150px"
+                        style="object-fit: cover;"
+                      />
                     </el-col>
                     <el-col :span="2"></el-col>
                     <el-col :span="16">
@@ -80,7 +120,46 @@
     </el-col>
   </el-row>
   <template v-else>
-    <el-skeleton class="margin-60-top" v-if="isLoading"></el-skeleton>
+    <template v-if="isLoading">
+      <el-skeleton class="margin-60-top" animated>
+        <template #template>
+          <el-row class="list_container">
+            <el-col>
+              <el-row>
+                <el-col class="item-goods" style="padding-top: 0px;padding-bottom: 0px;" v-for="i in 10">
+                  <el-row align="middle">
+                    <el-col class="item-goods-image" :span="11" :xs="24">
+                      <el-skeleton-item variant="image" style="width: 100%;height: 210px;" />
+                    </el-col>
+                    <el-col :span="2" :xs="0"></el-col>
+                    <el-col :span="11" :xs="24">
+                      <el-row align="middle">
+                        <el-col class="item-goods-title">
+                          <el-skeleton-item variant="h1" />
+                        </el-col>
+                        <el-col class="item-goods-description">
+                          <el-skeleton-item variant="text" v-for="j in 3" />
+                        </el-col>
+                        <el-col class="item-goods-btns">
+                          <el-row justify="center" align="middle">
+                            <el-col class="item-goods-btns-detail" :span="5" :xs="24" :sm="9">
+                              <el-skeleton-item variant="text" />
+                            </el-col>
+                            <el-col class="item-goods-btns-detail" :span="5" :xs="24" :sm="9">
+                              <el-skeleton-item variant="button" />
+                            </el-col>
+                          </el-row>
+                        </el-col>
+                      </el-row>
+                    </el-col>
+                  </el-row>
+                </el-col>
+              </el-row>
+            </el-col>
+          </el-row>
+        </template>
+      </el-skeleton>
+    </template>
     <el-empty class="margin-60-top" v-else>
     <template #description>没有关于<strong>{{ name }}</strong>的搜索内容哦</template>
   </el-empty>
@@ -141,6 +220,8 @@ const type = ref([{
   total_page: 0,
   total_size: 0,
 }])
+const goodsErrorImg = 'https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png'
+const businessErrorImg = 'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png'
 const buyNowHandle = (goods_id) => {
   window.open('/goodsDetail?type=1&goods_id='+goods_id, '_blank')
 }
@@ -286,7 +367,7 @@ loadmore(page.value)
   background-color: #26b33e;
   color: #fff;
 }
-.item-goods-image .el-image {
+.item-goods-image img {
   width: 100%;
   height: 300px;
   border-radius: 32px;
@@ -307,7 +388,7 @@ loadmore(page.value)
   padding-top: 5vh;
   padding-bottom: 5vh;
 }
-.item-business-image .el-image {
+.item-business-image img {
   width: calc((100vw - 40px) * 0.166666666667);
   height: calc((100vw - 40px) * 0.166666666667);
   border-radius: 14px;

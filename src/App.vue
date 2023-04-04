@@ -28,13 +28,14 @@
             <img
               width="150"
               height="150"
-              :src="item.type==0?item.miniapp_img:item.main_url"
+              :src="(item.type==0?item.miniapp_img:item.main_url)+'?x-oss-process=image/format,webp'"
               class="mini-ls-thumb wp-post-image"
-              alt=""
+              :alt="item.type==0?item.company_name:item.goods_title"
               decoding="async"
               loading="lazy"
-              :srcset="(item.type==0?item.miniapp_img:item.main_url)+' 150w, '+(item.type==0?item.miniapp_img:item.main_url)+' 300w, '+(item.type==0?item.miniapp_img:item.main_url)+' 100w'"
+              :srcset="(item.type==0?item.miniapp_img:item.main_url)+'?x-oss-process=image/resize,m_lfit,h_300,w_300/format,webp 150w, '+(item.type==0?item.miniapp_img:item.main_url)+'?x-oss-process=image/resize,m_lfit,h_300,w_300/format,webp 300w, '+(item.type==0?item.miniapp_img:item.main_url)+'?x-oss-process=image/resize,m_lfit,h_300,w_300/format,webp 100w'"
               sizes="(max-width: 150px) 100vw, 150px"
+              :onerror="'this.src=\''+(item.type==0?businessErrorImg:goodsErrorImg)+'\';this.srcset=\''+(item.type==0?businessErrorImg:goodsErrorImg)+' 150w, '+(item.type==0?businessErrorImg:goodsErrorImg)+' 300w, '+(item.type==0?businessErrorImg:goodsErrorImg)+'100w\';'"
             >
             <div class="mini-ls-title">{{ item.type==0?item.company_name:item.goods_title }}</div>
           </a>
@@ -91,6 +92,8 @@ export default {
       isSearching: false,
       searchContent: '',
       searchResult: [],
+      goodsErrorImg: 'https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png',
+      businessErrorImg: 'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png',
     }
   },
   watch: {

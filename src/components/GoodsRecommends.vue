@@ -2,7 +2,7 @@
  * @Author: joytou
  * @Date: 2023-03-17
  * @LastEditors: joytou
- * @LastEditTime: 2023-03-29
+ * @LastEditTime: 2023-04-03
  * @FilePath: /zmw-zhenmuwang/src/components/GoodsRecommends.vue
  * @Description: 
 -->
@@ -12,7 +12,7 @@
       <el-row>
         <el-col>为你推荐</el-col>
         <template v-for="(item, index) in list" v-bind:key="item">
-          <el-col class="recommend_goods-item">
+          <el-col class="recommend_goods-item" @click="gotoGoodsDetail(type, item.goods_id)">
             <el-row justify="center">
               <el-col class="recommend_goods-item-image_frame">
                 <el-image class="recommend_goods-item-image" :src="item.image" fit="cover" />
@@ -49,10 +49,14 @@ const props = defineProps({
     }
   },
 })
+const gotoGoodsDetail = (type, goodsId) => {
+  window.location.assign('/goodsDetail?type=' + type + '&goods_id=' + goodsId)
+}
 </script>
 <style scoped>
 .recommend_goods-item {
   margin-top: 20px;
+  cursor: pointer;
 }
 .recommend_goods-item-image_frame {
   text-align: center;

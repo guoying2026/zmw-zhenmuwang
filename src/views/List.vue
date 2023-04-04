@@ -23,6 +23,7 @@
 .left{
   display: flex;
   flex-direction: column;
+  cursor: pointer;
 }
 .padding-20{
   padding: 0px 20px 0px 20px !important;
@@ -90,7 +91,50 @@
     </div>
     <div>
       <!-- pc端在加载时显示骨架屏，移动端在加载第一页时显示骨架屏，其它页底部显示骨架屏 -->
-      <el-skeleton v-if="isMobile?currentPage===1&&isLoading:isLoading" :rows="5" />
+      <template v-if="isMobile?currentPage===1&&isLoading:isLoading">
+        <el-skeleton animated>
+          <template #template>
+            <div v-for="i in 10">
+              <div class="first">
+                <el-row :gutter="24">
+                  <el-col :span="24" :md="12">
+                    <div class="padding-20 left" @click="gotoDetail(item.id)">
+                      <div class="left_1" style="align-items: flex-start;">
+                        <el-skeleton-item variant="image" style="height: 80px;width: 100px;" />
+                        <div class="left_1_2">
+                          <el-skeleton-item variant="h1" class="margin-10-left" style="width: 340px;height: 27px;" />
+                          <div class="left_1_2_2">
+                            <el-skeleton-item variant="rect" class="margin-10-left margin-10-top margin-10-bottom" style="width: 95px;height: 44px;" />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="info">
+                        <div class="item margin-10-top" v-for="j in 6">
+                          <el-skeleton-item variant="p" />
+                        </div>
+                      </div>
+                    </div>
+                  </el-col>
+                  <el-col :span="24" :md="12">
+                    <el-row :gutter="8" class="goods">
+                      <el-col v-for="j in 4" :span="12" :md="6">
+                        <div class="goods_card">
+                          <el-skeleton-item variant="image" style="width: 100%; height: 30vh;" />
+                          <div style="display: flex;flex-direction: column;justify-content: space-between;">
+                            <el-skeleton-item variant="h3" class="margin-10-top" style="width: 50%;" />
+                            <el-skeleton-item variant="text" class="margin-10-top" v-for="k in 2" />
+                            <el-skeleton-item variant="text" class="margin-10-top" style="width: 30%;align-self: flex-end;" />
+                          </div>
+                        </div>
+                      </el-col>
+                    </el-row>
+                  </el-col>
+                </el-row>
+              </div>
+            </div>
+          </template>
+        </el-skeleton>
+      </template>
       <el-empty v-else-if="isMobile?currentPage===1&&isLoadFailed:isLoadFailed">
         <template #description>
           <span class="fail_tips_text">加载失败，请稍后<el-link :underline="false" @click="reloadHandle">重试</el-link></span>
@@ -99,20 +143,20 @@
       <div v-for="(item,index) in list" :key="index" v-else>
         <div class="first">
 <!--          不展示商品 start-->
-          <div class="padding-20 left" v-if="item.isBlacklist">
+          <div class="padding-20 left" @click="gotoDetail(item.id)" v-if="item.isBlacklist">
             <div class="left_1">
               <CreditScore :credit-score="item.score" credit-score-text="信用分" :font-size="40" height="80" width="100px"></CreditScore>
               <div class="left_1_2">
-                <template v-if="item.id&&item.id!='0'&&item.id!=0&&item.id.length>0">
+                <template v-if="item.id&&item.id!='0'&&item.id!=0&&item.id!='-1'&&item.id!=-1&&item.id.length>0">
                   <el-link type="info" :underline="false" :href="'/detail?company_info_id='+item.id" target="_blank"><text class="font-18-size font-60-weight margin-10-left">{{ item.company_name }}</text></el-link>
                 </template>
                 <template v-else>
-                  <el-link type="info" :underline="false" @click="hasNoItemIdTips"><text class="font-18-size font-60-weight margin-10-left">{{ item.company_name }}</text></el-link>
+                  <el-link type="info" :underline="false" @click.stop="hasNoItemIdTips"><text class="font-18-size font-60-weight margin-10-left">{{ item.company_name }}</text></el-link>
                 </template>
                 <div class="left_1_2_2">
                   <Tag class="tag" tag="黑名单" number="60" color="black" v-if="item.isBlacklist"></Tag>
                   <Tag class="tag" tag="加盟商" number="60" color="orange" v-if="item.isFranchisee"></Tag>
-                  <Tag class="tag margin-10-left" :tag="item.province" number="60" color="blue"></Tag>
+                  <Tag class="tag margin-10-left" v-if="item.province&&typeof item.province=='string'&&item.province.length>0" :tag="item.province" number="60" color="blue"></Tag>
                 </div>
               </div>
             </div>
@@ -122,15 +166,15 @@
 <!--          展示商品开始-->
           <el-row :gutter="24" v-else>
             <el-col :span="24" :md="12">
-              <div class="padding-20 left">
+              <div class="padding-20 left" @click="gotoDetail(item.id)">
                 <div class="left_1">
                   <CreditScore :credit-score="item.score" credit-score-text="信用分" :font-size="40" height="80" width="100px"></CreditScore>
                   <div class="left_1_2">
-                    <template v-if="item.id&&item.id!='0'&&item.id!=0&&item.id.length>0">
+                    <template v-if="item.id&&item.id!='0'&&item.id!=0&&item.id!='-1'&&item.id!=-1&&item.id.length>0">
                       <el-link type="info" :underline="false" :href="'/detail?company_info_id='+item.id" target="_blank"><text class="font-18-size font-60-weight margin-10-left">{{ item.company_name }}</text></el-link>
                     </template>
                     <template v-else>
-                      <el-link type="info" :underline="false" @click="hasNoItemIdTips"><text class="font-18-size font-60-weight margin-10-left">{{ item.company_name }}</text></el-link>
+                      <el-link type="info" :underline="false" @click.stop="hasNoItemIdTips"><text class="font-18-size font-60-weight margin-10-left">{{ item.company_name }}</text></el-link>
                     </template>
                     <div class="left_1_2_2">
                       <Tag class="tag" tag="黑名单" number="60" color="black" v-if="item.isBlacklist"></Tag>
@@ -164,6 +208,13 @@
           />
         </el-col>
       </el-row>
+      <el-backtop :right="10" :bottom="10">
+        <i class="el-icon el-backtop__icon" style="color: #151515;">
+          <svg viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+            <path fill="currentColor" d="M512 320 192 704h639.936z"></path>
+          </svg>
+        </i>
+      </el-backtop>
 </template>
 <script setup>
 import '../assets/tag.css'
@@ -332,6 +383,13 @@ const handleOnlyViewFranchisee = () => {
   }
   currentPage.value = 1
   loadmore()
+}
+const gotoDetail = (companyInfoId) => {
+  if (Number(companyInfoId) === 0 || Number(companyInfoId) === -1 || isNaN(Number(companyInfoId))) {
+    hasNoItemIdTips()
+    return false
+  }
+  window.open('/detail?company_info_id=' + companyInfoId, '_blank')
 }
 // 点击了没有id的商家的链接时，给出提示
 const hasNoItemIdTips = () => {

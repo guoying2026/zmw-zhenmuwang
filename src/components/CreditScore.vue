@@ -7,6 +7,12 @@
     <span :class="`font-${fontSize}-size`">{{creditScore}}</span>
   </div>
 </template>
+<style scoped>
+.fluctuate span {
+  display: inline-block;
+  width: 100%;
+}
+</style>
 <script>
 export default{
   name: 'CreditScore'

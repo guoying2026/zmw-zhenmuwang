@@ -25,6 +25,7 @@ export default defineConfig({
           // path: 'https://cdn.bootcdn.net/ajax/libs/vue/3.2.45/vue.global.min.js',
           // path: 'https://cdnjs.cloudflare.com/ajax/libs/vue/3.2.45/vue.global.min.js',
           // path: 'https://lib.baomitu.com/vue/3.2.45/vue.global.min.js',
+          // path: 'https://unpkg.com/vue@3.2.45/dist/vue.global.js',
           path: 'https://cdn.jsdelivr.net/npm/vue@3.2.45/dist/vue.global.min.js',
         },
         {
@@ -33,6 +34,7 @@ export default defineConfig({
           // path: 'https://cdn.bootcdn.net/ajax/libs/vue-router/4.1.6/vue-router.global.min.js',
           // path: 'https://cdnjs.cloudflare.com/ajax/libs/vue-router/4.1.6/vue-router.global.min.js',
           // path: 'https://lib.baomitu.com/vue-router/4.1.6/vue-router.global.min.js',
+          // path: 'https://unpkg.com/vue-router@4.1.6/dist/vue-router.global.js',
           path: 'https://cdn.jsdelivr.net/npm/vue-router@4.1.6/dist/vue-router.global.min.js',
         },
         {
@@ -41,10 +43,12 @@ export default defineConfig({
           // path: 'https://cdn.bootcdn.net/ajax/libs/element-plus/2.2.29/index.full.min.js',
           // path: 'https://cdnjs.cloudflare.com/ajax/libs/element-plus/2.2.29/index.full.min.js',
           // path: 'https://lib.baomitu.com/element-plus/2.2.29/index.full.min.js',
+          // path: 'https://unpkg.com/element-plus@2.2.29/dist/index.full.js',
           path: 'https://cdn.jsdelivr.net/npm/element-plus@2.2.29/dist/index.full.min.js',
           // css: 'https://cdn.bootcdn.net/ajax/libs/element-plus/2.2.29/index.css',
           // css: 'https://cdnjs.cloudflare.com/ajax/libs/element-plus/2.2.29/index.min.css',
           // css: 'https://lib.baomitu.com/element-plus/2.2.29/index.min.css',
+          // css: 'https://unpkg.com/element-plus@2.2.29/dist/index.css',
           css: 'https://cdn.jsdelivr.net/npm/element-plus@2.2.29/dist/index.css'
         },
         {
@@ -53,6 +57,7 @@ export default defineConfig({
           // path: 'https://cdn.bootcdn.net/ajax/libs/element-plus-icons-vue/2.0.6/index.iife.min.js',
           // path: 'https://cdnjs.cloudflare.com/ajax/libs/element-plus-icons-vue/2.0.6/index.iife.min.js',
           // path: 'https://lib.baomitu.com/element-plus-icons-vue/2.0.6/index.iife.min.js',
+          // path: 'https://unpkg.com/@element-plus/icons-vue@2.0.6/dist/index.iife.min.js',
           path: 'https://cdn.jsdelivr.net/npm/@element-plus/icons-vue@2.0.6/dist/index.iife.min.js',
         },
         {
@@ -61,6 +66,7 @@ export default defineConfig({
           // path: 'https://cdn.bootcdn.net/ajax/libs/vue-demi/0.13.11/index.iife.min.js',
           // path: 'https://cdnjs.cloudflare.com/ajax/libs/vue-demi/0.13.11/index.iife.min.js',
           // path: 'https://lib.baomitu.com/vue-demi/0.13.11/index.iife.min.js',
+          // path: 'https://unpkg.com/vue-demi@0.13.11/lib/index.iife.js',
           path: 'https://cdn.jsdelivr.net/npm/vue-demi@0.13.11/lib/index.iife.min.js',
         },
         {
@@ -69,6 +75,7 @@ export default defineConfig({
           // path: 'https://cdn.bootcdn.net/ajax/libs/pinia/2.0.30/pinia.iife.min.js',
           // path: 'https://cdnjs.cloudflare.com/ajax/libs/pinia/2.0.30/pinia.iife.min.js',
           // path: 'https://lib.baomitu.com/pinia/2.0.30/pinia.iife.min.js',
+          // path: 'https://unpkg.com/pinia@2.0.30/dist/pinia.iife.js',
           path: 'https://cdn.jsdelivr.net/npm/pinia@2.0.30/dist/pinia.iife.min.js',
         },
         {
@@ -77,11 +84,13 @@ export default defineConfig({
           // path: 'https://cdn.bootcdn.net/ajax/libs/axios/1.3.3/axios.min.js',
           // path: 'https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.3/axios.min.js',
           // path: 'https://lib.baomitu.com/axios/1.3.3/axios.min.js',
+          // path: 'https://unpkg.com/axios@1.3.3/dist/axios.min.js',
           path: 'https://cdn.jsdelivr.net/npm/axios@1.3.3/dist/axios.min.js',
         },
         {
           name: 'mockjs',
           var: 'Mock',
+          // path: 'https://unpkg.com/mockjs@1.1.0/dist/mock.js',
           path: 'https://cdn.jsdelivr.net/npm/mockjs@1.1.0/dist/mock-min.min.js',
         },
       ],
