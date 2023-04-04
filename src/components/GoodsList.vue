@@ -13,9 +13,10 @@
           :alt="item.goods_title"
           decoding="async"
           loading="lazy"
-          :srcset="item.mainurl+'?x-oss-process=image/resize,m_lfit,h_150,w_150/format,webp 150w, '+item.mainurl+'?x-oss-process=image/resize,m_lfit,h_300,w_300/format,webp 300w, '+item.mainurl+'?x-oss-process=image/resize,m_lfit,h_100,w_100/format,webp 100w'"
+          :srcset="item.mainurl+'?x-oss-process=image/resize,m_lfit,h_300,w_300/format,webp 150w, '+item.mainurl+'?x-oss-process=image/resize,m_lfit,h_300,w_300/format,webp 300w, '+item.mainurl+'?x-oss-process=image/resize,m_lfit,h_300,w_300/format,webp 100w'"
           sizes="(max-width: 150px) 100vw, 150px"
           style="width:100%; height: 30vh;object-fit: fill;"
+          :onerror="'this.src=\''+goodsErrorImg+'\';this.srcset=\''+goodsErrorImg+' 150w, '+goodsErrorImg+' 300w, '+goodsErrorImg+' 100w\';'"
         >
         <div class="goods_item font-12-size">
           <text class="font-15-size"><el-link type="info" :underline="false" :href="'/goodsDetail?type=1&goods_id='+item.goods_id" target="_blank">{{item.goods_title}}</el-link></text>
@@ -46,6 +47,7 @@ const props = defineProps({
 })
 </script>
 <script>
+const goodsErrorImg = 'https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png'
 const gotoGoodsDetail = (goodsId) => {
   window.open('/goodsDetail?type=1&goods_id=' + goodsId, '_blank')
 }

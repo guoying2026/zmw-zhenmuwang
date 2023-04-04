@@ -33,8 +33,9 @@
               :alt="item.type==0?item.company_name:item.goods_title"
               decoding="async"
               loading="lazy"
-              :srcset="(item.type==0?item.miniapp_img:item.main_url)+'?x-oss-process=image/resize,m_lfit,h_150,w_150/format,webp 150w, '+(item.type==0?item.miniapp_img:item.main_url)+'?x-oss-process=image/resize,m_lfit,h_300,w_300/format,webp 300w, '+(item.type==0?item.miniapp_img:item.main_url)+'?x-oss-process=image/resize,m_lfit,h_100,w_100/format,webp 100w'"
+              :srcset="(item.type==0?item.miniapp_img:item.main_url)+'?x-oss-process=image/resize,m_lfit,h_300,w_300/format,webp 150w, '+(item.type==0?item.miniapp_img:item.main_url)+'?x-oss-process=image/resize,m_lfit,h_300,w_300/format,webp 300w, '+(item.type==0?item.miniapp_img:item.main_url)+'?x-oss-process=image/resize,m_lfit,h_300,w_300/format,webp 100w'"
               sizes="(max-width: 150px) 100vw, 150px"
+              :onerror="'this.src=\''+(item.type==0?businessErrorImg:goodsErrorImg)+'\';this.srcset=\''+(item.type==0?businessErrorImg:goodsErrorImg)+' 150w, '+(item.type==0?businessErrorImg:goodsErrorImg)+' 300w, '+(item.type==0?businessErrorImg:goodsErrorImg)+'100w\';'"
             >
             <div class="mini-ls-title">{{ item.type==0?item.company_name:item.goods_title }}</div>
           </a>
@@ -91,6 +92,8 @@ export default {
       isSearching: false,
       searchContent: '',
       searchResult: [],
+      goodsErrorImg: 'https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png',
+      businessErrorImg: 'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png',
     }
   },
   watch: {
