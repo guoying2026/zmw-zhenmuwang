@@ -140,59 +140,66 @@
           <span class="fail_tips_text">加载失败，请稍后<el-link :underline="false" @click="reloadHandle">重试</el-link></span>
         </template>
       </el-empty>
-      <div v-for="(item,index) in list" :key="index" v-else>
-        <div class="first">
-<!--          不展示商品 start-->
-          <div class="padding-20 left" @click="gotoDetail(item.id)" v-if="item.isBlacklist">
-            <div class="left_1">
-              <CreditScore :credit-score="item.score" credit-score-text="信用分" :font-size="40" height="80" width="100px"></CreditScore>
-              <div class="left_1_2">
-                <template v-if="item.id&&item.id!='0'&&item.id!=0&&item.id!='-1'&&item.id!=-1&&item.id.length>0">
-                  <el-link type="info" :underline="false" :href="'/detail?company_info_id='+item.id" target="_blank"><text class="font-18-size font-60-weight margin-10-left">{{ item.company_name }}</text></el-link>
-                </template>
-                <template v-else>
-                  <el-link type="info" :underline="false" @click.stop="hasNoItemIdTips"><text class="font-18-size font-60-weight margin-10-left">{{ item.company_name }}</text></el-link>
-                </template>
-                <div class="left_1_2_2">
-                  <Tag class="tag" tag="黑名单" number="60" color="black" v-if="item.isBlacklist"></Tag>
-                  <Tag class="tag" tag="加盟商" number="60" color="orange" v-if="item.isFranchisee"></Tag>
-                  <Tag class="tag margin-10-left" v-if="item.province&&typeof item.province=='string'&&item.province.length>0" :tag="item.province" number="60" color="blue"></Tag>
-                </div>
-              </div>
-            </div>
-            <SellerInfo :item="item"></SellerInfo>
-          </div>
-<!--          不展示商品end-->
-<!--          展示商品开始-->
-          <el-row :gutter="24" v-else>
-            <el-col :span="24" :md="12">
-              <div class="padding-20 left" @click="gotoDetail(item.id)">
-                <div class="left_1">
-                  <CreditScore :credit-score="item.score" credit-score-text="信用分" :font-size="40" height="80" width="100px"></CreditScore>
-                  <div class="left_1_2">
-                    <template v-if="item.id&&item.id!='0'&&item.id!=0&&item.id!='-1'&&item.id!=-1&&item.id.length>0">
-                      <el-link type="info" :underline="false" :href="'/detail?company_info_id='+item.id" target="_blank"><text class="font-18-size font-60-weight margin-10-left">{{ item.company_name }}</text></el-link>
-                    </template>
-                    <template v-else>
-                      <el-link type="info" :underline="false" @click.stop="hasNoItemIdTips"><text class="font-18-size font-60-weight margin-10-left">{{ item.company_name }}</text></el-link>
-                    </template>
-                    <div class="left_1_2_2">
-                      <Tag class="tag" tag="黑名单" number="60" color="black" v-if="item.isBlacklist"></Tag>
-                      <Tag class="tag" tag="加盟商" number="60" color="orange" v-if="item.isFranchisee"></Tag>
-                      <Tag class="tag margin-10-left" :tag="item.province" number="60" color="blue"></Tag>
-                    </div>
+      <template v-else>
+        <el-empty v-if="list.length === 0">
+          <template #description>
+            <span class="fail_tips_text">暂时没有<template v-if="isOnlyViewFranchisee">加盟商</template><template v-else-if="isOnlyViewBlackList">黑名单</template><template v-else>任何</template>记录哦</span>
+          </template>
+        </el-empty>
+        <div v-for="(item,index) in list" :key="index" v-else>
+          <div class="first">
+  <!--          不展示商品 start-->
+            <div class="padding-20 left" @click="gotoDetail(item.id)" v-if="item.isBlacklist">
+              <div class="left_1">
+                <CreditScore :credit-score="item.score" credit-score-text="信用分" :font-size="40" height="80" width="100px"></CreditScore>
+                <div class="left_1_2">
+                  <template v-if="item.id&&item.id!='0'&&item.id!=0&&item.id!='-1'&&item.id!=-1&&item.id.length>0">
+                    <el-link type="info" :underline="false" :href="'/detail?company_info_id='+item.id" target="_blank"><text class="font-18-size font-60-weight margin-10-left">{{ item.company_name }}</text></el-link>
+                  </template>
+                  <template v-else>
+                    <el-link type="info" :underline="false" @click.stop="hasNoItemIdTips"><text class="font-18-size font-60-weight margin-10-left">{{ item.company_name }}</text></el-link>
+                  </template>
+                  <div class="left_1_2_2">
+                    <Tag class="tag" tag="黑名单" number="60" color="black" v-if="item.isBlacklist"></Tag>
+                    <Tag class="tag" tag="加盟商" number="60" color="orange" v-if="item.isFranchisee"></Tag>
+                    <Tag class="tag margin-10-left" v-if="item.province&&typeof item.province=='string'&&item.province.length>0" :tag="item.province" number="60" color="blue"></Tag>
                   </div>
                 </div>
-                <SellerInfo :item="item"></SellerInfo>
               </div>
-            </el-col>
-            <el-col :span="24" :md="12">
-              <GoodsList :list="item.goods" :size="300" v-if="item.goods.length>0"></GoodsList>
-            </el-col>
-          </el-row>
-<!--          展示商品结束-->
+              <SellerInfo :item="item"></SellerInfo>
+            </div>
+  <!--          不展示商品end-->
+  <!--          展示商品开始-->
+            <el-row :gutter="24" v-else>
+              <el-col :span="24" :md="12">
+                <div class="padding-20 left" @click="gotoDetail(item.id)">
+                  <div class="left_1">
+                    <CreditScore :credit-score="item.score" credit-score-text="信用分" :font-size="40" height="80" width="100px"></CreditScore>
+                    <div class="left_1_2">
+                      <template v-if="item.id&&item.id!='0'&&item.id!=0&&item.id!='-1'&&item.id!=-1&&item.id.length>0">
+                        <el-link type="info" :underline="false" :href="'/detail?company_info_id='+item.id" target="_blank"><text class="font-18-size font-60-weight margin-10-left">{{ item.company_name }}</text></el-link>
+                      </template>
+                      <template v-else>
+                        <el-link type="info" :underline="false" @click.stop="hasNoItemIdTips"><text class="font-18-size font-60-weight margin-10-left">{{ item.company_name }}</text></el-link>
+                      </template>
+                      <div class="left_1_2_2">
+                        <Tag class="tag" tag="黑名单" number="60" color="black" v-if="item.isBlacklist"></Tag>
+                        <Tag class="tag" tag="加盟商" number="60" color="orange" v-if="item.isFranchisee"></Tag>
+                        <Tag class="tag margin-10-left" :tag="item.province" number="60" color="blue"></Tag>
+                      </div>
+                    </div>
+                  </div>
+                  <SellerInfo :item="item"></SellerInfo>
+                </div>
+              </el-col>
+              <el-col :span="24" :md="12">
+                <GoodsList :list="item.goods" :size="300" v-if="item.goods.length>0"></GoodsList>
+              </el-col>
+            </el-row>
+  <!--          展示商品结束-->
+          </div>
         </div>
-      </div>
+      </template>
     </div>
 
       <el-row v-if="!isMobile" :gutter="1" justify="center" class="hidden-xs-only" :xs="0">
@@ -291,7 +298,7 @@ const loadmore = () => {
       score_asc: isCreditScoreDesc.value ? 0 : 1,
     }).then(res => {
       console.log(res)
-      if (res.status != 200 || res.data.status != 1000 || !res.data.data || res.data.data.length === 0) {
+      if (res.status != 200 || res.data.status != 1000 || !res.data.data) {
         isLoadFailed.value = true
         return false
       }
