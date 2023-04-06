@@ -310,6 +310,7 @@ import { useRoute } from 'vue-router'
 import QuestionList from "../components/QuestionList.vue";
 import CommentList from '../components/CommentList.vue';
 import GoodsList from "../components/GoodsList.vue";
+import AddComment from "../components/AddComment.vue";
 import "../assets/tag.css"
 import "../assets/showMiniApp.scss"
 import {goodsListApi} from "../api/goods.js";

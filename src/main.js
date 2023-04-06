@@ -56,6 +56,8 @@ import {
     ElImage,
     ElBacktop,
     ElCard,
+    ElUpload,
+    ElSteps,
 } from 'element-plus'
 
 import * as ElementPlusIconsVue from '@element-plus/icons-vue'
@@ -108,6 +110,8 @@ app.use(ElContainer)
     .use(ElImage)
     .use(ElBacktop)
     .use(ElCard)
+    .use(ElUpload)
+    .use(ElSteps)
 
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
     app.component(key, component)
