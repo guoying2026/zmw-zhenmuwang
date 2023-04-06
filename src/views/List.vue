@@ -61,6 +61,16 @@ a,a:hover {
   background: none;
   color: #151515;
 }
+.all_list{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  max-width: 1500px;
+}
+.all_list_item{
+  width: 100%;
+}
 </style>
 <template>
     <div class="top_1_tag font-15-size margin-60-top">
@@ -89,7 +99,7 @@ a,a:hover {
         只看加盟商
       </text>
     </div>
-    <div>
+    <div class="all_list">
       <!-- pc端在加载时显示骨架屏，移动端在加载第一页时显示骨架屏，其它页底部显示骨架屏 -->
       <template v-if="isMobile?currentPage===1&&isLoading:isLoading">
         <el-skeleton animated>
@@ -146,7 +156,7 @@ a,a:hover {
             <span class="fail_tips_text">暂时没有<template v-if="isOnlyViewFranchisee">加盟商</template><template v-else-if="isOnlyViewBlackList">黑名单</template><template v-else>任何</template>记录哦</span>
           </template>
         </el-empty>
-        <div v-for="(item,index) in list" :key="index" v-else>
+        <div v-for="(item,index) in list" :key="index" class="all_list_item" v-else>
           <div class="first">
   <!--          不展示商品 start-->
             <router-link :to="'/detail?company_info_id='+item.id" v-if="item.isBlacklist">
