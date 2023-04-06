@@ -1,5 +1,5 @@
 <template>
-  <div class="app-container">
+  <div class="app-container margin-20-top">
     <div class="projects-section">
       <div class="projects-section-header">
         <p>问答区</p>

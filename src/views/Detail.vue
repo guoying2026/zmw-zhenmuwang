@@ -57,15 +57,14 @@
   <el-container direction="vertical" :gutter="18" class="margin-20-top">
     <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick" stretch>
       <el-tab-pane label="公司首页" name="first">
-        <GoodsList :list="list.arr" :is-grey="1" :size="300"></GoodsList>
-        <div class="goods_show">
+          <GoodsList :list="list.arr" :is-grey="1" :size="300"></GoodsList>
+          <div class="goods_show">
           <div id="background">
             <div id="circle">
               <div id="circle-glow"></div>
               <div id="circle-inner"></div>
             </div>
           </div>
-
           <div id="app1">
             <div id="profiles">
               <div class="profile none_background">
@@ -137,47 +136,161 @@
         </div>
         <el-row :gutter="24">
           <el-col :span="24" :md="12">
+            <!--        评论列表开始-->
+            <CommentList
+                :company-info-id="company_info_id_text"
+                :margin="20"
+            >
+            </CommentList>
+          </el-col>
+          <el-col :span="24" :md="12">
             <QuestionList
                 :company-info-id="company_info_id_text">
             </QuestionList>
           </el-col>
-<!--        问答列表结束-->
-          <el-col :span="24" :md="12">
-            <!--        评论列表开始-->
-            <CommentList
-                :company-info-id="company_info_id_text"
-            >
-            </CommentList>
-          </el-col>
         </el-row>
-            <!--        评论列表结束-->
-            <!--        公司首页的大众评论结束-->
       </el-tab-pane>
-      <el-tab-pane label="商品" name="second">
+      <el-tab-pane label="商品" name="second" lazy>
         <GoodsList :list="list.arr" :size="300"></GoodsList>
+        <div class="goods_show">
+          <div id="background">
+            <div id="circle">
+              <div id="circle-glow"></div>
+              <div id="circle-inner"></div>
+            </div>
+          </div>
+          <div id="app1">
+            <div id="profiles">
+              <div class="profile none_background">
+                <div class="profile-content">
+                  <div class="profile-pic">
+                    <img class="profile-pic-image" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_eb3f9a85-bbb5-43da-b5f0-dac7d315f327.png?x-oss-process=image/resize,m_lfit,h_300,w_300/format,webp" />
+                  </div>
+                  <!--                  <h4 class="profile-name">发布商品</h4>-->
+                </div>
+              </div>
+              <div class="profile white_color">
+                <div class="text_profile">
+                  <text class="profile-name font-60-weight font-28-size flex-end">ZMW</text>
+                  <div class="font8-size font-column">
+                    <div class="font-item flex-end">
+                      <text>微信扫扫</text>
+                      <text class="font15-size font-60-weight">左</text>
+                      <text>边的</text>
+                    </div>
+                    <div class="font-item flex-end">
+                      <text>真木网</text>
+                      <text class="font15-size font-60-weight">商家版</text>
+                      <text>小程序</text>
+                    </div>
+                    <div class="font-item flex-end">
+                      <text class="font15-size font-60-weight">上传商品</text>
+                      <text>后会同步显示在当前页面以及买木头小程序</text>
+                    </div>
+                  </div>
+                  <div class="text_profile_3">
+                    <svg t="1680599843213" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="4405" width="200" height="200"><path d="M497.664 971.434667A456.704 456.704 0 1 1 955.733333 514.730667a457.045333 457.045333 0 0 1-458.069333 456.704z m0-845.141334A388.437333 388.437333 0 1 0 887.466667 514.730667 388.778667 388.778667 0 0 0 497.664 126.293333z" fill="#ffffff" p-id="4406"></path><path d="M571.392 716.8a34.133333 34.133333 0 0 1-23.893333-9.898667l-167.253334-166.912a34.133333 34.133333 0 0 1-9.898666-24.234666 34.133333 34.133333 0 0 1 9.898666-24.234667L546.133333 323.584a34.133333 34.133333 0 0 1 48.128 48.128l-143.018666 143.018667 143.018666 143.018666a34.133333 34.133333 0 0 1 0 48.128 34.133333 34.133333 0 0 1-22.869333 10.922667z" fill="#ffffff" p-id="4407"></path></svg>
+                  </div>
+                </div>
+              </div>
+              <div class="profile white_color">
+                <div class="text_profile">
+                  <text class="profile-name font-60-weight font-28-size">ZMW</text>
+                  <div class="font8-size font-column">
+                    <div class="font-item">
+                      <text>微信扫扫</text>
+                      <text class="font15-size font-60-weight">右</text>
+                      <text>边的</text>
+                    </div>
+                    <div class="font-item">
+                      <text>真木网</text>
+                      <text class="font15-size font-60-weight">买家版</text>
+                      <text>小程序</text>
+                    </div>
+                    <div class="font-item">
+                      <text class="font15-size font-60-weight">购买商品</text>
+                      <text>计算详细运费，保障支付安全，和售后服务</text>
+                    </div>
+                  </div>
+                  <div class="text_profile_3 flex-end">
+                    <svg t="1680601198716" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="1117" width="200" height="200"><path d="M518.144 971.434667a456.704 456.704 0 1 1 456.704-456.704 457.045333 457.045333 0 0 1-456.704 456.704z m0-845.141334a388.437333 388.437333 0 1 0 388.437333 388.437334A388.778667 388.778667 0 0 0 518.144 126.293333z" fill="#ffffff" p-id="1118"></path><path d="M443.733333 716.8a34.133333 34.133333 0 0 1-24.234666-9.898667 34.133333 34.133333 0 0 1 0-48.128l143.018666-143.018666-143.018666-143.018667a34.133333 34.133333 0 0 1 0-48.128 34.133333 34.133333 0 0 1 48.469333 0l166.912 166.912a34.133333 34.133333 0 0 1 9.898667 24.234667 34.133333 34.133333 0 0 1-9.898667 24.234666l-166.912 166.912A34.133333 34.133333 0 0 1 443.733333 716.8z" fill="#ffffff" p-id="1119"></path></svg>
+                  </div>
+                </div>
+              </div>
+              <div class="profile none_background">
+                <div class="profile-content">
+                  <div class="profile-pic">
+                    <img class="profile-pic-image" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_49245cea-3db4-483a-be40-709faff7c2f9.png?x-oss-process=image/resize,m_lfit,h_300,w_300/format,webp" />
+                  </div>
+                  <!--                  <h4 class="profile-name">购买商品</h4>-->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </el-tab-pane>
-      <el-tab-pane label="问大家" name="third">
-        <QuestionList
-            :company-info-id="company_info_id_text"
-        >
-        </QuestionList>
-      </el-tab-pane>
-      <el-tab-pane label="大众评论" name="fourth">
+      <el-tab-pane label="大众评论" name="third" lazy>
         <CommentList
             :company-info-id="company_info_id_text"
-        >
-        </CommentList>
+            :margin="20"
+        ></CommentList>
       </el-tab-pane>
-      <el-tab-pane label="联系公司" name="fifth">
-        <div class="fifth">
-          <div class="fifth_item">
-            <svg t="1679469730863" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="11714" data-spm-anchor-id="a313x.7781069.0.i20" width="200" height="200"><path d="M713.5 599.9c-10.9-5.6-65.2-32.2-75.3-35.8-10.1-3.8-17.5-5.6-24.8 5.6-7.4 11.1-28.4 35.8-35 43.3-6.4 7.4-12.9 8.3-23.8 2.8-64.8-32.4-107.3-57.8-150-131.1-11.3-19.5 11.3-18.1 32.4-60.2 3.6-7.4 1.8-13.7-1-19.3-2.8-5.6-24.8-59.8-34-81.9-8.9-21.5-18.1-18.5-24.8-18.9-6.4-0.4-13.7-0.4-21.1-0.4-7.4 0-19.3 2.8-29.4 13.7-10.1 11.1-38.6 37.8-38.6 92s39.5 106.7 44.9 114.1c5.6 7.4 77.7 118.6 188.4 166.5 70 30.2 97.4 32.8 132.4 27.6 21.3-3.2 65.2-26.6 74.3-52.5 9.1-25.8 9.1-47.9 6.4-52.5-2.7-4.9-10.1-7.7-21-13z m211.7-261.5c-22.6-53.7-55-101.9-96.3-143.3-41.3-41.3-89.5-73.8-143.3-96.3C630.6 75.7 572.2 64 512 64h-2c-60.6 0.3-119.3 12.3-174.5 35.9-53.3 22.8-101.1 55.2-142 96.5-40.9 41.3-73 89.3-95.2 142.8-23 55.4-34.6 114.3-34.3 174.9 0.3 69.4 16.9 138.3 48 199.9v152c0 25.4 20.6 46 46 46h152.1c61.6 31.1 130.5 47.7 199.9 48h2.1c59.9 0 118-11.6 172.7-34.3 53.5-22.3 101.6-54.3 142.8-95.2 41.3-40.9 73.8-88.7 96.5-142 23.6-55.2 35.6-113.9 35.9-174.5 0.3-60.9-11.5-120-34.8-175.6z m-151.1 438C704 845.8 611 884 512 884h-1.7c-60.3-0.3-120.2-15.3-173.1-43.5l-8.4-4.5H188V695.2l-4.5-8.4C155.3 633.9 140.3 574 140 513.7c-0.4-99.7 37.7-193.3 107.6-263.8 69.8-70.5 163.1-109.5 262.8-109.9h1.7c50 0 98.5 9.7 144.2 28.9 44.6 18.7 84.6 45.6 119 80 34.3 34.3 61.3 74.4 80 119 19.4 46.2 29.1 95.2 28.9 145.8-0.6 99.6-39.7 192.9-110.1 262.7z" fill="#25d366" p-id="11715" data-spm-anchor-id="a313x.7781069.0.i17" class=""></path></svg>
-            <text class="light_emphasize margin-20-left">15230103179</text>
+      <el-tab-pane label="问大家" name="fourth" lazy>
+        <QuestionList :company-info-id="company_info_id_text"></QuestionList>
+      </el-tab-pane>
+
+      <el-tab-pane label="联系公司&我要投诉" name="fifth" lazy>
+        <div class="fifth_1">
+          <SellerInfo :item="company_info"></SellerInfo>
+          <div class="margin-20-top fifth_1_2 font-40-size">
+          <AddComment
+                placeholder-text="我要投诉"
+                cancel-text="取消投诉"
+                confirm-text="提交证据"
+                :company-info-id="company_info_id_text"
+                add-type="complaint"
+                comment-type="complaint"
+                v-if="userStore.userId > 0"
+            >
+              <template #clickDrawer>
+                <text>我要投诉</text>
+                <svg t="1680747027530" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15975" width="200" height="200">
+                  <path d="M796.444444 796.444444h-233.870222L312.888889 1000.732444V995.555556c-18.318222 0-25.230222-6.883556-27.591111-13.852445V967.111111s-0.512 1.649778-0.853334 4.039111V796.444444H227.555556a170.666667 170.666667 0 0 1-170.666667-170.666666V170.666667a56.888889 56.888889 0 0 1 56.888889-56.888889h796.444444a56.888889 56.888889 0 0 1 56.888889 56.888889v455.111111a170.666667 170.666667 0 0 1-170.666667 170.666666zM512 455.111111a227.271111 227.271111 0 0 0-202.268444 123.648l61.667555 7.395556a170.296889 170.296889 0 0 1 281.201778 0l61.696-7.395556A227.356444 227.356444 0 0 0 512 455.111111z m-227.555556 568.888889v-46.506667a19.399111 19.399111 0 0 0 0.853334 4.209778v41.585778L284.444444 1024z" fill="#000000" p-id="15976"></path>
+                  <path d="M796.444444 796.444444h-233.870222L312.888889 1000.732444V995.555556c-18.318222 0-25.230222-6.883556-27.591111-13.852445V967.111111s-0.512 1.649778-0.853334 4.039111V796.444444H227.555556a170.666667 170.666667 0 0 1-170.666667-170.666666V170.666667a56.888889 56.888889 0 0 1 56.888889-56.888889h796.444444a56.888889 56.888889 0 0 1 56.888889 56.888889v455.111111a170.666667 170.666667 0 0 1-170.666667 170.666666zM512 455.111111a227.271111 227.271111 0 0 0-202.268444 123.648l61.667555 7.395556a170.296889 170.296889 0 0 1 281.201778 0l61.696-7.395556A227.356444 227.356444 0 0 0 512 455.111111z m-227.555556 568.888889v-46.506667a19.399111 19.399111 0 0 0 0.853334 4.209778v41.585778L284.444444 1024z" fill="#000000" p-id="15977"></path>
+                </svg>
+              </template>
+            </AddComment>
+            <router-link to="/login" v-else>
+              <text>我要投诉</text>
+              <svg t="1680747027530" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15975" width="200" height="200">
+                <path d="M796.444444 796.444444h-233.870222L312.888889 1000.732444V995.555556c-18.318222 0-25.230222-6.883556-27.591111-13.852445V967.111111s-0.512 1.649778-0.853334 4.039111V796.444444H227.555556a170.666667 170.666667 0 0 1-170.666667-170.666666V170.666667a56.888889 56.888889 0 0 1 56.888889-56.888889h796.444444a56.888889 56.888889 0 0 1 56.888889 56.888889v455.111111a170.666667 170.666667 0 0 1-170.666667 170.666666zM512 455.111111a227.271111 227.271111 0 0 0-202.268444 123.648l61.667555 7.395556a170.296889 170.296889 0 0 1 281.201778 0l61.696-7.395556A227.356444 227.356444 0 0 0 512 455.111111z m-227.555556 568.888889v-46.506667a19.399111 19.399111 0 0 0 0.853334 4.209778v41.585778L284.444444 1024z" fill="#000000" p-id="15976"></path>
+                <path d="M796.444444 796.444444h-233.870222L312.888889 1000.732444V995.555556c-18.318222 0-25.230222-6.883556-27.591111-13.852445V967.111111s-0.512 1.649778-0.853334 4.039111V796.444444H227.555556a170.666667 170.666667 0 0 1-170.666667-170.666666V170.666667a56.888889 56.888889 0 0 1 56.888889-56.888889h796.444444a56.888889 56.888889 0 0 1 56.888889 56.888889v455.111111a170.666667 170.666667 0 0 1-170.666667 170.666666zM512 455.111111a227.271111 227.271111 0 0 0-202.268444 123.648l61.667555 7.395556a170.296889 170.296889 0 0 1 281.201778 0l61.696-7.395556A227.356444 227.356444 0 0 0 512 455.111111z m-227.555556 568.888889v-46.506667a19.399111 19.399111 0 0 0 0.853334 4.209778v41.585778L284.444444 1024z" fill="#000000" p-id="15977"></path>
+              </svg>
+            </router-link>
           </div>
-          <div class="fifth_item">
-            <svg t="1679471610724" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15127" width="200" height="200"><path d="M877.216 491.808M895.904 448c0-212.064-171.936-384-384-384-212.064 0-384 171.936-384 384 0 104.672 42.016 199.456 109.92 268.736L237.664 716.736l1.568 1.568c0.768 0.768 1.536 1.568 2.336 2.336l217.12 217.12c29.376 29.376 76.992 29.376 106.368 0l217.12-217.12c0.768-0.768 1.568-1.536 2.336-2.336l1.568-1.568-0.16 0C853.888 647.456 895.904 552.672 895.904 448zM565.088 847.36c-53.12 53.12-53.152 53.248-106.368 0L285.76 673.472C228 615.648 191.904 536.224 191.904 448c0-176.736 143.264-320 320-320 176.736 0 320 143.264 320 320 0 88.224-36.096 167.648-93.856 225.472L565.088 847.36zM512 256c-106.048 0-192 85.952-192 192s85.952 192 192 192 192-85.952 192-192S618.048 256 512 256zM512 576c-70.688 0-128-57.312-128-128s57.312-128 128-128 128 57.312 128 128S582.688 576 512 576z" fill="#000000" p-id="15128"></path></svg>
-            <text class="light_emphasize margin-20-left">河北省邯郸市永年县</text>
-          </div>
+          <text class="margin-20-top">如果商家被投诉次数达到上限，会被列入黑名单，以下是黑名单样例</text>
+        </div>
+
+        <div class="all">
+        <el-row class="margin-20-top next" :gutter="24">
+            <el-col :span="24" :md="12">
+              <div class="third">
+                <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_39c423de-1fc6-4d7d-be1e-6804ddc119ff.png" />
+              </div>
+            </el-col>
+            <el-col :span="24" :md="12">
+              <div class="fourth">
+                <text class="second font-18-size">为什么成为黑名单？</text>
+                <el-steps direction="vertical" class="margin-20-top" :space="150">
+                  <el-step title="原因1**************" description="经真木网平台审核，用户提交证据和信息属实" status="process"/>
+                  <el-step title="原因2**************" description="经真木网平台审核，用户提交证据和信息属实" status="process"/>
+                  <el-step title="原因3**************" description="经真木网平台审核，用户提交证据和信息属实" status="process"/>
+                  <el-step title="原因4**************" description="经真木网平台审核，用户提交证据和信息属实" status="process"/>
+                  <el-step title="加入真木网的黑名单" description="" status="process"/>
+                </el-steps>
+              </div>
+            </el-col>
+          </el-row>
         </div>
       </el-tab-pane>
     </el-tabs>
@@ -196,6 +309,7 @@ import CreditScore from "../components/CreditScore.vue";
 import {shopDetailApi} from "../api/shopDetail.js";
 import { useUserStore } from "../pinia/user.js";
 import Tag from "../components/Tag.vue"
+import SellerInfo from "../components/SellerInfo.vue";
 const userStore = useUserStore();
 //
 const text = ref('')
@@ -214,6 +328,7 @@ const handleClick = (tab, event) => {
 const list = reactive({
   arr: []
 });
+const company_info = ref({})
 const wood_name = ref([])
 const company_name = ref('')
 const credit_score = ref('')
@@ -223,6 +338,7 @@ const isFranchisee = ref(0)
 
 onMounted(() => {
   shopDetailApi({company_info_id:company_info_id.value}).then(async(res) => {
+    company_info.value = res.data.company_info;
     company_name.value = res.data.company_info.company_name
     credit_score.value = res.data.company_info.credit_score
     credit_score_text.value = '信用分 '+ credit_score.value
@@ -240,24 +356,42 @@ onMounted(() => {
 })
 </script>
 <style scoped>
+.all{
+  display: flex;
+  flex-direction: column;
+}
+.third{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.fourth{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.second{
+  align-self: center;
+  font-weight: 600;
+  letter-spacing: 2px;
+}
+.fifth_1_2{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.fifth_1{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 20px;
+}
 .top_1_tag{
   display: flex;
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-}
-.fifth{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  letter-spacing: 2px;
-  padding: 0 20px 20px 20px;
-}
-.fifth_item{
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  margin-top: 10px;
 }
 .el-col{
   margin-bottom: 10px;

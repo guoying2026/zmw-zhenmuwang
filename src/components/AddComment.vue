@@ -4,8 +4,8 @@
     <slot name="clickDrawer"></slot>
   </div>
 <!--  由父组件提供插槽内容结束-->
-
-  <el-drawer v-model="drawer" direction="btt" size="55%" title="I am the title" :with-header="false">
+  <div class="deep_parent">
+  <el-drawer v-model="drawer" direction="btt" size="60%" title="I am the title" :with-header="false">
     <!--          抽屉里的添加评论开始-->
     <el-input
         v-model="textarea"
@@ -14,6 +14,7 @@
         show-word-limit
         type="textarea"
         :rows="5"
+        resize="none"
     />
     <el-upload
         class="margin-20-top"
@@ -41,8 +42,9 @@
       </el-col>
       <el-col :span="12" class="center_button margin-20-top">
         <text class="blue_btn btn_item" v-if="addType === 'question'" @click="publishQuestion">{{confirmText}}</text>
+        <text class="blue_btn btn_item" v-else-if="addType === 'complaint'" @click="publishComplaint">{{confirmText}}</text>
         <text class="blue_btn btn_item" v-else @click="publishComment">{{confirmText}}</text>
-<!--        <el-button type="primary" >{{confirmText}}</el-button>-->
+        <!--        <el-button type="primary" >{{confirmText}}</el-button>-->
 <!--        <el-button type="primary" v-else @click="publishComment">-->
 <!--          {{confirmText}}-->
 <!--        </el-button>-->
@@ -51,6 +53,7 @@
 
     <!--          弹出层的评论结束-->
   </el-drawer>
+  </div>
 </template>
 <script>
 export default{
@@ -63,6 +66,8 @@ import { getAnswerOssSignatureApi,pushAnswerOssApi } from "../api/ossUploadFile.
 import { handeSrcHttpsUtil,guidUtil } from "../utils/httpReplace.js";
 import { publishCommentApi,publishCommentReplyApi } from "../api/comment.js";
 import { publishQuestionApi,publishAnswerApi } from "../api/question.js";
+import { publishBrokenRecordApi } from "../api/brokenRecord.js";
+import { ElNotification } from 'element-plus'
 
 //引入用户信息开始
 import { useUserStore } from "../pinia/user.js";
@@ -211,6 +216,37 @@ const handlePictureCardPreview = (file) => {
   dialogVisible.value = true
 }
 //上传文件结束
+const publishComplaint = () => {
+  const toFatherImage = [];
+  for(const item of submitFileList.value){
+    console.log(Object.values(item)[0]);
+    toFatherImage.push(Object.values(item)[0]);
+  }
+  let data = {
+    'company_info_id': props.companyInfoId,//某个公司下的投诉记录
+    'complaint': textarea.value,
+    'image': toFatherImage,
+    'user_id': userStore.userId,
+  };
+  publishBrokenRecordApi(data).then(async(res) => {
+    if(res.status === 200){
+      drawer.value = false;
+      textarea.value = '';
+      fileList.value = [];
+      ElNotification({
+        title: 'Success',
+        message: '投诉成功，等待平台审核',
+        type: 'success',
+      })
+    } else {
+      ElNotification({
+        title: 'Error',
+        message: '可能网络服务差，刷新后再试一下',
+        type: 'error',
+      })
+    }
+  })
+}
 //发布评论开始
 const publishComment = () => {
   console.log(props.companyInfoId);
@@ -377,11 +413,34 @@ const publishQuestion = () => {
   padding: 10px 20px;
   letter-spacing: 2px;
   font-weight: bold;
+  font-size: 15px;
 }
 .center_button{
   text-align: center;
 }
 .margin-20-top{
   margin-top: 20px;
+}
+.deep_parent:deep(.el-drawer){
+   max-width: 500px;
+   margin: 0 auto;
+  border-radius: 32px;
+ }
+.deep_parent:deep(.el-overlay){
+  background-color: transparent;
+}
+.deep_parent:deep(.el-drawer__body){
+  box-shadow: 2px 4px 25px rgba(0, 0, 0, 0.15);
+  border-bottom-right-radius: 32px;
+  border-bottom-left-radius: 32px;
+}
+.deep_parent:deep(.el-textarea__inner) {
+  box-shadow: 0 0 0 0;
+}
+.deep_parent:deep(.el-textarea__inner:hover) {
+  box-shadow: 0 0 0 0;
+}
+.deep_parent:deep(.el-textarea__inner:focus) {
+  box-shadow: 0 0 0 0;
 }
 </style>
