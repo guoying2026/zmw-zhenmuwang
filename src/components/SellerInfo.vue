@@ -1,20 +1,36 @@
 <style scoped>
+@media (min-width: 576px) {
+  .item{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+  }
+  .item_right{
+    flex: 1;
+    word-wrap: break-word;
+    word-break: break-all;
+    text-align: end;
+  }
+}
 .info{
   display: flex;
   flex-direction: column;
   align-items: flex-start;
 }
-.item{
-  display: flex;
-  flex-direction: row;
-}
-.item_right{
-  flex: 1;
-  word-wrap: break-word;
-  word-break: break-all;
-}
 .item_middle{
   width: 170px;
+}
+@media (max-width: 576px) {
+  .item{
+    display: flex;
+    flex-direction: row;
+  }
+  .item_right{
+    flex: 1;
+    word-wrap: break-word;
+    word-break: break-all;
+  }
 }
 .icon{
   width: 25px;

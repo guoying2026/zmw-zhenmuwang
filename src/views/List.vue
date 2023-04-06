@@ -25,8 +25,15 @@ a,a:hover {
   flex-direction: column;
   cursor: pointer;
 }
-.padding-20{
-  padding: 0px 20px 0px 20px !important;
+@media (min-width: 576px) {
+  .padding-20{
+    padding: 10px 20px 10px 50px !important;
+  }
+}
+@media (max-width: 576px) {
+  .padding-20{
+    padding: 0px 20px 0px 20px !important;
+  }
 }
 .el-col{
   margin-bottom: 10px;
@@ -159,7 +166,7 @@ a,a:hover {
         <div v-for="(item,index) in list" :key="index" class="all_list_item" v-else>
           <div class="first">
   <!--          不展示商品 start-->
-            <router-link :to="'/detail?company_info_id='+item.id" v-if="item.isBlacklist">
+            <router-link :to="'/blackDetail?company_info_id='+item.id" v-if="item.isBlacklist">
               <div class="padding-20 left">
                 <div class="left_1">
                   <CreditScore :credit-score="item.score" credit-score-text="信用分" :font-size="40" height="80" width="100px"></CreditScore>
@@ -183,7 +190,7 @@ a,a:hover {
   <!--          不展示商品end-->
   <!--          展示商品开始-->
             <el-row :gutter="24" v-else>
-              <el-col :span="24" :md="12">
+              <el-col :span="24" :md="12" :class="item.goods.length>0?'':'grey_bg'">
                 <router-link :to="'/detail?company_info_id='+item.id">
                   <div class="padding-20 left">
                     <div class="left_1">
@@ -208,6 +215,7 @@ a,a:hover {
               </el-col>
               <el-col :span="24" :md="12">
                 <GoodsList :list="item.goods" :size="300" v-if="item.goods.length>0"></GoodsList>
+                <GuidePublishGoods :flag=1 v-else></GuidePublishGoods>
               </el-col>
             </el-row>
   <!--          展示商品结束-->
@@ -245,6 +253,7 @@ import { nextTick, onMounted, onUnmounted, ref } from 'vue'
 import { getIndexDataApi } from "../api/list.js";
 import SellerInfo from "../components/SellerInfo.vue";
 import Tag from "../components/Tag.vue"
+import GuidePublishGoods from "../components/GuidePublishGoods.vue";
 
 // 信用分升序或降序排序
 const isCreditScoreDesc = ref(true)
