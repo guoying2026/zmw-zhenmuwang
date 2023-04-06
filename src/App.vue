@@ -72,7 +72,7 @@ router-view负责渲染路由匹配的组件，可以通过把router-view放在�
 .black{
   color: #000;
 }
-.el-link {
+.el-link,a {
   color: inherit;
 }
 </style>
@@ -155,6 +155,9 @@ export default {
     },
     searchKeyUpEnter () {
       this.isSearchSlideDown = false
+      if (this.searchContent.trim().length === 0) {
+        return false
+      }
       this.$router.push('/search?name='+this.searchContent)
     },
   },

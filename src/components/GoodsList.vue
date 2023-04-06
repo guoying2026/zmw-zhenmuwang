@@ -84,7 +84,7 @@ export default{
   height: calc(100% - 30vh - 5px);
   justify-content: space-between;
 }
-.el-link {
+a {
   color: inherit;
 }
 </style>
