@@ -314,8 +314,8 @@ const userStore = useUserStore();
 //
 const text = ref('')
 const company_info_id_text = ref(null);
-company_info_id_text.value = useRoute().query.company_info_id;
-// company_info_id_text.value = 18;
+// company_info_id_text.value = useRoute().query.company_info_id;
+company_info_id_text.value = 18;
 const company_info_id = ref(null);
 // company_info_id.value = 2644899;
 company_info_id.value = useRoute().query.company_info_id
