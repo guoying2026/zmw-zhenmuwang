@@ -20,9 +20,9 @@
     <div class="mini-ls-results">
       <div class="mini-ls-scroller" v-if="searchResult.length>0">
         <template v-for="(item, index) in searchResult" :key="index">
-          <a
+          <router-link
             class="mini-ls-item cf-one"
-            :href="item.type==0?('/detail?company_info_id='+item.id):('/goodsDetail?type=1&goods_id='+item.goods_id)"
+            :to="item.type==0?('/detail?company_info_id='+item.id):('/goodsDetail?type=1&goods_id='+item.goods_id)"
             :title="item.type==0?item.company_name:item.goods_title"
           >
             <img
@@ -38,7 +38,7 @@
               :onerror="'this.src=\''+(item.type==0?businessErrorImg:goodsErrorImg)+'\';this.srcset=\''+(item.type==0?businessErrorImg:goodsErrorImg)+' 150w, '+(item.type==0?businessErrorImg:goodsErrorImg)+' 300w, '+(item.type==0?businessErrorImg:goodsErrorImg)+'100w\';'"
             >
             <div class="mini-ls-title">{{ item.type==0?item.company_name:item.goods_title }}</div>
-          </a>
+          </router-link>
         </template>
       </div>
     </div>
@@ -46,7 +46,11 @@
 <!--  router-view和router-link是由vue-router注册的全局组件，
 router-link负责跳转不同的页面，相当于vue世界中的超链接a标签
 router-view负责渲染路由匹配的组件，可以通过把router-view放在不同的地方，实现复杂项目的页面布局-->
-  <router-view/>
+  <router-view v-slot="{ Component }">
+    <keep-alive>
+      <component :is="Component" :key="$route.fullPath" />
+    </keep-alive>
+  </router-view>
 </template>
 <style scoped>
 .nav_header {
@@ -68,7 +72,7 @@ router-view负责渲染路由匹配的组件，可以通过把router-view放在�
 .black{
   color: #000;
 }
-.el-link {
+.el-link,a {
   color: inherit;
 }
 </style>
@@ -150,7 +154,11 @@ export default {
       this.searchResult = []
     },
     searchKeyUpEnter () {
-      window.open('/search?name='+this.searchContent, '_blank')
+      this.isSearchSlideDown = false
+      if (this.searchContent.trim().length === 0) {
+        return false
+      }
+      this.$router.push('/search?name='+this.searchContent)
     },
   },
 }

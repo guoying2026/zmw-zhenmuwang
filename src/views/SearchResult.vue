@@ -39,10 +39,10 @@
                         <el-col class="item-goods-btns">
                           <el-row justify="center" align="middle">
                             <el-col class="item-goods-btns-detail" :span="5" :xs="24" :sm="9">
-                              <el-link type="info" :underline="false" :href="'/goodsDetail?type=1&goods_id='+subitem.goods_id" target="_blank">详情<el-icon><Right /></el-icon></el-link>
+                              <router-link :to="'/goodsDetail?type=1&goods_id='+subitem.goods_id">详情<el-icon><Right /></el-icon></router-link>
                             </el-col>
-                            <el-col class="item-goods-btns-buy_now" :span="6" :xs="24" :sm="8">
-                              <el-button size="large" @click="buyNowHandle(subitem.goods_id)">立即购买<el-icon><ShoppingCart /></el-icon></el-button>
+                            <el-col class="item-goods-btns-buy_now" :span="6" :xs="24" :sm="10">
+                              <router-link :to="'/goodsDetail?type=1&goods_id='+subitem.goods_id">立即购买<el-icon><ShoppingCart /></el-icon></router-link>
                             </el-col>
                           </el-row>
                         </el-col>
@@ -85,7 +85,7 @@
                     <el-col :span="16">
                       <el-row>
                         <el-col class="item-business-title">
-                          <el-link type="info" :underline="false" :href="'/detail?company_info_id='+subitem.id" target="_blank"><div><h2>{{ subitem.company_name }}</h2></div></el-link>
+                          <router-link :to="'/detail?company_info_id='+subitem.id"><div><h2>{{ subitem.company_name }}</h2></div></router-link>
                         </el-col>
                         <el-col class="item-business-range" v-if="subitem.business_scope&&subitem.business_scope.replace('\n','').replace('\r','').length>0">
                           <span>主营：{{ subitem.business_scope }}</span>
@@ -222,9 +222,6 @@ const type = ref([{
 }])
 const goodsErrorImg = 'https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png'
 const businessErrorImg = 'https://cube.elemecdn.com/9/c2/f0ee8a3c7c9638a54940382568c9dpng.png'
-const buyNowHandle = (goods_id) => {
-  window.open('/goodsDetail?type=1&goods_id='+goods_id, '_blank')
-}
 const loadmore = (current_page) => {
   if (isLoading.value) {
     return false
@@ -271,6 +268,9 @@ const loadmore = (current_page) => {
     // totalPage.value = 3
   }).finally(() => {
     isLoading.value = false
+    if (!isMobile) {
+      window.scrollTo(0,0)
+    }
   })
 }
 const threshold = 10
@@ -332,7 +332,7 @@ loadmore(page.value)
 .item-goods-btns-detail,.item-goods-btns-buy_now {
   text-align: center;
 }
-.item-goods-btns-detail .el-link {
+.item-goods-btns-detail a {
   border-radius: 9px;
   display: inline-flex;
   align-items: center;
@@ -344,7 +344,7 @@ loadmore(page.value)
   color: #000;
   margin-right: 10px;
 }
-.item-goods-btns-detail:hover .el-link {
+.item-goods-btns-detail:hover a {
   opacity: 0.7;
 }
 .item-goods-btns-detail .el-icon {
@@ -352,18 +352,18 @@ loadmore(page.value)
   border: 1.5px solid #000;
   border-radius: 50%;
 }
-.item-goods-btns-buy_now .el-button {
+.item-goods-btns-buy_now a {
   border-radius: 9px;
   display: inline-flex;
   align-items: center;
   border: none;
   cursor: pointer;
-  padding: 16px 24px;
+  padding: 16px 14px;
   font-size: 18px;
   background: #4cd964;
   color: #fff;
 }
-.item-goods-btns-buy_now .el-button:hover {
+.item-goods-btns-buy_now a:hover {
   background-color: #26b33e;
   color: #fff;
 }
@@ -394,7 +394,7 @@ loadmore(page.value)
   border-radius: 14px;
   box-shadow: 2px 4px 25px rgb(0 0 0 / 15%);
 }
-.item-business-title .el-link h2 {
+.item-business-title a h2 {
   visibility: inherit;
   word-wrap: break-word;
   line-height: 1.6;
@@ -437,7 +437,7 @@ loadmore(page.value)
   opacity: 0.8;
 }
 @media screen and (max-width: 767px) {
-  .item-business-title .el-link h2,.item-business-title .el-link h2:hover {
+  .item-business-title a h2,.item-business-title a h2:hover {
     font-size: 18px;
   }
 }

@@ -2,7 +2,7 @@
  * @Author: joytou
  * @Date: 2023-03-17
  * @LastEditors: joytou
- * @LastEditTime: 2023-04-03
+ * @LastEditTime: 2023-04-06
  * @FilePath: /zmw-zhenmuwang/src/components/GoodsRecommends.vue
  * @Description: 
 -->
@@ -12,20 +12,22 @@
       <el-row>
         <el-col>为你推荐</el-col>
         <template v-for="(item, index) in list" v-bind:key="item">
-          <el-col class="recommend_goods-item" @click="gotoGoodsDetail(type, item.goods_id)">
+          <el-col class="recommend_goods-item">
+            <router-link :to="'/goodsDetail?type='+type+'&goods_id='+item.goods_id">
             <el-row justify="center">
               <el-col class="recommend_goods-item-image_frame">
                 <el-image class="recommend_goods-item-image" :src="item.image" fit="cover" />
               </el-col>
               <el-col class="recommend_goods-item-info">
                 <el-row justify="center">
-                  <el-col class="recommend_goods-item-info-title"><el-link type="info" :underline="false" :href="'/goodsDetail?type='+type+'&goods_id='+item.goods_id">{{ item.goods_name }}</el-link></el-col>
+                  <el-col class="recommend_goods-item-info-title">{{ item.goods_name }}</el-col>
                   <el-col class="recommend_goods-item-info-price">
                     <span class="font-size-extra-small">￥</span>{{ item.spell_price }}&nbsp;/&nbsp;{{ item.unit }}
                   </el-col>
                 </el-row>
               </el-col>
             </el-row>
+            </router-link>
           </el-col>
         </template>
       </el-row>
@@ -49,9 +51,6 @@ const props = defineProps({
     }
   },
 })
-const gotoGoodsDetail = (type, goodsId) => {
-  window.location.assign('/goodsDetail?type=' + type + '&goods_id=' + goodsId)
-}
 </script>
 <style scoped>
 .recommend_goods-item {
@@ -75,10 +74,10 @@ const gotoGoodsDetail = (type, goodsId) => {
   text-align: center;
   font-size: var(--el-font-size-base);
 }
-.el-link {
+a {
   color: inherit;
 }
-.el-link:hover {
+a:hover {
   color: var(--el-color-info);
 }
 .recommend_goods-item-info-price {

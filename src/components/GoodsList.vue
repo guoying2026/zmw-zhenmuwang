@@ -6,26 +6,28 @@
         :span="12"
         :md="6"
     >
-      <div class="goods_card" @click="gotoGoodsDetail(item.goods_id)">
-        <!-- x-oss-process=image/resize参数可参考https://help.aliyun.com/document_detail/44688.html -->
-        <img
-          :src="item.mainurl+'?x-oss-process=image/format,webp'"
-          :alt="item.goods_title"
-          decoding="async"
-          loading="lazy"
-          :srcset="item.mainurl+'?x-oss-process=image/resize,m_lfit,h_300,w_300/format,webp 150w, '+item.mainurl+'?x-oss-process=image/resize,m_lfit,h_300,w_300/format,webp 300w, '+item.mainurl+'?x-oss-process=image/resize,m_lfit,h_300,w_300/format,webp 100w'"
-          sizes="(max-width: 150px) 100vw, 150px"
-          style="width:100%; height: 30vh;object-fit: fill;"
-          :onerror="'this.src=\''+goodsErrorImg+'\';this.srcset=\''+goodsErrorImg+' 150w, '+goodsErrorImg+' 300w, '+goodsErrorImg+' 100w\';'"
-        >
-        <div class="goods_item font-12-size">
-          <text class="font-15-size"><el-link type="info" :underline="false" :href="'/goodsDetail?type=1&goods_id='+item.goods_id" target="_blank">{{item.goods_title}}</el-link></text>
-          <text class="margin-10-top">详细发货地址：{{item.area}}</text>
-          <div class="margin-10-top green_btn buy_btn">
-            <text>¥ </text>
-            <text class="font-18-size">{{item.goods_price}}</text>
+      <div class="goods_card">
+        <router-link :to="'/goodsDetail?type=1&goods_id='+item.goods_id">
+          <!-- x-oss-process=image/resize参数可参考https://help.aliyun.com/document_detail/44688.html -->
+          <img
+            :src="item.mainurl+'?x-oss-process=image/format,webp'"
+            :alt="item.goods_title"
+            decoding="async"
+            loading="lazy"
+            :srcset="item.mainurl+'?x-oss-process=image/resize,m_lfit,h_300,w_300/format,webp 150w, '+item.mainurl+'?x-oss-process=image/resize,m_lfit,h_300,w_300/format,webp 300w, '+item.mainurl+'?x-oss-process=image/resize,m_lfit,h_300,w_300/format,webp 100w'"
+            sizes="(max-width: 150px) 100vw, 150px"
+            style="width:100%; height: 30vh;object-fit: fill;"
+            :onerror="'this.src=\''+goodsErrorImg+'\';this.srcset=\''+goodsErrorImg+' 150w, '+goodsErrorImg+' 300w, '+goodsErrorImg+' 100w\';'"
+          >
+          <div class="goods_item font-12-size">
+            <text class="font-15-size">{{item.goods_title}}</text>
+            <text class="margin-10-top">详细发货地址：{{item.area}}</text>
+            <div class="margin-10-top green_btn buy_btn">
+              <text>¥ </text>
+              <text class="font-18-size">{{item.goods_price}}</text>
+            </div>
           </div>
-        </div>
+        </router-link>
       </div>
     </el-col>
   </el-row>
@@ -48,9 +50,6 @@ const props = defineProps({
 </script>
 <script>
 const goodsErrorImg = 'https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png'
-const gotoGoodsDetail = (goodsId) => {
-  window.open('/goodsDetail?type=1&goods_id=' + goodsId, '_blank')
-}
 export default{
   name: 'GoodsList'
 }
@@ -85,7 +84,7 @@ export default{
   height: calc(100% - 30vh - 5px);
   justify-content: space-between;
 }
-.el-link {
+a {
   color: inherit;
 }
 </style>
