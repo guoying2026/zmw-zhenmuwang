@@ -166,7 +166,7 @@
   </template>
 </template>
 <script setup>
-import { onMounted, onUnmounted, ref } from 'vue'
+import { onActivated, onDeactivated, onMounted, onUnmounted, ref } from 'vue'
 import { useRoute } from 'vue-router'
 import { getSearchResultApi } from '../api/search.js'
 import { formatHttpsProtocol } from '../utils/httpReplace.js'
@@ -289,10 +289,16 @@ const pageScrollHandle = () => {
     loadmore(page.value + 1)
   }
 }
-onMounted(() => {
+/* onMounted(() => {
+  window.addEventListener('scroll', pageScrollHandle)
+}) */
+onActivated(() => {
   window.addEventListener('scroll', pageScrollHandle)
 })
-onUnmounted(() => {
+/* onUnmounted(() => {
+  window.removeEventListener('scroll', pageScrollHandle)
+}) */
+onDeactivated(() => {
   window.removeEventListener('scroll', pageScrollHandle)
 })
 loadmore(page.value)

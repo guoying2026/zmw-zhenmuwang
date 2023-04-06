@@ -120,7 +120,7 @@
   </el-col>
 </template>
 <script setup>
-import { onBeforeUnmount, onMounted, ref } from 'vue';
+import { onActivated, onBeforeUnmount, onDeactivated, onMounted, ref } from 'vue';
 import { formatUnit } from '../utils/good.js'
 const props = defineProps({
   description: {
@@ -174,10 +174,16 @@ const scrollHandle = () => {
     document.querySelector('.el-tabs .el-tabs__content').style.marginTop = ''
   }
 }
-onMounted(() => {
+/* onMounted(() => {
+  window.addEventListener('scroll', scrollHandle)
+}) */
+onActivated(() => {
   window.addEventListener('scroll', scrollHandle)
 })
-onBeforeUnmount(() => {
+/* onBeforeUnmount(() => {
+  window.removeEventListener('scroll', scrollHandle)
+}) */
+onDeactivated(() => {
   window.removeEventListener('scroll', scrollHandle)
 })
 </script>
