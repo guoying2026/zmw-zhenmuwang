@@ -1,5 +1,5 @@
 <style>
-.el-link {
+a,a:hover {
   color: inherit;
 }
 .left_1{
@@ -98,7 +98,7 @@
               <div class="first">
                 <el-row :gutter="24">
                   <el-col :span="24" :md="12">
-                    <div class="padding-20 left" @click="gotoDetail(item.id)">
+                    <div class="padding-20 left">
                       <div class="left_1" style="align-items: flex-start;">
                         <el-skeleton-item variant="image" style="height: 80px;width: 100px;" />
                         <div class="left_1_2">
@@ -149,48 +149,52 @@
         <div v-for="(item,index) in list" :key="index" v-else>
           <div class="first">
   <!--          不展示商品 start-->
-            <div class="padding-20 left" @click="gotoDetail(item.id)" v-if="item.isBlacklist">
-              <div class="left_1">
-                <CreditScore :credit-score="item.score" credit-score-text="信用分" :font-size="40" height="80" width="100px"></CreditScore>
-                <div class="left_1_2">
-                  <template v-if="item.id&&item.id!='0'&&item.id!=0&&item.id!='-1'&&item.id!=-1&&item.id.length>0">
-                    <el-link type="info" :underline="false" :href="'/detail?company_info_id='+item.id" target="_blank"><text class="font-18-size font-60-weight margin-10-left">{{ item.company_name }}</text></el-link>
-                  </template>
-                  <template v-else>
-                    <el-link type="info" :underline="false" @click.stop="hasNoItemIdTips"><text class="font-18-size font-60-weight margin-10-left">{{ item.company_name }}</text></el-link>
-                  </template>
-                  <div class="left_1_2_2">
-                    <Tag class="tag" tag="黑名单" number="60" color="black" v-if="item.isBlacklist"></Tag>
-                    <Tag class="tag" tag="加盟商" number="60" color="orange" v-if="item.isFranchisee"></Tag>
-                    <Tag class="tag margin-10-left" v-if="item.province&&typeof item.province=='string'&&item.province.length>0" :tag="item.province" number="60" color="blue"></Tag>
+            <router-link :to="'/detail?company_info_id='+item.id" v-if="item.isBlacklist">
+              <div class="padding-20 left">
+                <div class="left_1">
+                  <CreditScore :credit-score="item.score" credit-score-text="信用分" :font-size="40" height="80" width="100px"></CreditScore>
+                  <div class="left_1_2">
+                    <template v-if="item.id&&item.id!='0'&&item.id!=0&&item.id!='-1'&&item.id!=-1&&item.id.length>0">
+                      <text class="font-18-size font-60-weight margin-10-left">{{ item.company_name }}</text>
+                    </template>
+                    <template v-else>
+                      <el-link type="info" :underline="false" @click.stop="hasNoItemIdTips"><text class="font-18-size font-60-weight margin-10-left">{{ item.company_name }}</text></el-link>
+                    </template>
+                    <div class="left_1_2_2">
+                      <Tag class="tag" tag="黑名单" number="60" color="black" v-if="item.isBlacklist"></Tag>
+                      <Tag class="tag" tag="加盟商" number="60" color="orange" v-if="item.isFranchisee"></Tag>
+                      <Tag class="tag margin-10-left" v-if="item.province&&typeof item.province=='string'&&item.province.length>0" :tag="item.province" number="60" color="blue"></Tag>
+                    </div>
                   </div>
                 </div>
+                <SellerInfo :item="item"></SellerInfo>
               </div>
-              <SellerInfo :item="item"></SellerInfo>
-            </div>
+            </router-link>
   <!--          不展示商品end-->
   <!--          展示商品开始-->
             <el-row :gutter="24" v-else>
               <el-col :span="24" :md="12">
-                <div class="padding-20 left" @click="gotoDetail(item.id)">
-                  <div class="left_1">
-                    <CreditScore :credit-score="item.score" credit-score-text="信用分" :font-size="40" height="80" width="100px"></CreditScore>
-                    <div class="left_1_2">
-                      <template v-if="item.id&&item.id!='0'&&item.id!=0&&item.id!='-1'&&item.id!=-1&&item.id.length>0">
-                        <el-link type="info" :underline="false" :href="'/detail?company_info_id='+item.id" target="_blank"><text class="font-18-size font-60-weight margin-10-left">{{ item.company_name }}</text></el-link>
-                      </template>
-                      <template v-else>
-                        <el-link type="info" :underline="false" @click.stop="hasNoItemIdTips"><text class="font-18-size font-60-weight margin-10-left">{{ item.company_name }}</text></el-link>
-                      </template>
-                      <div class="left_1_2_2">
-                        <Tag class="tag" tag="黑名单" number="60" color="black" v-if="item.isBlacklist"></Tag>
-                        <Tag class="tag" tag="加盟商" number="60" color="orange" v-if="item.isFranchisee"></Tag>
-                        <Tag class="tag margin-10-left" :tag="item.province" number="60" color="blue"></Tag>
+                <router-link :to="'/detail?company_info_id='+item.id">
+                  <div class="padding-20 left">
+                    <div class="left_1">
+                      <CreditScore :credit-score="item.score" credit-score-text="信用分" :font-size="40" height="80" width="100px"></CreditScore>
+                      <div class="left_1_2">
+                        <template v-if="item.id&&item.id!='0'&&item.id!=0&&item.id!='-1'&&item.id!=-1&&item.id.length>0">
+                          <text class="font-18-size font-60-weight margin-10-left">{{ item.company_name }}</text>
+                        </template>
+                        <template v-else>
+                          <el-link type="info" :underline="false" @click.stop="hasNoItemIdTips"><text class="font-18-size font-60-weight margin-10-left">{{ item.company_name }}</text></el-link>
+                        </template>
+                        <div class="left_1_2_2">
+                          <Tag class="tag" tag="黑名单" number="60" color="black" v-if="item.isBlacklist"></Tag>
+                          <Tag class="tag" tag="加盟商" number="60" color="orange" v-if="item.isFranchisee"></Tag>
+                          <Tag class="tag margin-10-left" :tag="item.province" number="60" color="blue"></Tag>
+                        </div>
                       </div>
                     </div>
+                    <SellerInfo :item="item"></SellerInfo>
                   </div>
-                  <SellerInfo :item="item"></SellerInfo>
-                </div>
+                </router-link>
               </el-col>
               <el-col :span="24" :md="12">
                 <GoodsList :list="item.goods" :size="300" v-if="item.goods.length>0"></GoodsList>
@@ -390,13 +394,6 @@ const handleOnlyViewFranchisee = () => {
   }
   currentPage.value = 1
   loadmore()
-}
-const gotoDetail = (companyInfoId) => {
-  if (Number(companyInfoId) === 0 || Number(companyInfoId) === -1 || isNaN(Number(companyInfoId))) {
-    hasNoItemIdTips()
-    return false
-  }
-  window.open('/detail?company_info_id=' + companyInfoId, '_blank')
 }
 // 点击了没有id的商家的链接时，给出提示
 const hasNoItemIdTips = () => {
