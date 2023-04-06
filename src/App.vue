@@ -13,7 +13,7 @@
   <!-- 搜索框主体 -->
   <div :class="'mini-live-search-cont '+(isSearchSlideDown?'miniSlideDown':'')">
     <label class="cf-one" for="mini-ls-input">请输入企业名、人名等关键词查询</label>
-    <input type="text" id="mini-ls-input" name="live-posts-search" v-model.trim="searchContent" @keyup.enter="searchKeyUpEnter" placeholder="请输入企业名、人名等关键词查询">
+    <input type="text" id="mini-ls-input" name="live-posts-search" v-model.trim="searchContent" placeholder="请输入企业名、商品、社会统一信用代码等关键词查询">
     <div :class="'mini-ls-loader'+(isSearching?' to-show':'')" role="status">
       <span></span>
     </div>
@@ -153,13 +153,13 @@ export default {
       this.searchContent = ''
       this.searchResult = []
     },
-    searchKeyUpEnter () {
-      this.isSearchSlideDown = false
-      if (this.searchContent.trim().length === 0) {
-        return false
-      }
-      this.$router.push('/search?name='+this.searchContent)
-    },
+    // searchKeyUpEnter () {
+    //   this.isSearchSlideDown = false
+    //   if (this.searchContent.trim().length === 0) {
+    //     return false
+    //   }
+    //   this.$router.push('/search?name='+this.searchContent)
+    // },
   },
 }
 </script>

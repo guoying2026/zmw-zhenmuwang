@@ -73,7 +73,7 @@ $dark-shadow2: 2px 5px 8px -4px rgba(0,0,0,1);
   }
   .mini-ls-scroller {
     overflow: hidden;
-    height: 60vh;
+    max-height: 60vh;
     overflow-y: scroll;
   }
   a.mini-ls-item {
