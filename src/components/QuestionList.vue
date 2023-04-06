@@ -328,6 +328,8 @@ import AddComment from "../components/AddComment.vue";
 import {onMounted, reactive, ref} from "vue";
 const userStore = useUserStore();
 import { image_arr, name_arr} from "../utils/user.js";
+import { ElNotification } from 'element-plus'
+
 
 const props = defineProps({
   companyInfoId:{
@@ -345,12 +347,20 @@ const answer_question_count = ref(0)
 
 onMounted(() => {
   questionListApi({company_info_id: props.companyInfoId,user_id: userStore.userId}).then(async(res) => {
-    console.log('question');
-    console.log(res);
-    list.arr = res.data.data;
-    all_answer_useful_count.value = res.data.all_answer_useful_count;
-    answer_count.value = res.data.answer_count;
-    answer_question_count.value = res.data.answer_question_count;
+    if(res.status === 200){
+      console.log('question');
+      console.log(res);
+      list.arr = res.data.data;
+      all_answer_useful_count.value = res.data.all_answer_useful_count;
+      answer_count.value = res.data.answer_count;
+      answer_question_count.value = res.data.answer_question_count;
+    } else{
+      ElNotification({
+        title: 'Error',
+        message: '可能网络服务差，刷新后再试一下',
+        type: 'error',
+      })
+    }
   })
 })
 //有用开始

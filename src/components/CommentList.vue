@@ -410,6 +410,8 @@ import "../assets/fonts.css"
 import {image_arr, name_arr} from "../utils/user.js";
 //引入用户信息开始
 import { useUserStore } from "../pinia/user.js";
+import { ElNotification } from 'element-plus'
+
 const userStore = useUserStore();
 
 console.log(image_arr[0]);
@@ -437,12 +439,20 @@ const all_like_count = ref(0)
 
 onMounted(() => {
   commentListApi({company_info_id: props.companyInfoId,user_id: userStore.userId}).then(async(res) => {
-    console.log('comment');
-    console.log(res);
-    list.arr = res.data.data;
-    company_comment_count.value = res.data.company_comment_count;
-    company_comment_reply_count.value = res.data.company_comment_reply_count;
-    all_like_count.value = res.data.all_like_count;
+    if(res.status === 200){
+      console.log('comment');
+      console.log(res);
+      list.arr = res.data.data;
+      company_comment_count.value = res.data.company_comment_count;
+      company_comment_reply_count.value = res.data.company_comment_reply_count;
+      all_like_count.value = res.data.all_like_count;
+    } else {
+      ElNotification({
+        title: 'Error',
+        message: '可能网络服务差，刷新后再试一下',
+        type: 'error',
+      })
+    }
   })
 })
 //父组件给该组件CommentList传递的值，就定义在defineProps,结束
