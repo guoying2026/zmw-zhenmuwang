@@ -12,7 +12,7 @@
   <div @click="searchSlideUp" :style="(isSearchSlideDown?'':'display: none;')+'position: fixed;top: 0;left: 0;width: 100vw;height: 100vh;z-index: 9999;'"></div>
   <!-- 搜索框主体 -->
   <div :class="'mini-live-search-cont '+(isSearchSlideDown?'miniSlideDown':'')">
-    <label class="cf-one" for="mini-ls-input">请输入企业名、人名等关键词查询</label>
+    <label class="cf-one" for="mini-ls-input">搜索你需要的🥳</label>
     <input type="text" id="mini-ls-input" name="live-posts-search" v-model.trim="searchContent" placeholder="请输入企业名、商品、社会统一信用代码等关键词查询">
     <div :class="'mini-ls-loader'+(isSearching?' to-show':'')" role="status">
       <span></span>
