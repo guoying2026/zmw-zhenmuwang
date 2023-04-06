@@ -16,7 +16,7 @@
             loading="lazy"
             :srcset="item.mainurl+'?x-oss-process=image/resize,m_lfit,h_300,w_300/format,webp 150w, '+item.mainurl+'?x-oss-process=image/resize,m_lfit,h_300,w_300/format,webp 300w, '+item.mainurl+'?x-oss-process=image/resize,m_lfit,h_300,w_300/format,webp 100w'"
             sizes="(max-width: 150px) 100vw, 150px"
-            style="width:100%; height: 30vh;object-fit: fill;"
+            :style="`width:100%; height: ${image_height};object-fit: fill;`"
             :onerror="'this.src=\''+goodsErrorImg+'\';this.srcset=\''+goodsErrorImg+' 150w, '+goodsErrorImg+' 300w, '+goodsErrorImg+' 100w\';'"
           >
           <div class="goods_item font-12-size">
@@ -45,6 +45,10 @@ const props = defineProps({
   isGrey:{
     type: Number,
     default: 0,
+  },
+  image_height:{
+    type: String,
+    default: '30vh',
   }
 })
 </script>
