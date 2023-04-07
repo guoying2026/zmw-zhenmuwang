@@ -528,67 +528,83 @@ const confirmText = ref('发布评论');
 //给添加评论组件传值结束
 //给评论点赞开始
 const liked_comment = (index,comment_id,is_liked,liked_id,like_count) => {
-  console.log(index);
-  console.log(comment_id);
-  console.log(is_liked);
-  console.log(liked_id);
-  console.log(like_count);
-  if(is_liked === 1){
-    dislikedCommentApi({'comment_id':comment_id,'company_info_id': props.companyInfoId,'user_id':userStore.userId}).then(async(res) => {
-      console.log(res);
-      //连接后端api再取消注释
-      if(res.status === 200){
-        all_like_count.value = all_like_count.value * 1 - 1;
-         list.arr[index].is_liked = 0;
-        if(like_count * 1 > 1){
-           list.arr[index].like_count = like_count * 1 - 1;
-        } else {
-           list.arr[index].like_count = 0;
+  if(userStore.userId > 0){
+    console.log(index);
+    console.log(comment_id);
+    console.log(is_liked);
+    console.log(liked_id);
+    console.log(like_count);
+    if(is_liked === 1){
+      dislikedCommentApi({'comment_id':comment_id,'company_info_id': props.companyInfoId,'user_id':userStore.userId}).then(async(res) => {
+        console.log(res);
+        //连接后端api再取消注释
+        if(res.status === 200 && res.data.liked_id > 0){
+          all_like_count.value = all_like_count.value * 1 - 1;
+          list.arr[index].is_liked = 0;
+          if(like_count * 1 > 1){
+            list.arr[index].like_count = like_count * 1 - 1;
+          } else {
+            list.arr[index].like_count = 0;
+          }
         }
-      }
-    })
+      })
+    } else {
+      likedCommentApi({'company_info_id':props.companyInfoId,'company_comment_id':comment_id,'user_id':userStore.userId}).then(async(res) => {
+        console.log(res);
+        if(res.status === 200 && res.data.liked_id > 0){
+          all_like_count.value = all_like_count.value * 1 + 1;
+          list.arr[index].is_liked = 1;
+          list.arr[index].like_count = like_count * 1 + 1;
+        }
+      })
+    }
   } else {
-    likedCommentApi({'company_info_id':props.companyInfoId,'company_comment_id':comment_id,'user_id':userStore.userId}).then(async(res) => {
-      console.log(res);
-      if(res.status === 200){
-        all_like_count.value = all_like_count.value * 1 + 1;
-        list.arr[index].is_liked = 1;
-         list.arr[index].like_count = like_count * 1 + 1;
-      }
+    ElNotification({
+      title: 'Info',
+      message: '登录后才可以点赞！',
+      type: 'info',
     })
   }
 }
 //给回复点赞开始
 const liked_comment_reply = (index,indexReply,comment_id,comment_reply_id,is_liked,liked_id,like_count) => {
-  console.log(index);
-  console.log(indexReply);
-  console.log(comment_id);
-  console.log(comment_reply_id);
-  console.log(is_liked);
-  console.log(liked_id);
-  console.log(like_count);
-  if(is_liked === 1){
-    dislikedCommentReplyApi({'company_info_id':props.companyInfoId,'company_comment_id':comment_id,'company_comment_reply_id':comment_reply_id,'user_id':userStore.userId}).then(async(res) => {
-      console.log(res);
-      if(res.status === 200){
-        all_like_count.value = all_like_count.value * 1 - 1;
-        list.arr[index].comment_reply[indexReply].is_liked = 0;
-        if(like_count * 1 > 1){
-           list.arr[index].comment_reply[indexReply].like_count = like_count * 1 - 1;
-        } else {
-           list.arr[index].comment_reply[indexReply].like_count = 0;
+  if(userStore.userId > 0){
+    console.log(index);
+    console.log(indexReply);
+    console.log(comment_id);
+    console.log(comment_reply_id);
+    console.log(is_liked);
+    console.log(liked_id);
+    console.log(like_count);
+    if(is_liked === 1){
+      dislikedCommentReplyApi({'company_info_id':props.companyInfoId,'company_comment_id':comment_id,'company_comment_reply_id':comment_reply_id,'user_id':userStore.userId}).then(async(res) => {
+        console.log(res);
+        if(res.status === 200){
+          all_like_count.value = all_like_count.value * 1 - 1;
+          list.arr[index].comment_reply[indexReply].is_liked = 0;
+          if(like_count * 1 > 1){
+            list.arr[index].comment_reply[indexReply].like_count = like_count * 1 - 1;
+          } else {
+            list.arr[index].comment_reply[indexReply].like_count = 0;
+          }
         }
-      }
-    })
+      })
+    } else {
+      likedCommentReplyApi({'company_info_id':props.companyInfoId,'company_comment_id':comment_id,'company_comment_reply_id':comment_reply_id,'user_id':userStore.userId}).then(async(res) => {
+        console.log(res);
+        //连接后端api再取消注释
+        if(res.status === 200){
+          all_like_count.value = all_like_count.value * 1 + 1;
+          list.arr[index].comment_reply[indexReply].is_liked = 1;
+          list.arr[index].comment_reply[indexReply].like_count = like_count *1 + 1;
+        }
+      })
+    }
   } else {
-    likedCommentReplyApi({'company_info_id':props.companyInfoId,'company_comment_id':comment_id,'company_comment_reply_id':comment_reply_id,'user_id':userStore.userId}).then(async(res) => {
-      console.log(res);
-      //连接后端api再取消注释
-      if(res.status === 200){
-        all_like_count.value = all_like_count.value * 1 + 1;
-        list.arr[index].comment_reply[indexReply].is_liked = 1;
-         list.arr[index].comment_reply[indexReply].like_count = like_count *1 + 1;
-      }
+    ElNotification({
+      title: 'Info',
+      message: '登录后才可以点赞！',
+      type: 'info',
     })
   }
 }
