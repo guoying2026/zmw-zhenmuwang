@@ -1,10 +1,10 @@
 <template>
 <!--  由父组件提供插槽内容开始-->
-  <div @click="drawer = true">
-    <slot name="clickDrawer"></slot>
-  </div>
 <!--  由父组件提供插槽内容结束-->
   <div class="deep_parent">
+    <div @click="drawer = true">
+      <slot name="clickDrawer"></slot>
+    </div>
   <el-drawer v-model="drawer" direction="btt" size="60%" title="I am the title" :with-header="false">
     <!--          抽屉里的添加评论开始-->
     <el-input
