@@ -11,7 +11,7 @@
     <div class="card-main">
       <div class="card-section" id="about">
         <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick" stretch>
-          <el-tab-pane :label="`我的投诉${brokenRecordCount}`" name="first">
+          <el-tab-pane label="我的投诉" name="first">
             <div class="app-container">
             <div class="messages-section" v-for="(item, index) in brokenRecordList.arr" :key="index">
               <div class="projects-section-header general_item">
