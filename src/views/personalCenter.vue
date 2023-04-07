@@ -154,6 +154,16 @@ onMounted(() => {
   margin-bottom: 0;
   padding: 10px 0px;
 }
+@media only screen and (max-width: 520px){
+  .card{
+    width: 100%;
+  }
+}
+@media only screen and (min-width: 520px){
+  .card{
+    width: 80%;
+  }
+}
 .card {
   margin: auto;
   margin-top: 60px !important;
@@ -163,7 +173,6 @@ onMounted(() => {
   flex-direction: column;
   border-radius: 10px;
   box-shadow: 0 0 0 8px rgba(255, 255, 255, 0.2);
-  width: 80%;
 }
 
 .card.is-active {
