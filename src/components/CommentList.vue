@@ -599,13 +599,13 @@ const liked_comment_reply = (index,indexReply,comment_id,comment_reply_id,is_lik
 @media screen and (max-width: 520px){
   .image_list{
     width:100%;
-    height: 50px;
+    height: 80px;
   }
 }
 @media screen and (min-width: 520px){
   .image_list{
     width: 100%;
-    height: auto;
+    height: 170px;
   }
 }
 .grey_color{

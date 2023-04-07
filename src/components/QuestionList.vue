@@ -217,7 +217,7 @@
             <el-image
                 :hide-on-click-modal=true
                 :src="itemImage"
-                class="image_list"
+                class="image_list_1"
                 fit="fill"
                 :zoom-rate="1.2"
                 :preview-src-list="item.image"
@@ -465,15 +465,23 @@ const receiveChildAddComment = (param) => {
 </script>
 <style scoped>
 @media screen and (max-width: 520px){
+  .image_list_1{
+    width: 100%;
+    height: 100px;
+  }
   .image_list{
     width:100%;
-    height: 50px;
+    height: 80px;
   }
 }
-@media screen and (max-width: 1200px){
+@media screen and (min-width: 520px){
   .image_list{
     width: 100%;
-    height: auto;
+    height: 170px;
+  }
+  .image_list_1{
+    width: 100%;
+    height: 190px;
   }
 }
 .grey_color{
