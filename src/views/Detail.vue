@@ -3,7 +3,7 @@
     <div class="top_1_tag">
       <Tag v-if="isFranchisee" tag="加盟商" number="60" color="orange"></Tag>
       <Tag :tag="credit_score_text" number="60" color="yellow"></Tag>
-      <Tag tag="入驻真木网" number="60" color="purple"></Tag>
+      <Tag :tag="date_text" number="60" color="purple" v-if="date > 0"></Tag>
       <template v-for="(item,index) in wood_name" :key="index">
         <Tag :tag="item" number="60" color="blue"></Tag>
       </template>
@@ -194,15 +194,20 @@ const credit_score = ref('')
 const credit_score_text = ref('')
 const credit_code = ref('')
 const isFranchisee = ref(0)
+const date = ref(0)
+const date_text = ref('')
 
 onMounted(() => {
   shopDetailApi({company_info_id:company_info_id.value}).then(async(res) => {
+    console.log(res);
     company_info.value = res.data.company_info;
     company_name.value = res.data.company_info.company_name
     credit_score.value = res.data.company_info.credit_score
     credit_score_text.value = '信用分 '+ credit_score.value
     credit_code.value = res.data.company_info.credit_code
     isFranchisee.value = res.data.isFranchisee
+    date.value = res.data.date
+    date_text.value = '入驻真木网'+ date.value + '天'
   })
   goodsListApi({company_info_id:company_info_id.value}).then(async(res) => {
     list.arr =  res.data;
