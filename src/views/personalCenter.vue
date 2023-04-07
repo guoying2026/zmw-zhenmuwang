@@ -2,11 +2,12 @@
   <div class="card">
     <div class="card-header">
 <!--      <div class="card-cover" :style="`background-image: url(${image_arr[userStore.clickIndex]})`"></div>-->
-      <div class="card-cover" style="background-image: linear-gradient(115deg,#4fcf70,#fad648,#a767e5,#12bcfe,#44ce7b)"></div>
+      <div class="card-cover colorful"></div>
       <img class="card-avatar" :src="image_arr[userStore.clickIndex]" alt="avatar" />
       <h1 class="card-fullname">{{name_arr[userStore.clickIndex]}}</h1>
       <h2 class="card-jobtitle">个人中心</h2>
     </div>
+    <text class="login_out blue_btn" @click="login_out">退出登录</text>
     <div class="card-main">
       <div class="card-section" id="about">
         <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick" stretch>
@@ -76,6 +77,13 @@
   </div>
 </template>
 <script setup>
+import { useUserStore } from "../pinia/user.js";
+const userStore = useUserStore();
+import {image_arr,name_arr} from "../utils/user.js";
+import { brokenRecordListByUserIdApi } from "../api/brokenRecord.js";
+import { getTradeLogsApi } from "../api/goods.js";
+import { formatUnit } from "../utils/good.js";
+import {useRouter} from 'vue-router'
 import "../assets/comment.scss"
 //导航栏切换开始
 import {onMounted, reactive, ref} from "vue";
@@ -84,13 +92,9 @@ const activeName = ref('first')
 const handleClick = (tab, event) => {
   console.log(tab, event)
 }
+const router = useRouter()
+
 //导航栏切换结束
-import { useUserStore } from "../pinia/user.js";
-const userStore = useUserStore();
-import {image_arr,name_arr} from "../utils/user.js";
-import { brokenRecordListByUserIdApi } from "../api/brokenRecord.js";
-import { getTradeLogsApi } from "../api/goods.js";
-import { formatUnit } from "../utils/good.js";
 const brokenRecordList = reactive({
   arr: []
 })
@@ -111,8 +115,26 @@ onMounted(() => {
     tradeLog.value = res.data.data
   })
 })
+const login_out = () => {
+  userStore.$reset();
+  console.log(userStore.userId);
+  router.push({path: '/login'})
+}
 </script>
 <style lang="scss" scoped>
+.colorful{
+  background-image: linear-gradient(115deg,#4fcf70,#fad648,#a767e5,#12bcfe,#44ce7b);
+}
+.login_out{
+  align-self: center;
+  padding: 5px 15px;
+  border-radius: 10px;
+  font-size: 13px;
+}
+.blue_btn{
+  background-color: #e9f9ff;
+  color: #000000;
+}
 .app-container{
   background-color: #fff !important;
 }

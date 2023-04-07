@@ -2,7 +2,7 @@
 <!--  由父组件提供插槽内容开始-->
 <!--  由父组件提供插槽内容结束-->
   <div class="deep_parent">
-    <div @click="drawer = true">
+    <div @click="drawerShow">
       <slot name="clickDrawer"></slot>
     </div>
   <el-drawer v-model="drawer" direction="btt" size="60%" title="I am the title" :with-header="false">
@@ -61,13 +61,15 @@ export default{
 }
 </script>
 <script setup>
-import { ref } from 'vue'
+import {onBeforeMount, onBeforeUpdate, ref} from 'vue'
 import { getAnswerOssSignatureApi,pushAnswerOssApi } from "../api/ossUploadFile.js";
 import { handeSrcHttpsUtil,guidUtil } from "../utils/httpReplace.js";
 import { publishCommentApi,publishCommentReplyApi } from "../api/comment.js";
 import { publishQuestionApi,publishAnswerApi } from "../api/question.js";
 import { publishBrokenRecordApi } from "../api/brokenRecord.js";
 import { ElNotification } from 'element-plus'
+import {useRouter} from 'vue-router'
+const router = useRouter()
 
 //引入用户信息开始
 import { useUserStore } from "../pinia/user.js";
@@ -143,6 +145,17 @@ const props = defineProps({
     default: ''
   }
 })
+const drawerShow = () => {
+  if(userStore.userId * 1 > 0){
+    drawer.value = true;
+  } else {
+    ElNotification({
+      title: 'Info',
+      message: '登录后才可以'+ props.confirmText +'!',
+      type: 'info',
+    })
+  }
+}
 //父组件给该组件AddComment传递的值，就定义在defineProps,结束
 //抽屉开始
 const drawer = ref(false)

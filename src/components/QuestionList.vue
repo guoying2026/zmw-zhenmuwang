@@ -29,15 +29,11 @@
               :company-info-id="companyInfoId"
               addType="question"
               questionType="question"
-              v-if="userStore.userId > 0"
           >
             <template #clickDrawer>
               <text class="general_item_2 blue_btn margin-10-left">我要提问</text>
             </template>
           </AddComment>
-          <router-link to="/login" v-else>
-            <text class="general_item_2 blue_btn margin-10-left">我要提问</text>
-          </router-link>
         </div>
       </div>
       <div class="project-boxes jsGridView">
@@ -78,7 +74,6 @@
                   :company-info-id="companyInfoId"
                   addType="question"
                   questionType="question"
-                  v-if="userStore.userId > 0"
               >
                 <template #clickDrawer>
               <div class="days-left" style="color: #4f3ff0;">
@@ -86,11 +81,6 @@
               </div>
                 </template>
               </AddComment>
-              <router-link to="/login" v-else>
-                <div class="days-left" style="color: #4f3ff0;">
-                  去提问
-                </div>
-              </router-link>
             </div>
           </div>
         </div>
@@ -131,7 +121,6 @@
                   :company-info-id="companyInfoId"
                   addType="question"
                   questionType="question"
-                  v-if="userStore.userId > 0"
               >
                 <template #clickDrawer>
               <div class="days-left" style="color: #096c86;">
@@ -139,11 +128,6 @@
               </div>
                 </template>
               </AddComment>
-              <router-link to="/login" v-else>
-                <div class="days-left" style="color: #096c86;">
-                  去提问
-                </div>
-              </router-link>
             </div>
           </div>
         </div>
@@ -184,7 +168,6 @@
                   :company-info-id="companyInfoId"
                   addType="question"
                   questionType="question"
-                  v-if="userStore.userId > 0"
               >
                 <template #clickDrawer>
                   <div class="days-left" style="color: #34c471;">
@@ -192,11 +175,6 @@
                   </div>
                 </template>
               </AddComment>
-              <router-link to="/login" v-else>
-                <div class="days-left" style="color: #34c471;">
-                  去提问
-                </div>
-              </router-link>
             </div>
           </div>
         </div>
@@ -365,65 +343,80 @@ onMounted(() => {
 })
 //有用开始
 const liked_question = (index,indexAsk,id,is_useful,useful_count,useless_count) => {
-  //如果is_useful是1。就是有用，再点赞就是取消有用
-  if(is_useful === 1){
-    cancelAnswerApi({company_info_id:props.companyInfoId,answer_id: id,user_id: userStore.userId}).then(async(res) => {
-      if(res.status === 200 && res.data.useful_id > 0){
-         list.arr[index].answer_list[indexAsk].is_useful = 0;
-        all_answer_useful_count.value = all_answer_useful_count.value * 1 - 1;
-        if(useful_count * 1 > 1){
-           list.arr[index].answer_list[indexAsk].useful_count = useful_count * 1 - 1;
-        } else {
-           list.arr[index].answer_list[indexAsk].useful_count = 0;
-        }
-      }
-    })
-  } else {
-    usefulAnswerApi({company_info_id:props.companyInfoId,answer_id: id,user_id: userStore.userId}).then(async(res) => {
-      if(res.status === 200 && res.data.useful_id > 0){
-        if(is_useful === 2){//如果从无用变成有用，需要减少无用数量
-          if(useless_count * 1 > 1){
-             list.arr[index].answer_list[indexAsk].useless_count = useless_count * 1 - 1;
+  if(userStore.userId > 0){
+    //如果is_useful是1。就是有用，再点赞就是取消有用
+    if(is_useful === 1){
+      cancelAnswerApi({company_info_id:props.companyInfoId,answer_id: id,user_id: userStore.userId}).then(async(res) => {
+        if(res.status === 200 && res.data.useful_id > 0){
+          list.arr[index].answer_list[indexAsk].is_useful = 0;
+          all_answer_useful_count.value = all_answer_useful_count.value * 1 - 1;
+          if(useful_count * 1 > 1){
+            list.arr[index].answer_list[indexAsk].useful_count = useful_count * 1 - 1;
           } else {
-             list.arr[index].answer_list[indexAsk].useless_count = 0;
+            list.arr[index].answer_list[indexAsk].useful_count = 0;
           }
         }
-         list.arr[index].answer_list[indexAsk].is_useful = 1;
-         list.arr[index].answer_list[indexAsk].useful_count = useful_count * 1 + 1;
-         all_answer_useful_count.value = all_answer_useful_count.value * 1 + 1;
-      }
+      })
+    } else {
+      usefulAnswerApi({company_info_id:props.companyInfoId,answer_id: id,user_id: userStore.userId}).then(async(res) => {
+        if(res.status === 200 && res.data.useful_id > 0){
+          if(is_useful === 2){//如果从无用变成有用，需要减少无用数量
+            if(useless_count * 1 > 1){
+              list.arr[index].answer_list[indexAsk].useless_count = useless_count * 1 - 1;
+            } else {
+              list.arr[index].answer_list[indexAsk].useless_count = 0;
+            }
+          }
+          list.arr[index].answer_list[indexAsk].is_useful = 1;
+          list.arr[index].answer_list[indexAsk].useful_count = useful_count * 1 + 1;
+          all_answer_useful_count.value = all_answer_useful_count.value * 1 + 1;
+        }
+      })
+    }
+  } else {
+    ElNotification({
+      title: 'Info',
+      message: '登录后才可以点赞！',
+      type: 'info',
     })
   }
 }
 //有用结束
 //没用开始
 const disliked_question = (index,indexAsk,id,is_useful,useful_count,useless_count) => {
-  //如果is_useful是2。就是没用，再点赞就是取消没用
-  if(is_useful === 2){
-    cancelAnswerApi({company_info_id:props.companyInfoId,answer_id: id,user_id: userStore.userId}).then(async(res) => {
-      if(res.status === 200 && res.data.useful_id > 0){
-         list.arr[index].answer_list[indexAsk].is_useful = 0;
-        if(useless_count * 1 > 1){
-           list.arr[index].answer_list[indexAsk].useless_count = useless_count * 1 - 1;
-        } else {
-           list.arr[index].answer_list[indexAsk].useless_count = 0;
-        }
-      }
-    })
-  } else {
-    uselessAnswerApi({company_info_id:props.companyInfoId,answer_id:id,user_id: userStore.userId}).then(async(res) => {
-      if(res.status === 200 && res.data.useful_id > 0){
-        if(is_useful === 1){//如果从有用变成无用，需要减少有用数量
-          all_answer_useful_count.value = all_answer_useful_count.value * 1 - 1;
-          if(useful_count * 1 > 1){
-            list.arr[index].answer_list[indexAsk].useful_count = useful_count * 1 - 1;
+  if(userStore.userId > 0){
+    if(is_useful === 2){
+      cancelAnswerApi({company_info_id:props.companyInfoId,answer_id: id,user_id: userStore.userId}).then(async(res) => {
+        if(res.status === 200 && res.data.useful_id > 0){
+          list.arr[index].answer_list[indexAsk].is_useful = 0;
+          if(useless_count * 1 > 1){
+            list.arr[index].answer_list[indexAsk].useless_count = useless_count * 1 - 1;
           } else {
-             list.arr[index].answer_list[indexAsk].useful_count = 0;
+            list.arr[index].answer_list[indexAsk].useless_count = 0;
           }
         }
-         list.arr[index].answer_list[indexAsk].is_useful = 2;
-         list.arr[index].answer_list[indexAsk].useless_count = useless_count * 1 + 1;
-      }
+      })
+    } else {
+      uselessAnswerApi({company_info_id:props.companyInfoId,answer_id:id,user_id: userStore.userId}).then(async(res) => {
+        if(res.status === 200 && res.data.useful_id > 0){
+          if(is_useful === 1){//如果从有用变成无用，需要减少有用数量
+            all_answer_useful_count.value = all_answer_useful_count.value * 1 - 1;
+            if(useful_count * 1 > 1){
+              list.arr[index].answer_list[indexAsk].useful_count = useful_count * 1 - 1;
+            } else {
+              list.arr[index].answer_list[indexAsk].useful_count = 0;
+            }
+          }
+          list.arr[index].answer_list[indexAsk].is_useful = 2;
+          list.arr[index].answer_list[indexAsk].useless_count = useless_count * 1 + 1;
+        }
+      })
+    }
+  } else {
+    ElNotification({
+      title: 'Info',
+      message: '登录后才可以点赞！',
+      type: 'info',
     })
   }
 }

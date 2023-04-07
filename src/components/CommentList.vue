@@ -36,7 +36,6 @@
             :reply-count=0
             add-type="comment"
             comment-type="comment"
-            v-if="userStore.userId > 0"
         >
           <template #clickDrawer>
             <!-- AddComment 插槽的内容放这里开始-->
@@ -46,12 +45,6 @@
             </div>
           </template>
         </AddComment>
-        <router-link to="/login" v-else>
-          <div class="icon_div">
-            <span>我有话说</span>
-            <el-icon class="margin-10-left font-48-size"><ChatRound /></el-icon>
-          </div>
-        </router-link>
       </div>
     </div>
     <div class="project-boxes jsGridView">
@@ -99,7 +92,6 @@
                 :reply-count=0
                 add-type="comment"
                 comment-type="comment"
-                v-if="userStore.userId > 0"
             >
               <template #clickDrawer>
               <div class="days-left" style="color: #096c86;">
@@ -107,11 +99,6 @@
               </div>
               </template>
             </AddComment>
-            <router-link to="/login" v-else>
-              <div class="days-left" style="color: #096c86;">
-                去说点儿什么
-              </div>
-            </router-link>
           </div>
         </div>
       </div>
@@ -159,7 +146,6 @@
                 :reply-count=0
                 add-type="comment"
                 comment-type="comment"
-                v-if="userStore.userId > 0"
             >
               <template #clickDrawer>
                 <div class="days-left" style="color: #096c86;">
@@ -167,11 +153,6 @@
                 </div>
               </template>
             </AddComment>
-            <router-link to="/login" v-else>
-              <div class="days-left" style="color: #096c86;">
-                去说点儿什么
-              </div>
-            </router-link>
           </div>
         </div>
       </div>
@@ -219,7 +200,6 @@
                 :reply-count=0
                 add-type="comment"
                 comment-type="comment"
-                v-if="userStore.userId > 0"
             >
               <template #clickDrawer>
                 <div class="days-left" style="color: #096c86;">
@@ -227,11 +207,6 @@
                 </div>
               </template>
             </AddComment>
-            <router-link to="/login" v-else>
-              <div class="days-left" style="color: #096c86;">
-                去说点儿什么
-              </div>
-            </router-link>
           </div>
         </div>
       </div>
