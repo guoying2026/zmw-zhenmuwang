@@ -22,7 +22,7 @@
     <div>
       <!--手机号开始-->
       <el-form-item prop="phone" class="input_btn">
-        <el-input size="large" maxlength="11" type="number" v-model.number="ruleForm.phone" placeholder='请输入手机号' />
+        <el-input size="large" maxlength="11" type="number" v-model.number.lazy="ruleForm.phone" placeholder='请输入手机号' />
       </el-form-item>
       <!--手机号结束-->
       <!--短信验证码开始-->

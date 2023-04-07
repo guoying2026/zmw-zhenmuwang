@@ -200,7 +200,31 @@
     margin-top: 5px;
   }
 }
-@media only screen and (min-width: 520px) {
+@media only screen and (min-width: 520px) and ( max-width: 620px){
+  #profiles{
+    width: 100%;
+  }
+  .profile{
+    width: 200px;
+  }
+  #circle{
+    width: 55vh;
+    height: 55vh;
+  }
+  .text_profile{
+    padding: 10px;
+  }
+  .font8-size{
+    font-size: 10px;
+  }
+  .font15-size{
+    font-size: 18px;
+  }
+  .font-item{
+    margin-top: 5px;
+  }
+}
+@media only screen and (min-width: 620px) {
   #profiles{
     width: 100%;
   }

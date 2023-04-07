@@ -8,6 +8,7 @@ import App from './App.vue'
 import router from './router/index.js'
 //全局状态使用pinia
 import store from './pinia/index.js'
+import fastClick from 'fastclick'
 //写css代码的时候，我们需要预处理工具styluss或者sass
 //网络请求后端数据的时候，我们需要Axios
 //组件库开发中，我们使用element-plus作为组件库
@@ -116,8 +117,17 @@ app.use(ElContainer)
 for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
     app.component(key, component)
 }
-
 app.mount('#app')//挂载到#app
+fastClick.prototype.focus = function (targetElement) {
+    let length;
+    if (targetElement.setSelectionRange && targetElement.type.indexOf('date') !== 0 && targetElement.type !== 'time' && targetElement.type !== 'month') {
+        length = targetElement.value.length;
+        targetElement.focus();
+        targetElement.setSelectionRange(length, length);
+    } else {
+        targetElement.focus();
+    }
+};
 
 //参考国外程序员在 src/main.js 里加入下面这段代码,这样就可以在日志信息中直接复制报错内容中的链接，去 Stack Overflow 中寻找答案
 window.onerror = function(e){
