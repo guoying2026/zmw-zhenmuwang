@@ -25,12 +25,12 @@ a,a:hover {
   flex-direction: column;
   cursor: pointer;
 }
-@media (min-width: 576px) {
+@media (min-width: 990px) {
   .padding-20{
     padding: 10px 20px 10px 50px !important;
   }
 }
-@media (max-width: 576px) {
+@media (max-width: 990px) {
   .padding-20{
     padding: 0px 20px 0px 20px !important;
   }

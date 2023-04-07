@@ -94,6 +94,7 @@ import { image_arr, name_arr} from "../utils/user.js";
 // import GraphValidateCode from '../components/GraphValidateCode.vue'
 //登录成功后，需要把登录状态让多页面共享
 import { useUserStore } from "../pinia/user.js";
+import {ElNotification} from "element-plus";
 const router = useRouter()
 const userStore = useUserStore();
 onMounted(()=>{
@@ -240,7 +241,11 @@ const submitForm = (formEl) => {
         console.log(res);
         let result = res.data.data;
         if(res.data.status === 1001){//验证码过期
-          console.log('验证码过期');
+          ElNotification({
+            title: 'Error',
+            message: '验证码过期',
+            type: 'error',
+          })
         } else if(result.status === 1000){
           console.log('登录成功');
           //result.user_id
@@ -255,7 +260,11 @@ const submitForm = (formEl) => {
           console.log(userStore);
           await router.push({path: '/'})
         } else {//登录失败请重试
-
+          ElNotification({
+            title: 'Error',
+            message: '登录失败',
+            type: 'error',
+          })
         }
       })
       console.log('submit!')
