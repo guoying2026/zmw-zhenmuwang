@@ -58,6 +58,17 @@
             </div>
           </el-tab-pane>
           <el-tab-pane label="我的订单" name="second" lazy>
+            <el-table :data="tradeLog" empty-text="您还没有下过单哦">
+              <el-table-column label="购买产品" prop="goods_title" />
+              <el-table-column label="购买规格" prop="specs" />
+              <el-table-column label="购买数量">
+                <template
+                  #default="scope"
+                >{{ Number(scope.row.goods_sumnumber) }}{{ formatUnit(scope.row.unit) }}</template>
+              </el-table-column>
+              <el-table-column label="联系电话" prop="user_phone" />
+              <el-table-column label="联系地址" prop="user_address"/>
+            </el-table>
           </el-tab-pane>
         </el-tabs>
       </div>
@@ -78,10 +89,13 @@ import { useUserStore } from "../pinia/user.js";
 const userStore = useUserStore();
 import {image_arr,name_arr} from "../utils/user.js";
 import { brokenRecordListByUserIdApi } from "../api/brokenRecord.js";
+import { getTradeLogsApi } from "../api/goods.js";
+import { formatUnit } from "../utils/good.js";
 const brokenRecordList = reactive({
   arr: []
 })
 const brokenRecordCount = ref(0)
+const tradeLog = ref([])
 onMounted(() => {
   brokenRecordListByUserIdApi({user_id: userStore.userId}).then(async(res) => {
     console.log(res);
@@ -89,6 +103,12 @@ onMounted(() => {
       brokenRecordList.arr = res.data.data;
       brokenRecordCount.value = res.data.broken_record_count;
     }
+  })
+  getTradeLogsApi({user_id: userStore.userId, phone: userStore.phone}).then(res => {
+    if (res.status != 200 || res.data.status != 1000) {
+      return false
+    }
+    tradeLog.value = res.data.data
   })
 })
 </script>

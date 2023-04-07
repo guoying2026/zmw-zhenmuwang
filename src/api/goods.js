@@ -221,3 +221,21 @@ export const pollingWxOrderApi = (data) => {
     }
   })
 }
+
+/**
+ * 获取交易记录
+ * @param {object} data
+ * @param {string|number} data.user_id
+ * @param {string|number} data.phone
+ * @returns {Promise<import('axios').AxiosResponse<any,any>>}
+ */
+export const getTradeLogsApi = (data) => {
+  return axiosRequest({
+    url: 'Pc/Goods/getTradeLogs',
+    method: 'post',
+    data: data,
+    headers: {
+      "Content-Type": 'application/x-www-form-urlencoded'
+    }
+  })
+}

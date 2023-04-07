@@ -5,6 +5,16 @@ import List from '../views/List.vue'
 const router = createRouter({
     //使用路由模式
     history: createWebHistory(), // hash模式：createWebHashHistory，history模式：createWebHistory
+    scrollBehavior (to, from, savedPosition) {
+        if (savedPosition) {
+            return savedPosition
+        } else {
+            return {
+                left: 0,
+                top: 0,
+            }
+        }
+    },
     routes: [
         {
             path: '/',

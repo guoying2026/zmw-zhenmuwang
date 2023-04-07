@@ -50,7 +50,6 @@
         :goodsFeatures="goodsFeatures"
         :factoryFeatures="factoryFeatures"
         :imageList="goodsDetailImageList"
-        :tradeLog="tradeLog"
       >
         <el-form
           ref="formRef"
@@ -326,8 +325,6 @@ const selectedRemarkListItems = ref([])
 const threeDImage = ref('')
 // 用户下单时手动输入的备注内容
 const remarkContent = ref('')
-// 交易记录
-const tradeLog = ref([])
 // 为你推荐
 const otherSee = ref([])
 // 是否正在加载中
@@ -630,8 +627,6 @@ const getGoodsDetail = () => {
     orderNotes.value = selectedGoodsStore.order_notes
     // 获取三维图示
     threeDImage.value = formatHttpsProtocol(res.data.data.three_d_image)
-    // 获取交易记录
-    tradeLog.value = res.data.data.trade_log
     otherSee.value = res.data.data.other_see
     if (isAutoCalcSpecsPrice) {
       handleSpecListCountChange()

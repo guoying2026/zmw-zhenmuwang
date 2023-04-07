@@ -101,21 +101,6 @@
       <!-- 立即购买 start -->
       <el-tab-pane label="立即购买"><slot></slot></el-tab-pane>
       <!-- 立即购买 end -->
-      <!-- 交易记录 start -->
-      <el-tab-pane label="交易记录">
-        <el-table :data="tradeLog" empty-text="您未在该商家下过单哦">
-          <el-table-column label="联系地址" prop="user_address"/>
-          <el-table-column label="联系电话" prop="user_phone" />
-          <el-table-column label="购买数量">
-            <template
-              #default="scope"
-            >{{ Number(scope.row.goods_sumnumber) }}{{ formatUnit(scope.row.unit) }}</template>
-          </el-table-column>
-          <el-table-column label="购买规格" prop="specs" />
-          <el-table-column label="购买产品" prop="goods_title" />
-        </el-table>
-      </el-tab-pane>
-      <!-- 交易记录 end -->
     </el-tabs>
   </el-col>
 </template>
@@ -145,13 +130,6 @@ const props = defineProps({
     }
   },
   imageList: {
-    type: Array,
-    required: true,
-    default () {
-      return []
-    }
-  },
-  tradeLog: {
     type: Array,
     required: true,
     default () {
