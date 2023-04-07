@@ -58,7 +58,7 @@
             </div>
           </el-tab-pane>
           <el-tab-pane label="我的订单" name="second" lazy>
-            <el-table :data="tradeLog" empty-text="您未在该商家下过单哦">
+            <el-table :data="tradeLog" empty-text="您还没有下过单哦">
               <el-table-column label="购买产品" prop="goods_title" />
               <el-table-column label="购买规格" prop="specs" />
               <el-table-column label="购买数量">
