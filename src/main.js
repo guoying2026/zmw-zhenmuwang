@@ -24,7 +24,7 @@ import {
     ElFormItem,
     ElInput,
     ElAffix,
-    ElLoading,
+    // ElLoading,
     ElEmpty,
     ElLink,
     ElSkeleton,
@@ -61,7 +61,8 @@ import {
     ElSteps,
 } from 'element-plus'
 
-import * as ElementPlusIconsVue from '@element-plus/icons-vue'
+// import * as ElementPlusIconsVue from '@element-plus/icons-vue'
+import {Search, Plus, ChatRound, SortDown, SortUp, Right, ShoppingCart} from '@element-plus/icons-vue'
 
 const app = createApp(App);//生成vue实例
 
@@ -78,7 +79,7 @@ app.use(ElContainer)
     .use(ElFormItem)
     .use(ElInput)
     .use(ElAffix)
-    .use(ElLoading)
+    // .use(ElLoading)
     .use(ElEmpty)
     .use(ElLink)
     .use(ElSkeleton)
@@ -113,10 +114,17 @@ app.use(ElContainer)
     .use(ElCard)
     .use(ElUpload)
     .use(ElSteps)
+app.component('Search', Search)
+    .component('Plus', Plus)
+    .component('ChatRound', ChatRound)
+    .component('SortDown', SortDown)
+    .component('SortUp', SortUp)
+    .component('Right', Right)
+    .component('ShoppingCart', ShoppingCart)
 
-for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
+/* for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
     app.component(key, component)
-}
+} */
 app.mount('#app')//挂载到#app
 fastClick.prototype.focus = function (targetElement) {
     let length;
