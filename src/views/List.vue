@@ -112,42 +112,40 @@ a,a:hover {
         <el-skeleton animated>
           <template #template>
             <div v-for="i in 10">
-              <div class="first">
-                <el-row :gutter="24">
-                  <el-col :span="24" :md="12">
-                    <div class="padding-20 left">
-                      <div class="left_1" style="align-items: flex-start;">
-                        <el-skeleton-item variant="image" style="height: 80px;width: 100px;" />
-                        <div class="left_1_2">
-                          <el-skeleton-item variant="h1" class="margin-10-left" style="width: 340px;height: 27px;" />
-                          <div class="left_1_2_2">
-                            <el-skeleton-item variant="rect" class="margin-10-left margin-10-top margin-10-bottom" style="width: 95px;height: 44px;" />
-                          </div>
-                        </div>
-                      </div>
-                      <div class="info">
-                        <div class="item margin-10-top" v-for="j in 6">
-                          <el-skeleton-item variant="p" />
+              <el-row :gutter="24">
+                <el-col :span="24" :md="12">
+                  <div class="padding-20 left">
+                    <div class="left_1" style="align-items: flex-start;">
+                      <el-skeleton-item variant="image" style="height: 80px;width: 100px;" />
+                      <div class="left_1_2">
+                        <el-skeleton-item variant="h1" class="margin-10-left" style="width: 340px;height: 27px;" />
+                        <div class="left_1_2_2">
+                          <el-skeleton-item variant="rect" class="margin-10-left margin-10-top margin-10-bottom" style="width: 95px;height: 44px;" />
                         </div>
                       </div>
                     </div>
-                  </el-col>
-                  <el-col :span="24" :md="12">
-                    <el-row :gutter="8" class="goods">
-                      <el-col v-for="j in 4" :span="12" :md="6">
-                        <div class="goods_card">
-                          <el-skeleton-item variant="image" style="width: 100%; height: 30vh;" />
-                          <div style="display: flex;flex-direction: column;justify-content: space-between;">
-                            <el-skeleton-item variant="h3" class="margin-10-top" style="width: 50%;" />
-                            <el-skeleton-item variant="text" class="margin-10-top" v-for="k in 2" />
-                            <el-skeleton-item variant="text" class="margin-10-top" style="width: 30%;align-self: flex-end;" />
-                          </div>
+                    <div class="info">
+                      <div class="item margin-10-top" v-for="j in 6">
+                        <el-skeleton-item variant="p" />
+                      </div>
+                    </div>
+                  </div>
+                </el-col>
+                <el-col :span="24" :md="12">
+                  <el-row :gutter="8" class="goods">
+                    <el-col v-for="j in 4" :span="12" :md="6">
+                      <div class="goods_card">
+                        <el-skeleton-item variant="image" style="width: 100%; height: 30vh;" />
+                        <div style="display: flex;flex-direction: column;justify-content: space-between;">
+                          <el-skeleton-item variant="h3" class="margin-10-top" style="width: 50%;" />
+                          <el-skeleton-item variant="text" class="margin-10-top" v-for="k in 2" />
+                          <el-skeleton-item variant="text" class="margin-10-top" style="width: 30%;align-self: flex-end;" />
                         </div>
-                      </el-col>
-                    </el-row>
-                  </el-col>
-                </el-row>
-              </div>
+                      </div>
+                    </el-col>
+                  </el-row>
+                </el-col>
+              </el-row>
             </div>
           </template>
         </el-skeleton>
@@ -164,62 +162,58 @@ a,a:hover {
           </template>
         </el-empty>
         <div v-for="(item,index) in list" :key="index" class="all_list_item" v-else>
-          <div class="first">
   <!--          不展示商品 start-->
-            <router-link :to="'/blackDetail?company_info_id='+item.id" v-if="item.isBlacklist">
-              <div class="padding-20 left">
-                <div class="left_1">
-                  <CreditScore :credit-score="item.score" credit-score-text="信用分" :font-size="40" height="80" width="100px"></CreditScore>
-                  <div class="left_1_2">
-                    <template v-if="item.id&&item.id!='0'&&item.id!=0&&item.id!='-1'&&item.id!=-1&&item.id.length>0">
-                      <text class="font-18-size font-60-weight margin-10-left">{{ item.company_name }}</text>
-                    </template>
-                    <template v-else>
-                      <el-link type="info" :underline="false" @click.stop="hasNoItemIdTips"><text class="font-18-size font-60-weight margin-10-left">{{ item.company_name }}</text></el-link>
-                    </template>
-                    <div class="left_1_2_2">
-                      <Tag class="tag" tag="黑名单" number="60" color="black" v-if="item.isBlacklist"></Tag>
-                      <Tag class="tag" tag="加盟商" number="60" color="orange" v-if="item.isFranchisee"></Tag>
-                      <Tag class="tag margin-10-left" v-if="item.province&&typeof item.province=='string'&&item.province.length>0" :tag="item.province" number="60" color="blue"></Tag>
-                    </div>
-                  </div>
+          <router-link class="padding-20 left" :to="'/blackDetail?company_info_id='+item.id" v-if="item.isBlacklist">
+            <div class="left_1">
+              <CreditScore :credit-score="item.score" credit-score-text="信用分" :font-size="40" height="80" width="100px"></CreditScore>
+              <div class="left_1_2">
+                <template v-if="item.id&&item.id!='0'&&item.id!=0&&item.id!='-1'&&item.id!=-1&&item.id.length>0">
+                  <text class="font-18-size font-60-weight margin-10-left">{{ item.company_name }}</text>
+                </template>
+                <template v-else>
+                  <el-link type="info" :underline="false" @click.stop="hasNoItemIdTips"><text class="font-18-size font-60-weight margin-10-left">{{ item.company_name }}</text></el-link>
+                </template>
+                <div class="left_1_2_2">
+                  <Tag class="tag" tag="黑名单" number="60" color="black" v-if="item.isBlacklist"></Tag>
+                  <Tag class="tag" tag="加盟商" number="60" color="orange" v-if="item.isFranchisee"></Tag>
+                  <Tag class="tag margin-10-left" v-if="item.province&&typeof item.province=='string'&&item.province.length>0" :tag="item.province" number="60" color="blue"></Tag>
                 </div>
-                <SellerInfo :item="item"></SellerInfo>
               </div>
-            </router-link>
+            </div>
+            <SellerInfo :item="item"></SellerInfo>
+          </router-link>
   <!--          不展示商品end-->
   <!--          展示商品开始-->
-            <el-row :gutter="24" v-else>
-              <el-col :span="24" :md="12" :class="item.goods.length>0?'':'grey_bg'">
-                <router-link :to="'/detail?company_info_id='+item.id">
-                  <div class="padding-20 left">
-                    <div class="left_1">
-                      <CreditScore :credit-score="item.score" credit-score-text="信用分" :font-size="40" height="80" width="100px"></CreditScore>
-                      <div class="left_1_2">
-                        <template v-if="item.id&&item.id!='0'&&item.id!=0&&item.id!='-1'&&item.id!=-1&&item.id.length>0">
-                          <text class="font-18-size font-60-weight margin-10-left">{{ item.company_name }}</text>
-                        </template>
-                        <template v-else>
-                          <el-link type="info" :underline="false" @click.stop="hasNoItemIdTips"><text class="font-18-size font-60-weight margin-10-left">{{ item.company_name }}</text></el-link>
-                        </template>
-                        <div class="left_1_2_2">
-                          <Tag class="tag" tag="黑名单" number="60" color="black" v-if="item.isBlacklist"></Tag>
-                          <Tag class="tag" tag="加盟商" number="60" color="orange" v-if="item.isFranchisee"></Tag>
-                          <Tag class="tag margin-10-left" :tag="item.province" number="60" color="blue"></Tag>
-                        </div>
+          <el-row :gutter="24" v-else>
+            <el-col :span="24" :md="12" :class="item.goods.length>0?'':'grey_bg'">
+              <router-link class="padding-20 left" :to="'/detail?company_info_id='+item.id">
+                <!-- <div class="padding-20 left"> -->
+                  <div class="left_1">
+                    <CreditScore :credit-score="item.score" credit-score-text="信用分" :font-size="40" height="80" width="100px"></CreditScore>
+                    <div class="left_1_2">
+                      <template v-if="item.id&&item.id!='0'&&item.id!=0&&item.id!='-1'&&item.id!=-1&&item.id.length>0">
+                        <text class="font-18-size font-60-weight margin-10-left">{{ item.company_name }}</text>
+                      </template>
+                      <template v-else>
+                        <el-link type="info" :underline="false" @click.stop="hasNoItemIdTips"><text class="font-18-size font-60-weight margin-10-left">{{ item.company_name }}</text></el-link>
+                      </template>
+                      <div class="left_1_2_2">
+                        <Tag class="tag" tag="黑名单" number="60" color="black" v-if="item.isBlacklist"></Tag>
+                        <Tag class="tag" tag="加盟商" number="60" color="orange" v-if="item.isFranchisee"></Tag>
+                        <Tag class="tag margin-10-left" :tag="item.province" number="60" color="blue"></Tag>
                       </div>
                     </div>
-                    <SellerInfo :item="item"></SellerInfo>
                   </div>
-                </router-link>
-              </el-col>
-              <el-col :span="24" :md="12">
-                <GoodsList :list="item.goods" :size="300" v-if="item.goods.length>0"></GoodsList>
-                <GuidePublishGoods :flag=1 v-else></GuidePublishGoods>
-              </el-col>
-            </el-row>
+                  <SellerInfo :item="item"></SellerInfo>
+                <!-- </div> -->
+              </router-link>
+            </el-col>
+            <el-col :span="24" :md="12">
+              <GoodsList :list="item.goods" :size="300" v-if="item.goods.length>0"></GoodsList>
+              <GuidePublishGoods :flag=1 v-else></GuidePublishGoods>
+            </el-col>
+          </el-row>
   <!--          展示商品结束-->
-          </div>
         </div>
       </template>
     </div>

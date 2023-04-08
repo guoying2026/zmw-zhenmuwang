@@ -6,29 +6,26 @@
         :span="12"
         :md="6"
     >
-      <div class="goods_card">
-        <router-link :to="'/goodsDetail?type=1&goods_id='+item.goods_id">
-          <!-- x-oss-process=image/resize参数可参考https://help.aliyun.com/document_detail/44688.html -->
-          <img
-            :src="item.mainurl+'?x-oss-process=image/format,webp'"
-            :alt="item.goods_title"
-            decoding="async"
-            loading="lazy"
-            :srcset="item.mainurl+'?x-oss-process=image/resize,m_lfit,h_300,w_300/format,webp 150w, '+item.mainurl+'?x-oss-process=image/resize,m_lfit,h_300,w_300/format,webp 300w, '+item.mainurl+'?x-oss-process=image/resize,m_lfit,h_300,w_300/format,webp 100w'"
-            sizes="(max-width: 150px) 100vw, 150px"
-            :style="`width:100%; height: ${image_height};object-fit: fill;`"
-            :onerror="'this.src=\''+goodsErrorImg+'\';this.srcset=\''+goodsErrorImg+' 150w, '+goodsErrorImg+' 300w, '+goodsErrorImg+' 100w\';'"
-          >
-          <div class="goods_item font-12-size">
-            <text class="font-15-size">{{item.goods_title}}</text>
-            <text class="margin-10-top">详细发货地址：{{item.area}}</text>
-            <div class="margin-10-top green_btn buy_btn">
-              <text>¥ </text>
-              <text class="font-18-size">{{item.goods_price}}</text>
-            </div>
+      <router-link class="goods_card" :to="'/goodsDetail?type=1&goods_id='+item.goods_id">
+        <!-- x-oss-process=image/resize参数可参考https://help.aliyun.com/document_detail/44688.html -->
+        <img
+          :alt="item.goods_title"
+          decoding="async"
+          loading="lazy"
+          :srcset="item.mainurl+'?x-oss-process=image/resize,m_lfit,h_300,w_300/format,webp 150w, '+item.mainurl+'?x-oss-process=image/resize,m_lfit,h_300,w_300/format,webp 300w, '+item.mainurl+'?x-oss-process=image/resize,m_lfit,h_300,w_300/format,webp 100w'"
+          sizes="(max-width: 150px) 100vw, 150px"
+          :style="`width:100%; height: ${image_height};object-fit: fill;`"
+          :onerror="'this.src=\''+goodsErrorImg+'\';this.srcset=\''+goodsErrorImg+' 150w, '+goodsErrorImg+' 300w, '+goodsErrorImg+' 100w\';'"
+        >
+        <div class="goods_item font-12-size">
+          <text class="font-15-size">{{item.goods_title}}</text>
+          <text class="margin-10-top">详细发货地址：{{item.area}}</text>
+          <div class="margin-10-top green_btn buy_btn">
+            <text>¥ </text>
+            <text class="font-18-size">{{item.goods_price}}</text>
           </div>
-        </router-link>
-      </div>
+        </div>
+      </router-link>
     </el-col>
   </el-row>
 </template>
@@ -63,6 +60,8 @@ export default{
   margin-bottom: 10px;
 }
 .goods_card{
+  display: inline-block;
+  width: 100%;
   height: 100%;
   background-color: #fff;
   border-radius: 10px;
