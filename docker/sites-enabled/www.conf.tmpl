@@ -9,6 +9,10 @@ server {
         try_files $uri $uri/ /index.html =404;
         index index.html;
     }
+    location ~ .*\.(js|css)$ {
+        gzip_static on;
+        expires 3d;
+    }
     set $preroot ${PREWWWROOT};
     location /login{
         add_header Cache-Control no-cache;
