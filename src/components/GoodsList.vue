@@ -48,6 +48,13 @@ const props = defineProps({
     default: '30vh',
   }
 })
+props.list.forEach(item=>{
+  let el=document.createElement('link')
+  el.rel='preload'
+  el.as='image'
+  el.href=item.mainurl+'?x-oss-process=image/resize,m_lfit,h_300,w_300/format,webp'
+  window.document.head.append(el)
+})
 </script>
 <script>
 const goodsErrorImg = 'https://cube.elemecdn.com/e/fd/0fc7d20532fdaf769a25683617711png.png'
