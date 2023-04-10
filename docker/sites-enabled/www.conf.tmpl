@@ -12,7 +12,6 @@ server {
     location ~ .*\.(js|css)$ {
         gzip_static on;
         expires 30d;
-        add_header Cache-Control "public, no-transform";
     }
     set $preroot ${PREWWWROOT};
     location /login{
