@@ -73,7 +73,6 @@ a,a:hover {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  max-width: 1500px;
 }
 .all_list_item{
   width: 100%;
