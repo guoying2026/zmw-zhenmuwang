@@ -184,9 +184,9 @@ const sendSMSVerificationCode = () => {
       console.log(res);
       if(res.data.status !== 1){
         ElNotification({
-          title: 'Error',
+          title: 'Info',
           message: res.data.info,
-          type: 'error',
+          type: 'info',
         })
       }
     })
@@ -248,9 +248,9 @@ const submitForm = (formEl) => {
         console.log(res);
         if(res.data.status*1 === 1001){//验证码过期
           ElNotification({
-            title: 'Error',
+            title: 'Info',
             message: '验证码过期',
-            type: 'error',
+            type: 'info',
           })
         } else if(res.data.status*1 === 1000){
           console.log('登录成功');
