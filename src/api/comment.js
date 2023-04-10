@@ -53,7 +53,10 @@ export const publishCommentReplyApi = (data) => {
     return axiosRequest({
         url: '/Pc/CompanyComment/publishCommentReply',
         method:'post',
-        data
+        data: data,
+        headers: {
+            "Content-Type": 'application/x-www-form-urlencoded'
+        }
     })
 }
 

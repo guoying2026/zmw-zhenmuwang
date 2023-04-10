@@ -5,7 +5,10 @@ export const publishBrokenRecordApi = (data) => {
     return axiosRequest({
         url: '/Pc/BrokenRecord/publishBrokenRecord',
         method:'post',
-        data
+        data: data,
+        headers: {
+            "Content-Type": 'application/x-www-form-urlencoded'
+        }
     })
 }
 //查询投诉列表根据companyInfoId
