@@ -9,6 +9,7 @@ import router from './router/index.js'
 //全局状态使用pinia
 import store from './pinia/index.js'
 import fastClick from 'fastclick'
+import 'element-plus/theme-chalk/el-notification.css';
 //写css代码的时候，我们需要预处理工具styluss或者sass
 //网络请求后端数据的时候，我们需要Axios
 //组件库开发中，我们使用element-plus作为组件库
@@ -59,6 +60,7 @@ import {
     ElCard,
     ElUpload,
     ElSteps,
+    ElNotification,
 } from 'element-plus'
 
 // import * as ElementPlusIconsVue from '@element-plus/icons-vue'
@@ -114,6 +116,7 @@ app.use(ElContainer)
     .use(ElCard)
     .use(ElUpload)
     .use(ElSteps)
+    .use(ElNotification)
 app.component('Search', Search)
     .component('Plus', Plus)
     .component('ChatRound', ChatRound)

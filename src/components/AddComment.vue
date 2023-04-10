@@ -61,7 +61,7 @@ export default{
 }
 </script>
 <script setup>
-import {onBeforeMount, onBeforeUpdate, ref} from 'vue'
+import {ref} from 'vue'
 import { getAnswerOssSignatureApi,pushAnswerOssApi } from "../api/ossUploadFile.js";
 import { handeSrcHttpsUtil,guidUtil } from "../utils/httpReplace.js";
 import { publishCommentApi,publishCommentReplyApi } from "../api/comment.js";
