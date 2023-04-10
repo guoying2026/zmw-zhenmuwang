@@ -5,7 +5,10 @@ export const getAnswerOssSignatureApi = (data) => {
     return axiosRequest({
         url: '/Mobile/Index/getAnswerOssSignature',
         method:'post',
-        data
+        data: data,
+        headers: {
+            "Content-Type": 'application/x-www-form-urlencoded'
+        }
     })
 }
 //上传到oss文件的api,
