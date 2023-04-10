@@ -182,6 +182,13 @@ const sendSMSVerificationCode = () => {
       is_mobile: 1,
     }).then(async(res) => {
       console.log(res);
+      if(res.data.status !== 1){
+        ElNotification({
+          title: 'Error',
+          message: res.data.info,
+          type: 'error',
+        })
+      }
     })
   } else {
     console.log('不要发送了哦');
@@ -239,20 +246,19 @@ const submitForm = (formEl) => {
         click_index: clickIndex.value,
       }).then(async(res) => {
         console.log(res);
-        let result = res.data.data;
-        if(res.data.status === 1001){//验证码过期
+        if(res.data.status*1 === 1001){//验证码过期
           ElNotification({
             title: 'Error',
             message: '验证码过期',
             type: 'error',
           })
-        } else if(result.status === 1000){
+        } else if(res.data.status*1 === 1000){
           console.log('登录成功');
           //result.user_id
           //result._token
           //result.token_expired_time
           //不存_token就是不想让用户过期需要重新登录。但把_token列出来,怕之后请求某个接口需要判断token。所以为了以防万一，先列出来，但不存
-          userStore.userId = result.user_id
+          userStore.userId = res.data.data.user_id
           userStore.phone = ruleForm.phone
           userStore.photo = image_arr[clickIndex.value]
           userStore.clickIndex = clickIndex.value

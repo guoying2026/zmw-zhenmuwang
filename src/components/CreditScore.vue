@@ -17,7 +17,6 @@
 @media not all and (min-resolution:.001dpcm) { @supports (-webkit-appearance:none) {
   .font-150-size { font-size: 80px !important; }
   .font-40-size{ font-size: 30px !important;}
-
 }
 }
 .fluctuate span {
