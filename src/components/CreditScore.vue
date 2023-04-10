@@ -72,11 +72,7 @@
     .font-40-size{ font-size: 30px !important;}
     .height_important{ height: 150px !important;}
 
-  } }
-@media only screen and (-webkit-min-device-pixel-ratio:1) { ::i-block-chrome, .font-150-size { font-size: 80px !important; }
-  .font-40-size{ font-size: 30px !important;}
-  .height_important{ height: 150px !important;}
-
+  }
 }
 .fluctuate span {
   display: inline-block;
