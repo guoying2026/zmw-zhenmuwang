@@ -3,7 +3,6 @@ import './style.css'
 import './assets/color.css'
 import './assets/margin.css'
 import './assets/fontSize.css'
-import 'element-plus/theme-chalk/el-notification.css';
 import App from './App.vue'
 //路由使用vue-router
 import router from './router/index.js'
