@@ -5,7 +5,7 @@ import Components from 'unplugin-vue-components/vite'
 import { ElementPlusResolver } from 'unplugin-vue-components/resolvers'
 import path from 'path'
 import viteCompression from 'vite-plugin-compression'
-import { Plugin as importToCDN } from 'vite-plugin-cdn-import'
+// import { Plugin as importToCDN } from 'vite-plugin-cdn-import'
 
 export default defineConfig({
   // ...
@@ -17,7 +17,7 @@ export default defineConfig({
   base: './',
   plugins: [
     vue(),
-    importToCDN({
+    /* importToCDN({
       modules: [
         {
           name: 'vue',
@@ -94,7 +94,7 @@ export default defineConfig({
           path: 'https://cdn.jsdelivr.net/npm/mockjs@1.1.0/dist/mock-min.min.js',
         },
       ],
-    }),
+    }), */
     // ...
     AutoImport({
       resolvers: [ElementPlusResolver()],
