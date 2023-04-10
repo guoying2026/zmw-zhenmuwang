@@ -12,7 +12,7 @@
         <div class="profile none_background">
           <div class="profile-content">
             <div class="profile-pic">
-              <img class="profile-pic-image" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_eb3f9a85-bbb5-43da-b5f0-dac7d315f327.png?x-oss-process=image/resize,m_lfit,h_300,w_300/format,webp" />
+              <img class="profile-pic-image" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_eb3f9a85-bbb5-43da-b5f0-dac7d315f327.png?x-oss-process=image/resize,m_lfit,h_300,w_300" />
             </div>
           </div>
         </div>
@@ -67,7 +67,7 @@
         <div class="profile none_background" v-if="flag === 0">
           <div class="profile-content">
             <div class="profile-pic">
-              <img class="profile-pic-image" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_49245cea-3db4-483a-be40-709faff7c2f9.png?x-oss-process=image/resize,m_lfit,h_300,w_300/format,webp" />
+              <img class="profile-pic-image" src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_49245cea-3db4-483a-be40-709faff7c2f9.png?x-oss-process=image/resize,m_lfit,h_300,w_300" />
             </div>
             <!--                  <h4 class="profile-name">购买商品</h4>-->
           </div>

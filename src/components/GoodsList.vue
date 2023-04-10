@@ -12,7 +12,7 @@
           :alt="item.goods_title"
           decoding="async"
           loading="lazy"
-          :srcset="item.mainurl+'?x-oss-process=image/resize,m_lfit,h_300,w_300/format,webp 150w, '+item.mainurl+'?x-oss-process=image/resize,m_lfit,h_300,w_300/format,webp 300w, '+item.mainurl+'?x-oss-process=image/resize,m_lfit,h_300,w_300/format,webp 100w'"
+          :srcset="item.mainurl+'?x-oss-process=image/resize,m_lfit,h_300,w_300 150w, '+item.mainurl+'?x-oss-process=image/resize,m_lfit,h_300,w_300 300w, '+item.mainurl+'?x-oss-process=image/resize,m_lfit,h_300,w_300 100w'"
           sizes="(max-width: 150px) 100vw, 150px"
           :style="`width:100%; height: ${image_height};object-fit: fill;`"
           :onerror="'this.src=\''+goodsErrorImg+'\';this.srcset=\''+goodsErrorImg+' 150w, '+goodsErrorImg+' 300w, '+goodsErrorImg+' 100w\';'"
@@ -52,7 +52,7 @@ props.list.forEach(item=>{
   let el=document.createElement('link')
   el.rel='preload'
   el.as='image'
-  el.href=item.mainurl+'?x-oss-process=image/resize,m_lfit,h_300,w_300/format,webp'
+  el.href=item.mainurl+'?x-oss-process=image/resize,m_lfit,h_300,w_300'
   window.document.head.append(el)
 })
 </script>
