@@ -48,10 +48,10 @@ import {
     ElPopconfirm,
     ElDialog,
     ElResult,
-    ElSwitch,
+    // ElSwitch,
     ElMessage,
-    ElSpace,
-    ElAlert,
+    // ElSpace,
+    // ElAlert,
     ElIcon,
     ElPagination,
     ElImage,
@@ -103,10 +103,10 @@ app.use(ElContainer)
     .use(ElPopconfirm)
     .use(ElDialog)
     .use(ElResult)
-    .use(ElSwitch)
+    // .use(ElSwitch)
     .use(ElMessage)
-    .use(ElSpace)
-    .use(ElAlert)
+    // .use(ElSpace)
+    // .use(ElAlert)
     .use(ElIcon)
     .use(ElPagination)
     .use(ElImage)
