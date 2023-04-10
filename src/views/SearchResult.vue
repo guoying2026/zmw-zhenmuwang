@@ -11,11 +11,11 @@
                     <el-col class="item-goods-image" :span="11" :xs="24">
                       <img
                         v-if="subitem.main_url"
-                        :src="formatHttpsProtocol(subitem.main_url)+'?x-oss-process=image/format,webp'"
+                        :src="formatHttpsProtocol(subitem.main_url)"
                         :alt="subitem.goods_title"
                         decoding="async"
                         loading="lazy"
-                        :srcset="formatHttpsProtocol(subitem.main_url)+'?x-oss-process=image/resize,m_lfit,h_300,w_300/format,webp 150w, '+formatHttpsProtocol(subitem.main_url)+'?x-oss-process=image/resize,m_lfit,h_300,w_300/format,webp 300w, '+formatHttpsProtocol(subitem.main_url)+'?x-oss-process=image/resize,m_lfit,h_300,w_300/format,webp 100w'"
+                        :srcset="formatHttpsProtocol(subitem.main_url)+'?x-oss-process=image/resize,m_lfit,h_300,w_300 150w, '+formatHttpsProtocol(subitem.main_url)+'?x-oss-process=image/resize,m_lfit,h_300,w_300 300w, '+formatHttpsProtocol(subitem.main_url)+'?x-oss-process=image/resize,m_lfit,h_300,w_300 100w'"
                         sizes="(max-width: 150px) 100vw, 150px"
                         style="object-fit: cover;"
                         :onerror="'this.src=\''+goodsErrorImg+'\';this.srcset=\''+goodsErrorImg+' 150w, '+goodsErrorImg+' 300w, '+goodsErrorImg+' 100w\';'"
@@ -61,11 +61,11 @@
                     <el-col class="item-business-image" :span="4">
                       <img
                         v-if="subitem.miniapp_img"
-                        :src="formatHttpsProtocol(subitem.miniapp_img)+'?x-oss-process=image/format,webp'"
+                        :src="formatHttpsProtocol(subitem.miniapp_img)"
                         :alt="subitem.goods_title"
                         decoding="async"
                         loading="lazy"
-                        :srcset="formatHttpsProtocol(subitem.miniapp_img)+'?x-oss-process=image/resize,m_lfit,h_300,w_300/format,webp 150w, '+formatHttpsProtocol(subitem.miniapp_img)+'?x-oss-process=image/resize,m_lfit,h_300,w_300/format,webp 300w, '+formatHttpsProtocol(subitem.miniapp_img)+'?x-oss-process=image/resize,m_lfit,h_300,w_300/format,webp 100w'"
+                        :srcset="formatHttpsProtocol(subitem.miniapp_img)+'?x-oss-process=image/resize,m_lfit,h_300,w_300 150w, '+formatHttpsProtocol(subitem.miniapp_img)+'?x-oss-process=image/resize,m_lfit,h_300,w_300 300w, '+formatHttpsProtocol(subitem.miniapp_img)+'?x-oss-process=image/resize,m_lfit,h_300,w_300 100w'"
                         sizes="(max-width: 150px) 100vw, 150px"
                         style="object-fit: cover;"
                         :onerror="'this.src=\''+businessErrorImg+'\';this.srcset=\''+businessErrorImg+' 150w, '+businessErrorImg+' 300w, '+businessErrorImg+' 100w\';'"

@@ -28,12 +28,12 @@
             <img
               width="150"
               height="150"
-              :src="(item.type==0?item.miniapp_img:item.main_url)+'?x-oss-process=image/format,webp'"
+              :src="(item.type==0?item.miniapp_img:item.main_url)"
               class="mini-ls-thumb wp-post-image"
               :alt="item.type==0?item.company_name:item.goods_title"
               decoding="async"
               loading="lazy"
-              :srcset="(item.type==0?item.miniapp_img:item.main_url)+'?x-oss-process=image/resize,m_lfit,h_300,w_300/format,webp 150w, '+(item.type==0?item.miniapp_img:item.main_url)+'?x-oss-process=image/resize,m_lfit,h_300,w_300/format,webp 300w, '+(item.type==0?item.miniapp_img:item.main_url)+'?x-oss-process=image/resize,m_lfit,h_300,w_300/format,webp 100w'"
+              :srcset="(item.type==0?item.miniapp_img:item.main_url)+'?x-oss-process=image/resize,m_lfit,h_300,w_300 150w, '+(item.type==0?item.miniapp_img:item.main_url)+'?x-oss-process=image/resize,m_lfit,h_300,w_300 300w, '+(item.type==0?item.miniapp_img:item.main_url)+'?x-oss-process=image/resize,m_lfit,h_300,w_300 100w'"
               sizes="(max-width: 150px) 100vw, 150px"
               :onerror="'this.src=\''+(item.type==0?businessErrorImg:goodsErrorImg)+'\';this.srcset=\''+(item.type==0?businessErrorImg:goodsErrorImg)+' 150w, '+(item.type==0?businessErrorImg:goodsErrorImg)+' 300w, '+(item.type==0?businessErrorImg:goodsErrorImg)+'100w\';'"
             >

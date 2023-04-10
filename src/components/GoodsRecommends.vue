@@ -2,7 +2,7 @@
  * @Author: joytou
  * @Date: 2023-03-17
  * @LastEditors: joytou
- * @LastEditTime: 2023-04-06
+ * @LastEditTime: 2023-04-10
  * @FilePath: /zmw-zhenmuwang/src/components/GoodsRecommends.vue
  * @Description: 
 -->
@@ -66,7 +66,7 @@ const props = defineProps({
   height: calc((100vw - 40px) * 0.3);
 }
 .recommend_goods-item-info {
-  margin-top: -25px;
+  margin-top: -40px;
   background-color: rgba(255,255,255, 0.7);
   z-index: 1;
 }
