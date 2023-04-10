@@ -95,7 +95,6 @@ import { image_arr, name_arr} from "../utils/user.js";
 //登录成功后，需要把登录状态让多页面共享
 import { useUserStore } from "../pinia/user.js";
 import {ElNotification} from "element-plus";
-import 'element-plus/theme-chalk/el-notification.css';
 const router = useRouter()
 const userStore = useUserStore();
 onMounted(()=>{
