@@ -954,6 +954,26 @@ watchEffect(() => {
   flex-direction: row;
   align-items: center;
 }
+:deep(.el-carousel__indicators) {
+  left: unset;
+  transform: unset;
+  right: unset;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: nowrap;
+  width: 100%;
+}
+:deep(.el-carousel__button) {
+  width: 10px;
+  height: 10px;
+  border: none;
+  border-radius: 50%;
+  background-color: rgba(0,0,0,0.2);
+}
+:deep(.is-active .el-carousel__button) {
+  background: rgba(255,255,255,0.6);
+}
 .light_emphasize{
   font-weight: 600;
   text-align: center;
