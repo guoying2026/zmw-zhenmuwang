@@ -24,6 +24,7 @@
             class="mini-ls-item cf-one"
             :to="item.type==0?('/detail?company_info_id='+item.id):('/goodsDetail?type=1&goods_id='+item.goods_id)"
             :title="item.type==0?item.company_name:item.goods_title"
+            @click="searchSlideUp"
           >
             <img
               width="150"
