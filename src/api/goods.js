@@ -227,6 +227,9 @@ export const pollingWxOrderApi = (data) => {
  * @param {object} data
  * @param {string|number} data.user_id
  * @param {string|number} data.phone
+ * @param {('0'|'1')} [data.type='1']
+ * @param {number} [data.page=1]
+ * @param {number} [data.size=10]
  * @returns {Promise<import('axios').AxiosResponse<any,any>>}
  */
 export const getTradeLogsApi = (data) => {
