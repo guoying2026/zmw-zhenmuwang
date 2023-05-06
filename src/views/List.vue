@@ -234,7 +234,7 @@ a,a:hover {
 <script setup>
 import '../assets/tag.css'
 import CreditScore from "../components/CreditScore.vue";
-import {computed, nextTick, onMounted, onUnmounted, ref} from 'vue'
+import {computed, nextTick, onActivated, onDeactivated, onMounted, onUnmounted, ref} from 'vue'
 import { getIndexDataApi } from "../api/list.js";
 import SellerInfo from "../components/SellerInfo.vue";
 import Tag from "../components/Tag.vue"
@@ -437,6 +437,12 @@ onMounted(() => {
 })
 // 卸载时要取消监听事件
 onUnmounted(() => {
+  window.removeEventListener('scroll', pageScrollHandle)
+})
+onActivated(() => {
+  window.addEventListener('scroll', pageScrollHandle)
+})
+onDeactivated(() => {
   window.removeEventListener('scroll', pageScrollHandle)
 })
 // 默认进来的时候就加载数据

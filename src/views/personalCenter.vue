@@ -78,7 +78,6 @@
 </template>
 <script setup>
 import { useUserStore } from "../pinia/user.js";
-const userStore = useUserStore();
 import {image_arr,name_arr} from "../utils/user.js";
 import { brokenRecordListByUserIdApi } from "../api/brokenRecord.js";
 import { getTradeLogsApi } from "../api/goods.js";
@@ -86,7 +85,8 @@ import { formatUnit } from "../utils/good.js";
 import {useRouter} from 'vue-router'
 import "../assets/comment.scss"
 //导航栏切换开始
-import {onMounted, reactive, ref} from "vue";
+import {onActivated, onDeactivated, onMounted, onUnmounted, reactive, ref, watchEffect} from "vue";
+const userStore = useUserStore();
 
 const activeName = ref('first')
 const handleClick = (tab, event) => {
@@ -100,6 +100,40 @@ const brokenRecordList = reactive({
 })
 const brokenRecordCount = ref(0)
 const tradeLog = ref([])
+const tradeLogCurrentPage = ref(1)
+const tradeLogTotalPage = ref(1)
+const tradeLogIsLoading = ref(false)
+const tradeLogThreshold = 10
+const tradeLogScrollHandleLoaded = ref(false)
+const getTradeLog = () => {
+  if (tradeLogIsLoading.value == true) {
+    return false
+  }
+  if (tradeLogCurrentPage.value > tradeLogTotalPage.value) {
+    return false
+  }
+  let scrollTop = document.documentElement.scrollTop || document.body.scrollTop
+  let windowHeight = document.documentElement.clientHeight || document.body.clientHeight
+  let scrollHeight = document.documentElement.scrollHeight || document.body.scrollHeight
+  if (scrollTop + windowHeight + tradeLogThreshold < scrollHeight) {
+    return false
+  }
+  tradeLogIsLoading.value = true
+  getTradeLogsApi({
+    user_id: userStore.userId,
+    phone: userStore.phone,
+    page: tradeLogCurrentPage.value,
+  }).then(res => {
+    if (res.status != 200 || res.data.status != 1000) {
+      return false
+    }
+    tradeLog.value = tradeLog.value.concat(res.data.data)
+    tradeLogTotalPage.value = Number(res.data.total_page)
+    tradeLogCurrentPage.value = Number(res.data.current_page) + 1
+  }).finally(() => {
+    tradeLogIsLoading.value = false
+  })
+}
 onMounted(() => {
   brokenRecordListByUserIdApi({user_id: userStore.userId}).then(async(res) => {
     console.log(res);
@@ -108,12 +142,42 @@ onMounted(() => {
       brokenRecordCount.value = res.data.broken_record_count;
     }
   })
-  getTradeLogsApi({user_id: userStore.userId, phone: userStore.phone}).then(res => {
-    if (res.status != 200 || res.data.status != 1000) {
-      return false
+  getTradeLog()
+  if (tradeLogScrollHandleLoaded.value == false && activeName.value == 'second') {
+    document.querySelector("#app").addEventListener('scroll', getTradeLog)
+    tradeLogScrollHandleLoaded.value = true
+  }
+})
+onActivated(() => {
+  if (tradeLogScrollHandleLoaded.value == false && activeName.value == 'second') {
+    document.querySelector("#app").addEventListener('scroll', getTradeLog)
+    tradeLogScrollHandleLoaded.value = true
+  }
+})
+onDeactivated(() => {
+  if (tradeLogScrollHandleLoaded.value == true) {
+    document.querySelector("#app").removeEventListener('scroll', getTradeLog)
+    tradeLogScrollHandleLoaded.value = false
+  }
+})
+onUnmounted(() => {
+  if (tradeLogScrollHandleLoaded.value == true) {
+    document.querySelector("#app").removeEventListener('scroll', getTradeLog)
+    tradeLogScrollHandleLoaded.value = false
+  }
+})
+watchEffect(() => {
+  if (activeName.value == 'second') {
+    if (tradeLogScrollHandleLoaded.value == false) {
+      document.querySelector("#app").addEventListener('scroll', getTradeLog)
+      tradeLogScrollHandleLoaded.value = true
     }
-    tradeLog.value = res.data.data
-  })
+  } else {
+    if (tradeLogScrollHandleLoaded.value == true) {
+      document.querySelector("#app").removeEventListener('scroll', getTradeLog)
+      tradeLogScrollHandleLoaded.value = false
+    }
+  }
 })
 const login_out = () => {
   userStore.$reset();
