@@ -6,7 +6,7 @@ a,a:hover {
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  align-items: baseline;
+  align-items: center;
 }
 .left_1 .left_1_2{
   display:flex;
@@ -27,7 +27,7 @@ a,a:hover {
 }
 @media (min-width: 990px) {
   .padding-20{
-    padding: 10px 20px 10px 50px !important;
+    padding: 10px 30px 10px 30px !important;
   }
 }
 @media (max-width: 990px) {
@@ -36,7 +36,7 @@ a,a:hover {
   }
 }
 .el-col{
-  margin-bottom: 10px;
+  padding-top: 10px;
 }
 .goods_card {
   height: 100%;
@@ -75,14 +75,30 @@ a,a:hover {
   align-items: center;
 }
 .all_list_item{
-  width: 100%;
+  width: 92%;
+}
+.gray-background {
+  background-color: #f3f6fd;
+}
+
+.white-background {
+  background-color: #fff;
+}
+
+.row:nth-child(odd) .column:nth-child(odd),
+.row:nth-child(even) .column:nth-child(even) {
+  background-color: #f3f6fd;
+}
+
+.row:nth-child(odd) .column:nth-child(even),
+.row:nth-child(even) .column:nth-child(odd) {
+  background-color: #fff;
 }
 </style>
 <template>
     <div class="top_1_tag font-15-size margin-60-top">
       <div
-          class="custom_tag font-60-weight"
-          :class="isCreditScoreDesc?'green_btn':'blue_btn'"
+          class="custom_tag font-60-weight dark_blue_reinforce_btn"
           @click="changeCreditScoreSort">
         信用分
         <el-icon>
@@ -91,7 +107,7 @@ a,a:hover {
         </el-icon>
       </div>
       <text
-          :class="isOnlyViewBlackList?'yellow_btn':'black_btn'"
+          :class="isOnlyViewBlackList?'dark_blue_reinforce_btn':'blue_btn'"
           @click="handleOnlyViewBlackList"
           class="custom_tag font-60-weight"
       >
@@ -99,7 +115,7 @@ a,a:hover {
       </text>
       <text
           class="custom_tag font-60-weight"
-          :class="isOnlyViewFranchisee?'blue_btn':'black_btn'"
+          :class="isOnlyViewFranchisee?'dark_blue_reinforce_btn':'blue_btn'"
           @click="handleOnlyViewFranchisee"
       >
         只看加盟商
@@ -131,18 +147,22 @@ a,a:hover {
                   </div>
                 </el-col>
                 <el-col :span="24" :md="12">
-                  <el-row :gutter="8" class="goods">
-                    <el-col v-for="j in 4" :span="12" :md="6">
-                      <div class="goods_card">
-                        <el-skeleton-item variant="image" style="width: 100%; height: 30vh;" />
-                        <div style="display: flex;flex-direction: column;justify-content: space-between;">
-                          <el-skeleton-item variant="h3" class="margin-10-top" style="width: 50%;" />
-                          <el-skeleton-item variant="text" class="margin-10-top" v-for="k in 2" />
-                          <el-skeleton-item variant="text" class="margin-10-top" style="width: 30%;align-self: flex-end;" />
+                  <div class="padding-20 left">
+                    <div class="left_1" style="align-items: flex-start;">
+                      <el-skeleton-item variant="image" style="height: 80px;width: 100px;" />
+                      <div class="left_1_2">
+                        <el-skeleton-item variant="h1" class="margin-10-left" style="width: 340px;height: 27px;" />
+                        <div class="left_1_2_2">
+                          <el-skeleton-item variant="rect" class="margin-10-left margin-10-top margin-10-bottom" style="width: 95px;height: 44px;" />
                         </div>
                       </div>
-                    </el-col>
-                  </el-row>
+                    </div>
+                    <div class="info">
+                      <div class="item margin-10-top" v-for="j in 6">
+                        <el-skeleton-item variant="p" />
+                      </div>
+                    </div>
+                  </div>
                 </el-col>
               </el-row>
             </div>
@@ -160,59 +180,32 @@ a,a:hover {
             <span class="fail_tips_text">暂时没有<template v-if="isOnlyViewFranchisee">加盟商</template><template v-else-if="isOnlyViewBlackList">黑名单</template><template v-else>任何</template>记录哦</span>
           </template>
         </el-empty>
-        <div v-for="(item,index) in list" :key="index" class="all_list_item" v-else>
+        <div class="all_list_item margin-30-top" v-else>
   <!--          不展示商品 start-->
-          <router-link class="padding-20 left" :to="'/blackDetail?company_info_id='+item.id" v-if="item.isBlacklist">
-            <div class="left_1">
-              <CreditScore :credit-score="item.score" credit-score-text="信用分" :font-size="40" height="80" width="100px"></CreditScore>
-              <div class="left_1_2">
-                <template v-if="item.id&&item.id!='0'&&item.id!=0&&item.id!='-1'&&item.id!=-1&&item.id.length>0">
-                  <text class="font-18-size font-60-weight margin-10-left">{{ item.company_name }}</text>
-                </template>
-                <template v-else>
-                  <el-link type="info" :underline="false" @click.stop="hasNoItemIdTips"><text class="font-18-size font-60-weight margin-10-left">{{ item.company_name }}</text></el-link>
-                </template>
-                <div class="left_1_2_2">
-                  <Tag class="tag" tag="黑名单" number="60" color="black" v-if="item.isBlacklist"></Tag>
-                  <Tag class="tag" tag="加盟商" number="60" color="orange" v-if="item.isFranchisee"></Tag>
-                  <Tag class="tag margin-10-left" v-if="item.province&&typeof item.province=='string'&&item.province.length>0" :tag="item.province" number="60" color="blue"></Tag>
-                </div>
-              </div>
-            </div>
-            <SellerInfo :item="item"></SellerInfo>
-          </router-link>
-  <!--          不展示商品end-->
-  <!--          展示商品开始-->
-          <el-row :gutter="24" v-else>
-            <el-col :span="24" :md="12" :class="item.goods.length>0?'':'grey_bg'">
+          <el-row :gutter="24" class="row" v-for="(row, rowIndex) in numberOfRows" :key="'row-' + rowIndex">
+            <el-col :span="24" :md="12" v-for="(item, columnIndex) in getRowItems(rowIndex)" :key="'column-' + rowIndex + '-' + columnIndex" class="column">
               <router-link class="padding-20 left" :to="'/detail?company_info_id='+item.id">
-                <!-- <div class="padding-20 left"> -->
-                  <div class="left_1">
-                    <CreditScore :credit-score="item.score" credit-score-text="信用分" :font-size="40" height="80" width="100px"></CreditScore>
-                    <div class="left_1_2">
-                      <template v-if="item.id&&item.id!='0'&&item.id!=0&&item.id!='-1'&&item.id!=-1&&item.id.length>0">
-                        <text class="font-18-size font-60-weight margin-10-left">{{ item.company_name }}</text>
-                      </template>
-                      <template v-else>
-                        <el-link type="info" :underline="false" @click.stop="hasNoItemIdTips"><text class="font-18-size font-60-weight margin-10-left">{{ item.company_name }}</text></el-link>
-                      </template>
-                      <div class="left_1_2_2">
-                        <Tag class="tag" tag="黑名单" number="60" color="black" v-if="item.isBlacklist"></Tag>
-                        <Tag class="tag" tag="加盟商" number="60" color="orange" v-if="item.isFranchisee"></Tag>
-                        <Tag class="tag margin-10-left" :tag="item.province" number="60" color="blue"></Tag>
-                      </div>
+                <div class="left_1">
+                  <CreditScore :credit-score="item.score" credit-score-text="信用分" :font-size="40" height="80" width="100px"></CreditScore>
+                  <div class="left_1_2">
+                    <template v-if="item.id&&item.id!='0'&&item.id!=0&&item.id!='-1'&&item.id!=-1&&item.id.length>0">
+                      <text class="font-18-size font-60-weight margin-10-left">{{ item.company_name }}</text>
+                    </template>
+                    <template v-else>
+                      <el-link type="info" :underline="false" @click.stop="hasNoItemIdTips"><text class="font-18-size font-60-weight margin-10-left">{{ item.company_name }}</text></el-link>
+                    </template>
+                    <div class="left_1_2_2">
+                      <Tag class="tag" tag="黑名单" number="60" color="black" v-if="item.isBlacklist"></Tag>
+                      <Tag class="tag" tag="加盟商" number="60" color="orange" v-if="item.isFranchisee"></Tag>
+                      <Tag class="tag margin-10-left" v-if="item.province&&typeof item.province=='string'&&item.province.length>0" :tag="item.province" number="60" color="blue"></Tag>
                     </div>
                   </div>
-                  <SellerInfo :item="item"></SellerInfo>
-                <!-- </div> -->
+                </div>
+                <SellerInfo :item="item"></SellerInfo>
               </router-link>
             </el-col>
-            <el-col :span="24" :md="12">
-              <GoodsList :list="item.goods" :size="300" v-if="item.goods.length>0"></GoodsList>
-              <GuidePublishGoods :flag=1 v-else></GuidePublishGoods>
-            </el-col>
           </el-row>
-  <!--          展示商品结束-->
+  <!--          不展示商品end-->
         </div>
       </template>
     </div>
@@ -241,12 +234,10 @@ a,a:hover {
 <script setup>
 import '../assets/tag.css'
 import CreditScore from "../components/CreditScore.vue";
-import GoodsList from "../components/GoodsList.vue";
-import { nextTick, onMounted, onUnmounted, ref } from 'vue'
+import {computed, nextTick, onMounted, onUnmounted, ref} from 'vue'
 import { getIndexDataApi } from "../api/list.js";
 import SellerInfo from "../components/SellerInfo.vue";
 import Tag from "../components/Tag.vue"
-import GuidePublishGoods from "../components/GuidePublishGoods.vue";
 
 // 信用分升序或降序排序
 const isCreditScoreDesc = ref(true)
@@ -260,6 +251,17 @@ const pageSize = ref(10)
 const currentPage = ref(1)
 // 数据列表
 const list = ref([])
+//颜色交替
+const numberOfColumns = ref(2);
+
+const numberOfRows = computed(() => {
+  return Math.ceil(list.value.length / numberOfColumns.value);
+});
+
+const getRowItems = (rowIndex) => {
+  const startIndex = rowIndex * numberOfColumns.value;
+  return list.value.slice(startIndex, startIndex + numberOfColumns.value);
+};
 // 是否加载中
 const isLoading = ref(false)
 // 是否加载失败或者没有数据

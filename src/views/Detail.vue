@@ -58,7 +58,7 @@
     <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick" stretch>
       <el-tab-pane label="公司首页" name="first">
           <GoodsList :list="list.arr" :is-grey="1" :size="300"></GoodsList>
-        <GuidePublishGoods></GuidePublishGoods>
+<!--        <GuidePublishGoods></GuidePublishGoods>-->
         <el-row :gutter="24">
           <el-col :span="24" :md="12">
             <!--        评论列表开始-->
@@ -77,7 +77,7 @@
       </el-tab-pane>
       <el-tab-pane label="商品" name="second" lazy>
         <GoodsList :list="list.arr" :size="300"></GoodsList>
-        <GuidePublishGoods></GuidePublishGoods>
+<!--        <GuidePublishGoods></GuidePublishGoods>-->
       </el-tab-pane>
       <el-tab-pane label="大众评论" name="third" lazy>
         <CommentList

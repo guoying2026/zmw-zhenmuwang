@@ -3,9 +3,15 @@
     border-radius: 10px;
     margin: 10px;
 }
+.custom_tag_30{
+    padding: 2px 5px 2px 6.5px !important;
+    font-size: 10px;
+    font-weight: 600;
+    border-radius: 5px;
+}
 .black_btn{
-    background-color: #f1f1f1;
-    color: #151515;
+    background-color: #000000;
+    color: #ffffff;
 }
 .orange_btn{
     background-color: #fff1e2;
@@ -27,8 +33,20 @@
     background-color: #e9f9ff;
     color: #2ab1e6;
 }
-.blue_btn_reinforce{
-    background-color: #42a5f5;
+.dark_blue_btn{
+    background-color: #e9f9ff;
+    color: #385f7f;
+}
+.black_btn{
+    background-color: #000;
+    color:#fff;
+}
+.grey_btn{
+    background-color: #f1f1f1;
+    color: #8a8a8a;
+}
+.dark_blue_reinforce_btn{
+    background-color: #385f7f;
     color: #fff;
 }
 .green_btn{

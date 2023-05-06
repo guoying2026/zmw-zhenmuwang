@@ -1,82 +1,23 @@
 <template>
   <div
-      class="fluctuate margin-20-top"
-      :style="`height: ${height}px;width:${width}`"
-      :class="height === '200'?'height_important':''"
+      class="fluctuate"
+      :style="`width:${width}`"
   >
-    <span class="font-15-size">{{creditScoreText}} </span>
     <span :class="`font-${fontSize}-size`">{{creditScore}}</span>
+    <span class="font-15-size">{{creditScoreText}} </span>
   </div>
 </template>
-<style scoped>
-@media not all and (min-resolution:.001dpcm) {
-  @supports (-webkit-appearance:none) and (display:flow-root) {
-    .font-150-size { font-size: 80px !important; }
-    .font-40-size{ font-size: 30px !important;}
-    .height_important{ height: 150px !important;}
-  }
-}
-@media not all and (min-resolution:.001dpcm) {
-  @supports (-webkit-appearance:none) and (stroke-color:transparent) {
-    .font-150-size { font-size: 80px !important; }
-    .font-40-size{ font-size: 30px !important;}
-    .height_important{ height: 150px !important;}
-
-  }
-}
-@media not all and (min-resolution:.001dpcm) {
-  @supports (-webkit-appearance:none) {
-    .font-150-size { font-size: 80px !important; }
-    .font-40-size{ font-size: 30px !important;}
-    .height_important{ height: 150px !important;}
-
-  }
-}
-@media not all and (min-resolution:.001dpcm) {
-  @media {
-    .font-150-size { font-size: 80px !important; }
-    .font-40-size{ font-size: 30px !important;}
-    .height_important{ height: 150px !important;}
-
-  }
-}
-@media not all and (min-resolution:.001dpcm) {
-  @supports (-webkit-appearance:none) and (not (stroke-color:transparent)) {
-  .font-150-size { font-size: 80px !important; }
-  .font-40-size{ font-size: 30px !important;}
-    .height_important{ height: 150px !important;}
-
-  }
-}
-@supports (-webkit-hyphens:none) {
-  .font-150-size { font-size: 80px !important; }
-  .font-40-size{ font-size: 30px !important;}
-  .height_important{ height: 150px !important;}
-
-}
-@supports (-webkit-marquee-repetition:infinite) and (object-fit:fill) {
-  .font-150-size { font-size: 80px !important; }
-  .font-40-size{ font-size: 30px !important;}
-  .height_important{ height: 150px !important;}
-
-}
-@supports (overflow:-webkit-marquee) and (justify-content:inherit) {
-  .font-150-size { font-size: 80px !important; }
-  .font-40-size{ font-size: 30px !important;}
-  .height_important{ height: 150px !important;}
-
-}
-@media screen and (min-color-index:0) and(-webkit-min-device-pixel-ratio:0) {
-  @media {
-    .font-150-size { font-size: 80px !important; }
-    .font-40-size{ font-size: 30px !important;}
-    .height_important{ height: 150px !important;}
-
-  }
-}
-.fluctuate span {
-  display: inline-block;
-  width: 100%;
+<style>
+.fluctuate{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  /*border: 2px solid #000;*/
+  border-radius: 10px;
+  padding: 0 10px 10px 10px;
+  background: #385f7f;
+  color: #fff;
 }
 </style>
 <script>
@@ -85,7 +26,6 @@ export default{
 }
 </script>
 <script setup>
-import "../assets/fluctuate.css"
 const props = defineProps({
   fontSize: {
     type: [String,Number],

@@ -10,6 +10,9 @@
 .margin-20-left{
     margin-left:20px;
 }
+.margin-40-left{
+    margin-left: 40px;
+}
 .margin-15-top{
     margin-top: 15px;
 }
@@ -17,7 +20,10 @@
     margin-top: 10px;
 }
 .margin-20-top{
-    margin-top: 20px;
+    margin-top: 20px !important;
+}
+.margin-30-top{
+    margin-top: 30px !important;
 }
 .margin-40-top{
     margin-top: 40px;

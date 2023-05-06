@@ -68,7 +68,7 @@
           <div class="box-progress-wrapper">
             <p class="box-progress-header"></p>
             <div class="box-progress-bar">
-              <span class="box-progress" style="width: 100%; background-color: #096c86"></span>
+              <span class="box-progress" style="width: 100%;"></span>
             </div>
             <p class="box-progress-percentage"></p>
           </div>
@@ -103,7 +103,7 @@
         </div>
       </div>
       <div class="project-box-wrapper">
-        <div class="project-box" style="background-color: #ffd3e2;">
+        <div class="project-box">
           <div class="project-box-header">
             <span>对他人</span>
             <div class="more-wrapper">
@@ -122,7 +122,7 @@
           <div class="box-progress-wrapper">
             <p class="box-progress-header"></p>
             <div class="box-progress-bar">
-              <span class="box-progress" style="width: 100%; background-color: #df3670"></span>
+              <span class="box-progress" style="width: 100%;"></span>
             </div>
             <p class="box-progress-percentage"></p>
           </div>
@@ -148,7 +148,7 @@
                 comment-type="comment"
             >
               <template #clickDrawer>
-                <div class="days-left" style="color: #096c86;">
+                <div class="days-left">
                   去说点儿什么
                 </div>
               </template>
@@ -157,7 +157,7 @@
         </div>
       </div>
       <div class="project-box-wrapper">
-        <div class="project-box" style="background-color: #d5deff;">
+        <div class="project-box">
           <div class="project-box-header">
             <span>对商家</span>
             <div class="more-wrapper">
@@ -176,7 +176,7 @@
           <div class="box-progress-wrapper">
             <p class="box-progress-header"></p>
             <div class="box-progress-bar">
-              <span class="box-progress" style="width: 100%; background-color: #4067f9"></span>
+              <span class="box-progress" style="width: 100%;"></span>
             </div>
             <p class="box-progress-percentage"></p>
           </div>
@@ -202,7 +202,7 @@
                 comment-type="comment"
             >
               <template #clickDrawer>
-                <div class="days-left" style="color: #096c86;">
+                <div class="days-left">
                   去说点儿什么
                 </div>
               </template>

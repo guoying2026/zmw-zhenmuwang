@@ -1,5 +1,5 @@
 <template>
-  <text class="custom_tag" :class="`font-${number}-weight ${color}_btn`">{{tag}}</text>
+  <text class="custom_tag" :class="`font-${number}-weight ${color}_btn custom_tag_${number}`">{{tag}}</text>
 </template>
 <script setup>
 import '../assets/tag.css'
