@@ -264,7 +264,7 @@ a,a:hover {
       </template>
       <el-empty v-else-if="isMobile?currentPage===1&&isLoadFailed:isLoadFailed">
         <template #description>
-          <span class="fail_tips_text">加载失败，请稍后<el-link :underline="false" @click="reloadHandle">重试</el-link></span>
+          <span class="fail_tips_text">加载失败，<template v-if="retryCount > retryMaxCount">请稍后<el-link :underline="false" @click="reloadHandle">重试</el-link></template><template v-else>{{retryCountdown}}秒后<el-link :underline="false" @click="reloadHandle">重新加载</el-link></template></span>
         </template>
       </el-empty>
       <template v-else>
@@ -359,6 +359,14 @@ const getRowItems = (rowIndex) => {
 const isLoading = ref(false)
 // 是否加载失败或者没有数据
 const isLoadFailed = ref(false)
+// 加载失败后进行重试的定时器
+const loadFailedTimer = ref(null)
+// 重新加载的剩余秒数
+const retryCountdown = ref(3)
+// 重新加载的次数
+const retryCount = ref(0)
+// 可连续重新加载的最大次数
+const retryMaxCount = ref(5)
 // 是否显示推荐商家
 const isShowRecommend = ref(true)
 // 是否显示加盟商
@@ -448,6 +456,36 @@ const loadmore = () => {
       isLoadFailed.value = true
     }).finally(() => {
       isLoading.value = false
+      // 倒计时秒数重置
+      retryCountdown.value = 3
+      if (loadFailedTimer.value) {
+        clearInterval(loadFailedTimer.value)
+        loadFailedTimer.value = null
+      }
+      if (isLoadFailed.value) {
+        // 如果超过最大的加载次数，则不再重新加载数据，显示“加载失败”的消息
+        if (retryCount.value > retryMaxCount.value) {
+          return false
+        }
+        // 如果加载失败，则倒计时自动重新加载
+        loadFailedTimer.value = setInterval(() => {
+          if (retryCountdown.value > 0) {
+            // 剩余秒数大于0,则自动递减
+            retryCountdown.value = retryCountdown.value - 1
+          } else {
+            // 加载数据
+            loadmore()
+            // 记录已连续重新加载的次数
+            retryCount.value = retryCount.value + 1
+            // 清除定时器
+            clearInterval(loadFailedTimer.value)
+            loadFailedTimer.value = null
+          }
+        }, 1000)
+      } else {
+        // 已连续重新加载的次数清零
+        retryCount.value = 0
+      }
     })
   })
 }
