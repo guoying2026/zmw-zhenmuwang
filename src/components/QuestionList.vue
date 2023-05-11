@@ -1,5 +1,5 @@
 <template>
-  <div class="app-container margin-20-top">
+  <div class="app-container">
     <div class="projects-section">
       <div class="projects-section-header">
         <p>问答区</p>
@@ -38,7 +38,7 @@
       </div>
       <div class="project-boxes jsGridView">
         <div class="project-box-wrapper">
-          <div class="project-box" style="background-color: #e9e7fd;">
+          <div class="project-box">
             <div class="project-box-header">
               <span>2023</span>
               <div class="more-wrapper">
@@ -57,7 +57,7 @@
             <div class="box-progress-wrapper">
               <p class="box-progress-header"></p>
               <div class="box-progress-bar">
-                <span class="box-progress" style="width: 100%; background-color: #4f3ff0"></span>
+                <span class="box-progress" style="width: 100%; background-color: #096c86"></span>
               </div>
               <p class="box-progress-percentage"></p>
             </div>
@@ -76,7 +76,7 @@
                   questionType="question"
               >
                 <template #clickDrawer>
-              <div class="days-left" style="color: #4f3ff0;">
+              <div class="days-left" style="color: #096c86;">
                 去提问
               </div>
                 </template>
@@ -132,7 +132,7 @@
           </div>
         </div>
         <div class="project-box-wrapper">
-          <div class="project-box" style="background-color: #c8f7dc;">
+          <div class="project-box">
             <div class="project-box-header">
               <span>2023</span>
               <div class="more-wrapper">
@@ -151,7 +151,7 @@
             <div class="box-progress-wrapper">
               <p class="box-progress-header"></p>
               <div class="box-progress-bar">
-                <span class="box-progress" style="width: 100%; background-color: #34c471"></span>
+                <span class="box-progress" style="width: 100%; background-color: #096c86"></span>
               </div>
               <p class="box-progress-percentage"></p>
             </div>
@@ -170,7 +170,7 @@
                   questionType="question"
               >
                 <template #clickDrawer>
-                  <div class="days-left" style="color: #34c471;">
+                  <div class="days-left" style="color: #096c86;">
                     去提问
                   </div>
                 </template>
@@ -230,7 +230,7 @@
               questionType="answer"
           >
             <template #clickDrawer>
-              <text class="general_item_2 margin-10-right margin-20-top green_btn">我要回答</text>
+              <text class="general_item_2 margin-10-right margin-20-top blue_btn">我要回答</text>
             </template>
           </AddComment>
       </div>
@@ -489,20 +489,20 @@ const receiveChildAddComment = (param) => {
   align-items: center;
 }
 .general_item{
-  padding: 20px 0px 0px 20px;
-}
-.general_item_2{
-  padding: 10px 15px;
-  border-radius: 10px;
-  font-weight: bold;
-  letter-spacing: 2px;
-  opacity: 0.8;
+  padding: 0px 0px 0px 20px;
 }
 .general_item_1{
   display: flex;
   flex-direction: row;
   width: 100%;
   justify-content: space-between;
+  margin-top: 20px;
+}
+.projects-section-header{
+  background-color: #fff !important;
+}
+.messages-section{
+  padding: 20px 20px 20px 20px !important;
 }
 /*回答结束*/
 </style>

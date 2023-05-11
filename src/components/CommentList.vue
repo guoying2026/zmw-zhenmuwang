@@ -40,8 +40,7 @@
           <template #clickDrawer>
             <!-- AddComment 插槽的内容放这里开始-->
             <div class="icon_div">
-              <span>我有话说</span>
-              <el-icon class="margin-10-left font-48-size"><ChatRound /></el-icon>
+              <text class="general_item_2 blue_btn margin-10-left">我要评论</text>
             </div>
           </template>
         </AddComment>
@@ -68,7 +67,7 @@
           <div class="box-progress-wrapper">
             <p class="box-progress-header"></p>
             <div class="box-progress-bar">
-              <span class="box-progress" style="width: 100%;"></span>
+              <span class="box-progress" style="width: 100%; background-color: #096c86"></span>
             </div>
             <p class="box-progress-percentage"></p>
           </div>
@@ -122,7 +121,7 @@
           <div class="box-progress-wrapper">
             <p class="box-progress-header"></p>
             <div class="box-progress-bar">
-              <span class="box-progress" style="width: 100%;"></span>
+              <span class="box-progress" style="width: 100%; background-color: #096c86"></span>
             </div>
             <p class="box-progress-percentage"></p>
           </div>
@@ -148,7 +147,7 @@
                 comment-type="comment"
             >
               <template #clickDrawer>
-                <div class="days-left">
+                <div class="days-left" style="color: #096c86;">
                   去说点儿什么
                 </div>
               </template>
@@ -176,7 +175,7 @@
           <div class="box-progress-wrapper">
             <p class="box-progress-header"></p>
             <div class="box-progress-bar">
-              <span class="box-progress" style="width: 100%;"></span>
+              <span class="box-progress" style="width: 100%; background-color: #096c86"></span>
             </div>
             <p class="box-progress-percentage"></p>
           </div>
@@ -202,7 +201,7 @@
                 comment-type="comment"
             >
               <template #clickDrawer>
-                <div class="days-left">
+                <div class="days-left" style="color: #096c86;">
                   去说点儿什么
                 </div>
               </template>
@@ -214,25 +213,26 @@
   </div>
     <div class="messages-section" v-for="(item, index) in list.arr" :key="index">
       <div class="projects-section-header general_item">
-        <div class="star-checkbox">
-          <input type="checkbox" :id="`star-${index}-${index+1}`">
-          <label :for="`star-${index}-${index+1}`">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star">
-              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
-              </polygon>
-            </svg>
-          </label>
-        </div>
-        <text>评论{{index+1}}</text>
-        <div class="star-checkbox">
-          <input type="checkbox" :id="`star-${index}-${index+2}`">
-          <label :for="`star-${index}-${index+2}`">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star">
-              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
-              </polygon>
-            </svg>
-          </label>
-        </div>
+        <text class="font-60-weight">第{{index+1}}条评论其相关回复</text>
+<!--        <div class="star-checkbox">-->
+<!--          <input type="checkbox" :id="`star-${index}-${index+1}`">-->
+<!--          <label :for="`star-${index}-${index+1}`">-->
+<!--            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star">-->
+<!--              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">-->
+<!--              </polygon>-->
+<!--            </svg>-->
+<!--          </label>-->
+<!--        </div>-->
+<!--        <text>评论{{index+1}}</text>-->
+<!--        <div class="star-checkbox">-->
+<!--          <input type="checkbox" :id="`star-${index}-${index+2}`">-->
+<!--          <label :for="`star-${index}-${index+2}`">-->
+<!--            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star">-->
+<!--              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">-->
+<!--              </polygon>-->
+<!--            </svg>-->
+<!--          </label>-->
+<!--        </div>-->
       </div>
       <div class="messages">
         <div class="message-box">
@@ -381,7 +381,6 @@ import {
 } from "../api/comment.js";
 
 import "../assets/comment.scss"
-import "../assets/fonts.css"
 import {image_arr, name_arr} from "../utils/user.js";
 //引入用户信息开始
 import { useUserStore } from "../pinia/user.js";

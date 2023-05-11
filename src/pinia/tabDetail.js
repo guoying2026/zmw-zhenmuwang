@@ -6,7 +6,7 @@ export const useTabDetailStore = defineStore('tabDetailStore', {
     //state被定义为返回初始状态的函数
     state: () => {
         return {
-            current: 1,
+            current: 0,
         }
     },
     //调用pinia-plugin-persistedstate插件进行持久化存储

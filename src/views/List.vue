@@ -74,6 +74,9 @@ a,a:hover {
   justify-content: center;
   align-items: center;
 }
+.el-skeleton {
+  width: 92%;
+}
 .all_list_item{
   width: 92%;
 }
@@ -94,9 +97,117 @@ a,a:hover {
 .row:nth-child(even) .column:nth-child(odd) {
   background-color: #fff;
 }
+.introduce{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.introduce_space{
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 94%;
+}
+.introduce_space_1{
+  justify-content: space-between !important;
+}
+.introduce_1_item{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  letter-spacing: 10px;
+}
+.mask_1{
+  width: 50%;
+}
+.mask_3{
+  width: 400px;
+}
+.mask_2{
+  width: 24%;
+}
+.mask_4{
+  width: 300px;
+}
+.introduce_1{
+  height: 200px;
+  border-radius: 10px;
+  background: #f3f6fd;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.introduce_2{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  align-self: flex-start;
+  margin-left: 6%;
+}
+.introduce_2_right{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /*background-color: #385f7f;*/
+  background-color: #ea300e;
+  color: #fff;
+  padding: 10px 20px;
+}
 </style>
 <template>
-    <div class="top_1_tag font-15-size margin-60-top">
+    <div class="margin-60-top introduce">
+      <div class="introduce_2">
+        <h1>真木网｜</h1>
+        <div class="introduce_2_right">
+          <text>全国木材商评价信用系统</text>
+          <text>木材商必入驻的官方平台</text>
+        </div>
+      </div>
+<!--      <div class="introduce_space introduce_space_1">-->
+<!--        <div class="introduce_1 mask_4">-->
+<!--          <div class="introduce_1_item">-->
+<!--            <h1>1234</h1>-->
+<!--            <text class="font-20-size font-60-weight">加盟商</text>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="introduce_1 mask_3">-->
+<!--          <div class="introduce_1_item">-->
+<!--            <h1>45231993</h1>-->
+<!--            <text class="font-20-size font-60-weight">木材商</text>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="introduce_1 mask_4">-->
+<!--          <div class="introduce_1_item">-->
+<!--            <h1>0</h1>-->
+<!--            <text class="font-20-size font-60-weight">黑名单</text>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="introduce_space">-->
+<!--        <div class="introduce_1 mask_1">-->
+<!--          <div class="introduce_1_item">-->
+<!--            <h1>45231993</h1>-->
+<!--            <text class="font-20-size font-60-weight">木材商</text>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--      <div class="introduce_space margin-20-top">-->
+<!--        <div class="introduce_1 mask_2">-->
+<!--          <div class="introduce_1_item">-->
+<!--            <h1>1234</h1>-->
+<!--            <text class="font-20-size font-60-weight">加盟商</text>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--        <div class="introduce_1 mask_2 margin-2-left">-->
+<!--          <div class="introduce_1_item">-->
+<!--            <h1>0</h1>-->
+<!--            <text class="font-20-size font-60-weight">黑名单</text>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
+    </div>
+    <div class="top_1_tag font-15-size margin-20-top">
       <div
           class="custom_tag font-60-weight dark_blue_reinforce_btn"
           @click="changeCreditScoreSort">
@@ -107,18 +218,18 @@ a,a:hover {
         </el-icon>
       </div>
       <text
-          :class="isOnlyViewBlackList?'dark_blue_reinforce_btn':'blue_btn'"
-          @click="handleOnlyViewBlackList"
-          class="custom_tag font-60-weight"
-      >
-        只看黑名单
-      </text>
-      <text
           class="custom_tag font-60-weight"
           :class="isOnlyViewFranchisee?'dark_blue_reinforce_btn':'blue_btn'"
           @click="handleOnlyViewFranchisee"
       >
         只看加盟商
+      </text>
+      <text
+          :class="isOnlyViewBlackList?'dark_blue_reinforce_btn':'blue_btn'"
+          @click="handleOnlyViewBlackList"
+          class="custom_tag font-60-weight"
+      >
+        只看黑名单
       </text>
     </div>
     <div class="all_list">
@@ -126,29 +237,11 @@ a,a:hover {
       <template v-if="isMobile?currentPage===1&&isLoading:isLoading">
         <el-skeleton animated>
           <template #template>
-            <div v-for="i in 10">
-              <el-row :gutter="24">
-                <el-col :span="24" :md="12">
+            <div v-for="i in 10" class="margin-30-top">
+              <el-row :gutter="24" class="row" v-for="(row, rowIndex) in numberOfRows" :key="'row-' + rowIndex">
+                <el-col :span="24" :md="12" v-for="(item, columnIndex) in getRowItems(rowIndex)" :key="'column-' + rowIndex + '-' + columnIndex" class="column">
                   <div class="padding-20 left">
-                    <div class="left_1" style="align-items: flex-start;">
-                      <el-skeleton-item variant="image" style="height: 80px;width: 100px;" />
-                      <div class="left_1_2">
-                        <el-skeleton-item variant="h1" class="margin-10-left" style="width: 340px;height: 27px;" />
-                        <div class="left_1_2_2">
-                          <el-skeleton-item variant="rect" class="margin-10-left margin-10-top margin-10-bottom" style="width: 95px;height: 44px;" />
-                        </div>
-                      </div>
-                    </div>
-                    <div class="info">
-                      <div class="item margin-10-top" v-for="j in 6">
-                        <el-skeleton-item variant="p" />
-                      </div>
-                    </div>
-                  </div>
-                </el-col>
-                <el-col :span="24" :md="12">
-                  <div class="padding-20 left">
-                    <div class="left_1" style="align-items: flex-start;">
+                    <div class="left_1">
                       <el-skeleton-item variant="image" style="height: 80px;width: 100px;" />
                       <div class="left_1_2">
                         <el-skeleton-item variant="h1" class="margin-10-left" style="width: 340px;height: 27px;" />
@@ -454,6 +547,9 @@ loadmore()
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
+  position: sticky;
+  top: 60px;
+  z-index: 1500;
 }
 .el-header {
   line-height: var(--el-header-height);
