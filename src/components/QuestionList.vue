@@ -498,9 +498,6 @@ const receiveChildAddComment = (param) => {
   justify-content: space-between;
   margin-top: 20px;
 }
-.projects-section-header{
-  background-color: #fff !important;
-}
 .messages-section{
   padding: 20px 20px 20px 20px !important;
 }

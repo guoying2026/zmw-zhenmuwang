@@ -1,0 +1,47 @@
+:root {
+  --navbar-bg-color: #fff;
+  --navbar-color: #000;
+  --navbar-height: 50px;
+  --navbar-line-height: var(--navbar-height);
+  --navbar-ft-color: #000;
+  --app-bg-color: #fff;
+  --app-color: #000;
+  --svg-fill-color:#000;
+  --table-fill-color:#fff;
+  --descriptions-bordered-label-bg-color: #f5f7fa;
+  --descriptions-bordered-label-color: #000;
+  --descriptions-bordered-content-color: #000;
+  --descriptions-table-border: #ebeef5;
+  --detail-top-bg-color:#fff;
+  --box-shadow-color: 0 2.8px 2.2px rgba(0,0,0,.034), 0 6.7px 5.3px rgba(0,0,0,.048), 0 12.5px 10px rgba(0,0,0,.06), 0 22.3px 17.9px rgba(0,0,0,.072), 0 41.8px 33.4px rgba(0,0,0,.086), 0 100px 80px rgba(0,0,0,.12);
+  --app-container-bg-color: #fff;
+  --projects-section-bg-color: #fff;
+  --background-image-url: url('https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_da2ba160-c02c-409a-b39d-88560e32ade6.png');
+}
+[data-theme="dark"] {
+  --navbar-bg-color: #000;
+  --navbar-color: #fff;
+  --navbar-height: 50px;
+  --navbar-line-height: var(--navbar-height);
+  --navbar-ft-color: #fff;
+  --app-bg-color: #000;
+  --app-color: #fff;
+  --svg-fill-color: #fff;
+  --table-fill-color: #000;
+  --descriptions-bordered-label-bg-color: #262727;
+  --descriptions-bordered-label-color: #fff;
+  --descriptions-bordered-content-color: #E5EAF3;
+  --descriptions-table-border: #363637;
+  --detail-top-bg-color:#000;
+  --box-shadow-color: 0 2.8px 2.2px rgb(255 255 255 / 3%), 0 6.7px 5.3px rgb(255 255 255 / 5%), 0 12.5px 10px rgb(255 255 255 / 6%), 0 22.3px 17.9px rgb(255 255 255 / 7%), 0 41.8px 33.4px rgb(255 255 255 / 9%), 0 100px 80px rgb(255 255 255 / 12%);
+  --app-container-bg-color: #000;
+  --projects-section-bg-color: #000;
+  --background-image-url: url('https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_228bb569-0a41-49c8-bc25-249f05d689a0.png');
+}
+.grey_bg{
+  background: #f3f6fd !important;
+  /*background: #f8f8f8 !important;*/
+}
+.colorful{
+  background: linear-gradient(115deg,#4fcf70,#fad648,#a767e5,#12bcfe,#44ce7b);
+}

@@ -56,11 +56,17 @@
 }
 
 .padding-10{
-  padding: 0 10px 20px 10px;
+  padding: 0px 10px 20px 10px;
   letter-spacing: 2px;
   display: flex;
   flex-direction: column;
   align-items: center;
+  background-image: var(--background-image-url);
+  width: 100%;
+  height: 500px;
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
 }
 .el-row{
   width: 100%;
@@ -77,7 +83,7 @@
     flex-direction: column;
     align-items: center;
     position: relative;
-    background-color: #fff;
+    background-color: var(--detail-top-bg-color);
     border-radius: 30px;
     box-shadow: 0 2.8px 2.2px rgba(0,0,0,.034), 0 6.7px 5.3px rgba(0,0,0,.048), 0 12.5px 10px rgba(0,0,0,.06), 0 22.3px 17.9px rgba(0,0,0,.072), 0 41.8px 33.4px rgba(0,0,0,.086), 0 100px 80px rgba(0,0,0,.12);
     letter-spacing: 2px;
@@ -124,7 +130,6 @@
 @media only screen and (min-width: 520px){
   .top_left{
     width: 25%;
-    height: 100vh;
     position: sticky;
     top: 150px;
     z-index: 1000;
@@ -139,9 +144,9 @@
     flex-direction: column;
     align-items: center;
     position: relative;
-    background-color: #fff;
+    background-color: var(--detail-top-bg-color);
     border-radius: 30px;
-    box-shadow: 0 2.8px 2.2px rgba(0,0,0,.034), 0 6.7px 5.3px rgba(0,0,0,.048), 0 12.5px 10px rgba(0,0,0,.06), 0 22.3px 17.9px rgba(0,0,0,.072), 0 41.8px 33.4px rgba(0,0,0,.086), 0 100px 80px rgba(0,0,0,.12);
+    box-shadow: var(--box-shadow-color);
     letter-spacing: 2px;
     padding: 20px;
     width: 50%;
@@ -195,9 +200,9 @@
 }
 </style>
 <template>
-  <div class="padding-10 margin-60-top">
+  <div class="padding-10 margin-40-top">
     <div class="top_2">
-      <text class="margin-20-top emphasize">{{ company_name}}</text>      <Tag :tag="credit_score_text" number="60" color="yellow"></Tag>
+      <text class="margin-40-top emphasize">{{ company_name}}</text>      <Tag :tag="credit_score_text" number="60" color="yellow"></Tag>
       <el-rate v-model="starValue" clearable />
       <el-descriptions title="" :column="3" border class="margin-20-top">
         <el-descriptions-item label="法定代表人" width="150px" label-align="left" align="left" label-class-name="my-label" class-name="my-content">刘贵斌</el-descriptions-item>
@@ -222,59 +227,59 @@
         </el-carousel-item>
       </el-carousel>
     </div>
-    <div class="top_1_tag margin-20-top">
-      <template v-for="(item,index) in list.arr" :key="index">
-        <Tag :tag="item.goods_title" number="60" :color="index == 0?'dark_blue_reinforce':'dark_blue'"></Tag>
-      </template>
-    </div>
-    <div class="criteria margin-20-top">
-      <el-row :gutter="12">
-        <el-col :span="6">
-          <el-card shadow="always" class="top_card">
-            <text class="font-8-size font-60-weight">胶合板等级</text>
-            <text class="font-5-size margin-10-top">需求与实际交付匹配度</text>
-            <text class="font-10-size margin-10-top">50%</text>
-            <el-timeline class="margin-20-top">
-              <el-timeline-item timestamp="2023-03-04" class="font-5-size">买家需要AA/BB级胶合板，实际交付是BB/BB级胶合板</el-timeline-item>
-              <el-timeline-item timestamp="2020-02-01" class="font-5-size">初始值是100%</el-timeline-item>
-            </el-timeline>
-          </el-card>
-        </el-col>
-        <el-col :span="6">
-          <el-card shadow="always" class="top_card">
-            <text class="font-8-size font-60-weight">胶合板耐水性</text>
-            <text class="font-5-size margin-10-top">需求与实际交付匹配度</text>
-            <text class="font-10-size margin-10-top">50%</text>
-            <el-timeline class="margin-20-top">
-              <el-timeline-item timestamp="2023-03-04" class="font-5-size">买家需要耐水性高适合潮湿环境使用的胶合板，实际交付使用80天之后，发霉</el-timeline-item>
-              <el-timeline-item timestamp="2020-02-01" class="font-5-size">初始值是100%</el-timeline-item>
-            </el-timeline>
-          </el-card>
-        </el-col>
-        <el-col :span="6">
-          <el-card shadow="always" class="top_card">
-            <text class="font-8-size font-60-weight">胶合板胶合度</text>
-            <text class="font-5-size margin-10-top">需求与实际交付匹配度</text>
-            <text class="font-10-size margin-10-top">50%</text>
-            <el-timeline class="margin-20-top">
-              <el-timeline-item timestamp="2023-03-04" class="font-5-size">买家收到后，发现有50%的胶合板都有分层、破损以及脱胶现象</el-timeline-item>
-              <el-timeline-item timestamp="2020-02-01" class="font-5-size">初始值是100%</el-timeline-item>
-            </el-timeline>
-          </el-card>
-        </el-col>
-        <el-col :span="6">
-          <el-card shadow="always" class="top_card">
-            <text class="font-8-size font-60-weight">规格尺寸偏差</text>
-            <text class="font-5-size margin-10-top">需求与实际交付匹配度</text>
-            <text class="font-10-size margin-10-top">50%</text>
-            <el-timeline class="margin-20-top">
-              <el-timeline-item timestamp="2023-03-04" class="font-5-size">买家需要124mmx120mmx100mm，实际交付有10mm尺寸偏差</el-timeline-item>
-              <el-timeline-item timestamp="2020-02-01" class="font-5-size">初始值是100%</el-timeline-item>
-            </el-timeline>
-          </el-card>
-        </el-col>
-      </el-row>
-    </div>
+<!--    <div class="top_1_tag margin-20-top">-->
+<!--      <template v-for="(item,index) in list.arr" :key="index">-->
+<!--        <Tag :tag="item.goods_title" number="60" :color="index == 0?'dark_blue_reinforce':'dark_blue'"></Tag>-->
+<!--      </template>-->
+<!--    </div>-->
+<!--    <div class="criteria margin-20-top">-->
+<!--      <el-row :gutter="12">-->
+<!--        <el-col :span="6">-->
+<!--          <el-card shadow="always" class="top_card">-->
+<!--            <text class="font-8-size font-60-weight">胶合板等级</text>-->
+<!--            <text class="font-5-size margin-10-top">需求与实际交付匹配度</text>-->
+<!--            <text class="font-10-size margin-10-top">50%</text>-->
+<!--            <el-timeline class="margin-20-top">-->
+<!--              <el-timeline-item timestamp="2023-03-04" class="font-5-size">买家需要AA/BB级胶合板，实际交付是BB/BB级胶合板</el-timeline-item>-->
+<!--              <el-timeline-item timestamp="2020-02-01" class="font-5-size">初始值是100%</el-timeline-item>-->
+<!--            </el-timeline>-->
+<!--          </el-card>-->
+<!--        </el-col>-->
+<!--        <el-col :span="6">-->
+<!--          <el-card shadow="always" class="top_card">-->
+<!--            <text class="font-8-size font-60-weight">胶合板耐水性</text>-->
+<!--            <text class="font-5-size margin-10-top">需求与实际交付匹配度</text>-->
+<!--            <text class="font-10-size margin-10-top">50%</text>-->
+<!--            <el-timeline class="margin-20-top">-->
+<!--              <el-timeline-item timestamp="2023-03-04" class="font-5-size">买家需要耐水性高适合潮湿环境使用的胶合板，实际交付使用80天之后，发霉</el-timeline-item>-->
+<!--              <el-timeline-item timestamp="2020-02-01" class="font-5-size">初始值是100%</el-timeline-item>-->
+<!--            </el-timeline>-->
+<!--          </el-card>-->
+<!--        </el-col>-->
+<!--        <el-col :span="6">-->
+<!--          <el-card shadow="always" class="top_card">-->
+<!--            <text class="font-8-size font-60-weight">胶合板胶合度</text>-->
+<!--            <text class="font-5-size margin-10-top">需求与实际交付匹配度</text>-->
+<!--            <text class="font-10-size margin-10-top">50%</text>-->
+<!--            <el-timeline class="margin-20-top">-->
+<!--              <el-timeline-item timestamp="2023-03-04" class="font-5-size">买家收到后，发现有50%的胶合板都有分层、破损以及脱胶现象</el-timeline-item>-->
+<!--              <el-timeline-item timestamp="2020-02-01" class="font-5-size">初始值是100%</el-timeline-item>-->
+<!--            </el-timeline>-->
+<!--          </el-card>-->
+<!--        </el-col>-->
+<!--        <el-col :span="6">-->
+<!--          <el-card shadow="always" class="top_card">-->
+<!--            <text class="font-8-size font-60-weight">规格尺寸偏差</text>-->
+<!--            <text class="font-5-size margin-10-top">需求与实际交付匹配度</text>-->
+<!--            <text class="font-10-size margin-10-top">50%</text>-->
+<!--            <el-timeline class="margin-20-top">-->
+<!--              <el-timeline-item timestamp="2023-03-04" class="font-5-size">买家需要124mmx120mmx100mm，实际交付有10mm尺寸偏差</el-timeline-item>-->
+<!--              <el-timeline-item timestamp="2020-02-01" class="font-5-size">初始值是100%</el-timeline-item>-->
+<!--            </el-timeline>-->
+<!--          </el-card>-->
+<!--        </el-col>-->
+<!--      </el-row>-->
+<!--    </div>-->
     <div class="top_3 margin-20-top">
       <div class="top_left">
           <div class="top_left_item dark_blue_btn" v-show="tabDetailStore.current != 0" @click="handleItemClick(0)">
@@ -1667,7 +1672,7 @@
   width: 1000px;
 }
 .app-container{
-  background-color: #fff !important;
+  background-color: var(--app-container-bg-color) !important;
 }
 .el-carousel--vertical{
   width: 100%;
@@ -1771,6 +1776,17 @@
 }
 .padding-10:deep(.el-descriptions__body) {
   background-color: var(--table-fill-color);
+}
+.el-descriptions{
+  --el-descriptions-table-border: 1px solid var(--descriptions-table-border);
+}
+.padding-10:deep(.el-descriptions__content.el-descriptions__cell.is-bordered-content){
+  color: var(--descriptions-bordered-content-color);
+}
+.padding-10:deep(.el-descriptions__label.el-descriptions__cell.is-bordered-label){
+  color: var(--descriptions-bordered-label-color);
+  background: var(--descriptions-bordered-label-bg-color);
+  font-weight: 500;
 }
 </style>
 <script setup>

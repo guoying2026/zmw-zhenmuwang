@@ -1,7 +1,7 @@
-.dark:root {
-    --app-container: #1f1d2b;
+[data-theme="dark"]:root {
     --app-container: #111827;
     --main-color: #fff;
+    --main-color-card: #000;
     --secondary-color: rgba(255,255,255,.8);
     --projects-section: #1f2937;
     --link-color: rgba(255,255,255,.8);
@@ -36,6 +36,7 @@
   --search-area-bg: #fff;
   --star: #1ff1c2e;
   --message-btn: #fff;
+  --main-color-card: #f4f6fd;
 }
 html, body {
     width: 100%;
@@ -258,7 +259,7 @@ span {
 }
 
 .projects-section {
-    background-color: #fff;
+    background-color: var(--projects-section-bg-color);
     border-radius: 32px;
     padding: 32px 32px 32px 32px;
     overflow: hidden;
@@ -566,7 +567,6 @@ input:checked + label svg {
 }
 
 .project-box {
-    --main-color-card: #f4f6fd;
     border-radius: 30px;
     padding: 16px;
     background-color: var(--main-color-card);
