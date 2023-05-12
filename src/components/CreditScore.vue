@@ -4,7 +4,7 @@
       :style="`width:${width}`"
   >
     <span :class="`font-${fontSize}-size`">{{creditScore}}</span>
-    <span class="font-15-size">{{creditScoreText}} </span>
+    <span :class="`font-${fontSize1}-size`">{{creditScoreText}} </span>
   </div>
 </template>
 <style>
@@ -30,6 +30,10 @@ const props = defineProps({
   fontSize: {
     type: [String,Number],
     default: 150,
+  },
+  fontSize1: {
+    type: [String,Number],
+    default: 15,
   },
   creditScore: {
     type: [String,Number],

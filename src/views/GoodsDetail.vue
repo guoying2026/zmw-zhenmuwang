@@ -477,35 +477,18 @@ const addNewSpecification = (isFromGetGoodsDetail = false, long = '', width = ''
 }
 // 获取商品详情信息
 const getGoodsDetail = () => {
-  // 获取商品详细信息
   getGoodsDetailApi({
     phone: goodsForm.address_phone,
     type: type.value,
     goods_id: goodsId.value,
+    index: 1,
   }).then(res => {
-    console.log(res)
     if (res.status != 200 || res.data.status != 1000) {
       isFailed.value = true
       return false
     }
     isFailed.value = false
     isSuccess.value = true
-    // 获取商家信息
-    businessInfo.value = res.data.data.business_info
-    // 获取店铺信息
-    shopInfo.value = res.data.data.shop_info
-    // 获取商品主图
-    goodsMainImageList.value = res.data.data.main
-    if (goodsMainImageList.value.length === 0 && res.data.data.hasOwnProperty('image')) {
-      goodsMainImageList.value = [res.data.data.image]
-    }
-    goodsMainImageList.value = goodsMainImageList.value.map(item => formatHttpsProtocol(item))
-    // 获取商品详情图
-    goodsDetailImageList.value = res.data.data.details
-    if (goodsDetailImageList.value.length === 0 && res.data.data.hasOwnProperty('image')) {
-      goodsDetailImageList.value = [res.data.data.image]
-    }
-    goodsDetailImageList.value = goodsDetailImageList.value.map(item => formatHttpsProtocol(item))
     // 获取商品标题
     goodsTitle.value = res.data.data.goods_title
     if (!goodsTitle.value) {
@@ -518,6 +501,92 @@ const getGoodsDetail = () => {
     }
     // 获取商品发货地
     sendArea.value = res.data.data.sendland_name
+    // 获取浏览数
+    viewCount.value = res.data.data.view_count
+    // 获取商品标签
+    tags.value = res.data.data.tags
+    tags.value.sort((a,b)=>a.length-b.length)
+    // 获取商品的库存
+    goodsStock.value = res.data.data.goods_stock
+    if (res.data.data.store_count) {
+      goodsStock.value = res.data.data.store_count
+    }
+    // 获取商品的可选购买单位
+    unitArr.value = res.data.data.units
+    // 获取默认的购买单位下标
+    selectedUnitIndex.value = res.data.data.units[0].count_unit
+    // 获取默认的购买单位名称
+    selectedUnitName.value = res.data.data.units[0].unit
+    if (selectedGoodsStore && Number(selectedGoodsStore.unit) > -1 && unitArr.value.filter(item => Number(item.count_unit) === Number(selectedGoodsStore.unit)) > -1) {
+      selectedUnitIndex.value = Number(selectedGoodsStore.unit)
+      selectedUnitName.value = formatUnit(Number(selectedGoodsStore.unit))
+    }
+    // 可选备注列表添加是否选中等字段
+    res.data.data.remark_list = res.data.data.remark_list.map(item => {
+      item.is_selected = 0
+      return item
+    })
+    // 获取备注列表
+    remarkList.value = res.data.data.remark_list
+    remarkContent.value = selectedGoodsStore.order_notes.split(/,/g).filter(item => {
+      let isInclude = remarkList.value.map(item1=>item1.name).includes(item)
+      if (isInclude) {
+        selectedRemarkListItems.value.push(item)
+        return false
+      }
+      return true
+    }).join(',')
+    orderNotes.value = selectedGoodsStore.order_notes
+    // 获取三维图示
+    threeDImage.value = formatHttpsProtocol(res.data.data.three_d_image)
+  }).catch((reason) => {
+    console.log(reason)
+    isFailed.value = true
+    isSuccess.value = false
+  }).finally(() => {
+    isLoading.value = false
+  })
+  getGoodsDetailApi({
+    phone: goodsForm.address_phone,
+    type: type.value,
+    goods_id: goodsId.value,
+    index: 2,
+  }).then(res => {
+    if (res.status != 200 || res.data.status != 1000) {
+      return false
+    }
+    // 获取商品主图
+    goodsMainImageList.value = res.data.data.main
+    if (goodsMainImageList.value.length === 0 && res.data.data.hasOwnProperty('image')) {
+      goodsMainImageList.value = [res.data.data.image]
+    }
+    goodsMainImageList.value = goodsMainImageList.value.map(item => formatHttpsProtocol(item))
+  })
+  getGoodsDetailApi({
+    phone: goodsForm.address_phone,
+    type: type.value,
+    goods_id: goodsId.value,
+    index: 3,
+  }).then(res => {
+    if (res.status != 200 || res.data.status != 1000) {
+      return false
+    }
+    // 获取商品详情图
+    goodsDetailImageList.value = res.data.data.details
+    if (goodsDetailImageList.value.length === 0 && res.data.data.hasOwnProperty('image')) {
+      goodsDetailImageList.value = [res.data.data.image]
+    }
+    goodsDetailImageList.value = goodsDetailImageList.value.map(item => formatHttpsProtocol(item))
+  })
+  getGoodsDetailApi({
+    phone: goodsForm.address_phone,
+    type: type.value,
+    goods_id: goodsId.value,
+    index: 4,
+  }).then(res => {
+    if (res.status != 200 || res.data.status != 1000) {
+      return false
+    }
     // 商品规格添加购买数量、是否手动添加等字段
     res.data.data.specifications = res.data.data.specifications.map(item => {
       if (item.hasOwnProperty('spec_id')) {
@@ -569,11 +638,19 @@ const getGoodsDetail = () => {
     if (selectedGoodsStore && selectedGoodsStore.order_notes) {
       goodsForm.order_notes = selectedGoodsStore.order_notes
     }
-    // 获取浏览数
-    viewCount.value = res.data.data.view_count
-    // 获取商品标签
-    tags.value = res.data.data.tags
-    tags.value.sort((a,b)=>a.length-b.length)
+    if (isAutoCalcSpecsPrice) {
+      handleSpecListCountChange()
+    }
+  })
+  getGoodsDetailApi({
+    phone: goodsForm.address_phone,
+    type: type.value,
+    goods_id: goodsId.value,
+    index: 5,
+  }).then(res => {
+    if (res.status != 200 || res.data.status != 1000) {
+      return false
+    }
     if (res.data.data.productDescription) {
       // 获取商品的产品介绍
       if (res.data.data.productDescription.cpjs) {
@@ -594,49 +671,41 @@ const getGoodsDetail = () => {
         factoryFeatures.value = res.data.data.productDescription.gcys
       }
     }
-    // 获取商品的库存
-    goodsStock.value = res.data.data.goods_stock
-    if (res.data.data.store_count) {
-      goodsStock.value = res.data.data.store_count
+  })
+  getGoodsDetailApi({
+    phone: goodsForm.address_phone,
+    type: type.value,
+    goods_id: goodsId.value,
+    index: 6,
+  }).then(res => {
+    if (res.status != 200 || res.data.status != 1000) {
+      return false
     }
-    // 获取商品的可选购买单位
-    unitArr.value = res.data.data.units
-    // 获取默认的购买单位下标
-    selectedUnitIndex.value = res.data.data.units[0].count_unit
-    // 获取默认的购买单位名称
-    selectedUnitName.value = res.data.data.units[0].unit
-    if (selectedGoodsStore && Number(selectedGoodsStore.unit) > -1 && unitArr.value.filter(item => Number(item.count_unit) === Number(selectedGoodsStore.unit)) > -1) {
-      selectedUnitIndex.value = Number(selectedGoodsStore.unit)
-      selectedUnitName.value = formatUnit(Number(selectedGoodsStore.unit))
+    // 获取商家信息
+    businessInfo.value = res.data.data.business_info
+    // 获取店铺信息
+    shopInfo.value = res.data.data.shop_info
+  })
+  getGoodsDetailApi({
+    phone: goodsForm.address_phone,
+    type: type.value,
+    goods_id: goodsId.value,
+    index: 7,
+  }).then(res => {
+    if (res.status != 200 || res.data.status != 1000) {
+      return false
     }
-    // 可选备注列表添加是否选中等字段
-    res.data.data.remark_list = res.data.data.remark_list.map(item => {
-      item.is_selected = 0
-      return item
-    })
-    // 获取备注列表
-    remarkList.value = res.data.data.remark_list
-    remarkContent.value = selectedGoodsStore.order_notes.split(/,/g).filter(item => {
-      let isInclude = remarkList.value.map(item1=>item1.name).includes(item)
-      if (isInclude) {
-        selectedRemarkListItems.value.push(item)
-        return false
-      }
-      return true
-    }).join(',')
-    orderNotes.value = selectedGoodsStore.order_notes
-    // 获取三维图示
-    threeDImage.value = formatHttpsProtocol(res.data.data.three_d_image)
+  })
+  getGoodsDetailApi({
+    phone: goodsForm.address_phone,
+    type: type.value,
+    goods_id: goodsId.value,
+    index: 8,
+  }).then(res => {
+    if (res.status != 200 || res.data.status != 1000) {
+      return false
+    }
     otherSee.value = res.data.data.other_see
-    if (isAutoCalcSpecsPrice) {
-      handleSpecListCountChange()
-    }
-  }).catch((reason) => {
-    console.log(reason)
-    isFailed.value = true
-    isSuccess.value = false
-  }).finally(() => {
-    isLoading.value = false
   })
 }
 // 计算运费
