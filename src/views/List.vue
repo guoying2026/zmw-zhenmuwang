@@ -261,6 +261,14 @@ a,a:hover {
   .introduce_5_input .el-input-group__append {
     font-size: 16px;
   }
+  .custom_tag {
+    font-size: 12px;
+    padding: 10px 15px;
+    margin: 5px;
+  }
+  .left_1_2 text {
+    font-size: 14px;
+  }
 }
 @media (max-width: 375px) {
   .introduce_3 {
@@ -486,7 +494,7 @@ a,a:hover {
             <el-col :span="24" :md="12" v-for="(item, columnIndex) in getRowItems(rowIndex)" :key="'column-' + rowIndex + '-' + columnIndex" class="column">
               <router-link class="padding-20 left" :to="'/detail?company_info_id='+item.id">
                 <div class="left_1">
-                  <CreditScore :credit-score="item.score" credit-score-text="信用分" :font-size="40" height="80" width="100px"></CreditScore>
+                  <CreditScore :credit-score="item.score" credit-score-text="信用分" :font-size="creditScoreFontSize" :font-size1="creditScoreFontSize1" height="80" :width="creditScoreWidth"></CreditScore>
                   <div class="left_1_2">
                     <template v-if="item.id&&item.id!='0'&&item.id!=0&&item.id!='-1'&&item.id!=-1&&item.id.length>0">
                       <text class="font-18-size font-60-weight margin-10-left">{{ item.company_name }}</text>
@@ -501,7 +509,7 @@ a,a:hover {
                     </div>
                   </div>
                 </div>
-                <SellerInfo :item="item"></SellerInfo>
+                <SellerInfo :item="item" :item-middle-width="SellerInfoItemMiddleWidth" :item-middle-font-size="SellerInfoItemMiddleFontSize" :item-right-font-size="SellerInfoItemRightFontSize"></SellerInfo>
               </router-link>
             </el-col>
           </el-row>
@@ -564,6 +572,21 @@ const getRowItems = (rowIndex) => {
   const startIndex = rowIndex * numberOfColumns.value;
   return list.value.slice(startIndex, startIndex + numberOfColumns.value);
 };
+
+const creditScoreWidth = ref('100px');
+const creditScoreFontSize = ref(40);
+const creditScoreFontSize1 = ref(15);
+const SellerInfoItemMiddleWidth = ref('170px');
+const SellerInfoItemMiddleFontSize = ref('16px');
+const SellerInfoItemRightFontSize = ref('16px');
+if (window.innerWidth <= 425) {
+  creditScoreWidth.value = '65px';
+  creditScoreFontSize.value = 20;
+  creditScoreFontSize1.value = 10;
+  SellerInfoItemMiddleWidth.value = '85px';
+  SellerInfoItemMiddleFontSize.value = '12px';
+  SellerInfoItemRightFontSize.value = '13px';
+}
 
 const companyInfoCount = ref(0)
 getCountsApi().then(res => {
