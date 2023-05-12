@@ -97,6 +97,18 @@ a,a:hover {
 .row:nth-child(even) .column:nth-child(odd) {
   background-color: #fff;
 }
+@media screen and (max-width: 991px) {
+  .row:nth-child(odd) .column:nth-child(odd),
+  .row:nth-child(even) .column:nth-child(even),
+  .row:nth-child(odd) .column:nth-child(even),
+  .row:nth-child(even) .column:nth-child(odd) {
+    background-color: #fff;
+  }
+  .row:nth-child(even) .column:nth-child(odd),
+  .row:nth-child(odd) .column:nth-child(odd) {
+    background-color: #f3f6fd;
+  }
+}
 .introduce{
   display: flex;
   flex-direction: column;
