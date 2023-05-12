@@ -80,22 +80,24 @@ a,a:hover {
 .all_list_item{
   width: 92%;
 }
-.gray-background {
-  background-color: #f3f6fd;
-}
-
-.white-background {
-  background-color: #fff;
-}
 
 .row:nth-child(odd) .column:nth-child(odd),
 .row:nth-child(even) .column:nth-child(even) {
   background-color: #f3f6fd;
 }
 
+
 .row:nth-child(odd) .column:nth-child(even),
 .row:nth-child(even) .column:nth-child(odd) {
   background-color: #fff;
+}
+[data-theme="dark"] .row:nth-child(odd) .column:nth-child(odd),
+[data-theme="dark"] .row:nth-child(even) .column:nth-child(even){
+  background-image: linear-gradient(109.61deg,#070708 4.26%,#385f7f 84.84%)
+}
+[data-theme="dark"] .row:nth-child(odd) .column:nth-child(even),
+[data-theme="dark"] .row:nth-child(even) .column:nth-child(odd){
+  background-color: #000;
 }
 .introduce{
   display: flex;

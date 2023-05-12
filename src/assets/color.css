@@ -3,7 +3,22 @@
   --navbar-color: var(--el-color-black);
   --navbar-height: 50px;
   --navbar-line-height: var(--navbar-height);
-  --navbar-ft-color: #000;
+  --navbar-ft-color: var(--el-color-black);
+  --app-bg-color: var(--el-color-white);
+  --app-color: var(--el-color-black);
+  --svg-fill-color:var(--el-color-black);
+  --table-fill-color:var(--el-color-white);
+}
+[data-theme="dark"] {
+  --navbar-bg-color: var(--el-color-black);
+  --navbar-color: var(--el-color-white);
+  --navbar-height: 50px;
+  --navbar-line-height: var(--navbar-height);
+  --navbar-ft-color: var(--el-color-white);
+  --app-bg-color: var(--el-color-black);
+  --app-color: var(--el-color-white);
+  --svg-fill-color: var(--el-color-white);
+  --table-fill-color: var(--el-color-black);
 }
 .grey_bg{
   background: #f3f6fd !important;

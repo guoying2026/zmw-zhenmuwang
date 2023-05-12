@@ -1769,6 +1769,9 @@
 .padding-10:deep(.el-step__description){
   padding-right: 0px !important;
 }
+.padding-10:deep(.el-descriptions__body) {
+  background-color: var(--table-fill-color);
+}
 </style>
 <script setup>
 import "../assets/comment.scss"

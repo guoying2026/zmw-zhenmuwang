@@ -1,9 +1,9 @@
 <template>
   <router-link to="/login" v-if="userStore.userId === 0">
-    <text class="font-10-size black">登录</text>
+    <text class="font-10-size black margin-20-left">登录</text>
   </router-link>
   <router-link to="/personalCenter" v-else>
-    <img :src="userStore.photo" class="photo"/>
+    <img :src="userStore.photo" class="photo margin-20-left"/>
   </router-link>
 </template>
 <script setup>
@@ -17,6 +17,6 @@ const userStore = useUserStore();
   height: 25px;
 }
 .black{
-  color: #000;
+  color: var(el-color-black);
 }
 </style>

@@ -2,10 +2,20 @@
   <div class="nav_header">
     <div class="nav">
       <router-link to="/">
-        <span class="font-60-weight font-10-size black">ZMW</span>
+        <span class="font-60-weight font-10-size">ZMW</span>
       </router-link>
       <el-link type="info" :underline="false" @click="searchSlideDown"><el-icon class="font-20-size"><search></search></el-icon></el-link>
-      <UserLogin/>
+      <div class="right">
+        <div class="right_1" v-show="themeStore.mode*1 === 0" @click="toggleTheme(1)">
+          <svg t="1683777382357" class="icon_svg" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="37484" width="200" height="200"><path d="M466.2784 386.048c-41.9328-115.2-35.0208-236.288 10.0864-340.5312A462.4896 462.4896 0 0 0 397.6704 66.56C158.5152 153.6 35.2256 418.048 122.2656 657.2032s351.488 362.4448 590.592 275.4048c123.9552-45.1072 216.7296-137.8816 265.3184-250.0608-215.8592 37.7856-434.3296-83.3536-511.8976-296.4992z" fill="#000000" p-id="37485"></path></svg>
+          <text class="font-10-size margin-10-left">切换到夜晚</text>
+        </div>
+        <div class="right_2" v-show="themeStore.mode*1 === 1" @click="toggleTheme(0)">
+          <svg t="1683777324617" class="icon_svg" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="36277" width="200" height="200"><path d="M990.90682 588.428377l-92.55547 92.679451-0.073989 110.582641c-0.049992 58.843763-47.798496 106.593267-106.643259 106.642259l-110.232695 0.074988-92.978404 93.12838c-42.313358 42.387346-110.956582 42.387346-153.294935 0l-92.704447-92.854423-110.257692 0.074988c-58.843763 0.049992-106.518279-47.623524-106.468286-106.468286l0.074988-110.582641-93.103384-93.277357c-42.338354-42.388346-42.338354-111.155551 0-153.543896l93.377341-93.527318 0.074988-108.536962c0.049992-58.844762 47.798496-106.593267 106.643259-106.643259l108.188016-0.074988 94.175217-94.325192c42.338354-42.387346 110.981578-42.387346 153.294935 0l93.901259 94.051235 109.908746-0.074988c58.843763-0.049992 106.518279 47.624524 106.468287 106.468286l-0.074989 110.232696 92.280514 92.43049c42.313358 42.388346 42.313358 111.155551 0 153.543896zM512.199969 225.339376c-158.356141 0-286.740987 128.384846-286.740987 286.740986 0 158.355141 128.384846 286.740987 286.740987 286.740987 158.355141 0 286.739987-128.384846 286.739986-286.740987 0-158.355141-128.384846-286.740987-286.739986-286.740986z m0 498.679716c-117.040627 0-211.939729-94.899103-211.93973-211.93873S395.159342 300.141633 512.199969 300.141633c117.039627 0 211.938729 94.899103 211.938729 211.938729S629.239595 724.019092 512.199969 724.019092z" p-id="36278" fill="#ffffff"></path></svg>
+          <text class="font-10-size margin-10-left">切换到白天</text>
+        </div>
+        <UserLogin/>
+      </div>
     </div>
   </div>
   <!-- 搜索框遮罩层 -->
@@ -53,7 +63,55 @@ router-view负责渲染路由匹配的组件，可以通过把router-view放在�
     </keep-alive>
   </router-view>
 </template>
+<script setup>
+import { useThemeStore } from "./pinia/theme.js";
+import {onMounted} from "vue";
+const themeStore = useThemeStore();
+const toggleTheme = (mode) => {
+  console.log(mode);
+  if(mode*1 === 0){
+    themeStore.mode = 0;
+    document.documentElement.removeAttribute("data-theme");
+  } else {
+    themeStore.mode = 1;
+    document.documentElement.setAttribute("data-theme", "dark");
+  }
+  console.log(themeStore.mode);
+}
+onMounted(()=>{
+  toggleTheme(themeStore.mode);
+})
+</script>
 <style scoped>
+.right{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.right_2{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-weight: 500;
+  border: 1px solid #fff;
+  padding: 5px;
+  border-radius: 5px;
+  background-color: #000;
+  color: #fff;
+}
+.right_1{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-weight: 500;
+  border: 1px solid #000;
+  padding: 5px;
+  border-radius: 5px;
+}
+.icon_svg{
+  width: 20px;
+  height: 20px;
+}
 .nav_header {
   position: fixed;
   top: 0;
@@ -68,10 +126,7 @@ router-view负责渲染路由匹配的组件，可以通过把router-view放在�
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 20px 10px 20px;
-}
-.black{
-  color: #000;
+  padding: 10px 20px;
 }
 .el-link,a {
   color: inherit;

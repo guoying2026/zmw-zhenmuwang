@@ -67,7 +67,8 @@ button:focus-visible {
   min-height: calc(100vh - 50px);
   margin: 0 auto;
   max-width: 100%;
-  background: #fff;
+  background: var(--app-bg-color);
+  color: var(--app-color);
 }
 
 @media (prefers-color-scheme: light) {
