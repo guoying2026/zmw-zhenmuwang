@@ -7,3 +7,10 @@ export const getIndexDataApi = (data) => {
         params: data,
     })
 }
+
+export const getCountsApi = () => {
+    return axiosRequest({
+        url: '/Pc/Index/getCounts',
+        method: 'get',
+    })
+}
