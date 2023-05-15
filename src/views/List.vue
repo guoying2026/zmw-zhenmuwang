@@ -109,6 +109,17 @@ a,a:hover {
   .row:nth-child(odd) .column:nth-child(odd) {
     background-color: #f3f6fd;
   }
+  [data-theme="dark"] .row:nth-child(odd) .column:nth-child(odd),
+  [data-theme="dark"] .row:nth-child(even) .column:nth-child(even),
+  [data-theme="dark"] .row:nth-child(odd) .column:nth-child(even),
+  [data-theme="dark"] .row:nth-child(even) .column:nth-child(odd) {
+    background-color: #000;
+    background-image: unset;
+  }
+  [data-theme="dark"] .row:nth-child(even) .column:nth-child(odd),
+  [data-theme="dark"] .row:nth-child(odd) .column:nth-child(odd) {
+    background-image: linear-gradient(109.61deg,#070708 4.26%,#385f7f 84.84%);
+  }
 }
 .introduce{
   display: flex;
