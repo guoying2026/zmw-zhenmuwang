@@ -130,6 +130,9 @@ a,a:hover {
   background-size: 100% 100%;
   background-repeat: no-repeat;
 }
+[data-theme="dark"] .introduce {
+  background-image: unset;
+}
 .introduce_space{
   display: flex;
   justify-content: flex-start;
@@ -210,6 +213,9 @@ a,a:hover {
   font-family: MiSans;
   font-weight: 600;
   color: #385F7F;
+}
+[data-theme="dark"] .introduce_4 h1 {
+  color: #31729B;
 }
 .introduce_4_right {
   display: inline-flex;
