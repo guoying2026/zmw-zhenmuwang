@@ -131,7 +131,7 @@ a,a:hover {
   background-repeat: no-repeat;
 }
 [data-theme="dark"] .introduce {
-  background-image: unset;
+  background-image: url(https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_imagecddfb61a4e31bdd1b98405d9415301d1.png);
 }
 .introduce_space{
   display: flex;
@@ -200,6 +200,10 @@ a,a:hover {
   color: #243344;
   border-radius: 27px;
 }
+[data-theme="dark"] .introduce_3 {
+  background: #02050F;
+  color: #8CA8C6;
+}
 .introduce_4 {
   display: inline-flex;
   justify-content: center;
@@ -215,7 +219,10 @@ a,a:hover {
   color: #385F7F;
 }
 [data-theme="dark"] .introduce_4 h1 {
-  color: #31729B;
+  color: #385F7F;
+  background: linear-gradient(87deg, #737ACB 0.1220703125%, #458AB6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 .introduce_4_right {
   display: inline-flex;
@@ -259,6 +266,7 @@ a,a:hover {
   font-weight: 400;
   color: #FFFFFF;
   border-radius: 0px 6px 6px 0px;
+  --el-input-border-color: #385F7F;
 }
 @media (max-width: 425px) {
   .introduce_3 {
