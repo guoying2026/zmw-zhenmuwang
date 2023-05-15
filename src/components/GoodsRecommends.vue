@@ -2,7 +2,7 @@
  * @Author: joytou
  * @Date: 2023-03-17
  * @LastEditors: joytou
- * @LastEditTime: 2023-04-10
+ * @LastEditTime: 2023-05-15
  * @FilePath: /zmw-zhenmuwang/src/components/GoodsRecommends.vue
  * @Description: 
 -->
@@ -53,6 +53,15 @@ const props = defineProps({
 })
 </script>
 <style scoped>
+[data-theme="dark"] .el-card {
+  background-color: var(--projects-section-bg-color);
+  border-color: var(--projects-section-bg-color);
+  color: var(--app-color);
+}
+[data-theme="dark"] .el-card.is-hover-shadow:focus,
+[data-theme="dark"] .el-card.is-hover-shadow:hover {
+  box-shadow: var(--el-box-shadow-dark);
+}
 .recommend_goods-item {
   margin-top: 20px;
   cursor: pointer;
@@ -69,6 +78,9 @@ const props = defineProps({
   margin-top: -40px;
   background-color: rgba(255,255,255, 0.7);
   z-index: 1;
+}
+[data-theme="dark"] .recommend_goods-item-info {
+  background-color: rgba(0,0,0, 0.3);
 }
 .recommend_goods-item-info-title {
   text-align: center;

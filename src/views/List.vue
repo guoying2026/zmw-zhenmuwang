@@ -109,6 +109,17 @@ a,a:hover {
   .row:nth-child(odd) .column:nth-child(odd) {
     background-color: #f3f6fd;
   }
+  [data-theme="dark"] .row:nth-child(odd) .column:nth-child(odd),
+  [data-theme="dark"] .row:nth-child(even) .column:nth-child(even),
+  [data-theme="dark"] .row:nth-child(odd) .column:nth-child(even),
+  [data-theme="dark"] .row:nth-child(even) .column:nth-child(odd) {
+    background-color: #000;
+    background-image: unset;
+  }
+  [data-theme="dark"] .row:nth-child(even) .column:nth-child(odd),
+  [data-theme="dark"] .row:nth-child(odd) .column:nth-child(odd) {
+    background-image: linear-gradient(109.61deg,#070708 4.26%,#385f7f 84.84%);
+  }
 }
 .introduce{
   display: flex;
@@ -118,6 +129,9 @@ a,a:hover {
   background-image: url(https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_image03ab7c9bb851470576d5542d055ee021.png);
   background-size: 100% 100%;
   background-repeat: no-repeat;
+}
+[data-theme="dark"] .introduce {
+  background-image: url(https://zhenmuwang.oss-cn-beijing.aliyuncs.com/zmw_group_imagecddfb61a4e31bdd1b98405d9415301d1.png);
 }
 .introduce_space{
   display: flex;
@@ -186,6 +200,10 @@ a,a:hover {
   color: #243344;
   border-radius: 27px;
 }
+[data-theme="dark"] .introduce_3 {
+  background: #02050F;
+  color: #8CA8C6;
+}
 .introduce_4 {
   display: inline-flex;
   justify-content: center;
@@ -199,6 +217,12 @@ a,a:hover {
   font-family: MiSans;
   font-weight: 600;
   color: #385F7F;
+}
+[data-theme="dark"] .introduce_4 h1 {
+  color: #385F7F;
+  background: linear-gradient(87deg, #737ACB 0.1220703125%, #458AB6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 .introduce_4_right {
   display: inline-flex;
@@ -242,6 +266,7 @@ a,a:hover {
   font-weight: 400;
   color: #FFFFFF;
   border-radius: 0px 6px 6px 0px;
+  --el-input-border-color: #385F7F;
 }
 @media (max-width: 425px) {
   .introduce_3 {
