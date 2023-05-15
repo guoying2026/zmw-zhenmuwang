@@ -20,6 +20,8 @@
   --dark-blue-btn-bg: #e9f9ff;
   --selected-left-color: #385f7f;
   --no-selected-left-color: #fff;
+  --blue-btn-bg-color: #f4f6fd;
+  --blue-btn-color: #096c86;
 }
 [data-theme="dark"] {
   --navbar-bg-color: #000;
@@ -43,6 +45,8 @@
   --dark-blue-btn-bg: #191919;
   --selected-left-color: #fff;
   --no-selected-left-color: #fff;
+  --blue-btn-bg-color:#243244;
+  --blue-btn-color: #fff;
 }
 .grey_bg{
   background: #f3f6fd !important;
