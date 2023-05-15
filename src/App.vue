@@ -4,7 +4,7 @@
       <router-link to="/" class="width-160">
         <span class="font-60-weight font-10-size">ZMW</span>
       </router-link>
-      <el-link class="width-160" type="info" :underline="false" @click="searchSlideDown"><el-icon class="font-20-size"><search></search></el-icon></el-link>
+      <el-link class="width-160 nav-search_icon_link" type="info" :underline="false" @click="searchSlideDown"><el-icon class="font-20-size"><search></search></el-icon></el-link>
       <div class="right">
         <div class="right_1" v-show="themeStore.mode*1 === 0" @click="toggleTheme(1)">
           <svg t="1683777382357" class="icon_svg" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="37484" width="200" height="200"><path d="M466.2784 386.048c-41.9328-115.2-35.0208-236.288 10.0864-340.5312A462.4896 462.4896 0 0 0 397.6704 66.56C158.5152 153.6 35.2256 418.048 122.2656 657.2032s351.488 362.4448 590.592 275.4048c123.9552-45.1072 216.7296-137.8816 265.3184-250.0608-215.8592 37.7856-434.3296-83.3536-511.8976-296.4992z" fill="#000000" p-id="37485"></path></svg>
@@ -122,7 +122,7 @@ onMounted(()=>{
   color:var(--navbar-color);
   background-color: var(--navbar-bg-color);
   opacity:0.8;
-  z-index: 100;
+  z-index: 1501;
 }
 .nav{
   display: flex;
@@ -133,6 +133,36 @@ onMounted(()=>{
 }
 .el-link,a {
   color: inherit;
+}
+@media screen and (max-width: 425px) {
+  .nav-search_icon_link {
+    width: 80px;
+  }
+  .right_1 text,
+  .right_2 text {
+    margin-left: 5px;
+    white-space: nowrap;
+  }
+}
+@media screen and (max-width: 375px) {
+  .nav-search_icon_link {
+    width: 60px;
+  }
+  .right_1,
+  .right_2 {
+    position: relative;
+    left: 10px;
+  }
+  .right_1 text,
+  .right_2 text {
+    margin: 0;
+    white-space: nowrap;
+  }
+}
+@media screen and (max-width: 320px) {
+  .nav-search_icon_link {
+    width: 20px;
+  }
 }
 </style>
 <script>
