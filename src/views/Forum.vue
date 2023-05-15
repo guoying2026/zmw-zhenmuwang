@@ -198,6 +198,10 @@
   margin: 0;
   padding: 0;
 }
+.icon{
+  width: 30px;
+  height: 30px;
+}
 </style>
 <template>
   <div class="padding-10 margin-40-top">
@@ -343,6 +347,24 @@
             :company-info-id="company_info_id_text"
         >
         </QuestionList>
+      </div>
+      <div class="top_right margin-20-top" v-show="tabDetailStore.current == 0 || tabDetailStore.current == 3">
+        <div class="top_right_space margin-20-top">
+          <text class="top_right_title font-8-size font-60-weight">附近商家</text>
+          <router-link class="padding-20 left" to="/forum" v-for="(item, index) in nearbyList" :key="index">
+            <div class="left_1">
+              <CreditScore :credit-score="item.score" credit-score-text="信用分" :font-size="10" :font-size1="10" height="20" :width="100"></CreditScore>
+              <div class="left_1_2">
+                <template v-if="item.id&&item.id!='0'&&item.id!=0&&item.id!='-1'&&item.id!=-1&&item.id.length>0">
+                  <text class="font-10-size font-60-weight margin-10-left">{{ item.company_name }}</text>
+                </template>
+                <template v-else>
+                  <el-link type="info" :underline="false" @click.stop="hasNoItemIdTips"><text class="font-18-size font-60-weight margin-10-left">{{ item.company_name }}</text></el-link>
+                </template>
+              </div>
+            </div>
+          </router-link>
+        </div>
       </div>
       <div class="top" v-show="tabDetailStore.current == 1">
         <div class="small_tag">
@@ -1805,7 +1827,20 @@ import { useUserStore } from "../pinia/user.js";
 import { useTabDetailStore } from "../pinia/tabDetail.js"
 import Tag from "../components/Tag.vue"
 import SellerInfo from "../components/SellerInfo.vue";
-import GuidePublishGoods from "../components/GuidePublishGoods.vue";
+import {getIndexDataApi} from "../api/list.js";
+
+// 数据列表
+const nearbyList = ref([])
+getIndexDataApi({
+  is_show_recommend: 1,
+  is_show_franchisee: 1,
+  is_show_blacklist: 1,
+  page: 1,
+  page_size: 10,
+  score_asc: 0,
+}).then(res => {
+  nearbyList.value = res.data.data;
+})
 const userStore = useUserStore();
 const tabDetailStore = useTabDetailStore();
 //

@@ -51,7 +51,7 @@
               </div>
             </div>
             <div class="project-box-content-header">
-              <p class="box-content-header">能不能做某种规格？</p>
+              <p class="box-content-header">能做某种规格？</p>
               <p class="box-content-subheader">调整购买策略</p>
             </div>
             <div class="box-progress-wrapper">

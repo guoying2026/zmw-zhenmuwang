@@ -580,7 +580,7 @@ const liked_comment_reply = (index,indexReply,comment_id,comment_reply_id,is_lik
   }
 }
 .grey_color{
-  color: #4A4A4A;
+  color: var(--secondary-color);
 }
 .icon_div{
   display: flex;
