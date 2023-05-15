@@ -1,7 +1,7 @@
 <template>
   <div
       class="fluctuate"
-      :style="`width:${width}`"
+      :style="`width:${width};height:${height}`"
   >
     <span :class="`font-${fontSize}-size`">{{creditScore}}</span>
     <span :class="`font-${fontSize1}-size`">{{creditScoreText}} </span>
@@ -13,7 +13,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  /*border: 2px solid #000;*/
   border-radius: 10px;
   padding: 0 10px 10px 10px;
   background: #385f7f;
@@ -41,7 +40,7 @@ const props = defineProps({
   },
   height: {
     type: [Number,String],
-    default: 180,
+    default: '180px',
   },
   width:{
     type: String,

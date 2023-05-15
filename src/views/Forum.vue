@@ -202,6 +202,36 @@
   width: 30px;
   height: 30px;
 }
+.icon_i{
+  width: 10px;
+  height: 10px;
+}
+.left_1{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+.left_1 .left_1_2{
+  display:flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  flex: 1;
+}
+.left{
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  width: 100%;
+}
+.nearby{
+  background-color: var(--main-color-card);
+  padding: 10px;
+}
+.nearby_2{
+  display: flex;
+  flex-direction: column;
+}
 </style>
 <template>
   <div class="padding-10 margin-40-top">
@@ -231,59 +261,6 @@
         </el-carousel-item>
       </el-carousel>
     </div>
-<!--    <div class="top_1_tag margin-20-top">-->
-<!--      <template v-for="(item,index) in list.arr" :key="index">-->
-<!--        <Tag :tag="item.goods_title" number="60" :color="index == 0?'dark_blue_reinforce':'dark_blue'"></Tag>-->
-<!--      </template>-->
-<!--    </div>-->
-<!--    <div class="criteria margin-20-top">-->
-<!--      <el-row :gutter="12">-->
-<!--        <el-col :span="6">-->
-<!--          <el-card shadow="always" class="top_card">-->
-<!--            <text class="font-8-size font-60-weight">胶合板等级</text>-->
-<!--            <text class="font-5-size margin-10-top">需求与实际交付匹配度</text>-->
-<!--            <text class="font-10-size margin-10-top">50%</text>-->
-<!--            <el-timeline class="margin-20-top">-->
-<!--              <el-timeline-item timestamp="2023-03-04" class="font-5-size">买家需要AA/BB级胶合板，实际交付是BB/BB级胶合板</el-timeline-item>-->
-<!--              <el-timeline-item timestamp="2020-02-01" class="font-5-size">初始值是100%</el-timeline-item>-->
-<!--            </el-timeline>-->
-<!--          </el-card>-->
-<!--        </el-col>-->
-<!--        <el-col :span="6">-->
-<!--          <el-card shadow="always" class="top_card">-->
-<!--            <text class="font-8-size font-60-weight">胶合板耐水性</text>-->
-<!--            <text class="font-5-size margin-10-top">需求与实际交付匹配度</text>-->
-<!--            <text class="font-10-size margin-10-top">50%</text>-->
-<!--            <el-timeline class="margin-20-top">-->
-<!--              <el-timeline-item timestamp="2023-03-04" class="font-5-size">买家需要耐水性高适合潮湿环境使用的胶合板，实际交付使用80天之后，发霉</el-timeline-item>-->
-<!--              <el-timeline-item timestamp="2020-02-01" class="font-5-size">初始值是100%</el-timeline-item>-->
-<!--            </el-timeline>-->
-<!--          </el-card>-->
-<!--        </el-col>-->
-<!--        <el-col :span="6">-->
-<!--          <el-card shadow="always" class="top_card">-->
-<!--            <text class="font-8-size font-60-weight">胶合板胶合度</text>-->
-<!--            <text class="font-5-size margin-10-top">需求与实际交付匹配度</text>-->
-<!--            <text class="font-10-size margin-10-top">50%</text>-->
-<!--            <el-timeline class="margin-20-top">-->
-<!--              <el-timeline-item timestamp="2023-03-04" class="font-5-size">买家收到后，发现有50%的胶合板都有分层、破损以及脱胶现象</el-timeline-item>-->
-<!--              <el-timeline-item timestamp="2020-02-01" class="font-5-size">初始值是100%</el-timeline-item>-->
-<!--            </el-timeline>-->
-<!--          </el-card>-->
-<!--        </el-col>-->
-<!--        <el-col :span="6">-->
-<!--          <el-card shadow="always" class="top_card">-->
-<!--            <text class="font-8-size font-60-weight">规格尺寸偏差</text>-->
-<!--            <text class="font-5-size margin-10-top">需求与实际交付匹配度</text>-->
-<!--            <text class="font-10-size margin-10-top">50%</text>-->
-<!--            <el-timeline class="margin-20-top">-->
-<!--              <el-timeline-item timestamp="2023-03-04" class="font-5-size">买家需要124mmx120mmx100mm，实际交付有10mm尺寸偏差</el-timeline-item>-->
-<!--              <el-timeline-item timestamp="2020-02-01" class="font-5-size">初始值是100%</el-timeline-item>-->
-<!--            </el-timeline>-->
-<!--          </el-card>-->
-<!--        </el-col>-->
-<!--      </el-row>-->
-<!--    </div>-->
     <div class="top_3 margin-20-top">
       <div class="top_left">
           <div class="top_left_item dark_blue_btn" v-show="tabDetailStore.current != 0" @click="handleItemClick(0)">
@@ -336,37 +313,71 @@
             <text style="color:var(--no-selected-left-color)" class="margin-20-top">现货</text>
           </div>
       </div>
-      <div class="top" v-show="tabDetailStore.current == 0">
+      <div class="top" v-show="tabDetailStore.current*1 === 0">
         <CommentList
             :company-info-id="company_info_id_text"
         >
         </CommentList>
       </div>
-      <div class="top" v-show="tabDetailStore.current == 3">
+      <div class="top" v-show="tabDetailStore.current*1 === 3">
         <QuestionList
             :company-info-id="company_info_id_text"
         >
         </QuestionList>
       </div>
-      <div class="top_right margin-20-top" v-show="tabDetailStore.current == 0 || tabDetailStore.current == 3">
-        <div class="top_right_space margin-20-top">
+      <div class="top_right margin-20-top" v-show="tabDetailStore.current*1 === 0 || tabDetailStore.current*1 === 3">
+        <div class="top_right_space margin-20-top space_2">
           <text class="top_right_title font-8-size font-60-weight">附近商家</text>
-          <router-link class="left" to="/forum" v-for="(item, index) in nearbyList" :key="index">
+          <router-link class="left margin-20-top" to="/forum" v-for="(item, index) in nearbyList" :key="index">
+          <div class="nearby">
             <div class="left_1">
-              <CreditScore :credit-score="item.score" credit-score-text="信用分" :font-size="10" :font-size1="10" height="50" :width="150"></CreditScore>
-              <div class="left_1_2">
+              <CreditScore :credit-score="item.score" credit-score-text="信用分" :font-size="18" :font-size1="5" height="70px" :width="80"></CreditScore>
+              <div class="left_1_2 margin-20-left">
                 <template v-if="item.id&&item.id!='0'&&item.id!=0&&item.id!='-1'&&item.id!=-1&&item.id.length>0">
-                  <text class="font-10-size font-60-weight margin-10-left">{{ item.company_name }}</text>
+                  <text class="font-10-size font-60-weight">{{ item.company_name }}</text>
                 </template>
                 <template v-else>
                   <el-link type="info" :underline="false" @click.stop="hasNoItemIdTips"><text class="font-18-size font-60-weight margin-10-left">{{ item.company_name }}</text></el-link>
                 </template>
+                <div>
+                  <svg t="1679471610724" class="icon_i" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15127" width="200" height="200"><path d="M877.216 491.808M895.904 448c0-212.064-171.936-384-384-384-212.064 0-384 171.936-384 384 0 104.672 42.016 199.456 109.92 268.736L237.664 716.736l1.568 1.568c0.768 0.768 1.536 1.568 2.336 2.336l217.12 217.12c29.376 29.376 76.992 29.376 106.368 0l217.12-217.12c0.768-0.768 1.568-1.536 2.336-2.336l1.568-1.568-0.16 0C853.888 647.456 895.904 552.672 895.904 448zM565.088 847.36c-53.12 53.12-53.152 53.248-106.368 0L285.76 673.472C228 615.648 191.904 536.224 191.904 448c0-176.736 143.264-320 320-320 176.736 0 320 143.264 320 320 0 88.224-36.096 167.648-93.856 225.472L565.088 847.36zM512 256c-106.048 0-192 85.952-192 192s85.952 192 192 192 192-85.952 192-192S618.048 256 512 256zM512 576c-70.688 0-128-57.312-128-128s57.312-128 128-128 128 57.312 128 128S582.688 576 512 576z" fill="var(--svg-fill-color)" p-id="15128"></path></svg>
+                  <text class="item_right font-5-size margin-5-left">{{ item.address }}</text>
+                </div>
               </div>
             </div>
+            <div class="margin-10-top nearby_2" v-show="tabDetailStore.current*1 === 0">
+              <text class="font-8-size margin-10-left font-60-weight">评论预览：</text>
+              <text class="font-8-size margin-20-left message-line margin-10-top">2023-09-03 11:10:30</text>
+              <text class="font-8-size margin-40-left">商品质量契合需求，发货也及时，没有发霉，购物体验很好。</text>
+              <text class="font-8-size margin-20-left message-line margin-10-top">2023-09-03 11:10:20</text>
+              <text class="font-8-size margin-40-left">质量很好，尺寸也符合需求，下回有需要还是会在这家买。</text>
+              <text class="font-8-size margin-20-left message-line margin-10-top">2023-09-03 11:10:20</text>
+              <text class="font-8-size margin-40-left">质量很好，尺寸也符合需求，下回有需要还是会在这家买。</text>
+              <text class="font-8-size margin-20-left message-line margin-10-top">2023-09-03 11:10:20</text>
+              <text class="font-8-size margin-40-left">质量很好，尺寸也符合需求，下回有需要还是会在这家买。</text>
+              <text class="font-8-size margin-20-left message-line margin-10-top">2023-09-03 11:10:20</text>
+              <text class="font-8-size margin-40-left">质量很好，尺寸也符合需求，下回有需要还是会在这家买。</text>
+            </div>
+            <div class="margin-10-top nearby_2" v-show="tabDetailStore.current*1 === 3">
+              <text class="font-8-size margin-10-left font-60-weight">问答预览：</text>
+              <text class="font-8-size margin-20-left message-line margin-10-top">2023-09-03 11:10:30</text>
+              <text class="font-8-size margin-20-left">问：能做特殊规格吗？</text>
+              <text class="font-8-size margin-40-left message-line margin-10-top">2023-09-03 11:10:20</text>
+              <text class="font-8-size margin-40-left">答：能</text>
+              <text class="font-8-size margin-20-left message-line margin-10-top">2023-09-03 11:10:20</text>
+              <text class="font-8-size margin-20-left">问：这家木材的杨木胶合板，甲醛释放量等级有什么？</text>
+              <text class="font-8-size margin-40-left message-line margin-10-top">2023-09-03 11:10:20</text>
+              <text class="font-8-size margin-40-left">答：E0。</text>
+              <text class="font-8-size margin-20-left message-line margin-10-top">2023-09-03 11:10:20</text>
+              <text class="font-8-size margin-20-left">问：这家木材的杨木胶合板，支持定制吗？</text>
+              <text class="font-8-size margin-20-left message-line margin-10-top">2023-09-03 11:10:20</text>
+              <text class="font-8-size margin-20-left">问：这家木材的泡花脚墩，支持定制吗？</text>
+            </div>
+          </div>
           </router-link>
         </div>
       </div>
-      <div class="top" v-show="tabDetailStore.current == 1">
+      <div class="top" v-show="tabDetailStore.current*1 === 1">
         <div class="small_tag">
           <text class="font-60-weight font-15-size">杨木胶合板</text>
           <Tag tag="定制" number="30" color="black"></Tag>
@@ -1144,8 +1155,8 @@
           </el-radio-group>
         </div>
       </div>
-      <div class="top_right margin-20-top" v-show="tabDetailStore.current == 1">
-        <div class="top_right_space margin-20-top">
+      <div class="top_right margin-20-top" v-show="tabDetailStore.current*1 === 1">
+        <div class="top_right_space margin-20-top space_1">
           <text class="top_right_title font-8-size font-60-weight">定制明细</text>
           <div class="top_right_total font-10-size margin-10-top">
             <div class="top_right_total_item">
@@ -1315,7 +1326,7 @@
           </el-steps>
         </div>
       </div>
-      <div class="top_3-2_top margin-20-left" v-show="tabDetailStore.current == 2">
+      <div class="top_3-2_top margin-20-left" v-show="tabDetailStore.current*1 === 2">
         <el-row :gutter="24" style="width:unset">
           <el-col :span="24" :md="12">
             <div class="top_3-2_item">
@@ -1779,13 +1790,18 @@
   flex-direction: column;
   align-items: flex-start;
   position: sticky;
-  background: #ffffff;
+  background: var(--app-container-bg-color);
   top: 150px;
   z-index: 1000;
   opacity: 0.8;
   margin: 0;
+  color: var(--main-color);
+}
+.space_1{
   padding:20px 5% 20px 10%;
-  color: #000000;
+}
+.space_2{
+  padding: 10px 10px;
 }
 .top_right_1{
   display: flex;

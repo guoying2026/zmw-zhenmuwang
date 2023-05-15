@@ -2,7 +2,7 @@
     font-size: 5px;
 }
 .font-8-size{
-    font-size: 8px;
+    font-size: 8px !important;
 }
 .font-10-size{
     font-size: 10px;
