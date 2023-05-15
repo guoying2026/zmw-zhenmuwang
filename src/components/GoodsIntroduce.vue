@@ -169,6 +169,15 @@ onDeactivated(() => {
 .el-tabs {
   min-height: calc(100vh - 40px);
 }
+[data-theme="dark"] .el-tabs :deep(.el-tabs__header) {
+  background: var(--projects-section-bg-color);
+}
+[data-theme="dark"] .el-tabs :deep(.el-tabs__item.is-top.is-active) {
+  color: #fff;
+}
+[data-theme="dark"] .el-tabs :deep(.el-tabs__item.is-top) {
+  color: #ccc;
+}
 .goods_introduce-item {
   padding: 5px 10px;
 }
@@ -177,6 +186,9 @@ onDeactivated(() => {
   background-size: 100% 100%;
   border-top-left-radius: var(--el-border-radius-base);
   border-top-right-radius: var(--el-border-radius-base);
+}
+[data-theme="dark"] .goods_introduce-item:first-of-type {
+  background: unset;
 }
 .goods_introduce-item-title {
   text-align: center;

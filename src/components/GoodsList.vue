@@ -74,6 +74,9 @@ export default{
   border-radius: 10px;
   cursor: pointer;
 }
+[data-theme="dark"] .goods_card {
+  background-color: #000;
+}
 .white_back{
   background-color: #fff;
 }

@@ -1067,6 +1067,9 @@ watchEffect(() => {
   width: 90%;
   box-sizing: unset;
 }
+[data-theme="dark"] .top {
+  background-color: var(--projects-section-bg-color);
+}
 .top_2{
   display: flex;
   flex-direction: column;
@@ -1219,8 +1222,53 @@ watchEffect(() => {
 .text-align-right {
   text-align: right;
 }
+[data-theme="dark"] .el-input :deep(.el-input__wrapper),
+[data-theme="dark"] .el-select :deep(.el-input__wrapper) {
+  --el-input-bg-color: #000!important;
+}
+[data-theme="dark"] .el-input,
+[data-theme="dark"] .el-textarea,
+[data-theme="dark"] .el-select,
+[data-theme="dark"] .el-popper.is-light,
+[data-theme="dark"] .el-select__popper
+[data-theme="dark"] .el-table tr {
+  --el-border-color: #313339;
+  --el-disabled-border-color: #131f25;
+  --el-border-color-light: #424345;
+  --el-bg-color-overlay: #121212;
+  --el-table-tr-bg-color: rgb(18,18,18);
+  --el-input-bg-color: #121212;
+}
 </style>
 <style>
+[data-theme="dark"] .el-popper {
+  --el-border-color-light: #424345;
+  --el-bg-color-overlay: #121212;
+  --el-fill-color-light: #121212;
+}
+[data-theme="dark"] .el-table,
+[data-theme="dark"] .el-descriptions {
+  --el-border-color-lighter: rgb(73,74,77);
+  --el-text-color-regular: rgb(165,167,172);
+}
+[data-theme="dark"] .el-table tr,
+[data-theme="dark"] .el-descriptions tr {
+  --el-table-tr-bg-color: rgb(18,18,18);
+  --el-table-row-hover-bg-color: rgb(32,33,36);
+}
+[data-theme="dark"] .el-input-number,
+[data-theme="dark"] .el-input-number__decrease,
+[data-theme="dark"] .el-input-number__increase,
+[data-theme="dark"] .el-input__wrapper {
+  --el-fill-color-light: rgb(32,33,36);
+  --el-text-color-regular: rgb(165,167,172);
+  --el-border-color: rgb(59,59,62);
+  --el-table-border-color: rgb(59,59,62);
+  --el-input-bg-color: rgb(18,18,18);
+}
+[data-theme="dark"] .el-descriptions__body {
+    --el-fill-color-blank: #121212;
+}
 .hidden-xs-only .el-descriptions .el-descriptions__table .el-descriptions__label {
   display: inline-block;
   width: 84px;
