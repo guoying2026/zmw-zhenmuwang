@@ -351,9 +351,9 @@
       <div class="top_right margin-20-top" v-show="tabDetailStore.current == 0 || tabDetailStore.current == 3">
         <div class="top_right_space margin-20-top">
           <text class="top_right_title font-8-size font-60-weight">附近商家</text>
-          <router-link class="padding-20 left" to="/forum" v-for="(item, index) in nearbyList" :key="index">
+          <router-link class="left" to="/forum" v-for="(item, index) in nearbyList" :key="index">
             <div class="left_1">
-              <CreditScore :credit-score="item.score" credit-score-text="信用分" :font-size="10" :font-size1="10" height="20" :width="100"></CreditScore>
+              <CreditScore :credit-score="item.score" credit-score-text="信用分" :font-size="10" :font-size1="10" height="50" :width="150"></CreditScore>
               <div class="left_1_2">
                 <template v-if="item.id&&item.id!='0'&&item.id!=0&&item.id!='-1'&&item.id!=-1&&item.id.length>0">
                   <text class="font-10-size font-60-weight margin-10-left">{{ item.company_name }}</text>

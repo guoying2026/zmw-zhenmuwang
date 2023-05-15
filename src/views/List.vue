@@ -505,7 +505,7 @@ a,a:hover {
   <!--          不展示商品 start-->
           <el-row :gutter="24" class="row" v-for="(row, rowIndex) in numberOfRows" :key="'row-' + rowIndex">
             <el-col :span="24" :md="12" v-for="(item, columnIndex) in getRowItems(rowIndex)" :key="'column-' + rowIndex + '-' + columnIndex" class="column">
-              <router-link class=" left" to="/forum">
+              <router-link class="padding-20 left" to="/forum">
                 <div class="left_1">
                   <CreditScore :credit-score="item.score" credit-score-text="信用分" :font-size="creditScoreFontSize" :font-size1="creditScoreFontSize1" height="80" :width="creditScoreWidth"></CreditScore>
                   <div class="left_1_2">
