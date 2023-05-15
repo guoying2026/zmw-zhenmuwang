@@ -30,11 +30,11 @@
     color: #fff;
 }
 .blue_btn{
-    background-color: #f4f6fd;
-    color: #096c86;
+    background-color: var(--blue-btn-bg-color);
+    color: var(--blue-btn-color);
 }
 .dark_blue_btn{
-    background-color: #e9f9ff;
+    background-color: var(--dark-blue-btn-bg);
     color: #385f7f;
 }
 .black_btn{

@@ -17,6 +17,9 @@
   --app-container-bg-color: #fff;
   --projects-section-bg-color: #fff;
   --background-image-url: url('https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_da2ba160-c02c-409a-b39d-88560e32ade6.png');
+  --dark-blue-btn-bg: #e9f9ff;
+  --selected-left-color: #385f7f;
+  --no-selected-left-color: #fff;
 }
 [data-theme="dark"] {
   --navbar-bg-color: #000;
@@ -32,11 +35,14 @@
   --descriptions-bordered-label-color: #fff;
   --descriptions-bordered-content-color: #E5EAF3;
   --descriptions-table-border: #363637;
-  --detail-top-bg-color:#000;
+  --detail-top-bg-color: #191919;
   --box-shadow-color: 0 2.8px 2.2px rgb(255 255 255 / 3%), 0 6.7px 5.3px rgb(255 255 255 / 5%), 0 12.5px 10px rgb(255 255 255 / 6%), 0 22.3px 17.9px rgb(255 255 255 / 7%), 0 41.8px 33.4px rgb(255 255 255 / 9%), 0 100px 80px rgb(255 255 255 / 12%);
-  --app-container-bg-color: #000;
-  --projects-section-bg-color: #000;
+  --app-container-bg-color: #191919;
+  --projects-section-bg-color: #191919;
   --background-image-url: url('https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_228bb569-0a41-49c8-bc25-249f05d689a0.png');
+  --dark-blue-btn-bg: #191919;
+  --selected-left-color: #fff;
+  --no-selected-left-color: #fff;
 }
 .grey_bg{
   background: #f3f6fd !important;

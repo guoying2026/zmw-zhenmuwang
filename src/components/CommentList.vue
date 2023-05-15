@@ -67,7 +67,7 @@
           <div class="box-progress-wrapper">
             <p class="box-progress-header"></p>
             <div class="box-progress-bar">
-              <span class="box-progress" style="width: 100%; background-color: #096c86"></span>
+              <span class="box-progress comment_tip"></span>
             </div>
             <p class="box-progress-percentage"></p>
           </div>
@@ -93,7 +93,7 @@
                 comment-type="comment"
             >
               <template #clickDrawer>
-              <div class="days-left" style="color: #096c86;">
+              <div class="days-left">
                 去说点儿什么
               </div>
               </template>
@@ -121,7 +121,7 @@
           <div class="box-progress-wrapper">
             <p class="box-progress-header"></p>
             <div class="box-progress-bar">
-              <span class="box-progress" style="width: 100%; background-color: #096c86"></span>
+              <span class="box-progress comment_tip"></span>
             </div>
             <p class="box-progress-percentage"></p>
           </div>
@@ -147,7 +147,7 @@
                 comment-type="comment"
             >
               <template #clickDrawer>
-                <div class="days-left" style="color: #096c86;">
+                <div class="days-left">
                   去说点儿什么
                 </div>
               </template>
@@ -175,7 +175,7 @@
           <div class="box-progress-wrapper">
             <p class="box-progress-header"></p>
             <div class="box-progress-bar">
-              <span class="box-progress" style="width: 100%; background-color: #096c86"></span>
+              <span class="box-progress comment_tip"></span>
             </div>
             <p class="box-progress-percentage"></p>
           </div>
@@ -201,7 +201,7 @@
                 comment-type="comment"
             >
               <template #clickDrawer>
-                <div class="days-left" style="color: #096c86;">
+                <div class="days-left">
                   去说点儿什么
                 </div>
               </template>
@@ -214,25 +214,6 @@
     <div class="messages-section" v-for="(item, index) in list.arr" :key="index">
       <div class="projects-section-header general_item">
         <text class="font-60-weight">第{{index+1}}条评论其相关回复</text>
-<!--        <div class="star-checkbox">-->
-<!--          <input type="checkbox" :id="`star-${index}-${index+1}`">-->
-<!--          <label :for="`star-${index}-${index+1}`">-->
-<!--            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star">-->
-<!--              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">-->
-<!--              </polygon>-->
-<!--            </svg>-->
-<!--          </label>-->
-<!--        </div>-->
-<!--        <text>评论{{index+1}}</text>-->
-<!--        <div class="star-checkbox">-->
-<!--          <input type="checkbox" :id="`star-${index}-${index+2}`">-->
-<!--          <label :for="`star-${index}-${index+2}`">-->
-<!--            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star">-->
-<!--              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">-->
-<!--              </polygon>-->
-<!--            </svg>-->
-<!--          </label>-->
-<!--        </div>-->
       </div>
       <div class="messages">
         <div class="message-box">

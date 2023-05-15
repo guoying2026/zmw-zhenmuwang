@@ -57,7 +57,7 @@
             <div class="box-progress-wrapper">
               <p class="box-progress-header"></p>
               <div class="box-progress-bar">
-                <span class="box-progress" style="width: 100%; background-color: #096c86"></span>
+                <span class="box-progress comment_tip"></span>
               </div>
               <p class="box-progress-percentage"></p>
             </div>
@@ -76,7 +76,7 @@
                   questionType="question"
               >
                 <template #clickDrawer>
-              <div class="days-left" style="color: #096c86;">
+              <div class="days-left">
                 去提问
               </div>
                 </template>
@@ -104,7 +104,7 @@
             <div class="box-progress-wrapper">
               <p class="box-progress-header"></p>
               <div class="box-progress-bar">
-                <span class="box-progress" style="width: 100%; background-color: #096c86"></span>
+                <span class="box-progress comment_tip"></span>
               </div>
               <p class="box-progress-percentage"></p>
             </div>
@@ -123,7 +123,7 @@
                   questionType="question"
               >
                 <template #clickDrawer>
-              <div class="days-left" style="color: #096c86;">
+              <div class="days-left">
                 去提问
               </div>
                 </template>
@@ -151,7 +151,7 @@
             <div class="box-progress-wrapper">
               <p class="box-progress-header"></p>
               <div class="box-progress-bar">
-                <span class="box-progress" style="width: 100%; background-color: #096c86"></span>
+                <span class="box-progress comment_tip"></span>
               </div>
               <p class="box-progress-percentage"></p>
             </div>
@@ -170,7 +170,7 @@
                   questionType="question"
               >
                 <template #clickDrawer>
-                  <div class="days-left" style="color: #096c86;">
+                  <div class="days-left">
                     去提问
                   </div>
                 </template>
@@ -500,6 +500,9 @@ const receiveChildAddComment = (param) => {
 }
 .messages-section{
   padding: 20px 20px 20px 20px !important;
+}
+.messages-section .projects-section-header{
+  background-color: var(--messages-section-bg) !important;
 }
 /*回答结束*/
 </style>
