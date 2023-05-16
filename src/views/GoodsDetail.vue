@@ -1266,6 +1266,12 @@ watchEffect(() => {
   --el-table-border-color: rgb(59,59,62);
   --el-input-bg-color: rgb(18,18,18);
 }
+[data-theme="dark"] .el-checkbox-button {
+  --el-button-bg-color: rgb(18,18,18);
+  --el-button-text-color: rgb(165,167,172);
+  --el-border: var(--el-border-width) var(--el-border-style) rgb(59,59,62);
+  --el-checkbox-button-checked-border-color: rgb(59,59,62);
+}
 [data-theme="dark"] .el-descriptions__body {
     --el-fill-color-blank: #121212;
 }

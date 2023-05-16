@@ -325,7 +325,48 @@
 }
 </style>
 <template>
-  <div class="padding-10 margin-40-top">
+  <el-skeleton class="padding-10 margin-60-top" v-if="isShowSkeleton">
+    <template #template>
+      <div class="top_2">
+        <el-skeleton-item class="margin-40-top emphasize" variant="h1" style="width: 160px;height: 20px;" />
+        <el-skeleton-item class="emphasize" variant="rect" style="width: 90px; margin-top: 10px;" />
+        <el-skeleton-item class="emphasize" variant="h3" style="width: 120px; margin-top: 10px;" />
+        <table border="0" style="width: 80vw;">
+          <tr v-for="r in 4" style="height: 40px;">
+            <td v-for="d in 6">
+              <el-skeleton-item class="emphasize" variant="p" />
+            </td>
+          </tr>
+          <tr v-for="r in 2" style="height: 40px;">
+            <td>
+              <el-skeleton-item class="emphasize" variant="p" />
+            </td>
+            <td colspan="5">
+              <el-skeleton-item class="emphasize" variant="p" />
+            </td>
+          </tr>
+        </table>
+        <el-skeleton-item class="emphasize" variant="image" style="height: 100px;width: 80vw;" />
+      </div>
+      <div class="top_3 margin-20-top">
+        <div class="top_left">
+          <div class="top_left_item dark_blue_btn" v-for="n in 4">
+            <div style="display: flex;justify-content: center;">
+              <el-skeleton-item class="emphasize" variant="image" style="width: 32px;height: 32px;" />
+            </div>
+            <el-skeleton-item class="emphasize" variant="p" />
+          </div>
+        </div>
+        <div class="top">
+          <el-skeleton-item class="emphasize" variant="p" v-for="n in 20" style="margin-top: 20px;" />
+        </div>
+        <div class="top_right margin-20-top">
+          <el-skeleton-item class="emphasize" variant="p" v-for="n in 20" style="margin-top: 20px;" />
+        </div>
+      </div>
+    </template>
+  </el-skeleton>
+  <div class="padding-10 margin-40-top" v-else>
     <div class="top_2">
       <text class="margin-40-top emphasize">{{ company_name}}</text>      <Tag :tag="credit_score_text" number="60" color="yellow"></Tag>
       <el-rate v-model="starValue" clearable />
@@ -2026,9 +2067,13 @@ import { useTabDetailStore } from "../pinia/tabDetail.js"
 import Tag from "../components/Tag.vue"
 import {getIndexDataApi} from "../api/list.js";
 
+const isShowSkeleton = ref(true)
+
+let promiseArr = []
+
 // 数据列表
 const nearbyList = ref([])
-getIndexDataApi({
+promiseArr.push(getIndexDataApi({
   is_show_recommend: 1,
   is_show_franchisee: 1,
   is_show_blacklist: 1,
@@ -2037,7 +2082,7 @@ getIndexDataApi({
   score_asc: 0,
 }).then(res => {
   nearbyList.value = res.data.data;
-})
+}))
 const userStore = useUserStore();
 const tabDetailStore = useTabDetailStore();
 //
@@ -2159,7 +2204,7 @@ const date = ref(0)
 const date_text = ref('')
 
 onMounted(() => {
-  shopDetailApi({company_info_id:company_info_id.value}).then(async(res) => {
+  promiseArr.push(shopDetailApi({company_info_id:company_info_id.value}).then(async(res) => {
     console.log(res);
     company_info.value = res.data.company_info;
     company_name.value = res.data.company_info.company_name
@@ -2169,14 +2214,17 @@ onMounted(() => {
     isFranchisee.value = res.data.isFranchisee
     date.value = res.data.date
     date_text.value = '入驻真木网'+ date.value + '天'
-  })
-  goodsListApi({company_info_id:company_info_id.value}).then(async(res) => {
+  }))
+  promiseArr.push(goodsListApi({company_info_id:company_info_id.value}).then(async(res) => {
     list.arr =  res.data;
     console.log(res.data);
     wood_name.value = res.data.map((item) => {
       return item = item.wood_name
     })
     wood_name.value = Array.from(new Set(wood_name.value));
+  }))
+  Promise.all(promiseArr).then(() => {
+    isShowSkeleton.value = false
   })
 })
 </script>
