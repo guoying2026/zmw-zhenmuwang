@@ -35,11 +35,15 @@
 }
 .dark_blue_btn{
     background-color: var(--dark-blue-btn-bg);
-    color: #385f7f;
+    color: var(--blue-btn-color);
+}
+.right_blue_btn{
+    background-color: var(--right-blue-btn-bg);
+    color: var(--blue-btn-color);
 }
 .black_btn{
-    background-color: #000;
-    color:#fff;
+    background-color: var(--navbar-color);
+    color:var(--navbar-bg-color);
 }
 .grey_btn{
     background-color: #f1f1f1;

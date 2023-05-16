@@ -22,6 +22,7 @@
   --no-selected-left-color: #fff;
   --blue-btn-bg-color: #f4f6fd;
   --blue-btn-color: #096c86;
+  --right-blue-btn-bg: #e9f9ff;
 }
 [data-theme="dark"] {
   --navbar-bg-color: #000;
@@ -47,6 +48,7 @@
   --no-selected-left-color: #fff;
   --blue-btn-bg-color:#243244;
   --blue-btn-color: #fff;
+  --right-blue-btn-bg: #385f7f;
 }
 .grey_bg{
   background: #f3f6fd !important;

@@ -23,6 +23,9 @@
     --project-box-header-span-color: #fff;
     --days-left-bg-color: #243244;
     --days-left-color: #fff;
+    --custom-border-color: #fff;
+    --radio-is-bordered: #292930;
+    --radio-border-color: #000;
 }
 :root {
   --app-container: #f3f6fd;
@@ -49,6 +52,9 @@
   --project-box-header-span-color:#4a4a4a;
   --days-left-bg-color: rgba(255, 255, 255, 0.6);
   --days-left-color: #096c86;
+  --custom-border-color: #000;
+  --radio-is-bordered: #000;
+  --radio-border-color: #fff;
 }
 .comment_tip{
   width: 100%;
