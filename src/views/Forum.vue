@@ -296,6 +296,29 @@
 .padding-10:deep(.el-input__inner){
   color: var(--secondary-color);
 }
+.complaint{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.complaint_left{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 85%;
+}
+.complaint_left_2{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+}
+.complaint_right{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
 </style>
 <template>
   <div class="padding-10 margin-40-top">
@@ -316,6 +339,21 @@
         <el-descriptions-item label="手机号码"  width="150px" label-align="left" align="left">13625393317</el-descriptions-item>
         <el-descriptions-item label="详细地址"  width="150px" label-align="left" align="left">山东省临沂市兰山区义堂镇大芝房村</el-descriptions-item>
         <el-descriptions-item label="经营范围"  :span="3" label-align="left" align="left">加工销售：木制线条、木方、木制品、刨花木墩、单板、木皮、胶合板、多层板、建筑模版、装饰板</el-descriptions-item>
+        <el-descriptions-item label="投诉记录"  :span="3" label-align="left" align="left">
+          <div class="complaint">
+            <div class="complaint_left">
+              <Tag tag="如果商家被投诉次数达到上限，经真木网核实，会被列入黑名单" number="30" color="yellow"></Tag>
+              <div class="complaint_left_2 margin-10-top">
+                <text class="margin-10-left">投诉总记录：0条</text>
+                <text>待审查：0条</text>
+                <text>真木网审核证实：0条</text>
+              </div>
+            </div>
+            <div class="complaint_right">
+              <svg t="1684209218061" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2372" width="200" height="200"><path d="M448 736c-8.19 0-16.38-3.12-22.62-9.38-12.5-12.5-12.5-32.75 0-45.25L594.75 512 425.38 342.62c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l180.69 180.69c18.72 18.72 18.72 49.16 0 67.88l-180.7 180.68c-6.24 6.26-14.43 9.38-22.62 9.38z m158.06-212.69h0.31-0.31z" fill="var(--navbar-color)" p-id="2373"></path><path d="M512 128c211.74 0 384 172.26 384 384S723.74 896 512 896 128 723.74 128 512s172.26-384 384-384m0-64C264.58 64 64 264.58 64 512s200.58 448 448 448 448-200.58 448-448S759.42 64 512 64z" fill="var(--navbar-color)" p-id="2374"></path></svg>
+            </div>
+          </div>
+        </el-descriptions-item>
       </el-descriptions>
       <el-carousel height="100px" direction="vertical" :autoplay="true">
         <el-carousel-item v-for="(item,index) in activities" :key="index">
@@ -349,7 +387,7 @@
           <div>
             <svg t="1683703804762" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="27600" width="200" height="200"><path d="M768 90.666667H256A186.666667 186.666667 0 0 0 69.333333 277.333333v383.936l0.085334 5.504A186.666667 186.666667 0 0 0 256 847.936l37.632-0.021333 8.149333 40.725333 0.810667 3.242667 0.533333 1.834666 1.109334 3.2a48 48 0 0 0 54.037333 29.376l3.008-0.746666 1.706667-0.490667 2.944-0.981333 3.669333-1.578667a48 48 0 0 0 3.541333-1.856l123.925334-72.725333 270.933333 0.021333a186.666667 186.666667 0 0 0 186.666667-186.666667V277.333333A186.666667 186.666667 0 0 0 768 90.666667z m-512 74.666666h512c61.866667 0 112 50.133333 112 112v383.936c0 61.866667-50.133333 112-112 112H486.912l-3.968 0.213334a37.333333 37.333333 0 0 0-14.933333 4.906666l-100.352 58.88-6.784-33.984a37.333333 37.333333 0 0 0-36.608-30.016H256a112 112 0 0 1-112-112V277.333333c0-61.866667 50.133333-112 112-112z" fill="#ffffff" p-id="27601"></path><path d="M510.933333 580.266667a40.533333 40.533333 0 1 0 0 81.066666 40.533333 40.533333 0 0 0 0-81.066666zM510.976 256c-31.872 0-61.994667 12.586667-84.821333 35.370667a126.122667 126.122667 0 0 0-36.821334 89.834666v6.378667l0.128 2.026667c1.450667 14.933333 13.44 26.24 27.797334 26.24 13.781333 0 25.322667-10.389333 27.52-24.149334l0.362666-2.986666 0.042667-7.466667 0.106667-3.456c1.813333-32.725333 30.656-58.88 65.685333-58.88 36.309333 0 65.770667 28.053333 65.770667 62.293333 0 22.912-13.525333 44.096-34.88 54.933334l-7.722667 3.669333a90.133333 90.133333 0 0 0-35.925333 34.026667c-9.962667 16.512-15.253333 36.416-15.253334 56.810666v14.058667l0.128 1.770667c1.002667 5.632 5.184 9.6 10.24 9.6h35.114667l1.685333-0.170667a11.242667 11.242667 0 0 0 8.682667-11.2v-15.061333l0.128-3.114667c0.981333-13.376 8.768-25.28 19.754667-30.08 44.864-19.754667 73.834667-64.981333 73.834666-115.242667a125.76 125.76 0 0 0-36.736-89.813333A119.061333 119.061333 0 0 0 510.976 256z" fill="#ffffff" p-id="27602"></path></svg>
           </div>
-          <text class="margin-20-top">问答区</text>
+          <text class="margin-20-top" style="color:var(--no-selected-left-color)">问答区</text>
         </div>
           <div class="top_left_item dark_blue_btn margin-20-top" v-show="tabDetailStore.current != 1" @click="handleItemClick(1)">
             <div>

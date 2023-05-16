@@ -57,43 +57,10 @@
   <el-container direction="vertical" :gutter="18" class="margin-20-top">
     <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick" stretch>
       <el-tab-pane label="公司首页" name="first">
-          <GoodsList :list="list.arr" :is-grey="1" :size="300"></GoodsList>
-<!--        <GuidePublishGoods></GuidePublishGoods>-->
-        <el-row :gutter="24">
-          <el-col :span="24" :md="12">
-            <!--        评论列表开始-->
-            <CommentList
-                :company-info-id="company_info_id_text"
-                :margin="20"
-            >
-            </CommentList>
-          </el-col>
-          <el-col :span="24" :md="12">
-            <QuestionList
-                :company-info-id="company_info_id_text">
-            </QuestionList>
-          </el-col>
-        </el-row>
-      </el-tab-pane>
-      <el-tab-pane label="商品" name="second" lazy>
-        <GoodsList :list="list.arr" :size="300"></GoodsList>
-<!--        <GuidePublishGoods></GuidePublishGoods>-->
-      </el-tab-pane>
-      <el-tab-pane label="大众评论" name="third" lazy>
-        <CommentList
-            :company-info-id="company_info_id_text"
-            :margin="20"
-        ></CommentList>
-      </el-tab-pane>
-      <el-tab-pane label="问大家" name="fourth" lazy>
-        <QuestionList :company-info-id="company_info_id_text"></QuestionList>
-      </el-tab-pane>
-
-      <el-tab-pane label="联系公司&我要投诉" name="fifth" lazy>
         <div class="fifth_1">
           <SellerInfo :item="company_info"></SellerInfo>
           <div class="margin-40-top fifth_1_2 font-28-size">
-          <AddComment
+            <AddComment
                 placeholder-text="我要投诉"
                 cancel-text="取消投诉"
                 confirm-text="提交证据"
@@ -128,9 +95,8 @@
           </div>
           <text class="margin-20-top">如果商家被投诉次数达到上限，会被列入黑名单，以下是黑名单样例</text>
         </div>
-
         <div class="all">
-        <el-row class="margin-20-top next" :gutter="24">
+          <el-row class="margin-20-top next" :gutter="24">
             <el-col :span="24" :md="12">
               <div class="third">
                 <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_39c423de-1fc6-4d7d-be1e-6804ddc119ff.png" />
@@ -150,6 +116,37 @@
             </el-col>
           </el-row>
         </div>
+<!--        <el-row :gutter="24">-->
+<!--          <el-col :span="24" :md="12">-->
+<!--            &lt;!&ndash;        评论列表开始&ndash;&gt;-->
+<!--            <CommentList-->
+<!--                :company-info-id="company_info_id_text"-->
+<!--                :margin="20"-->
+<!--            >-->
+<!--            </CommentList>-->
+<!--          </el-col>-->
+<!--          <el-col :span="24" :md="12">-->
+<!--            <QuestionList-->
+<!--                :company-info-id="company_info_id_text">-->
+<!--            </QuestionList>-->
+<!--          </el-col>-->
+<!--        </el-row>-->
+      </el-tab-pane>
+      <el-tab-pane label="商品" name="second" lazy>
+        <GoodsList :list="list.arr" :size="300"></GoodsList>
+<!--        <GuidePublishGoods></GuidePublishGoods>-->
+      </el-tab-pane>
+      <el-tab-pane label="大众评论" name="third" lazy>
+        <CommentList
+            :company-info-id="company_info_id_text"
+            :margin="20"
+        ></CommentList>
+      </el-tab-pane>
+      <el-tab-pane label="问大家" name="fourth" lazy>
+        <QuestionList :company-info-id="company_info_id_text"></QuestionList>
+      </el-tab-pane>
+
+      <el-tab-pane label="联系公司&我要投诉" name="fifth" lazy>
       </el-tab-pane>
     </el-tabs>
   </el-container>
