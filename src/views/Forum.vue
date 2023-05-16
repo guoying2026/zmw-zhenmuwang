@@ -352,13 +352,13 @@
         <el-descriptions-item label="经营范围"  :span="3" label-align="left" align="left">
           <text>加工销售：木制线条、木方、木制品、刨花木墩、单板、木皮、胶合板、多层板、建筑模版、装饰板</text>
           <el-descriptions title="" :column="2" border class="margin-10-top">
-            <el-descriptions-item label="定制服务 0"  width="120px" label-align="left" align="left">
+            <el-descriptions-item label="定制服务"  width="120px" label-align="center" align="left">
               <div class="complaint_left_2" @click="handleItemClick(1)">
                 <text>预约开通</text>
                 <svg t="1684209218061" class="icon_m" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2372" width="200" height="200"><path d="M448 736c-8.19 0-16.38-3.12-22.62-9.38-12.5-12.5-12.5-32.75 0-45.25L594.75 512 425.38 342.62c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l180.69 180.69c18.72 18.72 18.72 49.16 0 67.88l-180.7 180.68c-6.24 6.26-14.43 9.38-22.62 9.38z m158.06-212.69h0.31-0.31z" fill="var(--navbar-color)" p-id="2373"></path><path d="M512 128c211.74 0 384 172.26 384 384S723.74 896 512 896 128 723.74 128 512s172.26-384 384-384m0-64C264.58 64 64 264.58 64 512s200.58 448 448 448 448-200.58 448-448S759.42 64 512 64z" fill="var(--navbar-color)" p-id="2374"></path></svg>
               </div>
             </el-descriptions-item>
-            <el-descriptions-item label="现货服务 0"  width="120px" label-align="left" align="left">
+            <el-descriptions-item label="现货服务"  width="120px" label-align="center" align="left">
               <div class="complaint_left_2" @click="handleItemClick(2)">
                 <text>预约开通</text>
                 <svg t="1684209218061" class="icon_m" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2372" width="200" height="200"><path d="M448 736c-8.19 0-16.38-3.12-22.62-9.38-12.5-12.5-12.5-32.75 0-45.25L594.75 512 425.38 342.62c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l180.69 180.69c18.72 18.72 18.72 49.16 0 67.88l-180.7 180.68c-6.24 6.26-14.43 9.38-22.62 9.38z m158.06-212.69h0.31-0.31z" fill="var(--navbar-color)" p-id="2373"></path><path d="M512 128c211.74 0 384 172.26 384 384S723.74 896 512 896 128 723.74 128 512s172.26-384 384-384m0-64C264.58 64 64 264.58 64 512s200.58 448 448 448 448-200.58 448-448S759.42 64 512 64z" fill="var(--navbar-color)" p-id="2374"></path></svg>
@@ -371,13 +371,13 @@
           <div class="complaint">
             <div class="complaint_left">
               <el-descriptions title="" :column="3" border class="margin-10-top">
-                <el-descriptions-item label="投诉总记录"  width="120px" label-align="left" align="left">
+                <el-descriptions-item label="投诉总记录"  width="120px" label-align="center" align="center">
                   6条
                 </el-descriptions-item>
-                <el-descriptions-item label="待审查记录"  width="120px" label-align="left" align="left">
+                <el-descriptions-item label="待审查记录"  width="120px" label-align="center" align="center">
                   1条
                 </el-descriptions-item>
-                <el-descriptions-item label="真木网核实"  width="120px" label-align="left" align="left">
+                <el-descriptions-item label="真木网核实"  width="120px" label-align="center" align="center">
                   5条
                 </el-descriptions-item>
               </el-descriptions>
@@ -391,13 +391,13 @@
           <div class="complaint">
             <div class="complaint_left">
               <el-descriptions title="" :column="3" border class="margin-10-top">
-                <el-descriptions-item label="评论总数量"  width="120px" label-align="left" align="left">
+                <el-descriptions-item label="评论总数量"  width="120px" label-align="center" align="center">
                   6条
                 </el-descriptions-item>
-                <el-descriptions-item label="回复总数量"  width="120px" label-align="left" align="left">
+                <el-descriptions-item label="回复总数量"  width="120px" label-align="center" align="center">
                   1条
                 </el-descriptions-item>
-                <el-descriptions-item label="点赞总数量"  width="120px" label-align="left" align="left">
+                <el-descriptions-item label="点赞总数量"  width="120px" label-align="center" align="center">
                   5条
                 </el-descriptions-item>
               </el-descriptions>
@@ -411,13 +411,13 @@
           <div class="complaint">
             <div class="complaint_left">
               <el-descriptions title="" :column="3" border class="margin-10-top">
-                <el-descriptions-item label="问题总数量"  width="120px" label-align="left" align="left">
+                <el-descriptions-item label="问题总数量"  width="120px" label-align="center" align="center">
                   6条
                 </el-descriptions-item>
-                <el-descriptions-item label="回答总数量"  width="120px" label-align="left" align="left">
+                <el-descriptions-item label="回答总数量"  width="120px" label-align="center" align="center">
                   1条
                 </el-descriptions-item>
-                <el-descriptions-item label="有用总数量"  width="120px" label-align="left" align="left">
+                <el-descriptions-item label="有用总数量"  width="120px" label-align="center" align="center">
                   5条
                 </el-descriptions-item>
               </el-descriptions>
@@ -508,7 +508,7 @@
       <div class="top" v-show="tabDetailStore.current*1 === 4">
         <Complaint :company-info-id="company_info_id_text"></Complaint>
       </div>
-      <div class="top_right margin-20-top" v-show="tabDetailStore.current*1 === 0 || tabDetailStore.current*1 === 3">
+      <div class="top_right margin-20-top" v-show="tabDetailStore.current*1 === 0 || tabDetailStore.current*1 === 3 || tabDetailStore.current*1 === 4">
         <div class="top_right_space margin-20-top space_2">
           <text class="top_right_title font-8-size font-60-weight">附近商家</text>
           <router-link class="left margin-20-top" to="/forum" v-for="(item, index) in nearbyList" :key="index">
@@ -555,6 +555,19 @@
               <text class="font-8-size margin-20-left font-60-weight">问：这家木材的杨木胶合板，支持定制吗？</text>
               <text class="font-8-size margin-20-left message-line margin-10-top">2023-09-03 11:10:20</text>
               <text class="font-8-size margin-20-left font-60-weight">问：这家木材的泡花脚墩，支持定制吗？</text>
+            </div>
+            <div class="margin-10-top nearby_2" v-show="tabDetailStore.current*1 === 4">
+              <el-descriptions title="" :column="1" border class="margin-10-top">
+                <el-descriptions-item label="投诉总记录"  width="120px" label-align="center" align="center">
+                  6条
+                </el-descriptions-item>
+                <el-descriptions-item label="待审查记录"  width="120px" label-align="center" align="center">
+                  1条
+                </el-descriptions-item>
+                <el-descriptions-item label="真木网核实"  width="120px" label-align="center" align="center">
+                  5条
+                </el-descriptions-item>
+              </el-descriptions>
             </div>
           </div>
           </router-link>
