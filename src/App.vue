@@ -111,6 +111,10 @@ onMounted(()=>{
   padding: 5px;
   border-radius: 5px;
 }
+.right_1,
+.right_2 {
+  cursor: pointer;
+}
 .icon_svg{
   width: 20px;
   height: 20px;
