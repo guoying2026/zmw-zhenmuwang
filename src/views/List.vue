@@ -613,11 +613,21 @@ const list = ref([])
 const numberOfColumns = ref(2);
 
 const numberOfRows = computed(() => {
+  if (list.value.length === 0) {
+    return 10;
+  }
   return Math.ceil(list.value.length / numberOfColumns.value);
 });
 
 const getRowItems = (rowIndex) => {
   const startIndex = rowIndex * numberOfColumns.value;
+  if (list.value.length === 0) {
+    let arr = [];
+    for (let i = startIndex; i < startIndex + numberOfColumns.value; i++) {
+      arr.push({});
+    }
+    return arr;
+  }
   return list.value.slice(startIndex, startIndex + numberOfColumns.value);
 };
 
