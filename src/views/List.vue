@@ -259,6 +259,16 @@ a,a:hover {
   font-family: Source Han Sans CN;
   font-weight: 400;
 }
+[data-theme="dark"] .introduce_5_input {
+  --el-input-bg-color: #18161d;
+  --el-input-border-color: #18161d;
+  --el-input-hover-border-color: #101010;
+  --el-input-focus-border-color: #101010;
+}
+.introduce_5_input.expand .el-input__wrapper {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
 .introduce_5_input .el-input-group__append {
   background: #385F7F;
   font-size: 20px;
@@ -368,7 +378,7 @@ a,a:hover {
         </div>
       </div>
       <div class="introduce_5">
-        <el-input class="introduce_5_input" prefix-icon="Search" v-model.trim="searchContent" placeholder="请输入企业名、人名等关键词查询">
+        <el-input :class="'introduce_5_input'+(isSearchSlideDown?' expand':'')" prefix-icon="Search" v-model.trim="searchContent" placeholder="请输入企业名、人名等关键词查询">
           <template #append>
             <el-button class="introduce_5_button" @click="showSearchResult">查一下</el-button>
           </template>
