@@ -202,6 +202,10 @@
   width: 30px;
   height: 30px;
 }
+.icon_m{
+  width: 20px;
+  height: 20px;
+}
 .icon_i{
   width: 10px;
   height: 10px;
@@ -325,7 +329,14 @@
     <div class="top_2">
       <text class="margin-40-top emphasize">{{ company_name}}</text>      <Tag :tag="credit_score_text" number="60" color="yellow"></Tag>
       <el-rate v-model="starValue" clearable />
-      <el-descriptions title="" :column="3" border class="margin-20-top">
+      <el-carousel height="100px" direction="vertical" :autoplay="true" class="margin-10-top">
+        <el-carousel-item v-for="(item,index) in activities" :key="index">
+          <div v-for="(item1,index1) in item.content" :key="index1">
+            <h3 text="2xl" justify="center">{{item.timestamp}} {{ item1.key }}{{item1.value}}</h3>
+          </div>
+        </el-carousel-item>
+      </el-carousel>
+      <el-descriptions title="" :column="3" border>
         <el-descriptions-item label="法定代表人" width="150px" label-align="left" align="left" label-class-name="my-label" class-name="my-content">刘贵斌</el-descriptions-item>
         <el-descriptions-item label="经营状态"  width="150px" label-align="left" align="left">开业</el-descriptions-item>
         <el-descriptions-item label="登记状态"  width="150px" label-align="left" align="left">注销企业</el-descriptions-item>
@@ -338,30 +349,85 @@
         <el-descriptions-item label="登记机关"  width="150px" label-align="left" align="left">临沂市兰山区市场监督管理局</el-descriptions-item>
         <el-descriptions-item label="手机号码"  width="150px" label-align="left" align="left">13625393317</el-descriptions-item>
         <el-descriptions-item label="详细地址"  width="150px" label-align="left" align="left">山东省临沂市兰山区义堂镇大芝房村</el-descriptions-item>
-        <el-descriptions-item label="经营范围"  :span="3" label-align="left" align="left">加工销售：木制线条、木方、木制品、刨花木墩、单板、木皮、胶合板、多层板、建筑模版、装饰板</el-descriptions-item>
+        <el-descriptions-item label="经营范围"  :span="3" label-align="left" align="left">
+          <text>加工销售：木制线条、木方、木制品、刨花木墩、单板、木皮、胶合板、多层板、建筑模版、装饰板</text>
+          <el-descriptions title="" :column="2" border class="margin-10-top">
+            <el-descriptions-item label="定制服务 0"  width="120px" label-align="left" align="left">
+              <div class="complaint_left_2" @click="handleItemClick(1)">
+                <text>预约开通</text>
+                <svg t="1684209218061" class="icon_m" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2372" width="200" height="200"><path d="M448 736c-8.19 0-16.38-3.12-22.62-9.38-12.5-12.5-12.5-32.75 0-45.25L594.75 512 425.38 342.62c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l180.69 180.69c18.72 18.72 18.72 49.16 0 67.88l-180.7 180.68c-6.24 6.26-14.43 9.38-22.62 9.38z m158.06-212.69h0.31-0.31z" fill="var(--navbar-color)" p-id="2373"></path><path d="M512 128c211.74 0 384 172.26 384 384S723.74 896 512 896 128 723.74 128 512s172.26-384 384-384m0-64C264.58 64 64 264.58 64 512s200.58 448 448 448 448-200.58 448-448S759.42 64 512 64z" fill="var(--navbar-color)" p-id="2374"></path></svg>
+              </div>
+            </el-descriptions-item>
+            <el-descriptions-item label="现货服务 0"  width="120px" label-align="left" align="left">
+              <div class="complaint_left_2" @click="handleItemClick(2)">
+                <text>预约开通</text>
+                <svg t="1684209218061" class="icon_m" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2372" width="200" height="200"><path d="M448 736c-8.19 0-16.38-3.12-22.62-9.38-12.5-12.5-12.5-32.75 0-45.25L594.75 512 425.38 342.62c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l180.69 180.69c18.72 18.72 18.72 49.16 0 67.88l-180.7 180.68c-6.24 6.26-14.43 9.38-22.62 9.38z m158.06-212.69h0.31-0.31z" fill="var(--navbar-color)" p-id="2373"></path><path d="M512 128c211.74 0 384 172.26 384 384S723.74 896 512 896 128 723.74 128 512s172.26-384 384-384m0-64C264.58 64 64 264.58 64 512s200.58 448 448 448 448-200.58 448-448S759.42 64 512 64z" fill="var(--navbar-color)" p-id="2374"></path></svg>
+              </div>
+            </el-descriptions-item>
+          </el-descriptions>
+        </el-descriptions-item>
         <el-descriptions-item label="投诉记录"  :span="3" label-align="left" align="left">
+          <Tag tag="如果商家被投诉次数达到上限，经真木网核实，会被列入黑名单" number="30" color="yellow"></Tag>
           <div class="complaint">
             <div class="complaint_left">
-              <Tag tag="如果商家被投诉次数达到上限，经真木网核实，会被列入黑名单" number="30" color="yellow"></Tag>
-              <div class="complaint_left_2 margin-10-top">
-                <text class="margin-10-left">投诉总记录：0条</text>
-                <text>待审查：0条</text>
-                <text>真木网审核证实：0条</text>
-              </div>
+              <el-descriptions title="" :column="3" border class="margin-10-top">
+                <el-descriptions-item label="投诉总记录"  width="120px" label-align="left" align="left">
+                  6条
+                </el-descriptions-item>
+                <el-descriptions-item label="待审查记录"  width="120px" label-align="left" align="left">
+                  1条
+                </el-descriptions-item>
+                <el-descriptions-item label="真木网核实"  width="120px" label-align="left" align="left">
+                  5条
+                </el-descriptions-item>
+              </el-descriptions>
             </div>
-            <div class="complaint_right">
+            <div class="complaint_right margin-10-top" @click="handleItemClick(4)">
+              <svg t="1684209218061" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2372" width="200" height="200"><path d="M448 736c-8.19 0-16.38-3.12-22.62-9.38-12.5-12.5-12.5-32.75 0-45.25L594.75 512 425.38 342.62c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l180.69 180.69c18.72 18.72 18.72 49.16 0 67.88l-180.7 180.68c-6.24 6.26-14.43 9.38-22.62 9.38z m158.06-212.69h0.31-0.31z" fill="var(--navbar-color)" p-id="2373"></path><path d="M512 128c211.74 0 384 172.26 384 384S723.74 896 512 896 128 723.74 128 512s172.26-384 384-384m0-64C264.58 64 64 264.58 64 512s200.58 448 448 448 448-200.58 448-448S759.42 64 512 64z" fill="var(--navbar-color)" p-id="2374"></path></svg>
+            </div>
+          </div>
+        </el-descriptions-item>
+        <el-descriptions-item label="群众评论"  :span="3" label-align="left" align="left">
+          <div class="complaint">
+            <div class="complaint_left">
+              <el-descriptions title="" :column="3" border class="margin-10-top">
+                <el-descriptions-item label="评论总数量"  width="120px" label-align="left" align="left">
+                  6条
+                </el-descriptions-item>
+                <el-descriptions-item label="回复总数量"  width="120px" label-align="left" align="left">
+                  1条
+                </el-descriptions-item>
+                <el-descriptions-item label="点赞总数量"  width="120px" label-align="left" align="left">
+                  5条
+                </el-descriptions-item>
+              </el-descriptions>
+            </div>
+            <div class="complaint_right margin-10-top" @click="handleItemClick(0)">
+              <svg t="1684209218061" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2372" width="200" height="200"><path d="M448 736c-8.19 0-16.38-3.12-22.62-9.38-12.5-12.5-12.5-32.75 0-45.25L594.75 512 425.38 342.62c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l180.69 180.69c18.72 18.72 18.72 49.16 0 67.88l-180.7 180.68c-6.24 6.26-14.43 9.38-22.62 9.38z m158.06-212.69h0.31-0.31z" fill="var(--navbar-color)" p-id="2373"></path><path d="M512 128c211.74 0 384 172.26 384 384S723.74 896 512 896 128 723.74 128 512s172.26-384 384-384m0-64C264.58 64 64 264.58 64 512s200.58 448 448 448 448-200.58 448-448S759.42 64 512 64z" fill="var(--navbar-color)" p-id="2374"></path></svg>
+            </div>
+          </div>
+        </el-descriptions-item>
+        <el-descriptions-item label="群众问答"  :span="3" label-align="left" align="left">
+          <div class="complaint">
+            <div class="complaint_left">
+              <el-descriptions title="" :column="3" border class="margin-10-top">
+                <el-descriptions-item label="问题总数量"  width="120px" label-align="left" align="left">
+                  6条
+                </el-descriptions-item>
+                <el-descriptions-item label="回答总数量"  width="120px" label-align="left" align="left">
+                  1条
+                </el-descriptions-item>
+                <el-descriptions-item label="有用总数量"  width="120px" label-align="left" align="left">
+                  5条
+                </el-descriptions-item>
+              </el-descriptions>
+            </div>
+            <div class="complaint_right margin-10-top" @click="handleItemClick(3)">
               <svg t="1684209218061" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2372" width="200" height="200"><path d="M448 736c-8.19 0-16.38-3.12-22.62-9.38-12.5-12.5-12.5-32.75 0-45.25L594.75 512 425.38 342.62c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l180.69 180.69c18.72 18.72 18.72 49.16 0 67.88l-180.7 180.68c-6.24 6.26-14.43 9.38-22.62 9.38z m158.06-212.69h0.31-0.31z" fill="var(--navbar-color)" p-id="2373"></path><path d="M512 128c211.74 0 384 172.26 384 384S723.74 896 512 896 128 723.74 128 512s172.26-384 384-384m0-64C264.58 64 64 264.58 64 512s200.58 448 448 448 448-200.58 448-448S759.42 64 512 64z" fill="var(--navbar-color)" p-id="2374"></path></svg>
             </div>
           </div>
         </el-descriptions-item>
       </el-descriptions>
-      <el-carousel height="100px" direction="vertical" :autoplay="true">
-        <el-carousel-item v-for="(item,index) in activities" :key="index">
-          <div v-for="(item1,index1) in item.content" :key="index1">
-            <h3 text="2xl" justify="center">{{item.timestamp}} {{ item1.key }}{{item1.value}}</h3>
-          </div>
-        </el-carousel-item>
-      </el-carousel>
     </div>
     <div class="top_3 margin-20-top">
       <div class="top_left">
@@ -393,27 +459,39 @@
             <div>
               <svg t="1682576007016" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="55393" width="200" height="200"><path d="M827.733333 512l157.866667-157.866667c42.666667-42.666667 42.666667-110.933333 0-149.333333L819.2 38.4c-38.4-38.4-110.933333-38.4-149.333333 0L512 196.266667 354.133333 38.4C315.733333 0 243.2 0 204.8 38.4L38.4 204.8c-42.666667 42.666667-42.666667 110.933333 0 149.333333L196.266667 512 128 576c-12.8 12.8-21.333333 25.6-25.6 42.666667L8.533333 878.933333c-12.8 34.133333-4.266667 68.266667 12.8 93.866667 21.333333 25.6 51.2 42.666667 85.333334 42.666667 12.8 0 21.333333 0 34.133333-4.266667l260.266667-93.866667c17.066667-4.266667 29.866667-12.8 42.666666-25.6l64-64 157.866667 157.866667c21.333333 21.333333 46.933333 29.866667 76.8 29.866667s55.466667-12.8 76.8-29.866667l166.4-166.4c42.666667-42.666667 42.666667-110.933333 0-149.333333L827.733333 512z m-81.066666-422.4c4.266667 0 12.8 4.266667 17.066666 4.266667l166.4 166.4c8.533333 8.533333 8.533333 21.333333 0 29.866666l-59.733333 59.733334-196.266667-196.266667 59.733334-59.733333s4.266667-4.266667 12.8-4.266667zM200.533333 396.8l76.8-76.8c12.8-12.8 12.8-34.133333 0-46.933333s-34.133333-12.8-46.933333 0L153.6 349.866667 98.133333 294.4c-8.533333-8.533333-8.533333-21.333333 0-29.866667l166.4-166.4c4.266667-4.266667 8.533333-4.266667 17.066667-4.266666s12.8 4.266667 17.066667 4.266666L452.266667 256 256 452.266667 200.533333 396.8z m187.733334 439.466667s-4.266667 4.266667-8.533334 4.266666l-260.266666 93.866667c-8.533333 4.266667-17.066667 0-21.333334-8.533333-4.266667-4.266667-4.266667-8.533333-4.266666-17.066667l93.866666-260.266667c0-4.266667 4.266667-4.266667 4.266667-8.533333l93.866667-93.866667 256-256 85.333333-85.333333 196.266667 196.266667-85.333334 85.333333-256 256-93.866666 93.866667z m537.6-76.8l-166.4 166.4c-8.533333 8.533333-21.333333 8.533333-29.866667 0l-55.466667-55.466667 76.8-76.8c12.8-12.8 12.8-34.133333 0-46.933333s-34.133333-12.8-46.933333 0l-76.8 76.8-55.466667-55.466667 196.266667-196.266667 157.866667 157.866667c8.533333 8.533333 8.533333 21.333333 0 29.866667z" fill="var(--selected-left-color)" p-id="55394"></path></svg>
             </div>
-            <text style="color:var(--selected-left-color)" class="margin-20-top">定制</text>
+            <text style="color:var(--selected-left-color)" class="margin-20-top">定制区</text>
           </div>
           <div class="top_left_item dark_blue_reinforce_btn margin-20-top" v-show="tabDetailStore.current == 1">
             <div>
               <svg t="1682490904384" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2743" width="200" height="200"><path d="M827.733333 512l157.866667-157.866667c42.666667-42.666667 42.666667-110.933333 0-149.333333L819.2 38.4c-38.4-38.4-110.933333-38.4-149.333333 0L512 196.266667 354.133333 38.4C315.733333 0 243.2 0 204.8 38.4L38.4 204.8c-42.666667 42.666667-42.666667 110.933333 0 149.333333L196.266667 512 128 576c-12.8 12.8-21.333333 25.6-25.6 42.666667L8.533333 878.933333c-12.8 34.133333-4.266667 68.266667 12.8 93.866667 21.333333 25.6 51.2 42.666667 85.333334 42.666667 12.8 0 21.333333 0 34.133333-4.266667l260.266667-93.866667c17.066667-4.266667 29.866667-12.8 42.666666-25.6l64-64 157.866667 157.866667c21.333333 21.333333 46.933333 29.866667 76.8 29.866667s55.466667-12.8 76.8-29.866667l166.4-166.4c42.666667-42.666667 42.666667-110.933333 0-149.333333L827.733333 512z m-81.066666-422.4c4.266667 0 12.8 4.266667 17.066666 4.266667l166.4 166.4c8.533333 8.533333 8.533333 21.333333 0 29.866666l-59.733333 59.733334-196.266667-196.266667 59.733334-59.733333s4.266667-4.266667 12.8-4.266667zM200.533333 396.8l76.8-76.8c12.8-12.8 12.8-34.133333 0-46.933333s-34.133333-12.8-46.933333 0L153.6 349.866667 98.133333 294.4c-8.533333-8.533333-8.533333-21.333333 0-29.866667l166.4-166.4c4.266667-4.266667 8.533333-4.266667 17.066667-4.266666s12.8 4.266667 17.066667 4.266666L452.266667 256 256 452.266667 200.533333 396.8z m187.733334 439.466667s-4.266667 4.266667-8.533334 4.266666l-260.266666 93.866667c-8.533333 4.266667-17.066667 0-21.333334-8.533333-4.266667-4.266667-4.266667-8.533333-4.266666-17.066667l93.866666-260.266667c0-4.266667 4.266667-4.266667 4.266667-8.533333l93.866667-93.866667 256-256 85.333333-85.333333 196.266667 196.266667-85.333334 85.333333-256 256-93.866666 93.866667z m537.6-76.8l-166.4 166.4c-8.533333 8.533333-21.333333 8.533333-29.866667 0l-55.466667-55.466667 76.8-76.8c12.8-12.8 12.8-34.133333 0-46.933333s-34.133333-12.8-46.933333 0l-76.8 76.8-55.466667-55.466667 196.266667-196.266667 157.866667 157.866667c8.533333 8.533333 8.533333 21.333333 0 29.866667z" fill="var(--no-selected-left-color)" p-id="2744"></path></svg>
             </div>
-            <text style="color:var(--no-selected-left-color)" class="margin-20-top">定制</text>
+            <text style="color:var(--no-selected-left-color)" class="margin-20-top">定制区</text>
           </div>
 
           <div class="top_left_item dark_blue_btn margin-20-top" v-show="tabDetailStore.current != 2" @click="handleItemClick(2)">
             <div>
               <svg t="1682575613391" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="51818" width="200" height="200"><path d="M567.936 889.344l295.808-169.088a64 64 0 0 0 32.256-55.552V374.4a16 16 0 0 0-23.936-13.888L576.256 529.6a64 64 0 0 0-32.256 55.552v290.304a16 16 0 0 0 23.936 13.888zM480 875.456V585.152a64 64 0 0 0-32.256-55.552l-103.808-59.328A16 16 0 0 0 320 484.16v123.456a16 16 0 0 1-23.168 14.336l-23.168-11.584A32 32 0 0 1 256 581.696V438.592a32 32 0 0 0-16.128-27.776l-87.936-50.304A16 16 0 0 0 128 374.4v290.304a64 64 0 0 0 32.256 55.552l295.808 169.088a16 16 0 0 0 23.936-13.888zM64 739.136v-391.68a64 64 0 0 1 32.256-55.616l384-219.392a64 64 0 0 1 63.488 0l384 219.392A64 64 0 0 1 960 347.52v391.296a0.448 0.448 0 0 1-0.32 0.448l-415.936 237.632a64 64 0 0 1-63.488 0l-415.616-237.44a3.008 3.008 0 0 0-0.64-0.32z m416.256-592.96L217.28 296.32a16 16 0 0 0 0 27.776l262.976 150.272a64 64 0 0 0 63.488 0l262.976-150.272a16 16 0 0 0 0-27.776L543.744 146.176a64 64 0 0 0-63.488 0z" p-id="51819" fill="var(--selected-left-color)"></path></svg>
             </div>
-            <text style="color:var(--selected-left-color)" class="margin-20-top">现货</text>
+            <text style="color:var(--selected-left-color)" class="margin-20-top">现货区</text>
           </div>
           <div class="top_left_item dark_blue_reinforce_btn margin-20-top" v-show="tabDetailStore.current == 2">
             <div>
               <svg t="1682575647275" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="52001" width="200" height="200"><path d="M567.936 889.344l295.808-169.088a64 64 0 0 0 32.256-55.552V374.4a16 16 0 0 0-23.936-13.888L576.256 529.6a64 64 0 0 0-32.256 55.552v290.304a16 16 0 0 0 23.936 13.888zM480 875.456V585.152a64 64 0 0 0-32.256-55.552l-103.808-59.328A16 16 0 0 0 320 484.16v123.456a16 16 0 0 1-23.168 14.336l-23.168-11.584A32 32 0 0 1 256 581.696V438.592a32 32 0 0 0-16.128-27.776l-87.936-50.304A16 16 0 0 0 128 374.4v290.304a64 64 0 0 0 32.256 55.552l295.808 169.088a16 16 0 0 0 23.936-13.888zM64 739.136v-391.68a64 64 0 0 1 32.256-55.616l384-219.392a64 64 0 0 1 63.488 0l384 219.392A64 64 0 0 1 960 347.52v391.296a0.448 0.448 0 0 1-0.32 0.448l-415.936 237.632a64 64 0 0 1-63.488 0l-415.616-237.44a3.008 3.008 0 0 0-0.64-0.32z m416.256-592.96L217.28 296.32a16 16 0 0 0 0 27.776l262.976 150.272a64 64 0 0 0 63.488 0l262.976-150.272a16 16 0 0 0 0-27.776L543.744 146.176a64 64 0 0 0-63.488 0z" p-id="52002" fill="var(--no-selected-left-color)"></path></svg>
             </div>
-            <text style="color:var(--no-selected-left-color)" class="margin-20-top">现货</text>
+            <text style="color:var(--no-selected-left-color)" class="margin-20-top">现货区</text>
           </div>
+        <div class="top_left_item dark_blue_btn margin-20-top" v-show="tabDetailStore.current != 4" @click="handleItemClick(4)">
+          <div>
+            <svg t="1684216661677" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="11205" width="200" height="200"><path d="M960 96v768H624L512 1013.312 400 864H64v-768h896z m-64 64H128v640h304L512 906.688 592 800H896v-640z m-384 448a64 64 0 1 1 0 128 64 64 0 0 1 0-128zM576 256l-32 320h-64L448 256h128z" fill="var(--selected-left-color)" p-id="11206"></path></svg>
+          </div>
+          <text style="color:var(--selected-left-color)" class="margin-20-top">投诉区</text>
+        </div>
+        <div class="top_left_item dark_blue_reinforce_btn margin-20-top" v-show="tabDetailStore.current == 4">
+          <div>
+            <svg t="1684216661677" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="11205" width="200" height="200"><path d="M960 96v768H624L512 1013.312 400 864H64v-768h896z m-64 64H128v640h304L512 906.688 592 800H896v-640z m-384 448a64 64 0 1 1 0 128 64 64 0 0 1 0-128zM576 256l-32 320h-64L448 256h128z" fill="var(--no-selected-left-color)" p-id="11206"></path></svg>
+          </div>
+          <text style="color:var(--no-selected-left-color)" class="margin-20-top">投诉区</text>
+        </div>
       </div>
       <div class="top" v-show="tabDetailStore.current*1 === 0">
         <CommentList
@@ -426,6 +504,9 @@
             :company-info-id="company_info_id_text"
         >
         </QuestionList>
+      </div>
+      <div class="top" v-show="tabDetailStore.current*1 === 4">
+        <Complaint :company-info-id="company_info_id_text"></Complaint>
       </div>
       <div class="top_right margin-20-top" v-show="tabDetailStore.current*1 === 0 || tabDetailStore.current*1 === 3">
         <div class="top_right_space margin-20-top space_2">
@@ -1922,7 +2003,6 @@ import { ref,onMounted,reactive,computed } from 'vue'
 import { useRoute } from 'vue-router'
 import QuestionList from "../components/QuestionList.vue";
 import CommentList from '../components/CommentList.vue';
-import GoodsList from "../components/GoodsList.vue";
 import AddComment from "../components/AddComment.vue";
 import "../assets/tag.css"
 import {goodsListApi} from "../api/goods.js";
@@ -1931,7 +2011,6 @@ import {shopDetailApi} from "../api/shopDetail.js";
 import { useUserStore } from "../pinia/user.js";
 import { useTabDetailStore } from "../pinia/tabDetail.js"
 import Tag from "../components/Tag.vue"
-import SellerInfo from "../components/SellerInfo.vue";
 import {getIndexDataApi} from "../api/list.js";
 
 // 数据列表
