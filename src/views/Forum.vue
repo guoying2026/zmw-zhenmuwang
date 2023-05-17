@@ -330,9 +330,6 @@
   background-image: var(--background-image-right-pre-url);
   width: 100%;
   padding: 5%;
-  /*background-size: contain;*/
-  /*background-position: center center;*/
-  /*background-repeat: no-repeat;*/
 }
 .top_right_pre_4{
   display: flex;
@@ -346,6 +343,18 @@
 .top_right_pre_2_2{
   display: flex;
   flex-direction: column;
+}
+.cash_pre{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-image: var(--background-image-right-pre-url);
+  width: 100%;
+  padding: 20px;
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
 }
 </style>
 <template>
@@ -1418,7 +1427,7 @@
       </div>
       <div class="top_right" v-show="tabDetailStore.current*1 === 1">
         <div class="top_right_pre">
-          <text class="font-15-size font-60-weight margin-20-left">预约定制服务</text>
+          <text class="font-15-size font-60-weight margin-20-left">预约开通定制服务</text>
           <div class="top_right_pre_2 margin-10-top">
             <text class="margin-10-left">👈</text>
             <div class="margin-20-left font-8-size font-60-weight top_right_pre_2_2">
@@ -1602,6 +1611,28 @@
         </div>
       </div>
       <div class="top_3-2_top margin-20-left" v-show="tabDetailStore.current*1 === 2">
+        <div class="cash_pre">
+          <text class="font-15-size font-60-weight">预约开通现货服务，👇内容都是现货案例展示。输入手机号预约，抢先体验啦！</text>
+          <div class="top_right_pre_4 margin-20-top">
+            <el-input style="flex:1;height: 40px;opacity: 0.7" v-model="purpose" placeholder="请输入手机号" />
+            <Tag tag="预约" number="41" color="black"></Tag>
+          </div>
+        </div>
+<!--          <div class="top_right_pre">-->
+<!--            <text class="font-15-size font-60-weight margin-20-left">预约开通现货服务</text>-->
+<!--            <div class="top_right_pre_2 margin-10-top">-->
+<!--              <text class="margin-10-left">👇</text>-->
+<!--              <div class="margin-20-left font-8-size font-60-weight top_right_pre_2_2">-->
+<!--                <text>内容都是现货案例展示。</text>-->
+<!--                <text>输入手机号预约，抢先体验啦！</text>-->
+<!--              </div>-->
+<!--            </div>-->
+<!--            <div class="top_right_pre_4 margin-20-top">-->
+<!--              <el-input style="flex:1;height: 40px;opacity: 0.7" v-model="purpose" placeholder="请输入手机号" />-->
+<!--              <Tag tag="预约" number="40" color="black"></Tag>-->
+<!--            </div>-->
+<!--          </div>-->
+
         <el-row :gutter="24" style="width:unset">
           <el-col :span="24" :md="12">
             <div class="top_3-2_item">

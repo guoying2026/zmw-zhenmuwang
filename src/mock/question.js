@@ -2,60 +2,57 @@
 import Mock from "mockjs";
 import {regUrl} from "../utils/httpReplace.js";
 
-Mock.mock(regUrl("https://api.zhenmuwang.com/Pc/CompanyComment/questionList"),'get',function(option){
-    return Mock.mock({
-        'total_count': '@natural(10,200)',
-        'data|1-2': [
+const questionAnswerPairs = [
+    {question: "你们的木制线条是用什么树木制作的?", answer: "我们的木制线条主要使用松树和橡树制作。"},
+    {question: "我可以定制木方的大小吗?", answer: "当然，我们接受定制订单，可以根据您的需求制作不同大小的木方。"},
+    {question: "你们的木制品都经过防腐处理了吗?", answer: "是的，所有的木制品在出厂前都经过了严格的防腐处理。"},
+    {question: "你们提供哪些种类的刨花木墩？", answer: "我们提供各种材质和尺寸的刨花木墩，包括松木、硬木等。"},
+    {question: "你们的单板材质是什么？", answer: "我们的单板主要采用松木和柚木，质地均匀，耐用性强。"},
+    {question: "你们的木皮主要是什么树种制作的？", answer: "我们的木皮主要以桦木、橡木和胡桃木为主，质地均匀，色泽自然。"},
+    {question: "胶合板的厚度可以选择吗？", answer: "可以的，我们提供多种厚度的胶合板供您选择。"},
+    {question: "多层板是由几层木板制成的？", answer: "多层板的层数不固定，常见的有3层、5层、7层等，根据您的需要我们可以提供不同层数的多层板。"},
+    {question: "你们的建筑模版是否经过防水处理？", answer: "是的，我们的建筑模版在制作过程中都会做防水处理，以确保在使用过程中不会出现问题。"},
+    {question: "你们的装饰板有哪些种类？", answer: "我们提供各种颜色、纹理和材质的装饰板，包括实木装饰板、石塑装饰板等。"},
+    {question: "你们的木制线条有何优势？", answer: "我们的木制线条采用高品质木材，经过精密加工，表面光滑，耐用性强。"},
+    {question: "木方的长度可以定制吗？", answer: "当然，我们可以根据您的需要定制不同长度的木方。"}
+];
+
+const data = questionAnswerPairs.map((pair, index) => {
+    return {
+        id: Mock.Random.integer(1, 1000),//问题主键
+        user_id: Mock.Random.integer(1, 1000),//本人问题id
+        name: "guoguo",//本人昵称
+        question: pair.question,
+        created_time: Mock.Random.datetime('yyyy-MM-dd HH:mm:ss'),//问题生成时间
+        answer_count: Mock.Random.integer(100, 300),//回答数量
+        'image':[],
+        answer_list: [
             {
-                id: '@increment(1)',//问题主键
-                user_id: '@natural(20000,30000)',//本人问题id
-                name: "@cname(5)",//本人昵称
-                question: '@cword(10,150)',//问题
-                created_time: '@datetime()',//问题生成时间
-                answer_count: '@natural(100,300)',//回答数量
-                'image':[
-                    "https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png",
-                    'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg',
-                    'https://fuss10.elemecdn.com/1/34/19aa98b1fcb2781c4fba33d850549jpeg.jpeg',
-                    'https://fuss10.elemecdn.com/0/6f/e35ff375812e6b0020b6b4e8f9583jpeg.jpeg',
-                    'https://fuss10.elemecdn.com/9/bb/e27858e973f5d7d3904835f46abbdjpeg.jpeg',
-                    'https://fuss10.elemecdn.com/d/e6/c4d93a3805b3ce3f323f7974e6f78jpeg.jpeg',
-                    'https://fuss10.elemecdn.com/3/28/bbf893f792f03a54408b3b7a7ebf0jpeg.jpeg',
-                    'https://fuss10.elemecdn.com/2/11/6535bcfb26e4c79b48ddde44f4b6fjpeg.jpeg',
-                ],
-                //回答列表
-                'answer_list|1-2':[
-                    {
-                        id: '@increment(1)',//回答id
-                        user_id: '@natural(20000,30000)',//回答人的id
-                        name: "@cname(5)",//回答人昵称
-                        created_time: '@datetime()',//回答时间
-                        answer: '@cword(10,130)',//回答内容
-                        useful_count: '@natural(200,400)',//有用数量
-                        useless_count: '@natural(200,400)',//没用数量
-                        'is_useful|0-4': 2,//登录人觉得有用，0是默认没做选择，1是有用，2是没用
-                        'useful_id': '@natural(1,30000)',//登录人觉得有用id
-                        'image':[
-                            "https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png",
-                            'https://fuss10.elemecdn.com/a/3f/3302e58f9a181d2509f3dc0fa68b0jpeg.jpeg',
-                            'https://fuss10.elemecdn.com/1/34/19aa98b1fcb2781c4fba33d850549jpeg.jpeg',
-                            'https://fuss10.elemecdn.com/0/6f/e35ff375812e6b0020b6b4e8f9583jpeg.jpeg',
-                            'https://fuss10.elemecdn.com/9/bb/e27858e973f5d7d3904835f46abbdjpeg.jpeg',
-                            'https://fuss10.elemecdn.com/d/e6/c4d93a3805b3ce3f323f7974e6f78jpeg.jpeg',
-                            'https://fuss10.elemecdn.com/3/28/bbf893f792f03a54408b3b7a7ebf0jpeg.jpeg',
-                            'https://fuss10.elemecdn.com/2/11/6535bcfb26e4c79b48ddde44f4b6fjpeg.jpeg',
-                        ]
-                    }
-                ],
+                id: Mock.Random.integer(1, 1000),//回答id
+                user_id: Mock.Random.integer(1, 1000),//回答人的id
+                name: "guoguo",//回答人昵称
+                created_time: Mock.Random.datetime('yyyy-MM-dd HH:mm:ss'),//回答时间
+                answer: pair.answer,
+                useful_count: Mock.Random.integer(1, 1000),//有用数量
+                useless_count: Mock.Random.integer(1, 1000),//没用数量
+                'is_useful': 2,//登录人觉得有用，0是默认没做选择，1是有用，2是没用
+                'useful_id': Mock.Random.integer(1, 1000),//登录人觉得有用id
+                'image':[]
             }
         ]
-    })
+    };
+});
+
+Mock.mock(regUrl("https://api.zhenmuwang.com/Pc/CompanyComment/questionList"),'get',{
+    data,
+    status: 200,
+    message: 'success'
 })
-Mock.mock("https://api.zhenmuwang.com/Pc/CompanyComment/publishQuestion","post",function(option){
-    return Mock.mock({
-        id: '@natural(1,300)',
-        status: '@boolean()',
-        created_time: '@datetime()'
-    })
-})
+// Mock.mock("https://api.zhenmuwang.com/Pc/CompanyComment/publishQuestion","post",function(option){
+//     return Mock.mock({
+//         id: '@natural(1,300)',
+//         status: '@boolean()',
+//         created_time: '@datetime()'
+//     })
+// })
 //问答mock结束
