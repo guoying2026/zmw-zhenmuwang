@@ -67,3 +67,26 @@
 [data-theme="dark"] .el-skeleton__image svg {
   --el-svg-monochrome-grey: #4C4D4F;
 }
+[data-theme="dark"] .el-empty {
+  --el-empty-fill-color-0: var(--el-color-black);
+  --el-empty-fill-color-1: #4b4b52;
+  --el-empty-fill-color-2: #36383d;
+  --el-empty-fill-color-3: #1e1e20;
+  --el-empty-fill-color-4: #262629;
+  --el-empty-fill-color-5: #202124;
+  --el-empty-fill-color-6: #212224;
+  --el-empty-fill-color-7: #1b1c1f;
+  --el-empty-fill-color-8: #1c1d1f;
+  --el-empty-fill-color-9: #18181a;
+}
+[data-theme="dark"] .el-backtop {
+  --el-backtop-bg-color: #1d1e1f;
+  --el-backtop-hover-bg-color: #2b2b2c;
+  box-shadow: 0px 0px 6px rgba(0, 0, 0, .72);
+}
+.el-backtop .el-icon {
+  color: #151515;
+}
+[data-theme="dark"] .el-backtop .el-icon {
+  color: #eee;
+}
