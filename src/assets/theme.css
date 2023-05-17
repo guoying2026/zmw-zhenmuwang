@@ -23,6 +23,7 @@
   --blue-btn-bg-color: #f4f6fd;
   --blue-btn-color: #096c86;
   --right-blue-btn-bg: #e9f9ff;
+  --background-image-right-pre-url: url("https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_f1ef2e32-5a15-43dd-bf56-f16292243f8a.png");
 }
 [data-theme="dark"] {
   --navbar-bg-color: #000;
@@ -49,6 +50,7 @@
   --blue-btn-bg-color:#243244;
   --blue-btn-color: #fff;
   --right-blue-btn-bg: #385f7f;
+  --background-image-right-pre-url: url("https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_8d79cbc0-74c7-427b-b2a4-0e12affdee83.png");
 }
 .grey_bg{
   background: #f3f6fd !important;

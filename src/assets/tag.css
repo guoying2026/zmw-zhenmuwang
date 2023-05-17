@@ -9,9 +9,15 @@
     font-weight: 600;
     border-radius: 5px;
 }
-.black_btn{
-    background-color: #000000;
-    color: #ffffff;
+.custom_tag_40{
+    padding: 5px 5px 5px 5px !important;
+    font-size: 14px;
+    font-weight: 600;
+    border-radius: 5px;
+    margin: 3px 0 3px 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .orange_btn{
     background-color: #fff1e2;

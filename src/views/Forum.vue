@@ -84,7 +84,6 @@
     align-items: center;
     position: relative;
     background-color: var(--detail-top-bg-color);
-    border-radius: 30px;
     box-shadow: 0 2.8px 2.2px rgba(0,0,0,.034), 0 6.7px 5.3px rgba(0,0,0,.048), 0 12.5px 10px rgba(0,0,0,.06), 0 22.3px 17.9px rgba(0,0,0,.072), 0 41.8px 33.4px rgba(0,0,0,.086), 0 100px 80px rgba(0,0,0,.12);
     letter-spacing: 2px;
     padding: 20px;
@@ -145,7 +144,6 @@
     align-items: center;
     position: relative;
     background-color: var(--detail-top-bg-color);
-    border-radius: 30px;
     box-shadow: var(--box-shadow-color);
     letter-spacing: 2px;
     padding: 20px;
@@ -322,6 +320,30 @@
   display: flex;
   flex-direction: row;
   align-items: center;
+}
+.top_right_pre{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  background-image: var(--background-image-right-pre-url);
+  width: 100%;
+  padding: 5%;
+  /*background-size: contain;*/
+  /*background-position: center center;*/
+  /*background-repeat: no-repeat;*/
+}
+.top_right_pre_4{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+.top_right_pre_2{
+  display: flex;
+  flex-direction: row;
+}
+.top_right_pre_2_2{
+  display: flex;
+  flex-direction: column;
 }
 </style>
 <template>
@@ -549,8 +571,8 @@
       <div class="top" v-show="tabDetailStore.current*1 === 4">
         <Complaint :company-info-id="company_info_id_text"></Complaint>
       </div>
-      <div class="top_right margin-20-top" v-show="tabDetailStore.current*1 === 0 || tabDetailStore.current*1 === 3 || tabDetailStore.current*1 === 4">
-        <div class="top_right_space margin-20-top space_2">
+      <div class="top_right" v-show="tabDetailStore.current*1 === 0 || tabDetailStore.current*1 === 3 || tabDetailStore.current*1 === 4">
+        <div class="top_right_space space_2">
           <text class="top_right_title font-8-size font-60-weight">附近商家</text>
           <router-link class="left margin-20-top" to="/forum" v-for="(item, index) in nearbyList" :key="index">
           <div class="nearby">
@@ -1392,8 +1414,22 @@
           </el-radio-group>
         </div>
       </div>
-      <div class="top_right margin-20-top" v-show="tabDetailStore.current*1 === 1">
-        <div class="top_right_space margin-20-top space_1">
+      <div class="top_right" v-show="tabDetailStore.current*1 === 1">
+        <div class="top_right_pre">
+          <text class="font-15-size font-60-weight margin-20-left">预约定制服务</text>
+          <div class="top_right_pre_2 margin-10-top">
+            <text class="margin-10-left">👈</text>
+            <div class="margin-20-left font-8-size font-60-weight top_right_pre_2_2">
+              <text>左边是定制案例展示。</text>
+              <text>输入手机号预约，抢先体验啦！</text>
+            </div>
+          </div>
+          <div class="top_right_pre_4 margin-20-top">
+            <el-input style="flex:1;height: 40px;opacity: 0.7" v-model="purpose" placeholder="请输入手机号" />
+            <Tag tag="预约" number="40" color="black"></Tag>
+          </div>
+        </div>
+        <div class="top_right_space space_1">
           <text class="top_right_title font-8-size font-60-weight">定制明细</text>
           <div class="top_right_total font-10-size margin-10-top">
             <div class="top_right_total_item">
