@@ -353,22 +353,31 @@
         <el-skeleton-item class="margin-40-top emphasize" variant="h1" style="width: 160px;height: 20px;" />
         <el-skeleton-item class="emphasize" variant="rect" style="width: 90px; margin-top: 10px;" />
         <el-skeleton-item class="emphasize" variant="h3" style="width: 120px; margin-top: 10px;" />
-        <table border="0" style="width: 80vw;">
-          <tr v-for="r in 4" style="height: 40px;">
-            <td v-for="d in 6">
+        <el-skeleton-item variant="rect" style="height: 100px;margin-top: 10px;" />
+        <el-descriptions title="" :column="3" border>
+          <el-descriptions-item width="150px" label-align="left" align="left" label-class-name="my-label" class-name="my-content" v-for="m in 16" :span="m>12?3:1">
+            <el-skeleton-item class="emphasize" variant="p" v-if="m < 15" />
+            <div :class="m>13?'complaint':''">
+              <div :class="m>13?'complaint_left':''">
+                <el-descriptions title="" :column="m>13?3:2" border class="margin-10-top" v-if="m > 12">
+                  <el-descriptions-item width="120px" label-align="center" align="left"  v-for="n in (m>13?3:2)">
+                    <el-skeleton-item class="emphasize" variant="p" />
+                    <template #label>
+                      <el-skeleton-item class="emphasize" variant="p" />
+                    </template>
+                  </el-descriptions-item>
+                </el-descriptions>
+              </div>
+              <div class="complaint_right margin-10-top" v-if="m>13">
+                <el-skeleton-item class="emphasize" variant="image" style="width: 30px;height: 30px;" />
+              </div>
+            </div>
+            <template #label>
               <el-skeleton-item class="emphasize" variant="p" />
-            </td>
-          </tr>
-          <tr v-for="r in 2" style="height: 40px;">
-            <td>
-              <el-skeleton-item class="emphasize" variant="p" />
-            </td>
-            <td colspan="5">
-              <el-skeleton-item class="emphasize" variant="p" />
-            </td>
-          </tr>
-        </table>
-        <el-skeleton-item class="emphasize" variant="image" style="height: 100px;width: 80vw;" />
+            </template>
+          </el-descriptions-item>
+        </el-descriptions>
+        <el-skeleton-item class="emphasize" variant="image" style="height: 100px;width: 100%;" />
       </div>
       <div class="top_3 margin-20-top">
         <div class="top_left">
