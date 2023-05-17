@@ -59,3 +59,11 @@
 .colorful{
   background: linear-gradient(115deg,#4fcf70,#fad648,#a767e5,#12bcfe,#44ce7b);
 }
+
+[data-theme="dark"] .el-skeleton {
+  --el-skeleton-color: #303030;
+  --el-skeleton-to-color: #424243;
+}
+[data-theme="dark"] .el-skeleton__image svg {
+  --el-svg-monochrome-grey: #4C4D4F;
+}
