@@ -454,8 +454,9 @@ p {
 .name {
     font-size: 16px;
     line-height: 24px;
-    font-weight: 700;
-    color: var(--main-color);
+    font-weight: 500;
+    color: var(--secondary-color);
+    opacity: 0.7;
     margin: 0;
 }
 }
@@ -503,11 +504,15 @@ input:checked + label svg {
 .message-line {
     font-size: 14px;
     color: var(--secondary-color);
-    opacity: .7;
+    font-weight: 500;
+  opacity: .8;
+
 
 &.time {
      text-align: right;
      margin-bottom: 0;
+    color: var(--secondary-color);
+    opacity: .7;
  }
 }
 

@@ -212,9 +212,9 @@
     </div>
   </div>
     <div class="messages-section" v-for="(item, index) in list.arr" :key="index">
-      <div class="projects-section-header general_item">
-        <text class="font-60-weight">第{{index+1}}条评论其相关回复</text>
-      </div>
+<!--      <div class="projects-section-header general_item">-->
+<!--        <text class="font-60-weight">第{{index+1}}条评论其相关回复</text>-->
+<!--      </div>-->
       <div class="messages">
         <div class="message-box">
           <img v-if="item.click_index" :src="image_arr[item.click_index]" alt="profile image" class="photo_img">

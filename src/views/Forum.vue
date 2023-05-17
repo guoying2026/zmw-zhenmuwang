@@ -233,6 +233,8 @@
 .nearby_2{
   display: flex;
   flex-direction: column;
+  font-weight: 500;
+  opacity: .8;
 }
 .padding-10:deep(.el-radio){
   color: var(--main-color);
