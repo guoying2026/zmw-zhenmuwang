@@ -348,10 +348,8 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
   background-image: var(--background-image-right-pre-url);
-  width: 100%;
-  padding: 20px;
+  padding: 20px 7% 20px 10%;
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
@@ -2082,7 +2080,7 @@
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  position: sticky;
+  /*position: sticky;*/
   background: var(--app-container-bg-color);
   top: 150px;
   z-index: 1000;

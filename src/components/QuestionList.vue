@@ -183,112 +183,198 @@
     <div class="messages-section" v-for="(item, index) in list.arr" :key="index">
       <div class="projects-section-header general_item">
         <div class="general_item_left">
-          <text class="font-60-weight">{{item.question}}</text>
+          <svg t="1684309451462" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="7738" width="200" height="200"><path d="M862.42287 0.000539A134.305614 134.305614 0 0 1 997.051852 134.683415v640.969768a135.060139 135.060139 0 0 1-135.114035 134.682877H236.058568L26.947099 1024V134.683415A135.060139 135.060139 0 0 1 162.061133 0.000539h700.361737zM242.525933 754.526458h48.289659V273.731763H242.525933V754.526458z m180.655063-476.483118A694.21774 694.21774 0 0 0 340.560408 161.684664l-43.277451 18.755359a704.511629 704.511629 0 0 1 83.10564 118.783937l42.792399-21.18062z m-32.336825 328.380459h238.861348v-240.3704H390.844171v240.3704z m190.571689-196.176739l0.538947 152.414235H439.511092V410.24706h141.850873z m52.277867 341.369083l71.679962-0.431157c50.229868 0 76.099328-24.090935 76.099329-71.679963V204.477063H475.404968v44.732608h257.778391v418.276832c0 28.402511-12.93473 41.822294-37.780191 40.852189h-73.189014l11.479573 43.277451z" fill="var(--selected-left-color)" p-id="7739"></path></svg>
+          <!--          <text class="font-60-weight">{{item.question}}</text>-->
+          <text class="font-60-weight margin-10-left" v-if="index*1 === 0">你们提供哪些种类的刨花木墩？</text>
+          <text class="font-60-weight margin-10-left" v-if="index*1 === 1">你们的木皮主要是什么树种制作的？</text>
+          <text class="font-60-weight margin-10-left" v-if="index*1 === 2">胶合板的厚度可以选择吗？</text>
+          <text class="font-60-weight margin-10-left" v-if="index*1 === 3">多层板是由几层木板制成的？</text>
         </div>
-        <svg t="1684309451462" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="7738" width="200" height="200"><path d="M862.42287 0.000539A134.305614 134.305614 0 0 1 997.051852 134.683415v640.969768a135.060139 135.060139 0 0 1-135.114035 134.682877H236.058568L26.947099 1024V134.683415A135.060139 135.060139 0 0 1 162.061133 0.000539h700.361737zM242.525933 754.526458h48.289659V273.731763H242.525933V754.526458z m180.655063-476.483118A694.21774 694.21774 0 0 0 340.560408 161.684664l-43.277451 18.755359a704.511629 704.511629 0 0 1 83.10564 118.783937l42.792399-21.18062z m-32.336825 328.380459h238.861348v-240.3704H390.844171v240.3704z m190.571689-196.176739l0.538947 152.414235H439.511092V410.24706h141.850873z m52.277867 341.369083l71.679962-0.431157c50.229868 0 76.099328-24.090935 76.099329-71.679963V204.477063H475.404968v44.732608h257.778391v418.276832c0 28.402511-12.93473 41.822294-37.780191 40.852189h-73.189014l11.479573 43.277451z" fill="var(--selected-left-color)" p-id="7739"></path></svg>
+        <svg t="1684310657412" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2499" width="200" height="200"><path d="M409.3 511h200.6c-26.6-14.3-39.6-22.5-103.1-68.3-37.5 32.1-56.6 45.1-97.5 68.3zM362.8 668.7H655v63.5H362.8z" fill="var(--selected-left-color)" p-id="2500"></path><path d="M873.3 150.1l0.6-0.3C781.3 57.6 653.3 0.3 511.9 0.3 370.2 0.3 242.7 57.6 150.2 149.9l-2.5 2.2C56.8 244.9 0 371.8 0 511.8c0 55.4 9 108.8 25.2 158.8 15.1 47.5 37.7 92 65.7 132.2v181.4c0 22.3 17.6 39.4 39.4 39.4H511.9c141.5 0 269.5-56.8 361.5-149.8h0.6c92.2-92.6 150.1-220.6 150.1-362.1-0.1-141-58-268.8-150.8-361.6z m-219 678.3V797H362.8v31.4H287c2.7-21.2 4.1-44.4 4.1-72.4v-86c0-30.7-0.7-45.7-3.4-65.5 17.1 2 33.5 2.7 63.5 2.7h314.7c31.4 0 47.1-0.7 64.2-2.7-2 16.4-2.7 32.8-2.7 65.5v86.7c0 31.4 0.7 51.9 3.4 71.7h-76.5zM810 552.6c-6.8 11.6-7.5 12.3-16.4 34.8-48.5-14.3-95.6-32.8-132.4-51.2-2.7-1.4-3.4-1.4-5.5-2.7v40.3c-19.8-2-42.3-2.7-62.8-2.7H423.6c-29.4 0-41.6 0.7-63.5 2.7v-37.5c-39.6 18.4-81.9 34.8-133.1 51.9-7.5-25.9-17.1-43.7-37.5-71C283 496 327.4 481 379.3 451.7c49.1-26.7 90.7-60.2 116.7-93l34.8 16.4c-21.2-15-28.7-19.1-50.5-30 9.6-10.9 13-15.7 17.1-21.2-8.9-1.4-30.7-2-54.6-2h-29.4c10.9 21.2 16.4 34.1 29.4 68.3l-67 21.8c-7.5-30-15.7-56-30.7-90.1h-27.3c-28 41.6-45.1 63.5-77.8 95.6-15-22.5-28.7-38.2-47.8-55.3C246.8 314.4 285 255 301.4 195.6l73.7 13c-3.4 7.5-6.1 13.7-7.5 17.1-8.2 19.1-9.6 23.2-14.3 32.1h82.6c31.4 0 46.4-0.7 64.2-4.1v67.6c27.3-36.2 51.2-86.7 59.4-124.9l72.4 12.3c-9.6 25.9-12.3 33.5-18.4 48.5h132.4c30.7 0 49.8-0.7 70.3-4.1v72.4c-21.2-2.7-42.3-3.4-70.3-3.4h-52.6c11.6 19.1 21.2 38.2 34.8 68.9l-67.6 23.9c-13-40.3-22.5-62.1-38.9-92.8h-38.9c-10.9 19.8-24.6 41-38.9 59.4l15 6.8c-3.4 4.1-6.1 7.5-8.2 10.2 112 70.3 167.9 93.5 284 119.5-9.6 9.4-9.6 9.4-24.6 34.6z" fill="var(--selected-left-color)" p-id="2501"></path></svg>
       </div>
-      <div class="general_item">
-        <el-row :gutter="8" class="margin-10-top" v-if="item.image">
-          <el-col
-              v-for="(itemImage, indexImage) in item.image"
-              :key="indexImage"
-              :span="8"
-              :md="8"
-          >
-            <el-image
-                :hide-on-click-modal=true
-                :src="itemImage"
-                class="image_list_1"
-                fit="fill"
-                :zoom-rate="1.2"
-                :preview-src-list="item.image"
-                :initial-index="indexImage"
-                lazy />
-          </el-col>
-        </el-row>
-      </div>
-      <div class="general_item_1">
-          <AddComment
-              placeholder-text="我要提问"
-              cancel-text="取消提问"
-              confirm-text="发布提问"
-              @toFatherQuestionList="receiveChildAddComment"
-              :company-info-id="companyInfoId"
-              addType="question"
-              questionType="question"
-          >
-            <template #clickDrawer>
-              <text class="general_item_2 blue_btn margin-10-left">我要提问</text>
-            </template>
-          </AddComment>
-          <AddComment
-              placeholder-text="我要回答"
-              cancel-text="取消回答"
-              confirm-text="发布回答"
-              @toFatherQuestionList="receiveChildAddComment"
-              :company-info-id="companyInfoId"
-              :question-id="item.id"
-              :question-index="index"
-              addType="question"
-              questionType="answer"
-          >
-            <template #clickDrawer>
-              <text class="general_item_2 margin-10-right margin-20-top blue_btn">我要回答</text>
-            </template>
-          </AddComment>
-      </div>
-      <div class="messages margin-20-top">
-        <div class="message-box" v-for="(itemAsk,indexAsk) in item.answer_list" :key="indexAsk" v-if="item.answer_list">
-          <img class="photo_img" :src="image_arr[itemAsk.click_index]" alt="profile image">
+<!--      <div class="general_item">-->
+<!--        <el-row :gutter="8" class="margin-10-top" v-if="item.image">-->
+<!--          <el-col-->
+<!--              v-for="(itemImage, indexImage) in item.image"-->
+<!--              :key="indexImage"-->
+<!--              :span="8"-->
+<!--              :md="8"-->
+<!--          >-->
+<!--            <el-image-->
+<!--                :hide-on-click-modal=true-->
+<!--                :src="itemImage"-->
+<!--                class="image_list_1"-->
+<!--                fit="fill"-->
+<!--                :zoom-rate="1.2"-->
+<!--                :preview-src-list="item.image"-->
+<!--                :initial-index="indexImage"-->
+<!--                lazy />-->
+<!--          </el-col>-->
+<!--        </el-row>-->
+<!--      </div>-->
+<!--      <div class="general_item_1">-->
+<!--          <AddComment-->
+<!--              placeholder-text="我要提问"-->
+<!--              cancel-text="取消提问"-->
+<!--              confirm-text="发布提问"-->
+<!--              @toFatherQuestionList="receiveChildAddComment"-->
+<!--              :company-info-id="companyInfoId"-->
+<!--              addType="question"-->
+<!--              questionType="question"-->
+<!--          >-->
+<!--            <template #clickDrawer>-->
+<!--              <text class="general_item_2 blue_btn margin-10-left">我要提问</text>-->
+<!--            </template>-->
+<!--          </AddComment>-->
+<!--          <AddComment-->
+<!--              placeholder-text="我要回答"-->
+<!--              cancel-text="取消回答"-->
+<!--              confirm-text="发布回答"-->
+<!--              @toFatherQuestionList="receiveChildAddComment"-->
+<!--              :company-info-id="companyInfoId"-->
+<!--              :question-id="item.id"-->
+<!--              :question-index="index"-->
+<!--              addType="question"-->
+<!--              questionType="answer"-->
+<!--          >-->
+<!--            <template #clickDrawer>-->
+<!--              <text class="general_item_2 margin-10-right margin-20-top blue_btn">我要回答</text>-->
+<!--            </template>-->
+<!--          </AddComment>-->
+<!--      </div>-->
+      <div class="messages margin-20-top" v-if="index*1 === 0">
+        <div class="message-box" >
+          <img class="photo_img" :src="image_arr[0]" alt="profile image">
           <div class="message-content">
-              <div class="message-header">
-                <div class="name">🥳{{name_arr[itemAsk.click_index]}}</div>
-                <svg t="1684310657412" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2499" width="200" height="200"><path d="M409.3 511h200.6c-26.6-14.3-39.6-22.5-103.1-68.3-37.5 32.1-56.6 45.1-97.5 68.3zM362.8 668.7H655v63.5H362.8z" fill="var(--selected-left-color)" p-id="2500"></path><path d="M873.3 150.1l0.6-0.3C781.3 57.6 653.3 0.3 511.9 0.3 370.2 0.3 242.7 57.6 150.2 149.9l-2.5 2.2C56.8 244.9 0 371.8 0 511.8c0 55.4 9 108.8 25.2 158.8 15.1 47.5 37.7 92 65.7 132.2v181.4c0 22.3 17.6 39.4 39.4 39.4H511.9c141.5 0 269.5-56.8 361.5-149.8h0.6c92.2-92.6 150.1-220.6 150.1-362.1-0.1-141-58-268.8-150.8-361.6z m-219 678.3V797H362.8v31.4H287c2.7-21.2 4.1-44.4 4.1-72.4v-86c0-30.7-0.7-45.7-3.4-65.5 17.1 2 33.5 2.7 63.5 2.7h314.7c31.4 0 47.1-0.7 64.2-2.7-2 16.4-2.7 32.8-2.7 65.5v86.7c0 31.4 0.7 51.9 3.4 71.7h-76.5zM810 552.6c-6.8 11.6-7.5 12.3-16.4 34.8-48.5-14.3-95.6-32.8-132.4-51.2-2.7-1.4-3.4-1.4-5.5-2.7v40.3c-19.8-2-42.3-2.7-62.8-2.7H423.6c-29.4 0-41.6 0.7-63.5 2.7v-37.5c-39.6 18.4-81.9 34.8-133.1 51.9-7.5-25.9-17.1-43.7-37.5-71C283 496 327.4 481 379.3 451.7c49.1-26.7 90.7-60.2 116.7-93l34.8 16.4c-21.2-15-28.7-19.1-50.5-30 9.6-10.9 13-15.7 17.1-21.2-8.9-1.4-30.7-2-54.6-2h-29.4c10.9 21.2 16.4 34.1 29.4 68.3l-67 21.8c-7.5-30-15.7-56-30.7-90.1h-27.3c-28 41.6-45.1 63.5-77.8 95.6-15-22.5-28.7-38.2-47.8-55.3C246.8 314.4 285 255 301.4 195.6l73.7 13c-3.4 7.5-6.1 13.7-7.5 17.1-8.2 19.1-9.6 23.2-14.3 32.1h82.6c31.4 0 46.4-0.7 64.2-4.1v67.6c27.3-36.2 51.2-86.7 59.4-124.9l72.4 12.3c-9.6 25.9-12.3 33.5-18.4 48.5h132.4c30.7 0 49.8-0.7 70.3-4.1v72.4c-21.2-2.7-42.3-3.4-70.3-3.4h-52.6c11.6 19.1 21.2 38.2 34.8 68.9l-67.6 23.9c-13-40.3-22.5-62.1-38.9-92.8h-38.9c-10.9 19.8-24.6 41-38.9 59.4l15 6.8c-3.4 4.1-6.1 7.5-8.2 10.2 112 70.3 167.9 93.5 284 119.5-9.6 9.4-9.6 9.4-24.6 34.6z" fill="var(--selected-left-color)" p-id="2501"></path></svg>
-<!--                <div class="star-checkbox">-->
-<!--                  <input type="checkbox" :id="`star-${indexAsk.id}-${indexAsk}`">-->
-<!--                  <label :for="`star-${indexAsk.id}-${indexAsk}`">-->
-<!--                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-star">-->
-<!--                      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">-->
-<!--                      </polygon>-->
-<!--                    </svg>-->
-<!--                  </label>-->
-<!--                </div>-->
-              </div>
-              <p class="message-line"> {{itemAsk.answer}}</p>
-            <el-row :gutter="8" class="margin-10-top">
-              <el-col
-                  v-for="(itemAskImage, indexAskImage) in itemAsk.image"
-                  :key="indexAskImage"
-                  :span="8"
-                  :md="8"
-              >
-                <el-image
-                    :hide-on-click-modal=true
-                    :src="itemAskImage"
-                    class="image_list"
-                    :zoom-rate="1.2"
-                    :preview-src-list="itemAsk.image"
-                    :initial-index="indexAskImage"
-                    fit="fill"
-                    lazy />
-              </el-col>
-            </el-row>
-              <p class="message-line time"> {{itemAsk.created_time}} </p>
-              <div class="answer_item_left_2_3_right margin-10-top">
-              <div class="answer_item_left_2_3_right" @click="liked_question(index,indexAsk,itemAsk.id,itemAsk.is_useful,itemAsk.useful_count,itemAsk.useless_count)">
-                <ClickLike text="有用" v-if="itemAsk.is_useful == 1" :like-bool=true></ClickLike>
-                <ClickLike text="有用" v-else :like-bool=false></ClickLike>
-                <text class="margin-5-left font-12-size grey_color">{{itemAsk.useful_count}}</text>
+            <div class="message-header">
+              <div class="name">🥳{{name_arr[0]}}</div>
+            </div>
+            <p class="message-line"> 我们提供各种材质和尺寸的刨花木墩，包括松木、硬木等。</p>
+            <p class="message-line time"> 2023-04-04 20:20:30</p>
+            <div class="answer_item_left_2_3_right margin-10-top">
+              <div class="answer_item_left_2_3_right">
+                <ClickLike text="有用" :like-bool=false></ClickLike>
+                <text class="margin-5-left font-12-size grey_color">23</text>
               </div>
               <div class="answer_item_left_2_3_right margin-20-left" @click="disliked_question(index,indexAsk,itemAsk.id,itemAsk.is_useful,itemAsk.useful_count,itemAsk.useless_count)">
-                <ClickDislike text="没用" v-if="itemAsk.is_useful == 2" :dislike-bool=true></ClickDislike>
-                <ClickDislike text="没用" v-else :dislike-bool=false></ClickDislike>
-                <text class="margin-5-left font-12-size grey_color">{{itemAsk.useless_count}}</text>
+                <ClickDislike text="没用" :dislike-bool=true></ClickDislike>
+                <text class="margin-5-left font-12-size grey_color">23</text>
               </div>
+            </div>
+          </div>
+        </div>
+      </div><div class="messages margin-20-top" v-if="index*1 === 1">
+        <div class="message-box" >
+          <img class="photo_img" :src="image_arr[0]" alt="profile image">
+          <div class="message-content">
+            <div class="message-header">
+              <div class="name">🥳{{name_arr[0]}}</div>
+<!--              <svg t="1684310657412" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2499" width="200" height="200"><path d="M409.3 511h200.6c-26.6-14.3-39.6-22.5-103.1-68.3-37.5 32.1-56.6 45.1-97.5 68.3zM362.8 668.7H655v63.5H362.8z" fill="var(&#45;&#45;selected-left-color)" p-id="2500"></path><path d="M873.3 150.1l0.6-0.3C781.3 57.6 653.3 0.3 511.9 0.3 370.2 0.3 242.7 57.6 150.2 149.9l-2.5 2.2C56.8 244.9 0 371.8 0 511.8c0 55.4 9 108.8 25.2 158.8 15.1 47.5 37.7 92 65.7 132.2v181.4c0 22.3 17.6 39.4 39.4 39.4H511.9c141.5 0 269.5-56.8 361.5-149.8h0.6c92.2-92.6 150.1-220.6 150.1-362.1-0.1-141-58-268.8-150.8-361.6z m-219 678.3V797H362.8v31.4H287c2.7-21.2 4.1-44.4 4.1-72.4v-86c0-30.7-0.7-45.7-3.4-65.5 17.1 2 33.5 2.7 63.5 2.7h314.7c31.4 0 47.1-0.7 64.2-2.7-2 16.4-2.7 32.8-2.7 65.5v86.7c0 31.4 0.7 51.9 3.4 71.7h-76.5zM810 552.6c-6.8 11.6-7.5 12.3-16.4 34.8-48.5-14.3-95.6-32.8-132.4-51.2-2.7-1.4-3.4-1.4-5.5-2.7v40.3c-19.8-2-42.3-2.7-62.8-2.7H423.6c-29.4 0-41.6 0.7-63.5 2.7v-37.5c-39.6 18.4-81.9 34.8-133.1 51.9-7.5-25.9-17.1-43.7-37.5-71C283 496 327.4 481 379.3 451.7c49.1-26.7 90.7-60.2 116.7-93l34.8 16.4c-21.2-15-28.7-19.1-50.5-30 9.6-10.9 13-15.7 17.1-21.2-8.9-1.4-30.7-2-54.6-2h-29.4c10.9 21.2 16.4 34.1 29.4 68.3l-67 21.8c-7.5-30-15.7-56-30.7-90.1h-27.3c-28 41.6-45.1 63.5-77.8 95.6-15-22.5-28.7-38.2-47.8-55.3C246.8 314.4 285 255 301.4 195.6l73.7 13c-3.4 7.5-6.1 13.7-7.5 17.1-8.2 19.1-9.6 23.2-14.3 32.1h82.6c31.4 0 46.4-0.7 64.2-4.1v67.6c27.3-36.2 51.2-86.7 59.4-124.9l72.4 12.3c-9.6 25.9-12.3 33.5-18.4 48.5h132.4c30.7 0 49.8-0.7 70.3-4.1v72.4c-21.2-2.7-42.3-3.4-70.3-3.4h-52.6c11.6 19.1 21.2 38.2 34.8 68.9l-67.6 23.9c-13-40.3-22.5-62.1-38.9-92.8h-38.9c-10.9 19.8-24.6 41-38.9 59.4l15 6.8c-3.4 4.1-6.1 7.5-8.2 10.2 112 70.3 167.9 93.5 284 119.5-9.6 9.4-9.6 9.4-24.6 34.6z" fill="var(&#45;&#45;selected-left-color)" p-id="2501"></path></svg>-->
+            </div>
+            <p class="message-line">我们的木皮主要以桦木、橡木和胡桃木为主，质地均匀，色泽自然。</p>
+            <p class="message-line time"> 2023-04-04 20:20:30</p>
+            <div class="answer_item_left_2_3_right margin-10-top">
+              <div class="answer_item_left_2_3_right">
+                <ClickLike text="有用" v-if="1 === 1" :like-bool=true></ClickLike>
+                <text class="margin-5-left font-12-size grey_color">23</text>
               </div>
+              <div class="answer_item_left_2_3_right margin-20-left" @click="disliked_question(index,indexAsk,itemAsk.id,itemAsk.is_useful,itemAsk.useful_count,itemAsk.useless_count)">
+                <ClickDislike text="没用" :dislike-bool=false></ClickDislike>
+                <text class="margin-5-left font-12-size grey_color">23</text>
+              </div>
+            </div>
           </div>
         </div>
       </div>
+      <div class="messages margin-20-top" v-if="index*1 === 2">
+        <div class="message-box" >
+          <img class="photo_img" :src="image_arr[0]" alt="profile image">
+          <div class="message-content">
+            <div class="message-header">
+              <div class="name">🥳{{name_arr[0]}}</div>
+<!--              <svg t="1684310657412" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2499" width="200" height="200"><path d="M409.3 511h200.6c-26.6-14.3-39.6-22.5-103.1-68.3-37.5 32.1-56.6 45.1-97.5 68.3zM362.8 668.7H655v63.5H362.8z" fill="var(&#45;&#45;selected-left-color)" p-id="2500"></path><path d="M873.3 150.1l0.6-0.3C781.3 57.6 653.3 0.3 511.9 0.3 370.2 0.3 242.7 57.6 150.2 149.9l-2.5 2.2C56.8 244.9 0 371.8 0 511.8c0 55.4 9 108.8 25.2 158.8 15.1 47.5 37.7 92 65.7 132.2v181.4c0 22.3 17.6 39.4 39.4 39.4H511.9c141.5 0 269.5-56.8 361.5-149.8h0.6c92.2-92.6 150.1-220.6 150.1-362.1-0.1-141-58-268.8-150.8-361.6z m-219 678.3V797H362.8v31.4H287c2.7-21.2 4.1-44.4 4.1-72.4v-86c0-30.7-0.7-45.7-3.4-65.5 17.1 2 33.5 2.7 63.5 2.7h314.7c31.4 0 47.1-0.7 64.2-2.7-2 16.4-2.7 32.8-2.7 65.5v86.7c0 31.4 0.7 51.9 3.4 71.7h-76.5zM810 552.6c-6.8 11.6-7.5 12.3-16.4 34.8-48.5-14.3-95.6-32.8-132.4-51.2-2.7-1.4-3.4-1.4-5.5-2.7v40.3c-19.8-2-42.3-2.7-62.8-2.7H423.6c-29.4 0-41.6 0.7-63.5 2.7v-37.5c-39.6 18.4-81.9 34.8-133.1 51.9-7.5-25.9-17.1-43.7-37.5-71C283 496 327.4 481 379.3 451.7c49.1-26.7 90.7-60.2 116.7-93l34.8 16.4c-21.2-15-28.7-19.1-50.5-30 9.6-10.9 13-15.7 17.1-21.2-8.9-1.4-30.7-2-54.6-2h-29.4c10.9 21.2 16.4 34.1 29.4 68.3l-67 21.8c-7.5-30-15.7-56-30.7-90.1h-27.3c-28 41.6-45.1 63.5-77.8 95.6-15-22.5-28.7-38.2-47.8-55.3C246.8 314.4 285 255 301.4 195.6l73.7 13c-3.4 7.5-6.1 13.7-7.5 17.1-8.2 19.1-9.6 23.2-14.3 32.1h82.6c31.4 0 46.4-0.7 64.2-4.1v67.6c27.3-36.2 51.2-86.7 59.4-124.9l72.4 12.3c-9.6 25.9-12.3 33.5-18.4 48.5h132.4c30.7 0 49.8-0.7 70.3-4.1v72.4c-21.2-2.7-42.3-3.4-70.3-3.4h-52.6c11.6 19.1 21.2 38.2 34.8 68.9l-67.6 23.9c-13-40.3-22.5-62.1-38.9-92.8h-38.9c-10.9 19.8-24.6 41-38.9 59.4l15 6.8c-3.4 4.1-6.1 7.5-8.2 10.2 112 70.3 167.9 93.5 284 119.5-9.6 9.4-9.6 9.4-24.6 34.6z" fill="var(&#45;&#45;selected-left-color)" p-id="2501"></path></svg>-->
+            </div>
+            <p class="message-line"> 可以的，我们提供多种厚度的胶合板供您选择。</p>
+            <p class="message-line time"> 2023-04-04 20:20:30</p>
+            <div class="answer_item_left_2_3_right margin-10-top">
+              <div class="answer_item_left_2_3_right">
+                <ClickLike text="有用" v-if="1 === 1" :like-bool=true></ClickLike>
+                <text class="margin-5-left font-12-size grey_color">23</text>
+              </div>
+              <div class="answer_item_left_2_3_right margin-20-left" @click="disliked_question(index,indexAsk,itemAsk.id,itemAsk.is_useful,itemAsk.useful_count,itemAsk.useless_count)">
+                <ClickDislike text="没用" :dislike-bool=false></ClickDislike>
+                <text class="margin-5-left font-12-size grey_color">23</text>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="messages margin-20-top" v-if="index*1 === 3">
+        <div class="message-box" >
+          <img class="photo_img" :src="image_arr[0]" alt="profile image">
+          <div class="message-content">
+            <div class="message-header">
+              <div class="name">🥳{{name_arr[0]}}</div>
+<!--              <svg t="1684310657412" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2499" width="200" height="200"><path d="M409.3 511h200.6c-26.6-14.3-39.6-22.5-103.1-68.3-37.5 32.1-56.6 45.1-97.5 68.3zM362.8 668.7H655v63.5H362.8z" fill="var(&#45;&#45;selected-left-color)" p-id="2500"></path><path d="M873.3 150.1l0.6-0.3C781.3 57.6 653.3 0.3 511.9 0.3 370.2 0.3 242.7 57.6 150.2 149.9l-2.5 2.2C56.8 244.9 0 371.8 0 511.8c0 55.4 9 108.8 25.2 158.8 15.1 47.5 37.7 92 65.7 132.2v181.4c0 22.3 17.6 39.4 39.4 39.4H511.9c141.5 0 269.5-56.8 361.5-149.8h0.6c92.2-92.6 150.1-220.6 150.1-362.1-0.1-141-58-268.8-150.8-361.6z m-219 678.3V797H362.8v31.4H287c2.7-21.2 4.1-44.4 4.1-72.4v-86c0-30.7-0.7-45.7-3.4-65.5 17.1 2 33.5 2.7 63.5 2.7h314.7c31.4 0 47.1-0.7 64.2-2.7-2 16.4-2.7 32.8-2.7 65.5v86.7c0 31.4 0.7 51.9 3.4 71.7h-76.5zM810 552.6c-6.8 11.6-7.5 12.3-16.4 34.8-48.5-14.3-95.6-32.8-132.4-51.2-2.7-1.4-3.4-1.4-5.5-2.7v40.3c-19.8-2-42.3-2.7-62.8-2.7H423.6c-29.4 0-41.6 0.7-63.5 2.7v-37.5c-39.6 18.4-81.9 34.8-133.1 51.9-7.5-25.9-17.1-43.7-37.5-71C283 496 327.4 481 379.3 451.7c49.1-26.7 90.7-60.2 116.7-93l34.8 16.4c-21.2-15-28.7-19.1-50.5-30 9.6-10.9 13-15.7 17.1-21.2-8.9-1.4-30.7-2-54.6-2h-29.4c10.9 21.2 16.4 34.1 29.4 68.3l-67 21.8c-7.5-30-15.7-56-30.7-90.1h-27.3c-28 41.6-45.1 63.5-77.8 95.6-15-22.5-28.7-38.2-47.8-55.3C246.8 314.4 285 255 301.4 195.6l73.7 13c-3.4 7.5-6.1 13.7-7.5 17.1-8.2 19.1-9.6 23.2-14.3 32.1h82.6c31.4 0 46.4-0.7 64.2-4.1v67.6c27.3-36.2 51.2-86.7 59.4-124.9l72.4 12.3c-9.6 25.9-12.3 33.5-18.4 48.5h132.4c30.7 0 49.8-0.7 70.3-4.1v72.4c-21.2-2.7-42.3-3.4-70.3-3.4h-52.6c11.6 19.1 21.2 38.2 34.8 68.9l-67.6 23.9c-13-40.3-22.5-62.1-38.9-92.8h-38.9c-10.9 19.8-24.6 41-38.9 59.4l15 6.8c-3.4 4.1-6.1 7.5-8.2 10.2 112 70.3 167.9 93.5 284 119.5-9.6 9.4-9.6 9.4-24.6 34.6z" fill="var(&#45;&#45;selected-left-color)" p-id="2501"></path></svg>-->
+            </div>
+            <p class="message-line"> 多层板的层数不固定，常见的有3层、5层、7层等，根据您的需要我们可以提供不同层数的多层板。</p>
+            <p class="message-line time"> 2023-04-04 20:20:30</p>
+            <div class="answer_item_left_2_3_right margin-10-top">
+              <div class="answer_item_left_2_3_right">
+                <ClickLike text="有用" v-if="1 === 1" :like-bool=true></ClickLike>
+                <text class="margin-5-left font-12-size grey_color">23</text>
+              </div>
+              <div class="answer_item_left_2_3_right margin-20-left" @click="disliked_question(index,indexAsk,itemAsk.id,itemAsk.is_useful,itemAsk.useful_count,itemAsk.useless_count)">
+                <ClickDislike text="没用" :dislike-bool=false></ClickDislike>
+                <text class="margin-5-left font-12-size grey_color">23</text>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+<!--      <div class="messages margin-20-top">-->
+<!--        <div class="message-box" v-for="(itemAsk,indexAsk) in item.answer_list" :key="indexAsk" v-if="item.answer_list">-->
+<!--          <img class="photo_img" :src="image_arr[itemAsk.click_index]" alt="profile image">-->
+<!--          <div class="message-content">-->
+<!--              <div class="message-header">-->
+<!--                <div class="name">🥳{{name_arr[itemAsk.click_index]}}</div>-->
+<!--                <svg t="1684310657412" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2499" width="200" height="200"><path d="M409.3 511h200.6c-26.6-14.3-39.6-22.5-103.1-68.3-37.5 32.1-56.6 45.1-97.5 68.3zM362.8 668.7H655v63.5H362.8z" fill="var(&#45;&#45;selected-left-color)" p-id="2500"></path><path d="M873.3 150.1l0.6-0.3C781.3 57.6 653.3 0.3 511.9 0.3 370.2 0.3 242.7 57.6 150.2 149.9l-2.5 2.2C56.8 244.9 0 371.8 0 511.8c0 55.4 9 108.8 25.2 158.8 15.1 47.5 37.7 92 65.7 132.2v181.4c0 22.3 17.6 39.4 39.4 39.4H511.9c141.5 0 269.5-56.8 361.5-149.8h0.6c92.2-92.6 150.1-220.6 150.1-362.1-0.1-141-58-268.8-150.8-361.6z m-219 678.3V797H362.8v31.4H287c2.7-21.2 4.1-44.4 4.1-72.4v-86c0-30.7-0.7-45.7-3.4-65.5 17.1 2 33.5 2.7 63.5 2.7h314.7c31.4 0 47.1-0.7 64.2-2.7-2 16.4-2.7 32.8-2.7 65.5v86.7c0 31.4 0.7 51.9 3.4 71.7h-76.5zM810 552.6c-6.8 11.6-7.5 12.3-16.4 34.8-48.5-14.3-95.6-32.8-132.4-51.2-2.7-1.4-3.4-1.4-5.5-2.7v40.3c-19.8-2-42.3-2.7-62.8-2.7H423.6c-29.4 0-41.6 0.7-63.5 2.7v-37.5c-39.6 18.4-81.9 34.8-133.1 51.9-7.5-25.9-17.1-43.7-37.5-71C283 496 327.4 481 379.3 451.7c49.1-26.7 90.7-60.2 116.7-93l34.8 16.4c-21.2-15-28.7-19.1-50.5-30 9.6-10.9 13-15.7 17.1-21.2-8.9-1.4-30.7-2-54.6-2h-29.4c10.9 21.2 16.4 34.1 29.4 68.3l-67 21.8c-7.5-30-15.7-56-30.7-90.1h-27.3c-28 41.6-45.1 63.5-77.8 95.6-15-22.5-28.7-38.2-47.8-55.3C246.8 314.4 285 255 301.4 195.6l73.7 13c-3.4 7.5-6.1 13.7-7.5 17.1-8.2 19.1-9.6 23.2-14.3 32.1h82.6c31.4 0 46.4-0.7 64.2-4.1v67.6c27.3-36.2 51.2-86.7 59.4-124.9l72.4 12.3c-9.6 25.9-12.3 33.5-18.4 48.5h132.4c30.7 0 49.8-0.7 70.3-4.1v72.4c-21.2-2.7-42.3-3.4-70.3-3.4h-52.6c11.6 19.1 21.2 38.2 34.8 68.9l-67.6 23.9c-13-40.3-22.5-62.1-38.9-92.8h-38.9c-10.9 19.8-24.6 41-38.9 59.4l15 6.8c-3.4 4.1-6.1 7.5-8.2 10.2 112 70.3 167.9 93.5 284 119.5-9.6 9.4-9.6 9.4-24.6 34.6z" fill="var(&#45;&#45;selected-left-color)" p-id="2501"></path></svg>-->
+<!--              </div>-->
+<!--              <p class="message-line"> {{itemAsk.answer}}</p>-->
+<!--            <el-row :gutter="8" class="margin-10-top">-->
+<!--              <el-col-->
+<!--                  v-for="(itemAskImage, indexAskImage) in itemAsk.image"-->
+<!--                  :key="indexAskImage"-->
+<!--                  :span="8"-->
+<!--                  :md="8"-->
+<!--              >-->
+<!--                <el-image-->
+<!--                    :hide-on-click-modal=true-->
+<!--                    :src="itemAskImage"-->
+<!--                    class="image_list"-->
+<!--                    :zoom-rate="1.2"-->
+<!--                    :preview-src-list="itemAsk.image"-->
+<!--                    :initial-index="indexAskImage"-->
+<!--                    fit="fill"-->
+<!--                    lazy />-->
+<!--              </el-col>-->
+<!--            </el-row>-->
+<!--              <p class="message-line time"> {{itemAsk.created_time}} </p>-->
+<!--              <div class="answer_item_left_2_3_right margin-10-top">-->
+<!--              <div class="answer_item_left_2_3_right" @click="liked_question(index,indexAsk,itemAsk.id,itemAsk.is_useful,itemAsk.useful_count,itemAsk.useless_count)">-->
+<!--                <ClickLike text="有用" v-if="itemAsk.is_useful == 1" :like-bool=true></ClickLike>-->
+<!--                <ClickLike text="有用" v-else :like-bool=false></ClickLike>-->
+<!--                <text class="margin-5-left font-12-size grey_color">{{itemAsk.useful_count}}</text>-->
+<!--              </div>-->
+<!--              <div class="answer_item_left_2_3_right margin-20-left" @click="disliked_question(index,indexAsk,itemAsk.id,itemAsk.is_useful,itemAsk.useful_count,itemAsk.useless_count)">-->
+<!--                <ClickDislike text="没用" v-if="itemAsk.is_useful == 2" :dislike-bool=true></ClickDislike>-->
+<!--                <ClickDislike text="没用" v-else :dislike-bool=false></ClickDislike>-->
+<!--                <text class="margin-5-left font-12-size grey_color">{{itemAsk.useless_count}}</text>-->
+<!--              </div>-->
+<!--              </div>-->
+<!--          </div>-->
+<!--        </div>-->
+<!--      </div>-->
     </div>
   </div>
 </template>
@@ -329,6 +415,7 @@ const answer_question_count = ref(0)
 
 onMounted(() => {
   questionListApi({company_info_id: props.companyInfoId,user_id: userStore.userId}).then(async(res) => {
+    // console.log('questionmock');
     if(res.status === 200){
       console.log('question');
       console.log(res);
