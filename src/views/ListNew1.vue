@@ -7,15 +7,15 @@
           <button type="button" class="hero__play" data-title="Trailer" data-playback-url="https://api.spreaker.com/v2/episodes/52791206/play">
             <svg class="hero__play-icon" width="44" height="40" viewBox="0 0 44 40" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M-1.08051e-05 6.17409L-8.43142e-06 33.3259C-8.05315e-06 37.6528 4.44078 40.5572 8.40491 38.8229L39.4356 25.2469C44.229 23.1498 44.229 16.3502 39.4355 14.2531L8.4049 0.677151C4.44077 -1.05716 -1.11834e-05 1.84718 -1.08051e-05 6.17409Z" fill="#F9FAF9"></path> </svg>
             <div class="hero__play-text">
-              <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 300 300"> <defs> <path id="criclePath" d=" M 150, 150 m -120, 0 a 120,120 0 0,1 240,0 a 120,120 0 0,1 -240,0 "></path> </defs> <g> <use xlink:href="#criclePath" fill="none"></use> <text fill="#000"> <textPath xlink:href="#criclePath" data-dl-uid="11" data-dl-original="true" data-dl-translated="true">播放拖车 播放拖车 播放拖车 播放拖车 播放拖车 播放拖车 播放拖车 播放拖车 播放拖车 播放拖车 播放拖车 播放拖车 播放拖车 播放拖车 播放拖车 播放拖车 播放拖车 播放拖车 播放拖车 播放拖车 播放拖车 播放拖车 播放拖车 播放拖车 播放拖车 播放拖车 播放拖车 播放拖车 播放拖车 </textPath> </text> </g> </svg></div>
+              <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 300 300"> <defs> <path id="criclePath" d=" M 150, 150 m -120, 0 a 120,120 0 0,1 240,0 a 120,120 0 0,1 -240,0 "></path> </defs> <g> <use xlink:href="#criclePath" fill="none"></use> <text fill="#000"> <textPath xlink:href="#criclePath" data-dl-uid="11" data-dl-original="true" data-dl-translated="true">竭尽真木网所能 助您购买满意木材 竭尽真木网所能 助您购买满意木材 竭尽真木网所能 助您购买满意木材</textPath> </text> </g> </svg></div>
           </button>
         </div>
         <div class="tsh-col-12 tsh-col-sd-8">
           <div class="hero__content-wrap">
             <header class="hero__header">
-              <p class="font-size-11 font-medium hero__label" data-dl-uid="12" data-dl-original="true" data-dl-translated="true">产品播报</p>
+              <p class="font-size-11 font-medium hero__label" data-dl-uid="12" data-dl-original="true" data-dl-translated="true">收集来自全国各地的声音</p>
               <h1 class="section-heading hero__heading">
-                <span class="hero__heading-line hero__heading-line--first" data-dl-uid="13" data-dl-original="true" data-dl-translated="true">作品 <span class="hero__equalizer" data-dl-uid="14" data-dl-original="true" data-dl-translated="true">
+                <span class="hero__heading-line hero__heading-line--first" data-dl-uid="13" data-dl-original="true" data-dl-translated="true">真木网<span class="hero__equalizer" data-dl-uid="14" data-dl-original="true" data-dl-translated="true">
                   <span class="hero__equalizer-bar" style="--equalizer-duration: 2.404s;--equalizer-delay: 0.44s;" data-dl-uid="15" data-dl-original="true" data-dl-translated="true"> </span>
                   <span class="hero__equalizer-bar" style="--equalizer-duration: 1.061s;--equalizer-delay: 0.985s;" data-dl-uid="16" data-dl-original="true" data-dl-translated="true"> </span>
                   <span class="hero__equalizer-bar" style="--equalizer-duration: 0.501s;--equalizer-delay: 0.556s;" data-dl-uid="17" data-dl-original="true" data-dl-translated="true"> </span>
@@ -56,330 +56,20 @@
                   <span class="hero__equalizer-bar" style="--equalizer-duration: 0.505s;--equalizer-delay: 0.667s;" data-dl-uid="52" data-dl-original="true" data-dl-translated="true"> </span>
                 </span>
                 </span>
-                <span class="hero__heading-line hero__heading-line--rest" data-dl-uid="53" data-dl-original="true" data-dl-translated="true">对我来说很好 </span>
+                <span class="hero__heading-line hero__heading-line--rest margin-20-top" data-dl-uid="53" data-dl-original="true" data-dl-translated="true">全国木材信用系统</span>
               </h1></header>
-            <div class="font-size-10 text-inherit hero__content"><p data-dl-uid="54" data-dl-original="true" data-dl-translated="true">像你这样的专业人士脑子里装的是什么？从那些最终学会了如何工作的经理人那里获得构建数字产品的秘诀。这是你新的大师小组，没有 "谷歌 "的建议。保证提高智商。</p></div>
-<!--            <div class="hero__services">-->
-<!--              <div class="hero__services-item">-->
-<!--                <a href="https://podcasts.apple.com/us/podcast/works-fine-for-me/id1673082984" target="_blank" rel="noreferrer noopener">-->
-<!--                  <img src="https://tsh.io/wp-content/uploads/2022/09/apple-podcast-dark-font.svg" class="image hero__services-logo hero__services-logo&#45;&#45;full" alt="">-->
-<!--                  <img src="https://tsh.io/wp-content/uploads/2023/02/apple-podcasts-icon.svg" class="image hero__services-logo hero__services-logo&#45;&#45;icon" alt=""> </a>-->
-<!--              </div>-->
-<!--              <div class="hero__services-item">-->
-<!--                <a href="https://open.spotify.com/show/3f7cBm6bBrER7fy6qrfJzB" target="_blank" rel="noreferrer noopener">-->
-<!--                  <img src="https://tsh.io/wp-content/uploads/2022/09/spotify-logo-dark-font.svg" class="image hero__services-logo hero__services-logo&#45;&#45;full" alt="">-->
-<!--                  <img src="https://tsh.io/wp-content/uploads/2023/02/spotify-icon.svg" class="image hero__services-logo hero__services-logo&#45;&#45;icon" alt="">-->
-<!--                </a>-->
-<!--              </div>-->
-<!--              <div class="hero__services-item">-->
-<!--                <a href="https://podcasts.google.com/feed/aHR0cHM6Ly93d3cuc3ByZWFrZXIuY29tL3Nob3cvNTc5MjkyNy9lcGlzb2Rlcy9mZWVk?sa=X&amp;ved=0CAMQ4aUDahcKEwiw_7Dou679AhUAAAAAHQAAAAAQaQ" target="_blank" rel="noreferrer noopener">-->
-<!--                  <img src="https://tsh.io/wp-content/uploads/2022/09/google-podcast-dark-font.svg" class="image hero__services-logo hero__services-logo&#45;&#45;full" alt=""> <img src="https://tsh.io/wp-content/uploads/2023/02/google-podcasts-icon.svg" class="image hero__services-logo hero__services-logo&#45;&#45;icon" alt="">-->
-<!--                </a>-->
-<!--              </div>-->
-<!--              <div class="hero__services-item"> -->
-<!--                <a href="https://www.spreaker.com/show/5792927/episodes/feed" target="_blank" rel="noreferrer noopener"> <img src="https://tsh.io/wp-content/uploads/2023/02/rss.svg" class="image hero__services-logo hero__services-logo&#45;&#45;full" alt=""> -->
-<!--                  <img src="https://tsh.io/wp-content/uploads/2023/02/rss.svg" class="image hero__services-logo hero__services-logo&#45;&#45;icon" alt=""> -->
-<!--                </a>-->
-<!--              </div>-->
-<!--            </div>-->
+            <div class="font-size-10 text-inherit hero__content">
+              <p data-dl-uid="54" data-dl-original="true" data-dl-translated="true">购买木材前请搜索你的木材商，千千万万的人在此留下他们的<span style="font-weight: bolder;font-size: 28px">评论、问答、投诉</span>。<br/>也请您发出您的声音，告诉我们您购买木材的困扰，我们珍视每一个声音并在此等待您的参与!</p>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </section>
+  <section class="advantages"><div class="tsh-container advantages__container"><h2 class="text-center font-size-sd-4 section-heading advantages__heading"> Listen to make<br> smarter decisions</h2><div class="tsh-row"><div class="tsh-col-12 tsh-col-sd-4 advantage"><div class="text-center advantage__body"><figure class="advantage__icon"> <img src="https://tsh.io/wp-content/uploads/2022/11/collaboration-icon.svg" alt=""></figure><h3 class="font-bold font-size-9 advantage__title"> The host knows your struggles</h3><p class="font-size-10"> He's the COO of a 40M investment fund who reviewed over 5000 digital products.</p></div></div><div class="tsh-col-12 tsh-col-sd-4 advantage"><div class="text-center advantage__body"><figure class="advantage__icon"> <img src="https://tsh.io/wp-content/uploads/2022/11/human-icon.svg" alt=""></figure><h3 class="font-bold font-size-9 advantage__title"> Credible guests only</h3><p class="font-size-10"> Product-based companies. 50-100 people. 5 years in operation.</p></div></div><div class="tsh-col-12 tsh-col-sd-4 advantage"><div class="text-center advantage__body"><figure class="advantage__icon"> <img src="https://tsh.io/wp-content/uploads/2022/11/conversation-smile-type-1.svg" alt=""></figure><h3 class="font-bold font-size-9 advantage__title"> Deep insights or a refund</h3><p class="font-size-10"> Discover your product’s future — from our experience with 220+ software projects.</p></div></div></div></div></section>
+<!--  <section class="host"><div class="tsh-container"><h2 class="text-center tech-podcast-font host__heading host__heading&#45;&#45;mobile"> Meet the host</h2><div class="tsh-row"><div class="tsh-col-12 tsh-col-sd-11 offset-sd-1"><div class="tsh-row"><div class="text-center tsh-col-12 tsh-col-sd-4"><div class="host__image-wrap"> <img src="https://tsh.io/wp-content/themes/tsh-theme-2023-05-17-13-36-38/dist/images/tech-podcast/microphone-decoration.png" class="host__microphone" alt="Microphone"><div class="host__image-decorator"></div><figure class="host__image"> <img srcset="https://tsh.io/wp-content/uploads/2022/11/podcast-author.png 2x, https://tsh.io/wp-content/uploads/fly-images/29152/podcast-author-420x420.png 1x" src="https://tsh.io/wp-content/uploads/2022/11/podcast-author.png" width="420" height="420" alt="" loading="lazy" class="image"></figure></div></div><div class="tsh-col-12 tsh-col-sd-7 offset-sd-1 host__content-col"><h2 class="tech-podcast-font host__heading host__heading&#45;&#45;desktop"> Meet the host</h2><div class="host__author"><p class="font-size-7 font-bold host__name"> Chris Kobylecki</p><p class="font-size-11 host__position"> Our voice actor and the COO of the Innovation Nest fund</p></div><div class="font-size-10 text-inherit host__about"><p>Meet the man who’ll speak your language. Chris is a business enabler from an investment company with a <strong>$40M portfolio</strong>. He’s curious about how startups and their teams mature, analyzing nearly <strong>200 companies</strong> per year and coaching many C-levels on strategy. In some multiverse, Chris is a competitive beard grower and a pro cook.</p></div><div class="host__social-media"> <a href="https://twitter.com/c_moose" class="host__social-media-link" target="_blank" rel="noopener noreferrer" title="Visit twitter" aria-label="Visit twitter"> <svg width="22" height="21" viewBox="0 0 22 21" fill="none" xmlns="http://www.w3.org/2000/svg"> <path fill-rule="evenodd" clip-rule="evenodd" d="M20.4367 6.06458L18.6758 5.3099L19.5982 3.2974L17.4515 4.01016C16.7678 3.37281 15.8706 3.01392 14.9359 3.00391C12.8538 3.00852 11.1671 4.69524 11.1624 6.77734V7.61589C8.19401 8.22802 5.60292 6.60964 3.1963 3.84245C2.77703 6.07856 3.1963 7.75564 4.45411 8.8737L1.69531 8.45443C1.91528 10.2875 3.41613 11.7 5.25911 11.8086L2.95313 12.6471C3.79167 14.3242 5.31781 14.5842 7.35547 14.7435C5.68997 15.8794 3.71081 16.4659 1.69531 16.4206C12.3951 21.1751 18.6758 14.1901 18.6758 8.03516V7.33917L20.4367 6.06458Z" stroke="black" stroke-width="1.4375" stroke-linecap="round" stroke-linejoin="round"></path> </svg> </a> <a href="https://www.linkedin.com/in/ckobylecki" class="host__social-media-link" target="_blank" rel="noopener noreferrer" title="Visit linkedin" aria-label="Visit linkedin"> <svg width="22" height="21" viewBox="0 0 22 21" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M5.34883 20.0918V20.8105C5.74578 20.8105 6.06758 20.4887 6.06758 20.0918H5.34883ZM0.982422 20.0918H0.263672C0.263672 20.4887 0.585467 20.8105 0.982422 20.8105V20.0918ZM0.982422 7.57654V6.85779C0.585467 6.85779 0.263672 7.17958 0.263672 7.57654H0.982422ZM5.34883 7.57654H6.06758C6.06758 7.17958 5.74578 6.85779 5.34883 6.85779V7.57654ZM14.4141 11.6554V12.3741C14.811 12.3741 15.1328 12.0524 15.1328 11.6554H14.4141ZM12.4914 20.0917V20.8105C12.8884 20.8105 13.2102 20.4887 13.2102 20.0917H12.4914ZM7.90039 20.0917H7.18164C7.18164 20.4887 7.50344 20.8105 7.90039 20.8105V20.0917ZM7.90039 7.57649V6.85774C7.50344 6.85774 7.18164 7.17953 7.18164 7.57649H7.90039ZM12.4914 7.57649H13.2102C13.2102 7.17953 12.8884 6.85774 12.4914 6.85774V7.57649ZM12.4914 9.005H11.7727C11.7727 9.2849 11.9351 9.53934 12.1891 9.65708C12.443 9.77481 12.7422 9.73442 12.9558 9.55358L12.4914 9.005ZM16.3367 7.5675V6.84869L16.3274 6.84882L16.3367 7.5675ZM21.1613 20.0917V20.8105C21.5583 20.8105 21.8801 20.4887 21.8801 20.0917H21.1613ZM16.3367 20.0917H15.618C15.618 20.4887 15.9398 20.8105 16.3367 20.8105V20.0917ZM16.3367 13.5781L15.618 13.5747V13.5781H16.3367ZM14.4141 11.6464L14.4141 10.9277C14.0171 10.9277 13.6953 11.2495 13.6953 11.6464H14.4141ZM5.42969 3.24609H6.14844C6.14844 2.84914 5.82664 2.52734 5.42969 2.52734V3.24609ZM3.18359 1L3.18934 0.28125H3.18359V1ZM5.41172 3.24609L4.69297 3.24607C4.69296 3.4367 4.76869 3.61952 4.90348 3.75432C5.03827 3.88912 5.22109 3.96484 5.41172 3.96484V3.24609ZM5.34883 19.373H0.982422V20.8105H5.34883V19.373ZM1.70117 20.0918V7.57654H0.263672V20.0918H1.70117ZM0.982422 8.29529H5.34883V6.85779H0.982422V8.29529ZM4.63008 7.57654V20.0918H6.06758V7.57654H4.63008ZM14.4141 10.9366C12.9553 10.9366 11.7727 12.1192 11.7727 13.5781H13.2102C13.2102 12.9132 13.7492 12.3741 14.4141 12.3741V10.9366ZM11.7727 13.5781V20.0917H13.2102V13.5781H11.7727ZM12.4914 19.373H7.90039V20.8105H12.4914V19.373ZM8.61914 20.0917V7.57649H7.18164V20.0917H8.61914ZM7.90039 8.29524H12.4914V6.85774H7.90039V8.29524ZM11.7727 7.57649V9.005H13.2102V7.57649H11.7727ZM12.9558 9.55358C13.9045 8.75042 15.1031 8.30234 16.3461 8.28619L16.3274 6.84882C14.7508 6.8693 13.2304 7.43766 12.027 8.45643L12.9558 9.55358ZM16.3367 8.28625C17.5698 8.28625 18.5636 8.73565 19.263 9.58192C19.9753 10.4438 20.4426 11.7925 20.4426 13.6859H21.8801C21.8801 11.5722 21.3591 9.86172 20.3711 8.66618C19.3702 7.45503 17.9517 6.84875 16.3367 6.84875V8.28625ZM20.4426 13.6859V20.0917H21.8801V13.6859H20.4426ZM21.1613 19.373H16.3367V20.8105H21.1613V19.373ZM17.0555 20.0917V13.5781H15.618V20.0917H17.0555ZM17.0555 13.5814C17.0587 12.8787 16.7819 12.2037 16.2862 11.7057L15.2674 12.7198C15.4933 12.9468 15.6195 13.2544 15.618 13.5747L17.0555 13.5814ZM16.2862 11.7057C15.7905 11.2076 15.1167 10.9277 14.4141 10.9277L14.4141 12.3652C14.7343 12.3652 15.0414 12.4928 15.2674 12.7198L16.2862 11.7057ZM13.6953 11.6464V11.6554H15.1328V11.6464H13.6953ZM4.71094 3.24609C4.71094 4.08962 4.02712 4.77344 3.18359 4.77344V6.21094C4.82103 6.21094 6.14844 4.88353 6.14844 3.24609H4.71094ZM3.18359 4.77344C2.34007 4.77344 1.65625 4.08962 1.65625 3.24609H0.21875C0.21875 4.88353 1.54616 6.21094 3.18359 6.21094V4.77344ZM1.65625 3.24609C1.65625 2.40257 2.34007 1.71875 3.18359 1.71875V0.28125C1.54616 0.28125 0.21875 1.60866 0.21875 3.24609H1.65625ZM3.17784 1.71873C4.0166 1.72544 4.693 2.40729 4.69297 3.24607L6.13047 3.24612C6.13052 1.6179 4.81751 0.294299 3.18934 0.281273L3.17784 1.71873ZM5.41172 3.96484H5.42969V2.52734H5.41172V3.96484Z" fill="black"></path> </svg> </a></div></div></div></div></div></div></section>-->
+  <section class="text-center speaker"><div class="tsh-container"><div class="speaker__wrap"><p class="font-bold font-size-12 font-size-sd-11 speaker__label"> Be the hero of an episode</p><h2 class="section-heading speaker__heading">1 7 3 3 5 9 6 名 木 材 商</h2><div class="font-size-10 speaker__content"><p>Remember when you needed a mentor? Give back to the technology community by sharing your best practices for product development. Fame will come second. Learn what insights you can help with today.</p></div></div> <a href="https://tsh.io/works-fine-for-me/become-a-speaker/" class="speaker__button"> <span class="section-heading speaker__button-text"> GO </span> <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 300 300"> <defs> <path id="criclePath" d=" M 150, 150 m -120, 0 a 120,120 0 0,1 240,0 a 120,120 0 0,1 -240,0 "></path> </defs> <g> <use xlink:href="#criclePath" fill="none"></use> <text fill="#000"> <textPath xlink:href="#criclePath">BECOME A SPEAKER BECOME A SPEAKER BECOME A SPEAKER BECOME A SPEAKER BECOME A SPEAKER BECOME A SPEAKER BECOME A SPEAKER BECOME A SPEAKER BECOME A SPEAKER BECOME A SPEAKER BECOME A SPEAKER BECOME A SPEAKER BECOME A SPEAKER BECOME A SPEAKER BECOME A SPEAKER BECOME A SPEAKER BECOME A SPEAKER BECOME A SPEAKER BECOME A SPEAKER BECOME A SPEAKER </textPath> </text> </g> </svg> </a></div></section>
 </template>
-<style lang="scss">
-@media (min-width: 1366px) and (max-width: 1679.98px){
-  .tsh-container {
-    max-width: 80rem;
-  }
-}
-@media (min-width: 1366px){
-  .tsh-container {
-    max-width: 1152px;
-  }
-}
-@media (min-width: 768px) and (max-width: 1180px){
-  .tsh-container {
-    max-width: 672px;
-  }
-}
-@media (min-width: 375px) and (max-width: 768px){
-  .tsh-container {
-    max-width: 342px;
-  }
-}
-@media (min-width: 1180px){
-  .tsh-container {
-    max-width: 1056px;
-  }
-  .hero__image-col {
-    align-self: flex-start;
-    padding-right: 0;
-    padding-left: 10.875rem;
-    margin-bottom: 0;
-  }
-  .hero__image-col:after {
-    content: "";
-    display: block;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 42.75rem;
-    height: 42.75rem;
-    background: linear-gradient(20deg, #5c6370 -140%, transparent 30%);
-    border-radius: 50%;
-    transform: translate(-30%, 40%);
-    z-index: -1;
-  }
-  .hero {
-    padding-bottom: 10.625rem;
-  }
-  .tsh-col-sd-4 {
-    flex: 0 0 33.3333333333%;
-    max-width: 33.3333333333%;
-    width: 100%;
-    position: relative;
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-  .tsh-col-sd-8 {
-    flex: 0 0 66.6666666667%;
-    max-width: 66.6666666667%;
-    width: 100%;
-    position: relative;
-    padding-left: 1rem;
-    padding-right: 1rem;
-  }
-  .hero__play {
-    width: 18.125rem;
-    height: 18.125rem;
-    transform: translate(10%,30%);
-  }
-  .hero__content-wrap {
-    position: relative;
-    margin-top: 30%;
-    padding-left: 3.25rem;
-  }
-  .hero__label {
-    padding-bottom: 1.125rem;
-  }
-  .hero__heading {
-    font-size: 5.625rem;
-  }
-  .hero__content {
-    padding-bottom: 1.875rem;
-  }
-  .hero__services-item {
-    padding: 1rem;
-  }
-  .hero__services-logo--full {
-    display: block;
-  }
-  .hero__equalizer {
-    display: flex;
-    position: absolute;
-    top: 50%;
-    left: 100%;
-    margin-left: 2rem;
-    transform: translateY(-50%);
-  }
-}
-.hero__equalizer {
-  display: none;
-}
-.hero__equalizer-bar, .hero__equalizer-bar:after {
-  border-radius: 0.5rem;
-}
-.hero__equalizer-bar {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  width: 0.375rem;
-  height: 3.75rem;
-  margin-right: 0.1875rem;
-  background: #ccd8ed;
-}
-.hero__equalizer-bar:after {
-  content: "";
-  display: block;
-  width: 100%;
-  height: 0%;
-  background: #232323;
-  animation: equalizer var(--equalizer-duration,1s) infinite alternate ease;
-  animation-delay: var(--equalizer-delay,1s);
-}
-.hero__equalizer-bar, .hero__equalizer-bar:after {
-  border-radius: 0.5rem;
-}
-.section-heading {
-  font-family: Monument;
-  font-weight: 800;
-  letter-spacing: .045em;
-  font-size: 2.25rem;
-  text-transform: uppercase;
-}
-.hero__heading-line {
-  position: relative;
-}
-img.image, picture.image img {
-  max-width: 100%;
-  height: auto;
-}
-.hero__services-logo {
-  display: none;
-}
-.hero__services-logo--full.image {
-  height: 2.25rem;
-}
-.hero__services-item {
-  padding: 2rem 1rem;
-}
-.font-size-10 {
-  line-height: 1.5;
-  font-size: 1rem;
-  letter-spacing: 0;
-}
-.text-inherit p:last-of-type {
-  margin-bottom: 0;
-}
-.text-inherit * {
-  color: inherit;
-  font-size: inherit;
-  line-height: inherit;
-}
-.hero__services {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 0 -1rem;
-  padding-top: 6.5rem;
-}
-.hero__content {
-  padding-bottom: 1.25rem;
-}
-.hero__heading {
-  padding-bottom: 1.875rem;
-}
-.section-heading {
-  font-family: Monument;
-  font-weight: 800;
-  letter-spacing: .045em;
-  font-size: 2.25rem;
-  text-transform: uppercase;
-}
-.font-medium, .font-medium b, .font-medium strong {
-  font-weight: 500;
-}
-.font-size-11 {
-  font-size: .875rem;
-  line-height: 1.7;
-  letter-spacing: 0;
-}
-.hero__label {
-  letter-spacing: 1.95em;
-  padding-bottom: 1.75rem;
-}
-.hero__header {
-  text-transform: uppercase;
-}
-.tsh-col-6 {
-  flex: 0 0 50%;
-  max-width: 50%;
-  width: 100%;
-  position: relative;
-  padding-left: 1rem;
-  padding-right: 1rem;
-}
-.tsh-col-12 {
-  flex: 0 0 100%;
-  max-width: 100%;
-  position: relative;
-  width: 100%;
-  padding-left: 1rem;
-  padding-right: 1rem;
-}
-img.image{
-  max-width: 100%;
-  height: auto;
-}
-.tsh-container {
-  box-sizing: border-box;
-  width: 100%;
-  padding-right: 1rem;
-  padding-left: 1rem;
-  margin-right: auto;
-  margin-left: auto;
-}
-.tsh-row {
-  box-sizing: border-box;
-  display: flex;
-  flex-wrap: wrap;
-  margin-right: -1rem;
-  margin-left: -1rem;
-}
-.hero {
-  background: linear-gradient(180deg,#fff 0,#f3f8ff 50%);
-  padding-bottom: 6.25rem;
-}
-.hero__image-col{
-  position: relative;
-  z-index: 1;
-}
-button, input, optgroup, select, textarea {
-  font-family: inherit;
-  font-size: 100%;
-  line-height: 1.15;
-  margin: 0;
-}
-.hero__play:before {
-  top: 50%;
-  left: 0;
-  width: 90%;
-  height: 90%;
-  background: rgba(254,254,255,.2);
-  transform: translate(-80%,-50%);
-  z-index: 2;
-  -webkit-backdrop-filter: blur(1.5625rem);
-  backdrop-filter: blur(1.5625rem);
-}
-.hero__play:after {
-  width: 110%;
-  height: 110%;
-  border: 0.0625rem solid #c0d0ec;
-  z-index: 0;
-}
-.hero__play:after, .hero__play:before {
-  content: "";
-  position: absolute;
-  display: block;
-  border-radius: 50%;
-}
-.hero__play {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: conic-gradient(from 53deg at 50% 50%,#1f2123 0deg,#3a3d40 130deg,#1f2123 175deg,#3c4245 318deg,#1f2123 1turn);
-  border-radius: 50%;
-  width: 11.875rem;
-  height: 11.875rem;
-  transform: translate(-40%,30%);
-  cursor: pointer;
-}
-.hero__play-text {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 160%;
-  height: 160%;
-  font-size: .625rem;
-  font-weight: 400;
-  letter-spacing: 1em;
-  text-transform: uppercase;
-  transform: translate(-50%,-50%);
-  z-index: 1;
-}
-</style>
+<script setup>
+import '../assets/techPodcast.scss';
+</script>
