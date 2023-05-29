@@ -64,7 +64,7 @@ button:focus-visible {
   width: 100%;
   overflow-x: hidden;
   letter-spacing: 2px;
-  min-height: calc(100vh - 50px);
+  min-height: calc(100vh);
   margin: 0 auto;
   max-width: 100%;
   background: var(--app-bg-color);

@@ -23,6 +23,16 @@ const router = createRouter({
             component: List,
         },
         {
+            path: '/listNew',
+            name: 'listNew',
+            component: () => import('../views/ListNew.vue'),
+        },
+        {
+            path: '/listNew1',
+            name: 'listNew1',
+            component: () => import('../views/ListNew1.vue'),
+        },
+        {
             path: '/detail',
             name: 'detail',
             component: () => import('../views/Detail.vue'),
