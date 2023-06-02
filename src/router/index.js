@@ -18,9 +18,9 @@ const router = createRouter({
     routes: [
         {
             path: '/',
-            name: 'list',
-            alias: '/list',
-            component: List,
+            name: 'listNew1',
+            alias: '/listNew1',
+            component: import('../views/ListNew1.vue'),
         },
         {
             path: '/listNew',
@@ -28,9 +28,9 @@ const router = createRouter({
             component: () => import('../views/ListNew.vue'),
         },
         {
-            path: '/listNew1',
-            name: 'listNew1',
-            component: () => import('../views/ListNew1.vue'),
+            path: '/rankingList',
+            name: 'rankingList',
+            component: () => import('../views/RankingList.vue'),
         },
         {
             path: '/detail',

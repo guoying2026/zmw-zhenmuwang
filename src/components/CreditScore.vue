@@ -1,7 +1,7 @@
 <template>
   <div
       class="fluctuate"
-      :style="`width:${width};height:${height}`"
+      :style="`width:${height};height:${height}`"
   >
     <span :class="`font-${fontSize}-size`">{{creditScore}}</span>
     <span :class="`font-${fontSize1}-size`">{{creditScoreText}} </span>
@@ -13,9 +13,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  border-radius: 10px;
-  padding: 0 10px 10px 10px;
-  background: #385f7f;
   color: #fff;
 }
 </style>

@@ -49,6 +49,10 @@
     background-color: var(--blue-btn-bg-color);
     color: var(--blue-btn-color);
 }
+.linear_grey_btn{
+    background: linear-gradient(30deg, #5c6370 -140%, transparent 30%),linear-gradient(-30deg, #5c6370 -140%, transparent 30%);
+    color: #fff;
+}
 .dark_blue_btn{
     background-color: var(--dark-blue-btn-bg);
     color: var(--blue-btn-color);
@@ -67,6 +71,10 @@
 }
 .dark_blue_reinforce_btn{
     background-color: #385f7f;
+    color: #fff;
+}
+.dark_black_reinforce_btn{
+    background: var(--main-black);
     color: #fff;
 }
 .green_btn{

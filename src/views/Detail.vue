@@ -1,184 +1,595 @@
+<style scoped>
+@media screen and (max-width: 600px) {
+  body {
+    --isMobile: 1;
+  }
+}
+
+@media screen and (min-width: 601px) {
+  body {
+    --isMobile: 0;
+  }
+}
+.emphasize{
+  font-weight: 900;
+  font-size: 24px;
+  text-align: center;
+}
+.top_2{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.padding-10{
+  letter-spacing: 2px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  /*background-image: var(--background-image-url);*/
+  width: 100%;
+  height: 500px;
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+.top_3{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+}
+@media only screen and (max-width: 520px) {
+  .top{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    letter-spacing: 2px;
+    box-sizing: unset;
+    width: 100%;
+    z-index: 99;
+  }
+}
+@media only screen and (min-width: 520px){
+  .top_left{
+    width: 25%;
+    position: sticky;
+    top: 150px;
+    z-index: 1000;
+    height: calc(100vh - 150px);
+    overflow-y: auto;
+  }
+  .top_right{
+    width: 25%;
+  }
+  .top{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    letter-spacing: 2px;
+    width: 50%;
+    box-sizing: unset;
+    z-index: 99;
+  }
+}
+.top_left_item{
+  padding: 50px;
+  font-weight: 600;
+}
+.icon{
+  width: 30px;
+  height: 30px;
+}
+.link-underlined:hover:before {
+  background-position: 0% 50%
+}
+.left_1{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+.left_1 .left_1_2{
+  display:flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  flex: 1;
+}
+.left_1 .left_1_2 .left_1_2_bottom{
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  margin-left: 1em;
+}
+.left_1 .left_1_2 .left_1_2_bottom .left_1_2_bottom_right{
+  line-height: 1.3em;
+}
+.left{
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  width: 100%;
+}
+.nearby{
+  background-color: var(--hero-bg-color);
+}
+.nearby_2{
+  display: flex;
+  flex-direction: column;
+  /*background: linear-gradient(20deg, #5c6370 -140%, transparent 30%);*/
+  padding-bottom: 20px;
+}
+.nearby_2_comment{
+  margin: 1.2em 0;
+  font-weight: 500;
+}
+.nearby_2 p{
+  text-indent: 36px;
+  margin-left: 20px;
+}
+.nearby_2 .time{
+  margin-left: 20px;
+}
+.roadmap {
+  width: 90%;
+  box-sizing: inherit;
+  background-image: var(--dotted-color);
+  background-position: bottom;
+  background-size: 8px 1px;
+  background-repeat: repeat-x;
+}
+.roadmap__row {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(11, 1fr);
+  grid-template-rows: 100px;
+  background-image: var(--dotted-color);
+  background-position: top;
+  background-size: 8px 1px;
+  background-repeat: repeat-x;
+}
+.roadmap__col {
+  display: flex;
+  align-items: center;
+  background-image: var(--col-dotted-color);
+  background-position: right top;
+  background-repeat: repeat-y;
+  background-size: 1px 8px;
+}
+.roadmap__col:first-child {
+  width: 200px;
+  letter-spacing: 4px;
+}
+.roadmap__timeline {
+  grid-column: var(--roadmap-start)/var(--roadmap-end);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  position: absolute;
+  top: 50%;
+  left: 1em;
+  right: 1em;
+  min-height: auto;
+  padding: 16px 20px;
+  background: #ecf0f6;
+  color: #3f3f3f;
+  line-height: normal;
+  border-radius: 5px;
+  transform: translateY(-50%);
+}
+</style>
 <template>
-  <div class="padding-10 margin-10-top margin-60-top">
-    <div class="top_1_tag">
-      <Tag v-if="isFranchisee" tag="加盟商" number="60" color="orange"></Tag>
-      <Tag :tag="credit_score_text" number="60" color="yellow"></Tag>
-      <Tag :tag="date_text" number="60" color="purple" v-if="date > 0"></Tag>
-      <template v-for="(item,index) in wood_name" :key="index">
-        <Tag :tag="item" number="60" color="blue"></Tag>
-      </template>
-    </div>
-    <div class="top_2 margin-20-top">
-      <div class="margin-10-top top_2_1">
-        <!--          <text>我们是</text>-->
-        <div class="svg_hello">
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36">
-            <path fill="#EF9645" d="M4.861 9.147c.94-.657 2.357-.531 3.201.166l-.968-1.407c-.779-1.111-.5-2.313.612-3.093 1.112-.777 4.263 1.312 4.263 1.312-.786-1.122-.639-2.544.483-3.331 1.122-.784 2.67-.513 3.456.611l10.42 14.72L25 31l-11.083-4.042L4.25 12.625c-.793-1.129-.519-2.686.611-3.478z"/><path fill="#FFDC5D" d="M2.695 17.336s-1.132-1.65.519-2.781c1.649-1.131 2.78.518 2.78.518l5.251 7.658c.181-.302.379-.6.6-.894L4.557 11.21s-1.131-1.649.519-2.78c1.649-1.131 2.78.518 2.78.518l6.855 9.997c.255-.208.516-.417.785-.622L7.549 6.732s-1.131-1.649.519-2.78c1.649-1.131 2.78.518 2.78.518l7.947 11.589c.292-.179.581-.334.871-.498L12.238 4.729s-1.131-1.649.518-2.78c1.649-1.131 2.78.518 2.78.518l7.854 11.454 1.194 1.742c-4.948 3.394-5.419 9.779-2.592 13.902.565.825 1.39.26 1.39.26-3.393-4.949-2.357-10.51 2.592-13.903L24.515 8.62s-.545-1.924 1.378-2.47c1.924-.545 2.47 1.379 2.47 1.379l1.685 5.004c.668 1.984 1.379 3.961 2.32 5.831 2.657 5.28 1.07 11.842-3.94 15.279-5.465 3.747-12.936 2.354-16.684-3.11L2.695 17.336z"/><g fill="#5DADEC"><path d="M12 32.042C8 32.042 3.958 28 3.958 24c0-.553-.405-1-.958-1s-1.042.447-1.042 1C1.958 30 6 34.042 12 34.042c.553 0 1-.489 1-1.042s-.447-.958-1-.958z"/><path d="M7 34c-3 0-5-2-5-5 0-.553-.447-1-1-1s-1 .447-1 1c0 4 3 7 7 7 .553 0 1-.447 1-1s-.447-1-1-1zM24 2c-.552 0-1 .448-1 1s.448 1 1 1c4 0 8 3.589 8 8 0 .552.448 1 1 1s1-.448 1-1c0-5.514-4-10-10-10z"/><path d="M29 .042c-.552 0-1 .406-1 .958s.448 1.042 1 1.042c3 0 4.958 2.225 4.958 4.958 0 .552.489 1 1.042 1s.958-.448.958-1C35.958 3.163 33 .042 29 .042z"/></g>
-          </svg>
+  <div v-if="isMobile"></div>
+  <div class="padding-10 margin-40-top" v-else>
+    <div class="top_2">
+      <text class="margin-40-top emphasize">临沂市兰山区亿宇木制品厂</text>
+      <div class="roadmap margin-40-top" style="--roadmap-cols: 11;">
+        <div class="roadmap__row">
+          <div class="roadmap__col">联系企业</div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__timeline roadmap__timeline--s1" style="--roadmap-start: 2; --roadmap-end: 5;">
+            <div><strong>法定代表人：刘贵斌</strong></div>
+<!--            <div class="roadmap__time">        -->
+<!--              4 months</div>-->
+          </div>
+          <div class="roadmap__timeline roadmap__timeline--s1" style="--roadmap-start: 5; --roadmap-end: 8;">
+            <div><strong>手机号码：13625393317</strong></div>
+          </div>
+          <div class="roadmap__timeline roadmap__timeline--s1" style="--roadmap-start: 8; --roadmap-end:12;">
+            <div><strong>山东省临沂市兰山区义堂镇大芝房村</strong></div>
+          </div>
+        </div>
+        <div class="roadmap__row">
+          <div class="roadmap__col">登记信息</div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__timeline roadmap__timeline--s2" style="--roadmap-start: 2; --roadmap-end: 5;">
+            <div><strong>注册资本：100万</strong></div>
+          </div>
+          <div class="roadmap__timeline roadmap__timeline--s2" style="--roadmap-start: 5; --roadmap-end: 8;">
+            <div><strong>成立日期：2019-12-06</strong></div>
+          </div>
+          <div class="roadmap__timeline roadmap__timeline--s2" style="--roadmap-start: 8; --roadmap-end: 12;">
+            <div><strong>登记机关：临沂市兰山区市场监督管理局</strong></div>
+          </div>
+        </div>
+        <div class="roadmap__row">
+          <div class="roadmap__col">规模状态</div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__timeline roadmap__timeline--s2" style="--roadmap-start: 2; --roadmap-end: 5;">
+            <div><strong>人员规模：50人</strong></div>
+          </div>
+          <div class="roadmap__timeline roadmap__timeline--s2" style="--roadmap-start: 5; --roadmap-end: 8;">
+            <div><strong>经营状态：开业</strong></div>
+          </div>
+          <div class="roadmap__timeline roadmap__timeline--s2" style="--roadmap-start: 8; --roadmap-end: 12;">
+            <div><strong>登记状态：注销企业</strong></div>
+          </div>
+        </div>
+        <div class="roadmap__row">
+          <div class="roadmap__col">唯一标识</div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__timeline roadmap__timeline--s2" style="--roadmap-start: 2; --roadmap-end: 7;">
+            <div><strong>社会信用代码/纳税人识别号：91371302MA3R5KGF37</strong></div>
+          </div>
+          <div class="roadmap__timeline roadmap__timeline--s2" style="--roadmap-start: 7; --roadmap-end: 12;">
+            <div><strong>组织机构代码：MA3R5KGF-3</strong></div>
+          </div>
+        </div>
+        <div class="roadmap__row">
+          <div class="roadmap__col">经营范围</div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__timeline " style="--roadmap-start: 5; --roadmap-end: 10;">
+            <div><strong>Domestika &amp; awwwards course platform</strong></div>
+            <div class="roadmap__time">        <svg class="ico-svg" viewBox="0 0 20 20" width="20">
+              <use xlink:href="https://www.awwwards.com/assets/redesign/images/sprite-icons.svg#clock"></use>
+            </svg>
+              6 months</div>
+          </div>
+        </div>
+        <div class="roadmap__row">
+          <div class="roadmap__col">投诉记录</div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__timeline " style="--roadmap-start: 6; --roadmap-end: 10;">
+            <div><strong>AI for personalized inspiration</strong></div>
+            <div class="roadmap__time">        <svg class="ico-svg" viewBox="0 0 20 20" width="20">
+              <use xlink:href="https://www.awwwards.com/assets/redesign/images/sprite-icons.svg#clock"></use>
+            </svg>
+              4 months</div>
+          </div>
+        </div>
+        <div class="roadmap__row">
+          <div class="roadmap__col">群众评论</div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__timeline " style="--roadmap-start: 8; --roadmap-end: 11;">
+            <div><strong>Browser tool ( Chrome, Safari, etc..) </strong></div>
+            <div class="roadmap__time">        <svg class="ico-svg" viewBox="0 0 20 20" width="20">
+              <use xlink:href="https://www.awwwards.com/assets/redesign/images/sprite-icons.svg#clock"></use>
+            </svg>
+              3 months</div>
+          </div>
+        </div>
+        <div class="roadmap__row">
+          <div class="roadmap__col">群众问答</div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__col"></div>
+          <div class="roadmap__timeline " style="--roadmap-start: 9; --roadmap-end: 12;">
+            <div><strong>New section</strong></div>
+            <div class="roadmap__time">        <svg class="ico-svg" viewBox="0 0 20 20" width="20">
+              <use xlink:href="https://www.awwwards.com/assets/redesign/images/sprite-icons.svg#clock"></use>
+            </svg>
+              3 months</div>
+          </div>
         </div>
       </div>
-      <text class="margin-20-top emphasize">{{ company_name}}</text>
-      <text class="margin-20-top">社会统一信用代码：</text>
-      <text class="margin-20-top emphasize">{{credit_code}}</text>
     </div>
-    <el-row :gutter="24">
-      <el-col :span="24" :md="12" class="top_1_parent">
-        <div class="top margin-20-top">
-          <CreditScore
-              :credit-score="credit_score"
-              height="200"
-              width="300px">
-          </CreditScore>
+    <div class="top_3 margin-20-top">
+      <div class="top_left">
+        <div class="top_left_item linear_grey_btn" v-show="tabDetailStore.current != 0" @click="handleItemClick(0)">
+          <div>
+            <svg t="1683685276764" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="25505" width="200" height="200"><path d="M869.084233 187.133028l-0.822738 472.610898-171.140799-0.297782c-11.939937-0.021489-23.394826 2.27481-34.3309 6.904247-10.936073 4.630461-20.73423 11.253298-29.396517 19.84907l-121.602545 121.17992L389.615137 685.774789c-3.971451-4.656043-8.450463-8.643867-13.402241-11.963473-4.969175-3.317559-10.103102-5.968945-15.399735-7.986905-5.315052-1.998517-10.93812-3.672646-16.906042-4.985548-5.948479-1.331321-11.935843-2.010797-17.925255-2.038426l-171.123402-0.298805 0.822738-472.610898 713.366194 1.24127L869.084233 187.133028zM889.121592 97.607038 135.973346 96.296183c-19.22997-0.033769-35.667338 6.567579-49.295729 19.813255-13.627369 13.246699-20.458961 29.481452-20.491707 48.711422L65.290517 679.186743c-0.033769 19.232017 6.740518 35.505655 20.321838 48.79124s29.996175 19.952424 49.227168 19.986193l191.023638 0.330528 172.844603 174.410262c3.287883 3.316535 7.609305 4.988618 12.910031 4.998851 1.338485 0.002047 2.659573-0.321318 3.980661-0.970094l7.966439-3.984754 173.435051-173.808558 191.022615 0.332575c19.232017 0.032746 35.669384-6.576789 49.298799-19.813255 13.626345-13.238512 20.456914-29.488615 20.48966-48.720631l0.896416-514.364861c0.032746-19.22997-6.741541-35.489282-20.320814-48.783053-13.58132-13.292748-29.997198-19.952424-49.228191-19.98517L889.121592 97.606015zM245.818103 421.330978c0.028653-16.255219 5.860475-30.18344 17.496489-41.769312 11.615549-11.594059 25.41074-17.377786 41.331337-17.350157 6.621814 0.01228 12.93459 1.026376 18.900465 3.02694 5.948479 2.00875 11.425214 4.840238 16.411785 8.495488 4.968152 3.663436 9.284457 7.975649 12.912078 12.948917 3.609201 4.972245 6.421246 10.458189 8.438183 16.45067 1.997494 5.982248 2.980891 12.298094 2.952238 18.918885-0.042979 24.530696-11.343349 42.086537-33.939997 52.65729-7.966439 3.975545-16.600073 5.959735-25.898857 5.944386-15.902178-0.027629-29.677926-5.859451-41.252543-17.485233C251.573177 451.534883 245.789451 437.586197 245.818103 421.330978L245.818103 421.330978zM452.760293 422.206928c0.020466-11.271718 2.697435-21.388123 8.03193-30.334889 5.297656-8.945743 12.456706-16.070001 21.420869-21.355377 8.964162-5.294586 18.917862-7.927553 29.881564-7.90811 10.945283 0.01842 20.891819 2.686179 29.836539 8.011464 8.964162 5.325285 16.080234 12.465916 21.364587 21.430078 5.285377 8.965186 7.927553 19.080567 7.90811 30.361495-0.027629 15.920598-5.859451 29.667693-17.493419 41.261753-11.634991 11.585873-25.575492 17.368576-41.821501 17.339924-16.264429-0.027629-30.18344-5.859451-41.776476-17.485233C458.515367 451.895087 452.733687 438.117292 452.760293 422.206928L452.760293 422.206928zM661.715325 422.054455c0.027629-16.254196 5.859451-30.18344 17.494443-41.769312 11.632945-11.594059 25.41074-17.376763 41.331337-17.349133 11.252275 0.019443 21.379936 2.696412 30.325679 8.021697 8.946766 5.316076 16.060791 12.464893 21.347191 21.430078 5.302773 8.964162 7.92653 19.080567 7.907087 30.352285-0.027629 15.920598-5.860475 29.668717-17.476023 41.262776-11.633968 11.584849-25.574469 17.368576-41.838897 17.339924-16.264429-0.019443-30.184463-5.851265-41.778522-17.486256-11.593036-11.634991-17.359366-25.574469-17.330714-41.829687L661.715325 422.054455zM661.715325 422.054455" fill="var(--navbar-color)" p-id="25506"></path></svg>
+          </div>
+          <text style="color:var(--navbar-color)">评论区</text>
         </div>
-      </el-col>
-      <el-col :span="24" :md="12">
-        <div class="top margin-20-top">
-          <div class="top_2">
-            <div class="margin-20-top top_tip">
-              <text>我们在真木网平台上经营的主要有：</text>
-              <div class="margin-20-top top_tip_2">
-                <div class="svg_happy">
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 36 36"><path fill="#FFCC4D" d="M36 18c0 9.941-8.059 18-18 18S0 27.941 0 18 8.059 0 18 0s18 8.059 18 18"/><path fill="#664500" d="M18 21c-3.623 0-6.027-.422-9-1-.679-.131-2 0-2 2 0 4 4.595 9 11 9 6.404 0 11-5 11-9 0-2-1.321-2.132-2-2-2.973.578-5.377 1-9 1z"/><path fill="#FFF" d="M9 22s3 1 9 1 9-1 9-1-2 4-9 4-9-4-9-4z"/><path fill="#E95F28" d="M15.682 4.413l-4.542.801L8.8.961C8.542.492 8.012.241 7.488.333c-.527.093-.937.511-1.019 1.039l-.745 4.797-4.542.801c-.535.094-.948.525-1.021 1.064s.211 1.063.703 1.297l4.07 1.932-.748 4.812c-.083.536.189 1.064.673 1.309.179.09.371.133.562.133.327 0 .65-.128.891-.372l3.512-3.561 4.518 2.145c.49.232 1.074.123 1.446-.272.372-.395.446-.984.185-1.459L13.625 9.73l3.165-3.208c.382-.387.469-.977.217-1.459-.254-.482-.793-.743-1.325-.65zm4.636 0l4.542.801L27.2.961c.258-.469.788-.72 1.312-.628.526.093.936.511 1.018 1.039l.745 4.797 4.542.801c.536.094.949.524 1.021 1.063s-.211 1.063-.703 1.297l-4.07 1.932.748 4.812c.083.536-.189 1.064-.673 1.309-.179.09-.371.133-.562.133-.327 0-.65-.128-.891-.372l-3.512-3.561-4.518 2.145c-.49.232-1.074.123-1.446-.272-.372-.395-.446-.984-.185-1.459l2.348-4.267-3.165-3.208c-.382-.387-.469-.977-.217-1.459.255-.482.794-.743 1.326-.65z"/></svg>
-                </div>
-                <div class="font-18-size top_tip_2_2">
-                  <template v-for="(item,index) in wood_name" :key="index">
-                    <text v-if="index === 0" class="emphasize">{{item}}</text>
-                    <text v-else class="margin-10-top emphasize">{{item}}</text>
+        <div class="top_left_item dark_black_reinforce_btn" v-show="tabDetailStore.current == 0">
+          <div>
+            <svg t="1683685276764" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="25505" width="200" height="200"><path d="M869.084233 187.133028l-0.822738 472.610898-171.140799-0.297782c-11.939937-0.021489-23.394826 2.27481-34.3309 6.904247-10.936073 4.630461-20.73423 11.253298-29.396517 19.84907l-121.602545 121.17992L389.615137 685.774789c-3.971451-4.656043-8.450463-8.643867-13.402241-11.963473-4.969175-3.317559-10.103102-5.968945-15.399735-7.986905-5.315052-1.998517-10.93812-3.672646-16.906042-4.985548-5.948479-1.331321-11.935843-2.010797-17.925255-2.038426l-171.123402-0.298805 0.822738-472.610898 713.366194 1.24127L869.084233 187.133028zM889.121592 97.607038 135.973346 96.296183c-19.22997-0.033769-35.667338 6.567579-49.295729 19.813255-13.627369 13.246699-20.458961 29.481452-20.491707 48.711422L65.290517 679.186743c-0.033769 19.232017 6.740518 35.505655 20.321838 48.79124s29.996175 19.952424 49.227168 19.986193l191.023638 0.330528 172.844603 174.410262c3.287883 3.316535 7.609305 4.988618 12.910031 4.998851 1.338485 0.002047 2.659573-0.321318 3.980661-0.970094l7.966439-3.984754 173.435051-173.808558 191.022615 0.332575c19.232017 0.032746 35.669384-6.576789 49.298799-19.813255 13.626345-13.238512 20.456914-29.488615 20.48966-48.720631l0.896416-514.364861c0.032746-19.22997-6.741541-35.489282-20.320814-48.783053-13.58132-13.292748-29.997198-19.952424-49.228191-19.98517L889.121592 97.606015zM245.818103 421.330978c0.028653-16.255219 5.860475-30.18344 17.496489-41.769312 11.615549-11.594059 25.41074-17.377786 41.331337-17.350157 6.621814 0.01228 12.93459 1.026376 18.900465 3.02694 5.948479 2.00875 11.425214 4.840238 16.411785 8.495488 4.968152 3.663436 9.284457 7.975649 12.912078 12.948917 3.609201 4.972245 6.421246 10.458189 8.438183 16.45067 1.997494 5.982248 2.980891 12.298094 2.952238 18.918885-0.042979 24.530696-11.343349 42.086537-33.939997 52.65729-7.966439 3.975545-16.600073 5.959735-25.898857 5.944386-15.902178-0.027629-29.677926-5.859451-41.252543-17.485233C251.573177 451.534883 245.789451 437.586197 245.818103 421.330978L245.818103 421.330978zM452.760293 422.206928c0.020466-11.271718 2.697435-21.388123 8.03193-30.334889 5.297656-8.945743 12.456706-16.070001 21.420869-21.355377 8.964162-5.294586 18.917862-7.927553 29.881564-7.90811 10.945283 0.01842 20.891819 2.686179 29.836539 8.011464 8.964162 5.325285 16.080234 12.465916 21.364587 21.430078 5.285377 8.965186 7.927553 19.080567 7.90811 30.361495-0.027629 15.920598-5.859451 29.667693-17.493419 41.261753-11.634991 11.585873-25.575492 17.368576-41.821501 17.339924-16.264429-0.027629-30.18344-5.859451-41.776476-17.485233C458.515367 451.895087 452.733687 438.117292 452.760293 422.206928L452.760293 422.206928zM661.715325 422.054455c0.027629-16.254196 5.859451-30.18344 17.494443-41.769312 11.632945-11.594059 25.41074-17.376763 41.331337-17.349133 11.252275 0.019443 21.379936 2.696412 30.325679 8.021697 8.946766 5.316076 16.060791 12.464893 21.347191 21.430078 5.302773 8.964162 7.92653 19.080567 7.907087 30.352285-0.027629 15.920598-5.860475 29.668717-17.476023 41.262776-11.633968 11.584849-25.574469 17.368576-41.838897 17.339924-16.264429-0.019443-30.184463-5.851265-41.778522-17.486256-11.593036-11.634991-17.359366-25.574469-17.330714-41.829687L661.715325 422.054455zM661.715325 422.054455" fill="var(--no-selected-left-color)" p-id="25506"></path></svg>
+          </div>
+          <text style="color:var(--no-selected-left-color)">评论区</text>
+        </div>
+        <div class="top_left_item linear_grey_btn margin-20-top" v-show="tabDetailStore.current != 3" @click="handleItemClick(3)">
+          <div>
+            <svg t="1683703804762" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="27600" width="200" height="200"><path d="M768 90.666667H256A186.666667 186.666667 0 0 0 69.333333 277.333333v383.936l0.085334 5.504A186.666667 186.666667 0 0 0 256 847.936l37.632-0.021333 8.149333 40.725333 0.810667 3.242667 0.533333 1.834666 1.109334 3.2a48 48 0 0 0 54.037333 29.376l3.008-0.746666 1.706667-0.490667 2.944-0.981333 3.669333-1.578667a48 48 0 0 0 3.541333-1.856l123.925334-72.725333 270.933333 0.021333a186.666667 186.666667 0 0 0 186.666667-186.666667V277.333333A186.666667 186.666667 0 0 0 768 90.666667z m-512 74.666666h512c61.866667 0 112 50.133333 112 112v383.936c0 61.866667-50.133333 112-112 112H486.912l-3.968 0.213334a37.333333 37.333333 0 0 0-14.933333 4.906666l-100.352 58.88-6.784-33.984a37.333333 37.333333 0 0 0-36.608-30.016H256a112 112 0 0 1-112-112V277.333333c0-61.866667 50.133333-112 112-112z" fill="var(--navbar-color)" p-id="27601"></path><path d="M510.933333 580.266667a40.533333 40.533333 0 1 0 0 81.066666 40.533333 40.533333 0 0 0 0-81.066666zM510.976 256c-31.872 0-61.994667 12.586667-84.821333 35.370667a126.122667 126.122667 0 0 0-36.821334 89.834666v6.378667l0.128 2.026667c1.450667 14.933333 13.44 26.24 27.797334 26.24 13.781333 0 25.322667-10.389333 27.52-24.149334l0.362666-2.986666 0.042667-7.466667 0.106667-3.456c1.813333-32.725333 30.656-58.88 65.685333-58.88 36.309333 0 65.770667 28.053333 65.770667 62.293333 0 22.912-13.525333 44.096-34.88 54.933334l-7.722667 3.669333a90.133333 90.133333 0 0 0-35.925333 34.026667c-9.962667 16.512-15.253333 36.416-15.253334 56.810666v14.058667l0.128 1.770667c1.002667 5.632 5.184 9.6 10.24 9.6h35.114667l1.685333-0.170667a11.242667 11.242667 0 0 0 8.682667-11.2v-15.061333l0.128-3.114667c0.981333-13.376 8.768-25.28 19.754667-30.08 44.864-19.754667 73.834667-64.981333 73.834666-115.242667a125.76 125.76 0 0 0-36.736-89.813333A119.061333 119.061333 0 0 0 510.976 256z" fill="var(--navbar-color)" p-id="27602"></path></svg>
+          </div>
+          <text style="color:var(--navbar-color)" class="margin-20-top">问答区</text>
+        </div>
+        <div class="top_left_item dark_black_reinforce_btn margin-20-top" v-show="tabDetailStore.current == 3">
+          <div>
+            <svg t="1683703804762" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="27600" width="200" height="200"><path d="M768 90.666667H256A186.666667 186.666667 0 0 0 69.333333 277.333333v383.936l0.085334 5.504A186.666667 186.666667 0 0 0 256 847.936l37.632-0.021333 8.149333 40.725333 0.810667 3.242667 0.533333 1.834666 1.109334 3.2a48 48 0 0 0 54.037333 29.376l3.008-0.746666 1.706667-0.490667 2.944-0.981333 3.669333-1.578667a48 48 0 0 0 3.541333-1.856l123.925334-72.725333 270.933333 0.021333a186.666667 186.666667 0 0 0 186.666667-186.666667V277.333333A186.666667 186.666667 0 0 0 768 90.666667z m-512 74.666666h512c61.866667 0 112 50.133333 112 112v383.936c0 61.866667-50.133333 112-112 112H486.912l-3.968 0.213334a37.333333 37.333333 0 0 0-14.933333 4.906666l-100.352 58.88-6.784-33.984a37.333333 37.333333 0 0 0-36.608-30.016H256a112 112 0 0 1-112-112V277.333333c0-61.866667 50.133333-112 112-112z" fill="#ffffff" p-id="27601"></path><path d="M510.933333 580.266667a40.533333 40.533333 0 1 0 0 81.066666 40.533333 40.533333 0 0 0 0-81.066666zM510.976 256c-31.872 0-61.994667 12.586667-84.821333 35.370667a126.122667 126.122667 0 0 0-36.821334 89.834666v6.378667l0.128 2.026667c1.450667 14.933333 13.44 26.24 27.797334 26.24 13.781333 0 25.322667-10.389333 27.52-24.149334l0.362666-2.986666 0.042667-7.466667 0.106667-3.456c1.813333-32.725333 30.656-58.88 65.685333-58.88 36.309333 0 65.770667 28.053333 65.770667 62.293333 0 22.912-13.525333 44.096-34.88 54.933334l-7.722667 3.669333a90.133333 90.133333 0 0 0-35.925333 34.026667c-9.962667 16.512-15.253333 36.416-15.253334 56.810666v14.058667l0.128 1.770667c1.002667 5.632 5.184 9.6 10.24 9.6h35.114667l1.685333-0.170667a11.242667 11.242667 0 0 0 8.682667-11.2v-15.061333l0.128-3.114667c0.981333-13.376 8.768-25.28 19.754667-30.08 44.864-19.754667 73.834667-64.981333 73.834666-115.242667a125.76 125.76 0 0 0-36.736-89.813333A119.061333 119.061333 0 0 0 510.976 256z" fill="#ffffff" p-id="27602"></path></svg>
+          </div>
+          <text class="margin-20-top" style="color:var(--no-selected-left-color)">问答区</text>
+        </div>
+        <div class="top_left_item linear_grey_btn margin-20-top" v-show="tabDetailStore.current != 4" @click="handleItemClick(4)">
+          <div>
+            <svg t="1684216661677" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="11205" width="200" height="200"><path d="M960 96v768H624L512 1013.312 400 864H64v-768h896z m-64 64H128v640h304L512 906.688 592 800H896v-640z m-384 448a64 64 0 1 1 0 128 64 64 0 0 1 0-128zM576 256l-32 320h-64L448 256h128z" fill="var(--navbar-color)" p-id="11206"></path></svg>
+          </div>
+          <text style="color:var(--navbar-color)" class="margin-20-top">投诉区</text>
+        </div>
+        <div class="top_left_item dark_black_reinforce_btn margin-20-top" v-show="tabDetailStore.current == 4">
+          <div>
+            <svg t="1684216661677" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="11205" width="200" height="200"><path d="M960 96v768H624L512 1013.312 400 864H64v-768h896z m-64 64H128v640h304L512 906.688 592 800H896v-640z m-384 448a64 64 0 1 1 0 128 64 64 0 0 1 0-128zM576 256l-32 320h-64L448 256h128z" fill="var(--no-selected-left-color)" p-id="11206"></path></svg>
+          </div>
+          <text style="color:var(--no-selected-left-color)" class="margin-20-top">投诉区</text>
+        </div>
+      </div>
+      <div class="top" v-show="tabDetailStore.current*1 === 0">
+        <CommentListNew></CommentListNew>
+      </div>
+      <div class="top" v-show="tabDetailStore.current*1 === 3">
+        <QuestionListNew></QuestionListNew>
+      </div>
+      <div class="top" v-show="tabDetailStore.current*1 === 4">
+        <ComplaintNew></ComplaintNew>
+      </div>
+      <div class="top_right" v-show="tabDetailStore.current*1 === 0 || tabDetailStore.current*1 === 3 || tabDetailStore.current*1 === 4">
+        <div class="top_right_space">
+          <text class="top_right_title">附近商家</text>
+<!--          <router-link class="left margin-10-top" to="/forum" v-for="(item, index) in nearbyList" :key="index">-->
+          <div class="left margin-10-top" v-for="(item, index) in nearbyList" :key="index">
+            <div class="nearby">
+              <div class="left_1">
+                <AdvantageIcon>
+                  <template #iconDetail>
+                    <CreditScore :credit-score="item.score" credit-score-text="信用分" :font-size="18" :font-size1="5" height="70px"></CreditScore>
                   </template>
+                </AdvantageIcon>
+                <div class="left_1_2">
+                  <figcaption class="avatar-name__name">
+                    <p class="text-bold link-underlined">{{item.company_name}}</p>
+                  </figcaption>
+                  <div class="left_1_2_bottom">
+                    <svg viewBox="0 0 8.4666669 8.4666669" class="icon_l"  fill="var(--navbar-color)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <defs id="defs2"></defs> <g id="layer1" transform="translate(0,-288.53332)"> <path d="m 15.996094,0.99609375 c -6.0632836,0 -10.9980445,4.93673065 -10.9980471,11.00000025 -3.8e-6,10.668737 10.3789061,18.779297 10.3789061,18.779297 0.364612,0.290384 0.881482,0.290384 1.246094,0 0,0 10.380882,-8.11056 10.380859,-18.779297 C 27.003893,5.9328244 22.059377,0.99609375 15.996094,0.99609375 Z m 0,6.00195315 c 2.749573,0 5.00585,2.2484784 5.005859,4.9980471 C 21.001971,14.7457 18.745685,17 15.996094,17 c -2.749591,0 -4.998064,-2.2543 -4.998047,-5.003906 9e-6,-2.7495687 2.248474,-4.9980471 4.998047,-4.9980471 z" id="path929" style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:var(--navbar-color);solid-opacity:1;vector-effect:none;fill:var(--navbar-color);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.99999988;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" transform="matrix(0.26458333,0,0,0.26458333,0,288.53332)"></path> </g> </g></svg>
+                    <text class="left_1_2_bottom_right margin-5-left">{{ item.address }}</text>
+                  </div>
                 </div>
+              </div>
+              <div class="nearby_2" v-show="tabDetailStore.current*1 === 0">
+                <h4 class="nearby_2_comment">评论预览：</h4>
+                <text class="time">2023-09-03 11:10:30</text>
+                <p>商品质量契合需求，发货也及时，没有发霉，购物体验很好。</p>
+                <text class="time">2023-09-03 11:10:20</text>
+                <p>质量很好，尺寸也符合需求，下回有需要还是会在这家买。</p>
+                <text class="time">2023-09-03 11:10:20</text>
+                <p>质量很好，尺寸也符合需求，下回有需要还是会在这家买。</p>
+                <text class="time">2023-09-03 11:10:20</text>
+                <p class="margin-20-left">质量很好，尺寸也符合需求，下回有需要还是会在这家买。</p>
+                <text class="time">2023-09-03 11:10:20</text>
+                <p>质量很好，尺寸也符合需求，下回有需要还是会在这家买。</p>
+              </div>
+              <div class="nearby_2" v-show="tabDetailStore.current*1 === 3">
+                <h4 class="nearby_2_comment">问答预览：</h4>
+                <text class="time">2023-09-03 11:10:30</text>
+                <p>问：能做特殊规格吗？</p>
+                <text class=" margin-40-left time">2023-09-03 11:10:20</text>
+                <p class=" margin-40-left ">答：能</p>
+                <text class="time">2023-09-03 11:10:20</text>
+                <p>问：这家木材的杨木胶合板，甲醛释放量等级有什么？</p>
+                <text class=" margin-40-left time">2023-09-03 11:10:20</text>
+                <p class=" margin-40-left ">答：E0。</p>
+                <text class="time">2023-09-03 11:10:20</text>
+                <p>问：这家木材的杨木胶合板，支持定制吗？</p>
+                <text class="time">2023-09-03 11:10:20</text>
+                <p>问：这家木材的泡花脚墩，支持定制吗？</p>
+              </div>
+              <div class="nearby_2" v-show="tabDetailStore.current*1 === 4">
+                <el-descriptions title="" :column="1" border class="margin-10-top">
+                  <el-descriptions-item label="投诉总记录"  width="120px" label-align="center" align="center">
+                    6条
+                  </el-descriptions-item>
+                  <el-descriptions-item label="待审查记录"  width="120px" label-align="center" align="center">
+                    1条
+                  </el-descriptions-item>
+                  <el-descriptions-item label="真木网核实"  width="120px" label-align="center" align="center">
+                    5条
+                  </el-descriptions-item>
+                </el-descriptions>
               </div>
             </div>
-            <text class="margin-20-top font-12-size">用我们名字或社会统一信用代码可以在ZMW精准搜索到我们哦~</text>
           </div>
+<!--          </router-link>-->
         </div>
-      </el-col>
-    </el-row>
+      </div>
+    </div>
   </div>
-  <el-container direction="vertical" :gutter="18" class="margin-20-top">
-    <el-tabs v-model="activeName" class="demo-tabs" @tab-click="handleClick" stretch>
-      <el-tab-pane label="公司首页" name="first">
-        <div class="fifth_1">
-          <SellerInfo :item="company_info"></SellerInfo>
-          <div class="margin-40-top fifth_1_2 font-28-size">
-            <AddComment
-                placeholder-text="我要投诉"
-                cancel-text="取消投诉"
-                confirm-text="提交证据"
-                :company-info-id="company_info_id_text"
-                add-type="complaint"
-                comment-type="complaint"
-                v-if="userStore.userId > 0"
-            >
-              <template #clickDrawer>
-                <svg t="1680747027530" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15975" width="200" height="200">
-                  <path d="M796.444444 796.444444h-233.870222L312.888889 1000.732444V995.555556c-18.318222 0-25.230222-6.883556-27.591111-13.852445V967.111111s-0.512 1.649778-0.853334 4.039111V796.444444H227.555556a170.666667 170.666667 0 0 1-170.666667-170.666666V170.666667a56.888889 56.888889 0 0 1 56.888889-56.888889h796.444444a56.888889 56.888889 0 0 1 56.888889 56.888889v455.111111a170.666667 170.666667 0 0 1-170.666667 170.666666zM512 455.111111a227.271111 227.271111 0 0 0-202.268444 123.648l61.667555 7.395556a170.296889 170.296889 0 0 1 281.201778 0l61.696-7.395556A227.356444 227.356444 0 0 0 512 455.111111z m-227.555556 568.888889v-46.506667a19.399111 19.399111 0 0 0 0.853334 4.209778v41.585778L284.444444 1024z" fill="#000000" p-id="15976"></path>
-                  <path d="M796.444444 796.444444h-233.870222L312.888889 1000.732444V995.555556c-18.318222 0-25.230222-6.883556-27.591111-13.852445V967.111111s-0.512 1.649778-0.853334 4.039111V796.444444H227.555556a170.666667 170.666667 0 0 1-170.666667-170.666666V170.666667a56.888889 56.888889 0 0 1 56.888889-56.888889h796.444444a56.888889 56.888889 0 0 1 56.888889 56.888889v455.111111a170.666667 170.666667 0 0 1-170.666667 170.666666zM512 455.111111a227.271111 227.271111 0 0 0-202.268444 123.648l61.667555 7.395556a170.296889 170.296889 0 0 1 281.201778 0l61.696-7.395556A227.356444 227.356444 0 0 0 512 455.111111z m-227.555556 568.888889v-46.506667a19.399111 19.399111 0 0 0 0.853334 4.209778v41.585778L284.444444 1024z" fill="#000000" p-id="15977"></path>
-                </svg>
-                <Tag tag="我要投诉" number="60" color="yellow"></Tag>
-                <svg t="1680747027530" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15975" width="200" height="200">
-                  <path d="M796.444444 796.444444h-233.870222L312.888889 1000.732444V995.555556c-18.318222 0-25.230222-6.883556-27.591111-13.852445V967.111111s-0.512 1.649778-0.853334 4.039111V796.444444H227.555556a170.666667 170.666667 0 0 1-170.666667-170.666666V170.666667a56.888889 56.888889 0 0 1 56.888889-56.888889h796.444444a56.888889 56.888889 0 0 1 56.888889 56.888889v455.111111a170.666667 170.666667 0 0 1-170.666667 170.666666zM512 455.111111a227.271111 227.271111 0 0 0-202.268444 123.648l61.667555 7.395556a170.296889 170.296889 0 0 1 281.201778 0l61.696-7.395556A227.356444 227.356444 0 0 0 512 455.111111z m-227.555556 568.888889v-46.506667a19.399111 19.399111 0 0 0 0.853334 4.209778v41.585778L284.444444 1024z" fill="#000000" p-id="15976"></path>
-                  <path d="M796.444444 796.444444h-233.870222L312.888889 1000.732444V995.555556c-18.318222 0-25.230222-6.883556-27.591111-13.852445V967.111111s-0.512 1.649778-0.853334 4.039111V796.444444H227.555556a170.666667 170.666667 0 0 1-170.666667-170.666666V170.666667a56.888889 56.888889 0 0 1 56.888889-56.888889h796.444444a56.888889 56.888889 0 0 1 56.888889 56.888889v455.111111a170.666667 170.666667 0 0 1-170.666667 170.666666zM512 455.111111a227.271111 227.271111 0 0 0-202.268444 123.648l61.667555 7.395556a170.296889 170.296889 0 0 1 281.201778 0l61.696-7.395556A227.356444 227.356444 0 0 0 512 455.111111z m-227.555556 568.888889v-46.506667a19.399111 19.399111 0 0 0 0.853334 4.209778v41.585778L284.444444 1024z" fill="#000000" p-id="15977"></path>
-                </svg>
-              </template>
-            </AddComment>
-            <router-link to="/login" v-else>
-              <svg t="1680747027530" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15975" width="200" height="200">
-                <path d="M796.444444 796.444444h-233.870222L312.888889 1000.732444V995.555556c-18.318222 0-25.230222-6.883556-27.591111-13.852445V967.111111s-0.512 1.649778-0.853334 4.039111V796.444444H227.555556a170.666667 170.666667 0 0 1-170.666667-170.666666V170.666667a56.888889 56.888889 0 0 1 56.888889-56.888889h796.444444a56.888889 56.888889 0 0 1 56.888889 56.888889v455.111111a170.666667 170.666667 0 0 1-170.666667 170.666666zM512 455.111111a227.271111 227.271111 0 0 0-202.268444 123.648l61.667555 7.395556a170.296889 170.296889 0 0 1 281.201778 0l61.696-7.395556A227.356444 227.356444 0 0 0 512 455.111111z m-227.555556 568.888889v-46.506667a19.399111 19.399111 0 0 0 0.853334 4.209778v41.585778L284.444444 1024z" fill="#000000" p-id="15976"></path>
-                <path d="M796.444444 796.444444h-233.870222L312.888889 1000.732444V995.555556c-18.318222 0-25.230222-6.883556-27.591111-13.852445V967.111111s-0.512 1.649778-0.853334 4.039111V796.444444H227.555556a170.666667 170.666667 0 0 1-170.666667-170.666666V170.666667a56.888889 56.888889 0 0 1 56.888889-56.888889h796.444444a56.888889 56.888889 0 0 1 56.888889 56.888889v455.111111a170.666667 170.666667 0 0 1-170.666667 170.666666zM512 455.111111a227.271111 227.271111 0 0 0-202.268444 123.648l61.667555 7.395556a170.296889 170.296889 0 0 1 281.201778 0l61.696-7.395556A227.356444 227.356444 0 0 0 512 455.111111z m-227.555556 568.888889v-46.506667a19.399111 19.399111 0 0 0 0.853334 4.209778v41.585778L284.444444 1024z" fill="#000000" p-id="15977"></path>
-              </svg>
-              <Tag tag="我要投诉" number="60" color="yellow"></Tag>
-              <svg t="1680747027530" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="15975" width="200" height="200">
-                <path d="M796.444444 796.444444h-233.870222L312.888889 1000.732444V995.555556c-18.318222 0-25.230222-6.883556-27.591111-13.852445V967.111111s-0.512 1.649778-0.853334 4.039111V796.444444H227.555556a170.666667 170.666667 0 0 1-170.666667-170.666666V170.666667a56.888889 56.888889 0 0 1 56.888889-56.888889h796.444444a56.888889 56.888889 0 0 1 56.888889 56.888889v455.111111a170.666667 170.666667 0 0 1-170.666667 170.666666zM512 455.111111a227.271111 227.271111 0 0 0-202.268444 123.648l61.667555 7.395556a170.296889 170.296889 0 0 1 281.201778 0l61.696-7.395556A227.356444 227.356444 0 0 0 512 455.111111z m-227.555556 568.888889v-46.506667a19.399111 19.399111 0 0 0 0.853334 4.209778v41.585778L284.444444 1024z" fill="#000000" p-id="15976"></path>
-                <path d="M796.444444 796.444444h-233.870222L312.888889 1000.732444V995.555556c-18.318222 0-25.230222-6.883556-27.591111-13.852445V967.111111s-0.512 1.649778-0.853334 4.039111V796.444444H227.555556a170.666667 170.666667 0 0 1-170.666667-170.666666V170.666667a56.888889 56.888889 0 0 1 56.888889-56.888889h796.444444a56.888889 56.888889 0 0 1 56.888889 56.888889v455.111111a170.666667 170.666667 0 0 1-170.666667 170.666666zM512 455.111111a227.271111 227.271111 0 0 0-202.268444 123.648l61.667555 7.395556a170.296889 170.296889 0 0 1 281.201778 0l61.696-7.395556A227.356444 227.356444 0 0 0 512 455.111111z m-227.555556 568.888889v-46.506667a19.399111 19.399111 0 0 0 0.853334 4.209778v41.585778L284.444444 1024z" fill="#000000" p-id="15977"></path>
-              </svg>
-            </router-link>
-          </div>
-          <text class="margin-20-top">如果商家被投诉次数达到上限，会被列入黑名单，以下是黑名单样例</text>
-        </div>
-        <div class="all">
-          <el-row class="margin-20-top next" :gutter="24">
-            <el-col :span="24" :md="12">
-              <div class="third">
-                <img src="https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_39c423de-1fc6-4d7d-be1e-6804ddc119ff.png" />
-              </div>
-            </el-col>
-            <el-col :span="24" :md="12">
-              <div class="fourth">
-                <text class="second font-18-size">为什么成为黑名单？</text>
-                <el-steps direction="vertical" class="margin-20-top" :space="150">
-                  <el-step title="原因1**************" description="经真木网平台审核，用户提交证据和信息属实" status="process"/>
-                  <el-step title="原因2**************" description="经真木网平台审核，用户提交证据和信息属实" status="process"/>
-                  <el-step title="原因3**************" description="经真木网平台审核，用户提交证据和信息属实" status="process"/>
-                  <el-step title="原因4**************" description="经真木网平台审核，用户提交证据和信息属实" status="process"/>
-                  <el-step title="加入真木网的黑名单" description="" status="process"/>
-                </el-steps>
-              </div>
-            </el-col>
-          </el-row>
-        </div>
-<!--        <el-row :gutter="24">-->
-<!--          <el-col :span="24" :md="12">-->
-<!--            &lt;!&ndash;        评论列表开始&ndash;&gt;-->
-<!--            <CommentList-->
-<!--                :company-info-id="company_info_id_text"-->
-<!--                :margin="20"-->
-<!--            >-->
-<!--            </CommentList>-->
-<!--          </el-col>-->
-<!--          <el-col :span="24" :md="12">-->
-<!--            <QuestionList-->
-<!--                :company-info-id="company_info_id_text">-->
-<!--            </QuestionList>-->
-<!--          </el-col>-->
-<!--        </el-row>-->
-      </el-tab-pane>
-      <el-tab-pane label="商品" name="second" lazy>
-        <GoodsList :list="list.arr" :size="300"></GoodsList>
-<!--        <GuidePublishGoods></GuidePublishGoods>-->
-      </el-tab-pane>
-      <el-tab-pane label="大众评论" name="third" lazy>
-        <CommentList
-            :company-info-id="company_info_id_text"
-            :margin="20"
-        ></CommentList>
-      </el-tab-pane>
-      <el-tab-pane label="问大家" name="fourth" lazy>
-        <QuestionList :company-info-id="company_info_id_text"></QuestionList>
-      </el-tab-pane>
-
-      <el-tab-pane label="联系公司&我要投诉" name="fifth" lazy>
-      </el-tab-pane>
-    </el-tabs>
-  </el-container>
 </template>
+<style scoped>
+.top_right_title{
+  align-self: center;
+}
+.top_right_space{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  top: 150px;
+  z-index: 1000;
+  margin: 0;
+  color: var(--main-color);
+}
+</style>
 <script setup>
-import { ref,onMounted,reactive } from 'vue'
+import { ref,onMounted,reactive,computed,watchEffect } from 'vue'
 import { useRoute } from 'vue-router'
 import QuestionList from "../components/QuestionList.vue";
-import CommentList from '../components/CommentList.vue';
-import GoodsList from "../components/GoodsList.vue";
-import AddComment from "../components/AddComment.vue";
 import "../assets/tag.css"
-import {goodsListApi} from "../api/goods.js";
 import CreditScore from "../components/CreditScore.vue";
 import {shopDetailApi} from "../api/shopDetail.js";
 import { useUserStore } from "../pinia/user.js";
+import { useTabDetailStore } from "../pinia/tabDetail.js"
 import Tag from "../components/Tag.vue"
-import SellerInfo from "../components/SellerInfo.vue";
-import GuidePublishGoods from "../components/GuidePublishGoods.vue";
+import {getIndexDataApi} from "../api/list.js";
+import AdvantageIcon from "../components/AdvantageIcon.vue";
+import CommentListNew from "../components/CommentListNew.vue";
+import QuestionListNew from "../components/QuestionListNew.vue";
+import ComplaintNew from "../components/ComplaintNew.vue";
+
+
+let promiseArr = []
+const isMobile = ref(false);
+watchEffect(() => {
+  const mobileFlag = getComputedStyle(document.body).getPropertyValue('--isMobile').trim();
+  isMobile.value = mobileFlag === '1';
+});
+
+// 数据列表
+const nearbyList = ref([
+  { id: 0, company_name: '杭州木材有限公司', address: '杭州市西湖区文三路123号', score: Math.floor(Math.random() * 41 + 60) },
+  { id: 1, company_name: '上海森林木材股份公司', address: '上海市浦东新区世纪大道456号', score: Math.floor(Math.random() * 41 + 60) },
+  { id: 2, company_name: '北京林业大木有限责任公司', address: '北京市海淀区中关村大街789号', score: Math.floor(Math.random() * 41 + 60) },
+  { id: 3, company_name: '广州绿色森林木业有限公司', address: '广州市天河区珠江新城321号', score: Math.floor(Math.random() * 41 + 60) },
+  { id: 4, company_name: '深圳华润木材集团', address: '深圳市福田区福华三路654号', score: Math.floor(Math.random() * 41 + 60) },
+  { id: 5, company_name: '南京松木有限公司', address: '南京市建邺区应天大街987号', score: Math.floor(Math.random() * 41 + 60) },
+  { id: 6, company_name: '苏州环保木材有限公司', address: '苏州市工业园区星湖街135号', score: Math.floor(Math.random() * 41 + 60) },
+  { id: 7, company_name: '武汉长江木材公司', address: '武汉市武昌区徐东大街246号', score: Math.floor(Math.random() * 41 + 60) },
+  { id: 8, company_name: '西安古城木材有限公司', address: '西安市雁塔区大雁塔街753号', score: Math.floor(Math.random() * 41 + 60) },
+  { id: 9, company_name: '成都大熊猫木材公司', address: '成都市武侯区天府大道864号', score: Math.floor(Math.random() * 41 + 60) }
+])
+getIndexDataApi({
+  is_show_recommend: 1,
+  is_show_franchisee: 1,
+  is_show_blacklist: 1,
+  page: 1,
+  page_size: 10,
+  score_asc: 0,
+}).then(res => {
+  nearbyList.value = res.data.data;
+})
 const userStore = useUserStore();
+const tabDetailStore = useTabDetailStore();
 //
 const text = ref('')
 const company_info_id_text = ref(null);
 // company_info_id_text.value = useRoute().query.company_info_id;
 company_info_id_text.value = 18;
 const company_info_id = ref(null);
-// company_info_id.value = 2644899;
-company_info_id.value = useRoute().query.company_info_id
+company_info_id.value = 2644899;
+// company_info_id.value = useRoute().query.company_info_id
+const starValue = ref(5)
+const activities = [
+  {
+    content: [{
+      key: '经营状态变更：',
+      value: '从在业变更为注销',
+    }],
+    timestamp: '2022-06-30',
+  },
+  {
+    content: [{
+      key: '新增行政许可：',
+      value: '允许备案'
+    }],
+    timestamp: '2018-04-13',
+  },
+]
+const tableData = [
+  {
+    date: '总价格',
+    name: '¥1500.65',
+  },
+  {
+    date: '总层数',
+    name: '总7层，外2层西洋杨,里5层毛白杨',
+  },
+  {
+    date: '矩形',
+    name: '长 1mm x 宽 1mm x 厚 1mm',
+  },
+  {
+    date: '数量',
+    name: '24方',
+  },
+  {
+    date: '生产日期',
+    name: '2022-12-30',
+  },
+]
+const log = ['毛白杨', '江杨', '西洋杨']
+
 //导航栏切换开始
-const activeName = ref('first')
-const handleClick = (tab, event) => {
-  console.log(tab, event)
+const handleItemClick = (index) => {
+  tabDetailStore.current = index;
 }
 //导航栏切换结束
 const list = reactive({
@@ -206,174 +617,5 @@ onMounted(() => {
     date.value = res.data.date
     date_text.value = '入驻真木网'+ date.value + '天'
   })
-  goodsListApi({company_info_id:company_info_id.value}).then(async(res) => {
-    list.arr =  res.data;
-    console.log(res.data);
-    wood_name.value = res.data.map((item) => {
-      return item = item.wood_name
-    })
-    wood_name.value = Array.from(new Set(wood_name.value));
-  })
 })
 </script>
-<style scoped>
-.all{
-  display: flex;
-  flex-direction: column;
-}
-.third{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.fourth{
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-}
-.second{
-  align-self: center;
-  font-weight: 600;
-  letter-spacing: 2px;
-}
-.fifth_1_2{
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-.fifth_1{
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 20px;
-}
-.top_1_tag{
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-}
-.el-col{
-  margin-bottom: 10px;
-}
-.icon{
-  width: 30px;
-  height: 30px;
-}
-.top_1_parent{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-around;
-}
-.el-container:deep(.el-tabs__header) {
-  position: -webkit-sticky;
-  position: sticky;
-  background: #fff;
-  top: 50px;
-  z-index: 1000;
-  opacity: 0.8;
-  margin: 0;
-}
-.el-container:deep(.el-tabs__nav-wrap) {
-  padding: 0 20px;
-  letter-spacing: 2px;
-}
-.el-container:deep(.el-tabs__nav-scroll) {
-  overflow-x: auto;
-}
-.el-descriptions{
-  padding:0 10px;
-}
-.el-container:deep(.el-tabs__nav-scroll::-webkit-scrollbar) {
-  display: none;
-}
-.el-container:deep(.el-tabs__nav-wrap::after) {
-  background-color: unset !important;
-}
-.el-container:deep(.el-tabs__item.is-active) {
-  color: #000;
-}
-.el-container:deep(.el-tabs__active-bar) {
-  background-color: #000;
-}
-.el-container:deep(.el-tabs__item:hover) {
-  color:#000;
-}
-.el-container:deep(.el-descriptions__header) {
-  margin-bottom: 0;
-  padding: 10px 0px;
-}
-.top_tip_2{
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-around;
-}
-.top_tip_2_2{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.svg_happy{
-  width: 50px;
-  height: 50px;
-}
-.top_tip{
-  width: 90%;
-  padding: 15px;
-  color: #11269a;
-  background-image: linear-gradient(109.6deg, rgb(156, 252, 248) 11.2%, rgb(110, 123, 251) 91.1%);
-  /*border-radius: 62% 47% 82% 35%/45% 45% 80% 66%;*/
-  border-radius: 20px;
-  display: flex;
-  flex-direction: column;
-}
-.top_2_1{
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
-.light_emphasize{
-  font-weight: 600;
-  text-align: center;
-}
-.emphasize{
-  font-weight: 900;
-  font-size: 24px;
-  text-align: center;
-}
-.top{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
-  /*background-color: #151515;*/
-  /*color: #fff;*/
-  background-color: #fff;
-  border-radius: 30px;
-  box-shadow: 0 2.8px 2.2px rgba(0,0,0,.034), 0 6.7px 5.3px rgba(0,0,0,.048), 0 12.5px 10px rgba(0,0,0,.06), 0 22.3px 17.9px rgba(0,0,0,.072), 0 41.8px 33.4px rgba(0,0,0,.086), 0 100px 80px rgba(0,0,0,.12);
-  letter-spacing: 2px;
-  padding: 20px;
-  width: 90%;
-  box-sizing: unset;
-}
-.top_2{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-.svg_hello{
-  height: 2em !important;
-  width: 2em !important;
-}
-
-.padding-10{
-  padding: 0 10px 20px 10px;
-  letter-spacing: 2px;
-}
-.el-container >>> .el-tabs__content {
-  background-color: #f3f6fd;
-}
-</style>

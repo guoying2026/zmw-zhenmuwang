@@ -1,0 +1,76 @@
+.time{
+  color: #696969;
+  line-height: 1.2em;
+  font-size: 15px;
+}
+.icon_l{
+  width: 40px;
+  height: 40px;
+}
+.icon{
+  width: 30px;
+  height: 30px;
+}
+.comment_item_4,.reply_item_4{
+  align-self: flex-end;
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+.comment_item_3,.reply_item_3{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+.comment_item_2,.reply_item_2{
+  text-indent: 42px;
+}
+.comment{
+  width: 100%;
+}
+.reply{
+  margin-left: 10%;
+}
+.comment_item{
+  padding: clamp(10px,2vw,36px) clamp(10px,2vw,28px);
+  background-image: var(--dotted-color);
+  background-position: bottom;
+  background-size: 8px 1px;  /* 改变这里的第一个值可以改变点的大小 */
+  background-repeat: repeat-x;
+  font-size: 16px;
+  font-size: clamp(16px, 14.5915492958px + 0.2816901408vw, 20px);
+  display: flex;
+  flex-direction: column;
+}
+.reply_item{
+  margin-top: 20px;
+  padding: clamp(10px, 2vw, 36px) 0 0 0;
+  background-image: var(--dotted-color);
+  background-position: top;
+  background-size: 8px 1px;  /* 改变这里的第一个值可以改变点的大小 */
+  background-repeat: repeat-x;
+  font-size: 16px;
+  font-size: clamp(16px, 14.5915492958px + 0.2816901408vw, 20px);
+  display: flex;
+  flex-direction: column;
+}
+.comment_item_1,.reply_item_1{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+}
+.avatar-name__img {
+  display: block;
+  height: auto;
+  border-radius: 50%;
+  filter: grayscale(1);
+}
+.text-bold {
+  font-weight: bold;
+}
+p{
+  margin: 1.1em;
+  line-height: 1.7em;
+}
