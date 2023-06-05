@@ -29,15 +29,15 @@
 <!--                  <text class="italic_text">来自</text>-->
                   <strong class="address_text">{{item.address}}</strong>
                 </div>
-                <text class="detail_text">法定代表人：刘良子 社会信用代码：91371302MA3R5KGF37</text>
+                <text class="detail_text">法定代表人：{{ item.corporation }} 社会信用代码：{{ item.credit_code }}</text>
               </div>
             </div>
 
             <div class="list-jury-notes__score">
               <div class="grid-score" style="--score-cols: 4">
-                <div class="grid-score__item" data-dl-uid="78" data-dl-original="true" data-dl-translated="true">9</div>
-                <div class="grid-score__item" data-dl-uid="79" data-dl-original="true" data-dl-translated="true">8</div>
-                <div class="grid-score__item" data-dl-uid="80" data-dl-original="true" data-dl-translated="true">9</div>
+                <div class="grid-score__item" data-dl-uid="78" data-dl-original="true" data-dl-translated="true">{{ item.comment_count }}</div>
+                <div class="grid-score__item" data-dl-uid="79" data-dl-original="true" data-dl-translated="true">{{ item.ask_count }}</div>
+                <div class="grid-score__item" data-dl-uid="80" data-dl-original="true" data-dl-translated="true">{{ item.complaint_count }}</div>
                 <div class="grid-score__item grid-score__item--total" data-dl-uid="82" data-dl-original="true" data-dl-translated="true"> <div class="grid-score__item" data-dl-uid="81" data-dl-original="true" data-dl-translated="true">{{item.score}}</div></div>
               </div>
             </div>
@@ -46,6 +46,18 @@
         </ul>
 
       </div>
+    </div>
+  </div>
+  <div class="pagination_container">
+    <div class="pagination">
+      <template v-for="(item, index) in pagination">
+        <span v-if="isNaN(Number(item))" class="pagination__ellipsis">{{ item }}</span>
+        <template v-else>
+          <span v-if="paginationCurrentPage == item" class="pagination__item pagination__item--current">{{ item }}</span>
+          <a v-else href="javascript:void(0);" @click="getRankList({page: item, isAuto: false})" class="pagination__item">{{ item }}</a>
+        </template>
+      </template>
+      <a v-if="paginationCurrentPage < totalPage" href="javascript:void(0);" @click="getRankList({page: paginationCurrentPage + 1, isAuto: false})" class="pagination__next link-underlined">下一页</a>
     </div>
   </div>
 </template>
@@ -237,10 +249,73 @@
   background-color: rgba(var(--bg-primary-rgb), 0.9);
   z-index: 2
 }
+
+.pagination {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin: 50px 8px 10px;
+  font-weight: bold;
+  line-height: 200%;
+}
+.pagination a {
+  text-decoration: none;
+}
+.pagination__item {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-width: 32px;
+  min-height: 32px;
+  border-radius: 8px;
+  font-size: 12px;
+  color: #222;
+  transition: all 0.3s;
+}
+.pagination__ellipsis {
+}
+.pagination__item--current, .pagination__item:hover {
+  background: #222;
+  color: #fff;
+  padding: 0 5px;
+}
+.link-underlined {
+  position: relative;
+  display: inline-block;
+  line-height: normal;
+  color: rgb(34,34,34);
+  border: none;
+  cursor: pointer;
+}
+.link-underlined:before {
+  content: "";
+  position: absolute;
+  bottom: -0.2em;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-repeat: no-repeat;
+  background-image: linear-gradient(to right, rgb(34,34,34) 45%, rgba(34,34,34, 0.3) 55%);
+  background-size: 220% 100%;
+  background-position: 100% 50%;
+  transition: .3s ease-out;
+}
+.link-underlined:hover:before {
+  background-position: 0% 50%;
+}
+.pagination__next {
+  margin-left: 1em;
+}
+.pagination .link-underlined {
+  margin-top: auto;
+  margin-bottom: auto;
+  font-size: 14px;
+}
 </style>
 <script setup>
+import { getRankingListApi } from "../api/list";
 import AdvantageIcon from "../components/AdvantageIcon.vue";
-import {ref} from "vue";
+import {nextTick, onActivated, onBeforeUnmount, onDeactivated, onMounted, ref} from "vue";
 const rankList = ref([
   { id: 0, company_name: '杭州木材有限公司', address: '杭州市西湖区文三路123号', score: Math.floor(Math.random() * 41 + 60) },
   { id: 1, company_name: '上海森林木材股份公司', address: '上海市浦东新区世纪大道456号', score: Math.floor(Math.random() * 41 + 60) },
@@ -253,4 +328,282 @@ const rankList = ref([
   { id: 8, company_name: '西安古城木材有限公司', address: '西安市雁塔区大雁塔街753号', score: Math.floor(Math.random() * 41 + 60) },
   { id: 9, company_name: '成都大熊猫木材公司', address: '成都市武侯区天府大道864号', score: Math.floor(Math.random() * 41 + 60) }
 ])
+
+/**
+ * 按照 `from` `to` 的范围创建一个数组
+ * @param {Number} from 起始数字
+ * @param {Number} to 末尾数字
+ * @return {Number[]} 指定的数字范围数组
+ */
+const range = (from, to) => {
+  if (isNaN(Number(from)) || Math.abs(Number(from)) === Infinity) {
+    return false
+  }
+  if (isNaN(Number(to)) || Math.abs(Number(to)) === Infinity) {
+    return false
+  }
+  let arr = []
+  if (from > to) {
+    for (let i = from; i >= to; i--) {
+      arr.push(i)
+    }
+  } else {
+    for (let i = from; i <= to; i++) {
+      arr.push(i)
+    }
+  }
+  return arr
+}
+
+/**
+ * 渲染分页
+ * @param {Number} totalPage 总页数
+ * @param {Number} currentPage 当前页
+ */
+const page = (totalPage, currentPage) => {
+  totalPage = Number(totalPage)
+  currentPage = Number(currentPage)
+  if (isNaN(totalPage) || isNaN(currentPage)) {
+    return false
+  }
+
+  /**
+   * totalPage = 5
+   * paginationSize = 5
+   * 则 1 2 3 4 5
+   */
+  if (totalPage <= paginationSize.value) {
+    pagination.value = range(1, totalPage)
+    return false
+  }
+
+  /**
+   * currentPage = 3
+   * paginationSize = 5
+   * totalPage = 7
+   * 则 1 2 3 4 ... 7
+   */
+  if (currentPage <= paginationSize.value - 2 && totalPage >= paginationSize.value + 2) {
+    pagination.value = range(1, paginationSize.value - 1).concat('...', totalPage)
+    return false
+  }
+
+  /**
+   * currentPage = 3
+   * paginationSize = 5
+   * totalPage = 6
+   * 则 1 2 3 4 ... 6
+   */
+  if (currentPage <= paginationSize.value - 2 && totalPage < paginationSize.value + 2) {
+    pagination.value = range(1, paginationSize.value - 1).concat('...', totalPage)
+  }
+
+  /**
+   * currentPage = 8
+   * totalPage = 10
+   * paginationSize = 5
+   * 则 1 ... 7 8 9 10
+   */
+  if (currentPage >= totalPage - paginationSize.value + 3) {
+    pagination.value = [1, '...'].concat(range(totalPage - paginationSize.value + 2, totalPage))
+    return false
+  }
+
+  /**
+   * currentPage = 5
+   * totalPage = 10
+   * 则 1 ... 4 5 6 ... 10
+   */
+  pagination.value = [1, '...', currentPage - 1, currentPage, currentPage + 1, '...', totalPage]
+}
+
+// 是否初始化完成
+const isInited = ref(false)
+// 是否加载中
+const isLoading = ref(false)
+// 总页数
+const totalPage = ref(1)
+// 当前页
+const currentPage = ref(1)
+// 分页
+const pagination = ref([1])
+// 分页大小
+const paginationSize = ref(5)
+// 分页的当前页
+const paginationCurrentPage = ref(1)
+
+// 正在获取排行榜列表的任务
+let requestTaskList = []
+
+// 自动加载下一页定时的任务
+let autoNextPageTimerList = []
+
+/**
+ * 终止所有请求任务
+ */
+const abortAllRequestTask = () => {
+  requestTaskList.forEach(task => {
+    // 中止请求任务
+    task.abort()
+  })
+}
+
+/**
+ * 停止所有自动加载下一页定时任务
+ */
+const clearAllAutoNextPageTimer = () => {
+  autoNextPageTimerList.forEach(timer => {
+    clearTimeout(timer)
+  })
+  autoNextPageTimerList = []
+}
+
+/**
+ * @param {object} params
+ * @param {Number} params.page 当前页
+ * @param {boolean} params.isAuto 是否为下拉自动加载的
+ * @return {false | AbortController}
+ */
+const getRankList = (params) => {
+  if (isInited.value && Number(params.page) > Number(totalPage.value) && Number(params.page) !== 1) {
+    return false
+  }
+
+  if (!params || !params.hasOwnProperty('page_size')) {
+    params.page_size = 20;
+  }
+
+  // 中止其它请求任务
+  abortAllRequestTask()
+  // 定义当前请求任务的中止控制器
+  let controller = new AbortController()
+  // 加入到请求任务中
+  requestTaskList.push(controller)
+
+  // 停止所有正在进行的自动加载下一页定时任务
+  clearAllAutoNextPageTimer()
+
+  // 标识正在加载
+  isLoading.value = true
+  if (!params.isAuto) {
+    // 如果是点击分页的页码，则高亮显示点击的页码
+    paginationCurrentPage.value = Number(params.page)
+  }
+  if (Number(params.page) === 1 || !params.isAuto) {
+    // 如果是首页，或者是点击分页的页码，则清空列表数据
+    rankList.value = []
+  }
+
+  getRankingListApi(params, controller).then(res => {
+    if (res.status != 200 || res.data.status != 1000) {
+      // 如果服务器返回错误请求状态码为200或者非正常状态码，则让分页显示当前页
+      paginationCurrentPage.value = currentPage.value
+      // 渲染分页
+      page(totalPage.value, currentPage.value)
+      return false
+    }
+
+    if (!isInited.value) {
+      // 标识为已初始化
+      isInited.value = true
+    }
+
+    res.data.data.data = res.data.data.data.sort((a, b) => {
+      return Number(b.score) - Number(a.score)
+    })
+
+    if (params.isAuto) {
+      // 如果是下拉加载更多的，则合并列表数组
+      rankList.value = rankList.value.concat(res.data.data.data)
+    } else {
+      // 如果是点击分页的页码的，则更新列表
+      rankList.value = res.data.data.data
+    }
+
+    // 更新当前页
+    currentPage.value = Number(res.data.data.current_page)
+    paginationCurrentPage.value = Number(res.data.data.current_page)
+
+    // 更新总页数
+    totalPage.value = Number(res.data.data.total_page)
+
+    // 渲染分页
+    page(res.data.data.total_page, res.data.data.current_page)
+  }).catch(() => {
+    if (controller.signal.aborted) {
+      // 如果是取消请求，则不需要重置分页
+      return false
+    }
+
+    // 如果请求失败，则让分页显示当前页
+    paginationCurrentPage.value = currentPage.value
+
+    // 渲染分页
+    page(totalPage.value, currentPage.value)
+  }).finally(() => {
+    // 加载完成
+    requestTaskList.splice(requestTaskList.indexOf(controller), 1)
+    isLoading.value = false
+  })
+
+  // 返回当前请求任务的中止控制器
+  return controller
+}
+
+// 定义监听器的回调函数
+const callback = (entries, observer) => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) {
+      // 元素不在视野范围内
+      return false
+    }
+
+    if (!isInited.value || isLoading.value) {
+      // 如果是正在加载中，则不做任何处理
+      return false
+    }
+
+    // 1000毫秒内没有点击任何页码，自动加载下一页
+    autoNextPageTimerList.push(setTimeout(() => {
+      getRankList({
+        page: Number(currentPage.value) + 1,
+        isAuto: true,
+      })
+    }, 1000))
+  })
+}
+
+// 定义页面监听器
+const observer = new IntersectionObserver(callback, {
+  root: document,
+  rootMargin: '0px',
+  threshold: 0.5,
+})
+
+getRankList({
+  page: currentPage.value,
+  isAuto: true,
+})
+
+onMounted(() => {
+  nextTick(() => {
+    // 页面加载完成后，监听分页是否在视野方位范围内
+    observer.observe(document.querySelector('.pagination_container'))
+  })
+})
+
+onBeforeUnmount(() => {
+  // 页面卸载前取消监听器
+  observer.disconnect()
+})
+
+onActivated(() => {
+  // 切换回页面后，监听分页是否在视野范围内
+  observer.observe(document.querySelector('.pagination_container'))
+})
+
+onDeactivated(() => {
+  // 离开页面时，取消监听分页是否在视野范围内
+  observer.unobserve(document.querySelector('.pagination_container'))
+})
 </script>
