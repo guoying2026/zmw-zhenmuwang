@@ -13,7 +13,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  color: #fff;
+  color: var(--navbar-bg-color);
 }
 </style>
 <script>

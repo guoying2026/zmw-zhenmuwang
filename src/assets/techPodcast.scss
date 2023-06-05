@@ -3006,9 +3006,6 @@ body {
     padding-left: 10.875rem;
     margin-bottom: 0
   }
-}
-
-@media (min-width: 1180px) {
   .hero__image-col:after {
     content:"";
     display: block;
@@ -3017,10 +3014,9 @@ body {
     left: 0;
     width: 42.75rem;
     height: 42.75rem;
-    background: linear-gradient(20deg,#5c6370 -140%,transparent 30%);
+    background: var(--hero__image-col-after-bg-color);
     border-radius: 50%;
     transform: translate(-30%,40%);
-    z-index: -1
   }
 }
 
@@ -3124,7 +3120,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background: conic-gradient(from 53deg at 50% 50%,#1f2123 0deg,#3a3d40 130deg,#1f2123 175deg,#3c4245 318deg,#1f2123 1turn);
+  background: var(--advantage__icon-bg-color);
   border-radius: 50%;
   width: 11.875rem;
   height: 11.875rem;
@@ -3212,7 +3208,7 @@ body {
   width: .375rem;
   height: 3.75rem;
   margin-right: .1875rem;
-  background: #ccd8ed;
+  background: var(--hero__equalizer-bar-bg-color);
 }
 
 @keyframes equalizer {
@@ -3234,7 +3230,7 @@ body {
   display: block;
   width: 100%;
   height: 0%;
-  background: #232323;
+  background: var(--hero__equalizer-bar-after-bg-color);
   animation: equalizer var(--equalizer-duration,1s) infinite alternate ease;
   animation-delay: var(--equalizer-delay,1s);
 }
@@ -3804,16 +3800,6 @@ body {
   background: var(--advantage__body-bg-color);
   border-radius: .875rem
 }
-
-//.advantage:nth-child(2n) .advantage__icon:after {
-//  transform: translateY(-80%)
-//}
-//
-//.advantage:nth-child(3n) .advantage__icon:after {
-  //right: 0;
-  //left: auto;
-  //transform: translateX(80%)
-//}
 
 .advantage__title {
   letter-spacing: 2px;
@@ -4453,7 +4439,7 @@ body {
 .speaker:before {
   top: -8%;
   background: var(--speaker-before-bg-color);
-  border-top: 1.5rem solid var(--navbar-bg-color);
+  border-top: 1.5rem solid var(--speaker-before-border-color);
 }
 
 .speaker:after {
@@ -4513,9 +4499,9 @@ body {
   align-items: center;
   width: 13.5rem;
   height: 13.5rem;
-  color: #fff;
+  color: var(--navbar-bg-color);
   text-decoration: none;
-  background: var(--main-black);
+  background: var(--advantage__icon-bg-color);
   border-radius: 50%
 }
 

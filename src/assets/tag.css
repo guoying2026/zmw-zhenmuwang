@@ -74,8 +74,8 @@
     color: #fff;
 }
 .dark_black_reinforce_btn{
-    background: var(--main-black);
-    color: #fff;
+    background: var(--advantage__icon-bg-color);
+    color: var(--navbar-bg-color);
 }
 .green_btn{
     background-color: #f4f6fd;

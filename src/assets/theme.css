@@ -3,9 +3,6 @@
   --navbar-color: #000;
   --navbar-height: 50px;
   --navbar-line-height: var(--navbar-height);
-  --navbar-ft-color: #000;
-  --app-bg-color: linear-gradient(180deg,#fff 0,#f3f8ff 50%);
-  --app-color: #000;
   --svg-fill-color:#000;
   --table-fill-color:#fff;
   --descriptions-bordered-label-bg-color: #f5f7fa;
@@ -27,25 +24,27 @@
   --background-image-right-pre-url: url("https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_f1ef2e32-5a15-43dd-bf56-f16292243f8a.png");
   --grey-color: #7a7777;
   --hero-bg-color: linear-gradient(180deg, #fff 0, #f3f8ff 50%);
+  --hero__image-col-after-bg-color: linear-gradient(20deg,#5c6370 -140%,transparent 30%);
   --advantages-bg-color: linear-gradient(0deg, #fff 30%, #f3f8ff);
   --advantage__body-bg-color: #fff;
+  --speaker-before-border-color: #fff;
   --speaker-before-bg-color: #fff linear-gradient(0deg,transparent 20%,#f3f8ff);
   --speaker-after-bg-color: linear-gradient(180deg, transparent 20%, #f3f8ff);
+  --advantage__icon-bg-color: conic-gradient(from 53deg at 50% 50%,#1f2123 0deg,#3a3d40 130deg,#1f2123 175deg,#3c4245 318deg,#1f2123 1turn);
   --advantage__icon-after-bg-color: rgba(254,254,255,.2);
-  --main-black:conic-gradient(from 53deg at 50% 50%, #1f2123 0deg, #3a3d40 130deg, #1f2123 175deg, #3c4245 318deg, #1f2123 1turn);
   --link-underlined-color: rgb(34,34,34);
   --link-underlined-before: linear-gradient(to right, rgb(34,34,34) 45%, rgba(34,34,34, 0.3) 55%);
   --dotted-color: linear-gradient(to right, #000 10%, transparent 10%), linear-gradient(to right, #000 10%, transparent 10%);
   --col-dotted-color: linear-gradient(to bottom, rgb(34,34,34) 10%, rgba(255, 255, 255, 0) 10%);
+  --hero__equalizer-bar-bg-color: #ccd8ed;
+  --hero__equalizer-bar-after-bg-color: #232323;
+  --list-jury-notes__item-odd:linear-gradient(30deg, #5c6370 -140%, transparent 30%),linear-gradient(-30deg, #5c6370 -140%, transparent 30%);
 }
 [data-theme="dark"] {
   --navbar-bg-color: #000;
   --navbar-color: #fff;
   --navbar-height: 50px;
   --navbar-line-height: var(--navbar-height);
-  --navbar-ft-color: #fff;
-  --app-bg-color: #000;
-  --app-color: #fff;
   --svg-fill-color: #fff;
   --table-fill-color: #000;
   --descriptions-bordered-label-bg-color: #262727;
@@ -66,15 +65,20 @@
   --list-new-color: #385f7f;
   --background-image-right-pre-url: url("https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_8d79cbc0-74c7-427b-b2a4-0e12affdee83.png");
   --grey-color: #dedbdb;
-  --hero-bg-color: linear-gradient(180deg, #101010 0, #101010 50%);
-  --advantages-bg-color: linear-gradient(0deg, #000000 30%, #101010);
-  --advantage__body-bg-color:#000;
-  --speaker-before-bg-color: #000 linear-gradient(0deg,transparent 20%,#222426);
-  --speaker-after-bg-color: linear-gradient(180deg, transparent 20%, #222426);
-  --advantage__icon-after-bg-color: rgba(40,40,40,0.2);
-  --main-black:conic-gradient(from 53deg at 50% 50%, #1f2123 0deg, #3a3d40 130deg, #1f2123 175deg, #3c4245 318deg, #1f2123 1turn);
-  --link-underlined-color: #bbbbbb;
+  --hero-bg-color: linear-gradient(180deg, #0f0f0f 0%, #1a1a1a 50%);
+  --hero__image-col-after-bg-color:linear-gradient(20deg,rgba(255, 255, 255, 0.5) -140%,transparent 30%);
+  --advantages-bg-color: linear-gradient(0deg, #0f0f0f 30%, #1a1a1a);
+  --advantage__body-bg-color:#0f0f0f;
+  --speaker-before-border-color: #0f0f0f;
+  --speaker-before-bg-color: #0f0f0f linear-gradient(0deg,transparent 20%,#1a1a1a);
+  --speaker-after-bg-color: linear-gradient(180deg, transparent 20%, #1a1a1a);
+  --advantage__icon-after-bg-color: rgba(23,23,23,.6);;
+  --advantage__icon-bg-color: conic-gradient(from 53deg at 50% 50%, #FFFFFF 0deg, #D3D3D3 130deg, #FFFFFF 175deg, #C0C0C0 318deg, #FFFFFF 1turn);
+  --link-underlined-color: #f1f1f1;
   --link-underlined-before: linear-gradient(to right, rgb(221,221,221) 45%, rgba(221,221,221, 0.3) 55%);
   --dotted-color: linear-gradient(to right, #949494 10%, transparent 10%), linear-gradient(to right, #949494 10%, transparent 10%);
-  --col-dotted-color: linear-gradient(to bottom, #949494 10%, #949494 10%)
+  --col-dotted-color: linear-gradient(to bottom, #949494 10%, #949494 10%);
+  --hero__equalizer-bar-bg-color: #383838;
+  --hero__equalizer-bar-after-bg-color: #fff;
+  --list-jury-notes__item-odd:linear-gradient(30deg, #e7e7e7 -140%, transparent 30%),linear-gradient(-30deg,  #e7e7e7 -140%, transparent 30%);
 }

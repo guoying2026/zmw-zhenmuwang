@@ -1117,7 +1117,7 @@ watchEffect(() => {
 .el-affix,
 .el-affix--fixed {
   background-color: var(--navbar-bg-color);
-  color: var(--navbar-ft-color);
+  color: var(--navbar-color);
 }
 .fail_tips_text {
   display: flex;

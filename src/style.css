@@ -44,6 +44,9 @@ body {
   min-height: calc(100vh);
   margin: 0 auto;
   max-width: 100%;
-  background: var(--app-bg-color);
-  color: var(--app-color);
+  background: var(--hero-bg-color);
+  color: var(--navbar-color);
+}
+a{
+  text-decoration: none;
 }

@@ -16,7 +16,7 @@
           <li class="js-hidden-list-element list-jury-notes__item" v-for="(item, index) in rankList" :key="index">
             <div class="list-jury-notes__info">
               <figure>
-                <AdvantageIcon location="none">
+                <AdvantageIcon location="none" size="3">
                   <template #iconDetail>
                     <Strong class="rank_text">{{ index+1 }}</Strong>
                   </template>
@@ -25,11 +25,17 @@
               <div class="info">
                 <div>
                   <strong class="strong_text link-underlined">{{item.company_name}}</strong>
-                  <svg viewBox="0 0 8.4666669 8.4666669" class="icon_l"  fill="var(--navbar-color)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <defs id="defs2"></defs> <g id="layer1" transform="translate(0,-288.53332)"> <path d="m 15.996094,0.99609375 c -6.0632836,0 -10.9980445,4.93673065 -10.9980471,11.00000025 -3.8e-6,10.668737 10.3789061,18.779297 10.3789061,18.779297 0.364612,0.290384 0.881482,0.290384 1.246094,0 0,0 10.380882,-8.11056 10.380859,-18.779297 C 27.003893,5.9328244 22.059377,0.99609375 15.996094,0.99609375 Z m 0,6.00195315 c 2.749573,0 5.00585,2.2484784 5.005859,4.9980471 C 21.001971,14.7457 18.745685,17 15.996094,17 c -2.749591,0 -4.998064,-2.2543 -4.998047,-5.003906 9e-6,-2.7495687 2.248474,-4.9980471 4.998047,-4.9980471 z" id="path929" style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:var(--navbar-color);solid-opacity:1;vector-effect:none;fill:var(--navbar-color);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.99999988;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" transform="matrix(0.26458333,0,0,0.26458333,0,288.53332)"></path> </g> </g></svg>
-<!--                  <text class="italic_text">来自</text>-->
-                  <strong class="address_text">{{item.address}}</strong>
                 </div>
-                <text class="detail_text">法定代表人：刘良子 社会信用代码：91371302MA3R5KGF37</text>
+              </div>
+              <div>
+                <div class="address_text">
+                  <svg viewBox="0 0 8.4666669 8.4666669" class="icon_l"  fill="var(--navbar-color)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <defs id="defs2"></defs> <g id="layer1" transform="translate(0,-288.53332)"> <path d="m 15.996094,0.99609375 c -6.0632836,0 -10.9980445,4.93673065 -10.9980471,11.00000025 -3.8e-6,10.668737 10.3789061,18.779297 10.3789061,18.779297 0.364612,0.290384 0.881482,0.290384 1.246094,0 0,0 10.380882,-8.11056 10.380859,-18.779297 C 27.003893,5.9328244 22.059377,0.99609375 15.996094,0.99609375 Z m 0,6.00195315 c 2.749573,0 5.00585,2.2484784 5.005859,4.9980471 C 21.001971,14.7457 18.745685,17 15.996094,17 c -2.749591,0 -4.998064,-2.2543 -4.998047,-5.003906 9e-6,-2.7495687 2.248474,-4.9980471 4.998047,-4.9980471 z" id="path929" style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:var(--navbar-color);solid-opacity:1;vector-effect:none;fill:var(--navbar-color);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.99999988;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" transform="matrix(0.26458333,0,0,0.26458333,0,288.53332)"></path> </g> </g></svg>
+                  <text class="margin-10-left">{{item.address}}</text>
+                </div>
+                <div class="address_text">
+                  <text class="detail_text">法定代表人：刘良子</text>
+                  <text class="detail_text margin-20-left">社会信用代码：91371302MA3R5KGF37</text>
+                </div>
               </div>
             </div>
 
@@ -55,8 +61,11 @@
   font-size: 2em;
 }
 .address_text{
-  font-weight: 600;
-  margin: 0 0.5em;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 0.8em 0 0 0;
+  font-size: 0.8em;
 }
 .strong_text{
   font-size: 1.2em;
@@ -100,17 +109,6 @@
   height: 100%
 }
 
-.heading-section__right {
-  display: flex;
-  align-items: center
-}
-
-.heading-section__title {
-  min-width: 150px;
-  font-size: 10px;
-  font-weight: 500
-}
-
 .heading-section .menu-tabs {
   display: flex;
   align-items: center;
@@ -125,6 +123,7 @@
 .content-tabs__item.active {
   display: block
 }
+
 .grid-score {
   position: relative;
   right: -20px;
@@ -186,10 +185,11 @@
 }
 
 .list-jury-notes__item:nth-child(odd) {
-  background: linear-gradient(30deg, #5c6370 -140%, transparent 30%),linear-gradient(-30deg, #5c6370 -140%, transparent 30%);
+  background: var(--list-jury-notes__item-odd);
 }
 .info{
   line-height: 2em;
+  width: 400px;
 }
 .list-jury-notes__item--rejected:before {
   content: "";
