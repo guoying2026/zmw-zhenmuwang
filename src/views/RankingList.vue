@@ -570,7 +570,6 @@ const callback = (entries, observer) => {
 
 // 定义页面监听器
 const observer = new IntersectionObserver(callback, {
-  root: document,
   rootMargin: '0px',
   threshold: 0.5,
 })
