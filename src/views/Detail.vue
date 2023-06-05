@@ -177,7 +177,7 @@
   align-items: center;
 }
 .roadmap__timeline.special{
-  background:linear-gradient(to right, #ecf0f6, rgba(255,255,255,0.1)) !important;
+  background: var(--roadmap__timeline-special-bg-color);
 }
 .roadmap__timeline {
   grid-column: var(--roadmap-start)/var(--roadmap-end);
@@ -192,8 +192,8 @@
   right: 1em;
   min-height: auto;
   padding: 16px 20px;
-  background: #ecf0f6;
-  color: #000;
+  background: var(--roadmap__timeline-bg-color);
+  color: var(--navbar-color);
   line-height: normal;
   border-radius: 5px;
   transform: translateY(-50%);

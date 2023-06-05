@@ -16,9 +16,15 @@
           <li class="js-hidden-list-element list-jury-notes__item" v-for="(item, index) in rankList" :key="index">
             <div class="list-jury-notes__info">
               <figure>
-                <AdvantageIcon location="none" size="3">
+<!--                如果index小于199，就用size=3,而且rank_text_3，如果index大于199，就用size=9而且strong使用class rank_text_9-->
+                <AdvantageIcon location="none" size="3" v-show="index*1 <=  199">
                   <template #iconDetail>
-                    <Strong class="rank_text">{{ index+1 }}</Strong>
+                    <Strong class="rank_text rank_text_3">{{index+1}}</Strong>
+                  </template>
+                </AdvantageIcon>
+                <AdvantageIcon location="none" size="9" v-show="index*1 >  199">
+                  <template #iconDetail>
+                    <Strong class="rank_text rank_text_9">{{index+1}}</Strong>
                   </template>
                 </AdvantageIcon>
               </figure>
@@ -68,7 +74,16 @@
 <style scoped>
 .rank_text{
   color:var(--navbar-bg-color);
+}
+.rank_text_3{
+  width: 300px;
   font-size: 2em;
+  display: flex;justify-content: center;align-items: center;
+
+}
+.rank_text_9{
+  padding: 10px 10px;
+  display: flex;justify-content: center;align-items: center;
 }
 .info{
   line-height: 2em;

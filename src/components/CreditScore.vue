@@ -14,6 +14,9 @@
   align-items: center;
   justify-content: center;
   color: var(--navbar-bg-color);
+  line-height: 1.5em;
+  font-weight: 600;
+  letter-spacing: 3px;
 }
 </style>
 <script>

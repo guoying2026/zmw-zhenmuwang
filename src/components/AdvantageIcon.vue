@@ -24,10 +24,17 @@ const props = defineProps({
 .size-{
   width: 5.9375rem;
   height: 5.9375rem;
+  border-radius: 50%
 }
 .size-3{
   width: 3.9375rem;
   height: 3.9375rem;
+  border-radius: 50%
+
+}
+.size-9{
+  height: 3.9375rem;
+  border-radius: 10px;
 }
 .advantage__icon {
   position: relative;
@@ -35,7 +42,6 @@ const props = defineProps({
   justify-content: center;
   align-items: center;
   background: var(--advantage__icon-bg-color);
-  border-radius: 50%
 }
 
 .advantage__icon:after {
@@ -49,8 +55,8 @@ const props = defineProps({
   background: var(--advantage__icon-after-bg-color);
   border-radius: 50%;
   transform: translateX(-80%);
-  /*-webkit-backdrop-filter: blur(1.5625rem);*/
-  /*backdrop-filter: blur(1.5625rem)*/
+  -webkit-backdrop-filter: blur(1.5625rem);
+  backdrop-filter: blur(1.5625rem)
 }
 .advantage__icon.advantage__icon_top:after{
   transform: translateY(-80%) !important;
