@@ -254,8 +254,6 @@
   color: #222;
   transition: all 0.3s;
 }
-.pagination__ellipsis {
-}
 .pagination__item--current, .pagination__item:hover {
   background: #222;
   color: #fff;
@@ -265,7 +263,7 @@
   position: relative;
   display: inline-block;
   line-height: normal;
-  color: rgb(34,34,34);
+  color: var(--link-underlined-color);
   border: none;
   cursor: pointer;
 }
@@ -277,7 +275,7 @@
   width: 100%;
   height: 2px;
   background-repeat: no-repeat;
-  background-image: linear-gradient(to right, rgb(34,34,34) 45%, rgba(34,34,34, 0.3) 55%);
+  background-image: var(--link-underlined-before);
   background-size: 220% 100%;
   background-position: 100% 50%;
   transition: .3s ease-out;
