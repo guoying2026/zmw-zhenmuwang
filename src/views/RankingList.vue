@@ -27,31 +27,41 @@
                   <strong class="strong_text link-underlined">{{item.company_name}}</strong>
                 </div>
               </div>
-              <div>
-                <div class="address_text">
+              <div class="info2">
+                <div class="info2_1">
                   <svg viewBox="0 0 8.4666669 8.4666669" class="icon_l"  fill="var(--navbar-color)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <defs id="defs2"></defs> <g id="layer1" transform="translate(0,-288.53332)"> <path d="m 15.996094,0.99609375 c -6.0632836,0 -10.9980445,4.93673065 -10.9980471,11.00000025 -3.8e-6,10.668737 10.3789061,18.779297 10.3789061,18.779297 0.364612,0.290384 0.881482,0.290384 1.246094,0 0,0 10.380882,-8.11056 10.380859,-18.779297 C 27.003893,5.9328244 22.059377,0.99609375 15.996094,0.99609375 Z m 0,6.00195315 c 2.749573,0 5.00585,2.2484784 5.005859,4.9980471 C 21.001971,14.7457 18.745685,17 15.996094,17 c -2.749591,0 -4.998064,-2.2543 -4.998047,-5.003906 9e-6,-2.7495687 2.248474,-4.9980471 4.998047,-4.9980471 z" id="path929" style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:var(--navbar-color);solid-opacity:1;vector-effect:none;fill:var(--navbar-color);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.99999988;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" transform="matrix(0.26458333,0,0,0.26458333,0,288.53332)"></path> </g> </g></svg>
-                  <text class="margin-10-left">{{item.address}}</text>
+                  <text class="address_text margin-10-left">{{item.address}}</text>
                 </div>
-                <div class="address_text">
-                  <text class="detail_text">法定代表人：刘良子</text>
-                  <text class="detail_text margin-20-left">社会信用代码：91371302MA3R5KGF37</text>
+                <div class="address_text info2_2">
+                  <text class="detail_text">法定代表人：{{ item.corporation }}</text>
+                  <text class="detail_text margin-20-left">社会信用代码：{{ item.credit_code }}</text>
                 </div>
               </div>
             </div>
 
             <div class="list-jury-notes__score">
               <div class="grid-score" style="--score-cols: 4">
-                <div class="grid-score__item" data-dl-uid="78" data-dl-original="true" data-dl-translated="true">9</div>
-                <div class="grid-score__item" data-dl-uid="79" data-dl-original="true" data-dl-translated="true">8</div>
-                <div class="grid-score__item" data-dl-uid="80" data-dl-original="true" data-dl-translated="true">9</div>
+                <div class="grid-score__item" data-dl-uid="78" data-dl-original="true" data-dl-translated="true">{{ item.comment_count }}</div>
+                <div class="grid-score__item" data-dl-uid="79" data-dl-original="true" data-dl-translated="true">{{ item.ask_count }}</div>
+                <div class="grid-score__item" data-dl-uid="80" data-dl-original="true" data-dl-translated="true">{{ item.complaint_count }}</div>
                 <div class="grid-score__item grid-score__item--total" data-dl-uid="82" data-dl-original="true" data-dl-translated="true"> <div class="grid-score__item" data-dl-uid="81" data-dl-original="true" data-dl-translated="true">{{item.score}}</div></div>
               </div>
             </div>
-
           </li>
         </ul>
-
       </div>
+    </div>
+  </div>
+  <div class="pagination_container">
+    <div class="pagination">
+      <template v-for="(item, index) in pagination">
+        <span v-if="isNaN(Number(item))" class="pagination__ellipsis">{{ item }}</span>
+        <template v-else>
+          <span v-if="paginationCurrentPage == item" class="pagination__item pagination__item--current">{{ item }}</span>
+          <a v-else href="javascript:void(0);" @click="getRankList({page: item, isAuto: false})" class="pagination__item">{{ item }}</a>
+        </template>
+      </template>
+      <a v-if="paginationCurrentPage < totalPage" href="javascript:void(0);" @click="getRankList({page: paginationCurrentPage + 1, isAuto: false})" class="pagination__next link-underlined">下一页</a>
     </div>
   </div>
 </template>
@@ -60,12 +70,25 @@
   color:var(--navbar-bg-color);
   font-size: 2em;
 }
-.address_text{
+.info{
+  line-height: 2em;
+  width: 400px;
+}
+.info2{
+  flex: 1;
+}
+.info2_1{
   display: flex;
   flex-direction: row;
   align-items: center;
-  margin: 0.8em 0 0 0;
+  margin: 0 0 0 0;
+}
+.info2_2{
+  margin: 10px 0 0 30px;
+}
+.address_text{
   font-size: 0.8em;
+  line-height: 1.5em;
 }
 .strong_text{
   font-size: 1.2em;
@@ -187,21 +210,6 @@
 .list-jury-notes__item:nth-child(odd) {
   background: var(--list-jury-notes__item-odd);
 }
-.info{
-  line-height: 2em;
-  width: 400px;
-}
-.list-jury-notes__item--rejected:before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(211,211,211,.8);
-  cursor: pointer;
-  z-index: 2
-}
 
 .list-jury-notes__info {
   flex: 1;
@@ -224,23 +232,72 @@
   justify-content: flex-end
 }
 
-.list-jury-notes__more {
-  position: absolute;
-  bottom: 0;
-  left: 0;
+.pagination {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin: 50px 8px 10px;
+  font-weight: bold;
+  line-height: 200%;
+}
+.pagination a {
+  text-decoration: none;
+}
+.pagination__item {
   display: flex;
   justify-content: center;
   align-items: center;
+  min-width: 32px;
+  min-height: 32px;
+  border-radius: 8px;
+  font-size: 12px;
+  color: #222;
+  transition: all 0.3s;
+}
+.pagination__ellipsis {
+}
+.pagination__item--current, .pagination__item:hover {
+  background: #222;
+  color: #fff;
+  padding: 0 5px;
+}
+.link-underlined {
+  position: relative;
+  display: inline-block;
+  line-height: normal;
+  color: rgb(34,34,34);
+  border: none;
+  cursor: pointer;
+}
+.link-underlined:before {
+  content: "";
+  position: absolute;
+  bottom: -0.2em;
+  left: 0;
   width: 100%;
-  height: 100%;
-  text-align: center;
-  background-color: rgba(var(--bg-primary-rgb), 0.9);
-  z-index: 2
+  height: 2px;
+  background-repeat: no-repeat;
+  background-image: linear-gradient(to right, rgb(34,34,34) 45%, rgba(34,34,34, 0.3) 55%);
+  background-size: 220% 100%;
+  background-position: 100% 50%;
+  transition: .3s ease-out;
+}
+.link-underlined:hover:before {
+  background-position: 0% 50%;
+}
+.pagination__next {
+  margin-left: 1em;
+}
+.pagination .link-underlined {
+  margin-top: auto;
+  margin-bottom: auto;
+  font-size: 14px;
 }
 </style>
 <script setup>
+import { getRankingListApi } from "../api/list";
 import AdvantageIcon from "../components/AdvantageIcon.vue";
-import {ref} from "vue";
+import {nextTick, onActivated, onBeforeUnmount, onDeactivated, onMounted, ref} from "vue";
 const rankList = ref([
   { id: 0, company_name: '杭州木材有限公司', address: '杭州市西湖区文三路123号', score: Math.floor(Math.random() * 41 + 60) },
   { id: 1, company_name: '上海森林木材股份公司', address: '上海市浦东新区世纪大道456号', score: Math.floor(Math.random() * 41 + 60) },
@@ -253,4 +310,282 @@ const rankList = ref([
   { id: 8, company_name: '西安古城木材有限公司', address: '西安市雁塔区大雁塔街753号', score: Math.floor(Math.random() * 41 + 60) },
   { id: 9, company_name: '成都大熊猫木材公司', address: '成都市武侯区天府大道864号', score: Math.floor(Math.random() * 41 + 60) }
 ])
+
+/**
+ * 按照 `from` `to` 的范围创建一个数组
+ * @param {Number} from 起始数字
+ * @param {Number} to 末尾数字
+ * @return {Number[]} 指定的数字范围数组
+ */
+const range = (from, to) => {
+  if (isNaN(Number(from)) || Math.abs(Number(from)) === Infinity) {
+    return false
+  }
+  if (isNaN(Number(to)) || Math.abs(Number(to)) === Infinity) {
+    return false
+  }
+  let arr = []
+  if (from > to) {
+    for (let i = from; i >= to; i--) {
+      arr.push(i)
+    }
+  } else {
+    for (let i = from; i <= to; i++) {
+      arr.push(i)
+    }
+  }
+  return arr
+}
+
+/**
+ * 渲染分页
+ * @param {Number} totalPage 总页数
+ * @param {Number} currentPage 当前页
+ */
+const page = (totalPage, currentPage) => {
+  totalPage = Number(totalPage)
+  currentPage = Number(currentPage)
+  if (isNaN(totalPage) || isNaN(currentPage)) {
+    return false
+  }
+
+  /**
+   * totalPage = 5
+   * paginationSize = 5
+   * 则 1 2 3 4 5
+   */
+  if (totalPage <= paginationSize.value) {
+    pagination.value = range(1, totalPage)
+    return false
+  }
+
+  /**
+   * currentPage = 3
+   * paginationSize = 5
+   * totalPage = 7
+   * 则 1 2 3 4 ... 7
+   */
+  if (currentPage <= paginationSize.value - 2 && totalPage >= paginationSize.value + 2) {
+    pagination.value = range(1, paginationSize.value - 1).concat('...', totalPage)
+    return false
+  }
+
+  /**
+   * currentPage = 3
+   * paginationSize = 5
+   * totalPage = 6
+   * 则 1 2 3 4 ... 6
+   */
+  if (currentPage <= paginationSize.value - 2 && totalPage < paginationSize.value + 2) {
+    pagination.value = range(1, paginationSize.value - 1).concat('...', totalPage)
+  }
+
+  /**
+   * currentPage = 8
+   * totalPage = 10
+   * paginationSize = 5
+   * 则 1 ... 7 8 9 10
+   */
+  if (currentPage >= totalPage - paginationSize.value + 3) {
+    pagination.value = [1, '...'].concat(range(totalPage - paginationSize.value + 2, totalPage))
+    return false
+  }
+
+  /**
+   * currentPage = 5
+   * totalPage = 10
+   * 则 1 ... 4 5 6 ... 10
+   */
+  pagination.value = [1, '...', currentPage - 1, currentPage, currentPage + 1, '...', totalPage]
+}
+
+// 是否初始化完成
+const isInited = ref(false)
+// 是否加载中
+const isLoading = ref(false)
+// 总页数
+const totalPage = ref(1)
+// 当前页
+const currentPage = ref(1)
+// 分页
+const pagination = ref([1])
+// 分页大小
+const paginationSize = ref(5)
+// 分页的当前页
+const paginationCurrentPage = ref(1)
+
+// 正在获取排行榜列表的任务
+let requestTaskList = []
+
+// 自动加载下一页定时的任务
+let autoNextPageTimerList = []
+
+/**
+ * 终止所有请求任务
+ */
+const abortAllRequestTask = () => {
+  requestTaskList.forEach(task => {
+    // 中止请求任务
+    task.abort()
+  })
+}
+
+/**
+ * 停止所有自动加载下一页定时任务
+ */
+const clearAllAutoNextPageTimer = () => {
+  autoNextPageTimerList.forEach(timer => {
+    clearTimeout(timer)
+  })
+  autoNextPageTimerList = []
+}
+
+/**
+ * @param {object} params
+ * @param {Number} params.page 当前页
+ * @param {boolean} params.isAuto 是否为下拉自动加载的
+ * @return {false | AbortController}
+ */
+const getRankList = (params) => {
+  if (isInited.value && Number(params.page) > Number(totalPage.value) && Number(params.page) !== 1) {
+    return false
+  }
+
+  if (!params || !params.hasOwnProperty('page_size')) {
+    params.page_size = 20;
+  }
+
+  // 中止其它请求任务
+  abortAllRequestTask()
+  // 定义当前请求任务的中止控制器
+  let controller = new AbortController()
+  // 加入到请求任务中
+  requestTaskList.push(controller)
+
+  // 停止所有正在进行的自动加载下一页定时任务
+  clearAllAutoNextPageTimer()
+
+  // 标识正在加载
+  isLoading.value = true
+  if (!params.isAuto) {
+    // 如果是点击分页的页码，则高亮显示点击的页码
+    paginationCurrentPage.value = Number(params.page)
+  }
+  if (Number(params.page) === 1 || !params.isAuto) {
+    // 如果是首页，或者是点击分页的页码，则清空列表数据
+    rankList.value = []
+  }
+
+  getRankingListApi(params, controller).then(res => {
+    if (res.status != 200 || res.data.status != 1000) {
+      // 如果服务器返回错误请求状态码为200或者非正常状态码，则让分页显示当前页
+      paginationCurrentPage.value = currentPage.value
+      // 渲染分页
+      page(totalPage.value, currentPage.value)
+      return false
+    }
+
+    if (!isInited.value) {
+      // 标识为已初始化
+      isInited.value = true
+    }
+
+    res.data.data.data = res.data.data.data.sort((a, b) => {
+      return Number(b.score) - Number(a.score)
+    })
+
+    if (params.isAuto) {
+      // 如果是下拉加载更多的，则合并列表数组
+      rankList.value = rankList.value.concat(res.data.data.data)
+    } else {
+      // 如果是点击分页的页码的，则更新列表
+      rankList.value = res.data.data.data
+    }
+
+    // 更新当前页
+    currentPage.value = Number(res.data.data.current_page)
+    paginationCurrentPage.value = Number(res.data.data.current_page)
+
+    // 更新总页数
+    totalPage.value = Number(res.data.data.total_page)
+
+    // 渲染分页
+    page(res.data.data.total_page, res.data.data.current_page)
+  }).catch(() => {
+    if (controller.signal.aborted) {
+      // 如果是取消请求，则不需要重置分页
+      return false
+    }
+
+    // 如果请求失败，则让分页显示当前页
+    paginationCurrentPage.value = currentPage.value
+
+    // 渲染分页
+    page(totalPage.value, currentPage.value)
+  }).finally(() => {
+    // 加载完成
+    requestTaskList.splice(requestTaskList.indexOf(controller), 1)
+    isLoading.value = false
+  })
+
+  // 返回当前请求任务的中止控制器
+  return controller
+}
+
+// 定义监听器的回调函数
+const callback = (entries, observer) => {
+  entries.forEach(entry => {
+    if (!entry.isIntersecting) {
+      // 元素不在视野范围内
+      return false
+    }
+
+    if (!isInited.value || isLoading.value) {
+      // 如果是正在加载中，则不做任何处理
+      return false
+    }
+
+    // 1000毫秒内没有点击任何页码，自动加载下一页
+    autoNextPageTimerList.push(setTimeout(() => {
+      getRankList({
+        page: Number(currentPage.value) + 1,
+        isAuto: true,
+      })
+    }, 1000))
+  })
+}
+
+// 定义页面监听器
+const observer = new IntersectionObserver(callback, {
+  root: document,
+  rootMargin: '0px',
+  threshold: 0.5,
+})
+
+getRankList({
+  page: currentPage.value,
+  isAuto: true,
+})
+
+onMounted(() => {
+  nextTick(() => {
+    // 页面加载完成后，监听分页是否在视野方位范围内
+    observer.observe(document.querySelector('.pagination_container'))
+  })
+})
+
+onBeforeUnmount(() => {
+  // 页面卸载前取消监听器
+  observer.disconnect()
+})
+
+onActivated(() => {
+  // 切换回页面后，监听分页是否在视野范围内
+  observer.observe(document.querySelector('.pagination_container'))
+})
+
+onDeactivated(() => {
+  // 离开页面时，取消监听分页是否在视野范围内
+  observer.unobserve(document.querySelector('.pagination_container'))
+})
 </script>

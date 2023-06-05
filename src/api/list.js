@@ -14,3 +14,12 @@ export const getCountsApi = () => {
         method: 'get',
     })
 }
+
+export const getRankingListApi = (data, controller = new AbortController()) => {
+    return axiosRequest({
+        url: '/Pc/Index/getRankingList',
+        method: 'get',
+        params: data,
+        signal: controller.signal,
+    })
+}
