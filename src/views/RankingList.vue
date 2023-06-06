@@ -17,14 +17,14 @@
             <div class="list-jury-notes__info">
               <figure>
 <!--                如果index小于99，就用size=3,而且rank_text_3，如果index大于99，就用size=9而且strong使用class rank_text_9-->
-                <AdvantageIcon location="none" size="3" v-show="index*1 <=  99">
+                <AdvantageIcon location="none" size="3" v-show="firstItemRank + index <=  99">
                   <template #iconDetail>
-                    <Strong class="rank_text rank_text_3">{{index+1}}</Strong>
+                    <Strong class="rank_text rank_text_3">{{firstItemRank + index }}</Strong>
                   </template>
                 </AdvantageIcon>
-                <AdvantageIcon location="none" size="9" v-show="index*1 >  99">
+                <AdvantageIcon location="none" size="9" v-show="firstItemRank + index >  99">
                   <template #iconDetail>
-                    <Strong class="rank_text rank_text_9">{{index+1}}</Strong>
+                    <Strong class="rank_text rank_text_9">{{ firstItemRank + index }}</Strong>
                   </template>
                 </AdvantageIcon>
               </figure>
@@ -264,15 +264,22 @@
   align-items: center;
   min-width: 32px;
   min-height: 32px;
+  padding: 0 5px;
   border-radius: 8px;
   font-size: 12px;
   color: #222;
   transition: all 0.3s;
 }
+[data-theme="dark"] .pagination__item {
+  color: #fff;
+}
 .pagination__item--current, .pagination__item:hover {
   background: #222;
   color: #fff;
   padding: 0 5px;
+}
+[data-theme="dark"] .pagination__item--current, [data-theme="dark"] .pagination__item:hover {
+  background: #3b3b3b;
 }
 .link-underlined {
   position: relative;
@@ -420,12 +427,17 @@ const isLoading = ref(false)
 const totalPage = ref(1)
 // 当前页
 const currentPage = ref(1)
+// 每页大小
+const pageSize = ref(20)
 // 分页
 const pagination = ref([1])
 // 分页大小
 const paginationSize = ref(5)
 // 分页的当前页
 const paginationCurrentPage = ref(1)
+
+// 列表第一项的排名
+const firstItemRank = ref(((currentPage.value - 1) * pageSize.value) + 1)
 
 // 正在获取排行榜列表的任务
 let requestTaskList = []
@@ -465,7 +477,7 @@ const getRankList = (params) => {
   }
 
   if (!params || !params.hasOwnProperty('page_size')) {
-    params.page_size = 20;
+    params.page_size = pageSize.value;
   }
 
   // 中止其它请求任务
@@ -524,6 +536,10 @@ const getRankList = (params) => {
 
     // 渲染分页
     page(res.data.data.total_page, res.data.data.current_page)
+
+    if (!params.isAuto) {
+      firstItemRank.value = ((Number(res.data.data.current_page) - 1) * pageSize.value) + 1
+    }
   }).catch(() => {
     if (controller.signal.aborted) {
       // 如果是取消请求，则不需要重置分页
@@ -570,7 +586,6 @@ const callback = (entries, observer) => {
 
 // 定义页面监听器
 const observer = new IntersectionObserver(callback, {
-  root: document,
   rootMargin: '0px',
   threshold: 0.5,
 })
