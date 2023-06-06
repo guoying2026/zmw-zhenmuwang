@@ -264,15 +264,22 @@
   align-items: center;
   min-width: 32px;
   min-height: 32px;
+  padding: 0 5px;
   border-radius: 8px;
   font-size: 12px;
   color: #222;
   transition: all 0.3s;
 }
+[data-theme="dark"] .pagination__item {
+  color: #fff;
+}
 .pagination__item--current, .pagination__item:hover {
   background: #222;
   color: #fff;
   padding: 0 5px;
+}
+[data-theme="dark"] .pagination__item--current, [data-theme="dark"] .pagination__item:hover {
+  background: #3b3b3b;
 }
 .link-underlined {
   position: relative;
