@@ -68,7 +68,6 @@ import { useThemeStore } from "./pinia/theme.js";
 import {onMounted} from "vue";
 const themeStore = useThemeStore();
 const toggleTheme = (mode) => {
-  console.log(mode);
   if(mode*1 === 0){
     themeStore.mode = 0;
     document.documentElement.removeAttribute("data-theme");
@@ -76,7 +75,6 @@ const toggleTheme = (mode) => {
     themeStore.mode = 1;
     document.documentElement.setAttribute("data-theme", "dark");
   }
-  console.log(themeStore.mode);
 }
 onMounted(()=>{
   toggleTheme(themeStore.mode);
@@ -246,13 +244,6 @@ export default {
       this.searchContent = ''
       this.searchResult = []
     },
-    // searchKeyUpEnter () {
-    //   this.isSearchSlideDown = false
-    //   if (this.searchContent.trim().length === 0) {
-    //     return false
-    //   }
-    //   this.$router.push('/search?name='+this.searchContent)
-    // },
   },
 }
 </script>

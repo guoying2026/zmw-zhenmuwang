@@ -1,24 +1,19 @@
 <style scoped>
-@media screen and (max-width: 600px) {
-  body {
-    --isMobile: 1;
-  }
-}
-
-@media screen and (min-width: 601px) {
-  body {
-    --isMobile: 0;
-  }
-}
 .emphasize{
   font-weight: 900;
   font-size: 24px;
+  text-align: center;
+}
+.mobile .emphasize{
+  font-weight: 900;
+  font-size: 18px;
   text-align: center;
 }
 .top_2{
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 }
 .top_right_title{
   align-self: center;
@@ -37,20 +32,21 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-image: url("../assets/04.png"), url("../assets/03.png");
+  width: 100%;
+}
+.pc_background{
+  background-image: url("../assets/06.png"), url("../assets/05.png");
   background-repeat: no-repeat, no-repeat;
   background-position: -18%, 118%;
   background-size: 30% auto,30% auto;
-  width: 100%;
   height: 500px;
-  position: relative;
 }
 .top_3{
   display: flex;
   flex-direction: row;
   width: 100%;
 }
-@media only screen and (max-width: 520px) {
+@media only screen and (max-width: 600px) {
   .top{
     display: flex;
     flex-direction: column;
@@ -62,7 +58,7 @@
     z-index: 99;
   }
 }
-@media only screen and (min-width: 520px){
+@media only screen and (min-width: 600px){
   .top_left{
     width: 25%;
     position: sticky;
@@ -151,6 +147,10 @@
   background-size: 8px 1px;
   background-repeat: repeat-x;
 }
+.roadmap_mobile{
+  width: 90%;
+  box-sizing: inherit;
+}
 .roadmap__row {
   position: relative;
   display: grid;
@@ -199,10 +199,114 @@
   transform: translateY(-50%);
   opacity: 0.8;
 }
+.roadmap__row_mobile{
+  position: relative;
+  display: grid;
+  background-image: var(--dotted-color),var(--dotted-color);
+  background-position: top,bottom;
+  background-size: 8px 1px, 8px 1px;
+  background-repeat: repeat-x,repeat-x;
+  padding: 10px 0 10px 0;
+}
+.roadmap__row_mobile p{
+  margin: 0.8em;
+  line-height: 1.7em;
+  font-size: 0.5em;
+  display: flex;
+  flex-direction: row;
+}
+.row_left{
+  width: 100px;
+}
+.row_right{
+  flex:1;
+}
 </style>
 <template>
-  <div v-if="isMobile"></div>
-  <div class="padding-10 margin-40-top" v-else>
+  <div v-if="isMobile" class="padding-10 margin-40-top mobile">
+    <div class="top_2">
+      <text class="margin-40-top emphasize">临沂市兰山区亿宇木制品厂</text>
+      <div class="roadmap_mobile margin-20-top">
+        <div class="roadmap__row_mobile">
+          <p>
+            <span class="row_left">法定代表人：</span>
+            <span class="row_right">刘贵宾</span></p>
+          <p>
+            <span class="row_left">手机号码：</span>
+            <span class="row_right">13625393317</span>
+          </p>
+          <p>
+            <span class="row_left">详细地址：</span>
+            <span class="row_right">山东省临沂市兰山区义堂镇大芝房村</span>
+          </p>
+          <p>
+            <span class="row_left">注册资本：</span>
+            <span class="row_right">100万</span>
+          </p>
+          <p>
+            <span class="row_left">成立日期：</span>
+            <span class="row_right">2019-12-06</span>
+          </p>
+          <p>
+            <span class="row_left">登记机关：</span>
+            <span class="row_right">临沂市兰山区市场监督管理局</span>
+          </p>
+          <p>
+            <span class="row_left">人员规模：</span>
+            <span class="row_right">50人</span>
+          </p>
+          <p>
+            <span class="row_left">经营状态：</span>
+            <span class="row_right">开业</span>
+          </p>
+          <p>
+            <span class="row_left">登记状态：</span>
+            <span class="row_right">注销企业</span>
+          </p>
+          <p>
+            <span class="row_left">社会信用代码：</span>
+            <span class="row_right">91371302MA3R5KGF37</span>
+          </p>
+          <p>
+            <span class="row_left">纳税人识别号：</span>
+            <span class="row_right">91371302MA3R5KGF37</span>
+          </p>
+          <p>
+            <span class="row_left">组织机构代码：</span>
+            <span class="row_right">MA3R5KGF-3</span>
+          </p>
+          <p>
+            <span class="row_left">经营范围：</span>
+            <span class="row_right"></span>
+          </p>
+          <p>
+            <span class="row_left">投诉记录：</span>
+            <span class="row_right"></span>
+          </p>
+          <p>
+            <span class="row_left">群众评论：</span>
+            <span class="row_right"></span>
+          </p>
+          <p>
+            <span class="row_left">群众问答：</span>
+            <span class="row_right"></span>
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="top3">
+      <div class="top" v-show="tabDetailStore.current*1 === 0">
+        <CommentListNew></CommentListNew>
+      </div>
+      <div class="top" v-show="tabDetailStore.current*1 === 3">
+        <QuestionListNew></QuestionListNew>
+      </div>
+      <div class="top" v-show="tabDetailStore.current*1 === 4">
+        <ComplaintNew></ComplaintNew>
+      </div>
+    </div>
+  </div>
+  <div class="padding-10 pc_background margin-40-top" v-else>
     <div class="top_2">
       <text class="margin-40-top emphasize">临沂市兰山区亿宇木制品厂</text>
       <div class="roadmap margin-40-top" style="--roadmap-cols: 11;">
@@ -305,7 +409,7 @@
           <div class="roadmap__col"></div>
           <div class="roadmap__col"></div>
           <div class="roadmap__col"></div>
-          <div class="roadmap__timeline " style="--roadmap-start: 5; --roadmap-end: 10;">
+          <div class="roadmap__timeline " style="--roadmap-start: 2; --roadmap-end: 12;">
             <div><strong>Domestika &amp; awwwards course platform</strong></div>
             <div class="roadmap__time">        <svg class="ico-svg" viewBox="0 0 20 20" width="20">
               <use xlink:href="https://www.awwwards.com/assets/redesign/images/sprite-icons.svg#clock"></use>
@@ -495,28 +599,34 @@
   </div>
 </template>
 <script setup>
-import { ref,onMounted,reactive,computed,watchEffect } from 'vue'
+import { ref,onMounted,reactive,computed,watchEffect,onUnmounted } from 'vue'
 import { useRoute } from 'vue-router'
-import QuestionList from "../components/QuestionList.vue";
 import "../assets/tag.css"
 import CreditScore from "../components/CreditScore.vue";
 import {shopDetailApi} from "../api/shopDetail.js";
 import { useUserStore } from "../pinia/user.js";
 import { useTabDetailStore } from "../pinia/tabDetail.js"
-import Tag from "../components/Tag.vue"
 import {getIndexDataApi} from "../api/list.js";
 import AdvantageIcon from "../components/AdvantageIcon.vue";
 import CommentListNew from "../components/CommentListNew.vue";
 import QuestionListNew from "../components/QuestionListNew.vue";
 import ComplaintNew from "../components/ComplaintNew.vue";
 
+const isMobile = ref(window.matchMedia("(max-width: 600px)").matches);
+console.log(isMobile.value);
+const resizeListener = () => {
+  isMobile.value = window.matchMedia("(max-width: 600px)").matches;
+}
+console.log(isMobile.value);
 
-let promiseArr = []
-const isMobile = ref(false);
-watchEffect(() => {
-  const mobileFlag = getComputedStyle(document.body).getPropertyValue('--isMobile').trim();
-  isMobile.value = mobileFlag === '1';
+onMounted(() => {
+  window.addEventListener("resize", resizeListener);
 });
+
+onUnmounted(() => {
+  window.removeEventListener("resize", resizeListener);
+});
+
 
 // 数据列表
 const nearbyList = ref([
@@ -531,16 +641,6 @@ const nearbyList = ref([
   { id: 8, company_name: '西安古城木材有限公司', address: '西安市雁塔区大雁塔街753号', score: Math.floor(Math.random() * 41 + 60) },
   { id: 9, company_name: '成都大熊猫木材公司', address: '成都市武侯区天府大道864号', score: Math.floor(Math.random() * 41 + 60) }
 ])
-getIndexDataApi({
-  is_show_recommend: 1,
-  is_show_franchisee: 1,
-  is_show_blacklist: 1,
-  page: 1,
-  page_size: 10,
-  score_asc: 0,
-}).then(res => {
-  nearbyList.value = res.data.data;
-})
 const userStore = useUserStore();
 const tabDetailStore = useTabDetailStore();
 //
@@ -568,59 +668,9 @@ const activities = [
     timestamp: '2018-04-13',
   },
 ]
-const tableData = [
-  {
-    date: '总价格',
-    name: '¥1500.65',
-  },
-  {
-    date: '总层数',
-    name: '总7层，外2层西洋杨,里5层毛白杨',
-  },
-  {
-    date: '矩形',
-    name: '长 1mm x 宽 1mm x 厚 1mm',
-  },
-  {
-    date: '数量',
-    name: '24方',
-  },
-  {
-    date: '生产日期',
-    name: '2022-12-30',
-  },
-]
-const log = ['毛白杨', '江杨', '西洋杨']
-
 //导航栏切换开始
 const handleItemClick = (index) => {
   tabDetailStore.current = index;
 }
 //导航栏切换结束
-const list = reactive({
-  arr: []
-});
-const company_info = ref({})
-const wood_name = ref([])
-const company_name = ref('')
-const credit_score = ref('')
-const credit_score_text = ref('')
-const credit_code = ref('')
-const isFranchisee = ref(0)
-const date = ref(0)
-const date_text = ref('')
-
-onMounted(() => {
-  shopDetailApi({company_info_id:company_info_id.value}).then(async(res) => {
-    console.log(res);
-    company_info.value = res.data.company_info;
-    company_name.value = res.data.company_info.company_name
-    credit_score.value = res.data.company_info.credit_score
-    credit_score_text.value = '信用分 '+ credit_score.value
-    credit_code.value = res.data.company_info.credit_code
-    isFranchisee.value = res.data.isFranchisee
-    date.value = res.data.date
-    date_text.value = '入驻真木网'+ date.value + '天'
-  })
-})
 </script>
