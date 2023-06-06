@@ -209,17 +209,19 @@
   padding: 10px 0 10px 0;
 }
 .roadmap__row_mobile p{
-  margin: 0.8em;
-  line-height: 1.7em;
-  font-size: 0.5em;
+  margin: 0.2em;
+  line-height: 1.8em;
+  font-size: 0.9em;
   display: flex;
   flex-direction: row;
+  font-weight: 300;
 }
 .row_left{
-  width: 100px;
+  width: 125px;
 }
 .row_right{
   flex:1;
+  font-weight: normal;
 }
 </style>
 <template>
