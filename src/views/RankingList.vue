@@ -288,6 +288,7 @@
 }
 @media screen and (max-width: 425px) {
   .pagination {
+    justify-content: center;
     letter-spacing: 2px;
   }
 }
