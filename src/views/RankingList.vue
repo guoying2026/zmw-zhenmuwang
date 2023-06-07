@@ -1,5 +1,31 @@
 <template>
-  <div class="inner">
+  <div v-if="isMobile" class="inner">
+    <ul id="user_votes" class="list-users-votes">
+      <li class="js-hidden-list-element list-jury-notes__item" v-for="(item, index) in rankList" :key="index">
+        <p class="detail_text">{{index + 1}}. {{item.company_name}}</p>
+        <div class="info_all">
+          <div class="info2">
+            <div class="info2_1">
+              <svg viewBox="0 0 8.4666669 8.4666669" class="icon_l"  fill="var(--navbar-color)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <defs id="defs2"></defs> <g id="layer1" transform="translate(0,-288.53332)"> <path d="m 15.996094,0.99609375 c -6.0632836,0 -10.9980445,4.93673065 -10.9980471,11.00000025 -3.8e-6,10.668737 10.3789061,18.779297 10.3789061,18.779297 0.364612,0.290384 0.881482,0.290384 1.246094,0 0,0 10.380882,-8.11056 10.380859,-18.779297 C 27.003893,5.9328244 22.059377,0.99609375 15.996094,0.99609375 Z m 0,6.00195315 c 2.749573,0 5.00585,2.2484784 5.005859,4.9980471 C 21.001971,14.7457 18.745685,17 15.996094,17 c -2.749591,0 -4.998064,-2.2543 -4.998047,-5.003906 9e-6,-2.7495687 2.248474,-4.9980471 4.998047,-4.9980471 z" id="path929" style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:var(--navbar-color);solid-opacity:1;vector-effect:none;fill:var(--navbar-color);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.99999988;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" transform="matrix(0.26458333,0,0,0.26458333,0,288.53332)"></path> </g> </g></svg>
+              <text class="margin-10-left">{{item.address}}</text>
+            </div>
+            <div class="address_text info2_2">
+              <text>法定代表人：{{ item.corporation }}</text>
+              <text>社会信用代码：{{ item.credit_code }}</text>
+            </div>
+          </div>
+          <div class="info_right">
+            <AdvantageIcon location="right" size="3">
+              <template #iconDetail>
+                <CreditScore :credit-score="item.score" credit-score-text="信用分" :font-size="18" :font-size1="5" height="70px"></CreditScore>
+              </template>
+            </AdvantageIcon>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="inner" v-else>
     <div class="heading-section mb-0">
       <div class="heading-section__left">
       </div>
@@ -39,8 +65,8 @@
                   <text class="address_text margin-10-left">{{item.address}}</text>
                 </div>
                 <div class="address_text info2_2">
-                  <text class="detail_text">法定代表人：{{ item.corporation }}</text>
-                  <text class="detail_text margin-20-left">社会信用代码：{{ item.credit_code }}</text>
+                  <text>法定代表人：{{ item.corporation }}</text>
+                  <text>社会信用代码：{{ item.credit_code }}</text>
                 </div>
               </div>
             </div>
@@ -100,6 +126,11 @@
 }
 .info2_2{
   margin: 10px 0 0 30px;
+  display: flex;
+  flex-direction: column;
+}
+.info2_2 text:last-child{
+  margin-top: 10px;
 }
 .address_text{
   font-size: 0.8em;
@@ -110,7 +141,7 @@
   margin: 0 0.5em 0 0;
 }
 .detail_text{
-  font-size: 0.8em;
+  font-size: 0.9em;
 }
 .inner {
   --innerWidth: 1920px;
@@ -223,7 +254,7 @@
 }
 
 .list-jury-notes__item:nth-child(odd) {
-  background: var(--list-jury-notes__item-odd);
+  /*background: var(--list-jury-notes__item-odd);*/
 }
 
 .list-jury-notes__info {
@@ -313,11 +344,79 @@
   margin-bottom: auto;
   font-size: 14px;
 }
+@media only screen and (max-width: 989px) {
+  .list-jury-notes__item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    padding: 16px 20px;
+    font-size: 18px;
+  }
+  p{
+    line-height: 2em;
+  }
+  .info2_1 text{
+    font-size: 0.75em;
+    line-height: 1.6em;
+    flex: 1;
+  }
+  .icon_l {
+    width: 15px;
+    height: 15px;
+  }
+  .info2_1{
+    margin: 0.3em 0;
+  }
+  .info2_2{
+    margin: 0 0 0 22px;
+    display: flex;
+    flex-direction: column;
+  }
+  .info2_2 text{
+    margin: 0.5em 0;
+  }
+  .info_all{
+    display: flex;
+    flex-direction: row;
+  }
+  .info2{
+    flex: 1;
+    font-weight: 300;
+  }
+  .info_right{
+    width: 50px;
+    display: flex;
+    align-items: center;
+  }
+  .address_text{
+    font-size: 0.75em;
+    line-height: 1.6em;
+  }
+  .info2_2 text[data-v-35a39cc0]:last-child {
+     margin-top: 0;
+  }
+}
 </style>
 <script setup>
 import { getRankingListApi } from "../api/list";
 import AdvantageIcon from "../components/AdvantageIcon.vue";
-import {nextTick, onActivated, onBeforeUnmount, onDeactivated, onMounted, ref} from "vue";
+import {nextTick, onActivated, onBeforeUnmount, onDeactivated, onMounted, onUnmounted, ref} from "vue";
+
+const isMobile = ref(window.matchMedia("(max-width: 990px)").matches);
+console.log(isMobile.value);
+const resizeListener = () => {
+  isMobile.value = window.matchMedia("(max-width: 990px)").matches;
+}
+console.log(isMobile.value);
+
+onMounted(() => {
+  window.addEventListener("resize", resizeListener);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("resize", resizeListener);
+});
+
 const rankList = ref([
   { id: 0, company_name: '杭州木材有限公司', address: '杭州市西湖区文三路123号', score: Math.floor(Math.random() * 41 + 60) },
   { id: 1, company_name: '上海森林木材股份公司', address: '上海市浦东新区世纪大道456号', score: Math.floor(Math.random() * 41 + 60) },

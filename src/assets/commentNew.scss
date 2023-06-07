@@ -23,6 +23,7 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  margin-left: 3%;
 }
 .comment_item_2,.reply_item_2{
   text-indent: clamp(32px, 29.1830985916px + 0.5633802816vw, 40px);
@@ -34,11 +35,11 @@
   margin-left: 10%;
 }
 .comment_item{
-  padding: clamp(10px,2vw,36px) clamp(10px,2vw,28px);
-  background-image: var(--dotted-color);
-  background-position: bottom;
-  background-size: 8px 1px;  /* 改变这里的第一个值可以改变点的大小 */
-  background-repeat: repeat-x;
+  padding: clamp(15px, 2vw, 36px) clamp(15px, 2vw, 28px) clamp(10px, 2vw, 36px) clamp(15px, 2vw, 36px);
+  background-image: var(--dotted-color),var(--dotted-color);
+  background-position: bottom,top;
+  background-size: 8px 1px,8px 1px;  /* 改变这里的第一个值可以改变点的大小 */
+  background-repeat: repeat-x,repeat-x;
   font-size: clamp(10px, 14.5915492958px + 0.2816901408vw, 20px);
   display: flex;
   flex-direction: column;
@@ -72,7 +73,7 @@ p{
   margin: 1.1em;
   line-height: 1.7em;
 }
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 989px) {
   p{
     margin: 0.5em;
     line-height: 1.8em;
@@ -84,10 +85,11 @@ p{
     height: 20px;
   }
   .avatar-name__name{
-    font-size: 12px;
+    font-size: 14px;
+    margin-left: 13px;
   }
   .time{
-    font-size: 10px;
+    font-size: 13px;
     line-height: 0.8em;
   }
   .icon{
@@ -103,5 +105,8 @@ p{
   }
   .link-underlined:before{
     display: none;
+  }
+  .comment_item_3,.reply_item_3{
+    margin-left: 2%;
   }
 }

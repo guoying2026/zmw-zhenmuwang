@@ -18,15 +18,6 @@
 .top_right_title{
   align-self: center;
 }
-.top_right_space{
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  top: 150px;
-  z-index: 1000;
-  margin: 0;
-  color: var(--main-color);
-}
 .padding-10{
   letter-spacing: 2px;
   display: flex;
@@ -34,52 +25,33 @@
   align-items: center;
   width: 100%;
 }
-.pc_background{
+.pc_background_1{
+  background-image: url("../assets/04.png"), url("../assets/03.png");
+  background-repeat: no-repeat, no-repeat;
+  background-position: -18%, 118%;
+  background-size: 30% auto,30% auto;
+  height: 500px;
+}
+.pc_background_2{
   background-image: url("../assets/06.png"), url("../assets/05.png");
   background-repeat: no-repeat, no-repeat;
   background-position: -18%, 118%;
   background-size: 30% auto,30% auto;
   height: 500px;
 }
+.pc_background_3{
+  background-image: url(/src/assets/09.png);
+  background-repeat: no-repeat;
+  background-position: 30%;
+  background-size: 25% auto;
+  height: 200px;
+  position: relative;
+  z-index: 999;
+}
 .top_3{
   display: flex;
   flex-direction: row;
   width: 100%;
-}
-@media only screen and (max-width: 600px) {
-  .top{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-    letter-spacing: 2px;
-    box-sizing: unset;
-    width: 100%;
-    z-index: 99;
-  }
-}
-@media only screen and (min-width: 600px){
-  .top_left{
-    width: 25%;
-    position: sticky;
-    top: 150px;
-    z-index: 1000;
-    height: calc(100vh - 150px);
-    overflow-y: auto;
-  }
-  .top_right{
-    width: 25%;
-  }
-  .top{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-    letter-spacing: 2px;
-    width: 50%;
-    box-sizing: unset;
-    z-index: 99;
-  }
 }
 .top_left_item{
   padding: 50px;
@@ -119,13 +91,9 @@
   cursor: pointer;
   width: 100%;
 }
-.nearby{
-  background-color: var(--hero-bg-color);
-}
 .nearby_2{
   display: flex;
   flex-direction: column;
-  /*background: linear-gradient(20deg, #5c6370 -140%, transparent 30%);*/
   padding-bottom: 20px;
 }
 .nearby_2_comment{
@@ -140,7 +108,7 @@
   margin-left: 20px;
 }
 .roadmap {
-  width: 90%;
+  width: 100%;
   box-sizing: inherit;
   background-image: var(--dotted-color);
   background-position: bottom;
@@ -148,7 +116,7 @@
   background-repeat: repeat-x;
 }
 .roadmap_mobile{
-  width: 90%;
+  width: 100%;
   box-sizing: inherit;
 }
 .roadmap__row {
@@ -175,6 +143,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  /*background: #0deaf6;*/
 }
 .roadmap__timeline.special{
   background: var(--roadmap__timeline-special-bg-color);
@@ -206,7 +175,7 @@
   background-position: top,bottom;
   background-size: 8px 1px, 8px 1px;
   background-repeat: repeat-x,repeat-x;
-  padding: 10px 0 10px 0;
+  padding: 10px 15px;
 }
 .roadmap__row_mobile p{
   margin: 0.2em;
@@ -222,6 +191,122 @@
 .row_right{
   flex:1;
   font-weight: normal;
+}
+.top_right{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  top: 150px;
+  z-index: 1000;
+  margin: 0;
+  color: var(--main-color);
+  background-image: var(--dotted-color);
+  background-position: top;
+  background-size: 8px 1px;  /* 改变这里的第一个值可以改变点的大小 */
+  background-repeat: repeat-x;
+}
+/* 包含导航链接的容器 */
+.navbar {
+  display: flex;
+  white-space: nowrap;  /* 防止链接折行 */
+  flex-direction: row;
+  justify-content: space-between;
+  width: 90%;
+}
+
+/* 单个导航链接 */
+.nav-link {
+  flex-shrink: 0;  /* 防止链接在小屏幕上被压缩 */
+  padding: 10px;  /* 可根据需要调整 */
+  font-size: 15px;
+}
+.nav-link.active{
+  position: relative;
+  color: var(--link-underlined-color);
+  cursor: pointer;
+}
+.nav-link.active:before{
+  content: "";
+  position: absolute;
+  bottom: -0.2em;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-repeat: repeat-x;
+  background-image: var(--link-underlined-before);
+  background-size: 220% 100%;
+  background-position: 0% 50%;
+  /*transition: .3s ease-out;*/
+}
+.top_2_1{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+}
+/*.cross-point{*/
+/*  position: absolute;*/
+/*  top: -200px;*/
+/*  left: -60px;*/
+/*  width: 250px;*/
+/*  height: 200px;*/
+/*  background: url(/src/assets/10.png);*/
+/*  background-size: cover;*/
+/*  z-index: 1;*/
+/*}*/
+@media only screen and (max-width: 989px) {
+  .top{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    letter-spacing: 2px;
+    box-sizing: unset;
+    width: 100%;
+    z-index: 99;
+  }
+  .top_right{
+    width: 100%;
+  }
+  .nearby_2{
+    padding-bottom: 0;
+  }
+  .nearby_2_comment{
+    margin: 1em 1.2em;
+    line-height: 1.8em;
+    font-size: 0.9em;
+    font-weight: 300;
+  }
+  .nearby_2 p{
+    font-size: 0.9em;
+  }
+  .left_1 .icon_l{
+    width: 20px;
+    height: 20px;
+  }
+}
+@media only screen and (min-width: 990px){
+  .top_left{
+    width: 25%;
+    position: sticky;
+    top: 150px;
+    z-index: 1000;
+    height: calc(100vh - 150px);
+    overflow-y: auto;
+  }
+  .top_right{
+    width: 25%;
+  }
+  .top{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    letter-spacing: 2px;
+    width: 50%;
+    box-sizing: unset;
+    z-index: 99;
+  }
 }
 </style>
 <template>
@@ -296,6 +381,12 @@
         </div>
       </div>
     </div>
+    <div class="navbar">
+      <text  class="nav-link" :class="tabDetailStore.current*1 !== 0?'':'active'" @click="handleItemClick(0)">评论</text>
+      <text  class="nav-link" :class="tabDetailStore.current*1 !== 3?'':'active'" @click="handleItemClick(3)">问答</text>
+      <text  class="nav-link" :class="tabDetailStore.current*1 !== 4?'':'active'" @click="handleItemClick(4)">投诉</text>
+      <text  class="nav-link" :class="tabDetailStore.current*1 !== 5?'':'active'" @click="handleItemClick(5)">附近</text>
+    </div>
     <div class="top3">
       <div class="top" v-show="tabDetailStore.current*1 === 0">
         <CommentListNew></CommentListNew>
@@ -306,15 +397,81 @@
       <div class="top" v-show="tabDetailStore.current*1 === 4">
         <ComplaintNew></ComplaintNew>
       </div>
+      <div class="top_right" v-show="tabDetailStore.current*1 === 5">
+        <div class="left margin-10-top" v-for="(item, index) in nearbyList" :key="index">
+            <div class="nearby">
+              <div class="left_1">
+                <AdvantageIcon size="3">
+                  <template #iconDetail>
+                    <CreditScore :credit-score="item.score" credit-score-text="信用分" :font-size="18" :font-size1="5" height="70px"></CreditScore>
+                  </template>
+                </AdvantageIcon>
+                <div class="left_1_2">
+                  <figcaption class="avatar-name__name">
+                    <p class="text-bold link-underlined">{{item.company_name}}</p>
+                  </figcaption>
+                  <div class="left_1_2_bottom">
+                    <svg viewBox="0 0 8.4666669 8.4666669" class="icon_l"  fill="var(--navbar-color)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <defs id="defs2"></defs> <g id="layer1" transform="translate(0,-288.53332)"> <path d="m 15.996094,0.99609375 c -6.0632836,0 -10.9980445,4.93673065 -10.9980471,11.00000025 -3.8e-6,10.668737 10.3789061,18.779297 10.3789061,18.779297 0.364612,0.290384 0.881482,0.290384 1.246094,0 0,0 10.380882,-8.11056 10.380859,-18.779297 C 27.003893,5.9328244 22.059377,0.99609375 15.996094,0.99609375 Z m 0,6.00195315 c 2.749573,0 5.00585,2.2484784 5.005859,4.9980471 C 21.001971,14.7457 18.745685,17 15.996094,17 c -2.749591,0 -4.998064,-2.2543 -4.998047,-5.003906 9e-6,-2.7495687 2.248474,-4.9980471 4.998047,-4.9980471 z" id="path929" style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:var(--navbar-color);solid-opacity:1;vector-effect:none;fill:var(--navbar-color);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.99999988;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" transform="matrix(0.26458333,0,0,0.26458333,0,288.53332)"></path> </g> </g></svg>
+                    <text class="left_1_2_bottom_right margin-5-left">{{ item.address }}</text>
+                  </div>
+                </div>
+              </div>
+              <div class="nearby_2">
+                <h4 class="nearby_2_comment">评论预览：</h4>
+                <text class="time">2023-09-03 11:10:30</text>
+                <p>商品质量契合需求，发货也及时，没有发霉，购物体验很好。</p>
+                <text class="time">2023-09-03 11:10:20</text>
+                <p>质量很好，尺寸也符合需求，下回有需要还是会在这家买。</p>
+                <text class="time">2023-09-03 11:10:20</text>
+                <p>质量很好，尺寸也符合需求，下回有需要还是会在这家买。</p>
+                <text class="time">2023-09-03 11:10:20</text>
+                <p class="margin-20-left">质量很好，尺寸也符合需求，下回有需要还是会在这家买。</p>
+                <text class="time">2023-09-03 11:10:20</text>
+                <p>质量很好，尺寸也符合需求，下回有需要还是会在这家买。</p>
+              </div>
+              <div class="nearby_2">
+                <h4 class="nearby_2_comment">问答预览：</h4>
+                <text class="time">2023-09-03 11:10:30</text>
+                <p>问：能做特殊规格吗？</p>
+                <text class=" margin-40-left time">2023-09-03 11:10:20</text>
+                <p class=" margin-40-left ">答：能</p>
+                <text class="time">2023-09-03 11:10:20</text>
+                <p>问：这家木材的杨木胶合板，甲醛释放量等级有什么？</p>
+                <text class=" margin-40-left time">2023-09-03 11:10:20</text>
+                <p class=" margin-40-left ">答：E0。</p>
+                <text class="time">2023-09-03 11:10:20</text>
+                <p>问：这家木材的杨木胶合板，支持定制吗？</p>
+                <text class="time">2023-09-03 11:10:20</text>
+                <p>问：这家木材的泡花脚墩，支持定制吗？</p>
+              </div>
+              <div class="nearby_2">
+                <el-descriptions title="" :column="1" border class="margin-10-top">
+                  <el-descriptions-item label="投诉总记录"  width="120px" label-align="center" align="center">
+                    6条
+                  </el-descriptions-item>
+                  <el-descriptions-item label="待审查记录"  width="120px" label-align="center" align="center">
+                    1条
+                  </el-descriptions-item>
+                  <el-descriptions-item label="真木网核实"  width="120px" label-align="center" align="center">
+                    5条
+                  </el-descriptions-item>
+                </el-descriptions>
+              </div>
+            </div>
+          </div>
+      </div>
     </div>
   </div>
   <div class="padding-10 pc_background margin-40-top" v-else>
-    <div class="top_2">
-      <text class="margin-40-top emphasize">临沂市兰山区亿宇木制品厂</text>
+    <div class="top_2 margin-40-top">
+      <text class="emphasize">临沂市兰山区亿宇木制品厂</text>
+      <text class="margin-40-top emphasize">100分</text>
       <div class="roadmap margin-40-top" style="--roadmap-cols: 11;">
         <div class="roadmap__row">
           <div class="roadmap__col ">联系企业</div>
-          <div class="roadmap__col"></div>
+          <div class="roadmap__col">
+            <div class="cross-point"></div>
+          </div>
           <div class="roadmap__col"></div>
           <div class="roadmap__col"></div>
           <div class="roadmap__col"></div>
@@ -326,8 +483,6 @@
           <div class="roadmap__col"></div>
           <div class="roadmap__timeline roadmap__timeline--s1" style="--roadmap-start: 2; --roadmap-end: 5;">
             <div><strong>法定代表人：刘贵斌</strong></div>
-<!--            <div class="roadmap__time">        -->
-<!--              4 months</div>-->
           </div>
           <div class="roadmap__timeline roadmap__timeline--s1" style="--roadmap-start: 5; --roadmap-end: 8;">
             <div><strong>手机号码：13625393317</strong></div>
@@ -481,7 +636,7 @@
         </div>
       </div>
     </div>
-    <div class="top_3 margin-20-top">
+    <div class="top_3">
       <div class="top_left">
         <div class="top_left_item linear_grey_btn" v-show="tabDetailStore.current != 0" @click="handleItemClick(0)">
           <div>
@@ -530,10 +685,8 @@
         <ComplaintNew></ComplaintNew>
       </div>
       <div class="top_right" v-show="tabDetailStore.current*1 === 0 || tabDetailStore.current*1 === 3 || tabDetailStore.current*1 === 4">
-        <div class="top_right_space">
-          <text class="top_right_title">附近商家</text>
-<!--          <router-link class="left margin-10-top" to="/forum" v-for="(item, index) in nearbyList" :key="index">-->
-          <div class="left margin-10-top" v-for="(item, index) in nearbyList" :key="index">
+        <text class="top_right_title margin-20-top">附近商家</text>
+        <div class="left margin-10-top" v-for="(item, index) in nearbyList" :key="index">
             <div class="nearby">
               <div class="left_1">
                 <AdvantageIcon>
@@ -594,8 +747,6 @@
               </div>
             </div>
           </div>
-<!--          </router-link>-->
-        </div>
       </div>
     </div>
   </div>
@@ -614,10 +765,10 @@ import CommentListNew from "../components/CommentListNew.vue";
 import QuestionListNew from "../components/QuestionListNew.vue";
 import ComplaintNew from "../components/ComplaintNew.vue";
 
-const isMobile = ref(window.matchMedia("(max-width: 600px)").matches);
+const isMobile = ref(window.matchMedia("(max-width: 990px)").matches);
 console.log(isMobile.value);
 const resizeListener = () => {
-  isMobile.value = window.matchMedia("(max-width: 600px)").matches;
+  isMobile.value = window.matchMedia("(max-width: 990px)").matches;
 }
 console.log(isMobile.value);
 
