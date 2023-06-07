@@ -305,7 +305,7 @@
     gap: 4px;
     margin-left: 2px;
     margin-right: 2px;
-    letter-spacing: 1px;
+    letter-spacing: 0px;
   }
 }
 .pagination a {
