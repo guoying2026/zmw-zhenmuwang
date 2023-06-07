@@ -312,59 +312,59 @@
 <template>
   <div v-if="isMobile" class="padding-10 margin-40-top mobile">
     <div class="top_2">
-      <text class="margin-40-top emphasize">临沂市兰山区亿宇木制品厂</text>
+      <text class="margin-40-top emphasize">{{ company_info.company_name ? company_info.company_name : '-' }}</text>
       <div class="roadmap_mobile margin-20-top">
         <div class="roadmap__row_mobile">
           <p>
             <span class="row_left">法定代表人：</span>
-            <span class="row_right">刘贵宾</span></p>
+            <span class="row_right">{{ company_info.corporation ? company_info.corporation : '-' }}</span></p>
           <p>
             <span class="row_left">手机号码：</span>
-            <span class="row_right">13625393317</span>
+            <span class="row_right">{{ company_info.contact_phone ? company_info.contact_phone : '-' }}</span>
           </p>
           <p>
             <span class="row_left">详细地址：</span>
-            <span class="row_right">山东省临沂市兰山区义堂镇大芝房村</span>
+            <span class="row_right">{{ company_info.address ? company_info.address : '-' }}</span>
           </p>
           <p>
             <span class="row_left">注册资本：</span>
-            <span class="row_right">100万</span>
+            <span class="row_right">{{ company_info.registered_capital ? company_info.registered_capital : '-' }}</span>
           </p>
           <p>
             <span class="row_left">成立日期：</span>
-            <span class="row_right">2019-12-06</span>
+            <span class="row_right">{{ company_info.foundation_date ? company_info.foundation_date : '-' }}</span>
           </p>
           <p>
             <span class="row_left">登记机关：</span>
-            <span class="row_right">临沂市兰山区市场监督管理局</span>
+            <span class="row_right">{{ shop_info.regist_author ? shop_info.regist_author : '-' }}</span>
           </p>
-          <p>
+          <!-- <p>
             <span class="row_left">人员规模：</span>
             <span class="row_right">50人</span>
-          </p>
+          </p> -->
           <p>
             <span class="row_left">经营状态：</span>
-            <span class="row_right">开业</span>
+            <span class="row_right">{{ company_info.operation_state ? company_info.operation_state : '-' }}</span>
           </p>
-          <p>
+          <!-- <p>
             <span class="row_left">登记状态：</span>
             <span class="row_right">注销企业</span>
-          </p>
+          </p> -->
           <p>
             <span class="row_left">社会信用代码：</span>
-            <span class="row_right">91371302MA3R5KGF37</span>
+            <span class="row_right">{{ company_info.credit_code ? company_info.credit_code : '-' }}</span>
           </p>
           <p>
             <span class="row_left">纳税人识别号：</span>
-            <span class="row_right">91371302MA3R5KGF37</span>
+            <span class="row_right">{{ company_info.taxpayer_id ? company_info.taxpayer_id : '-' }}</span>
           </p>
           <p>
             <span class="row_left">组织机构代码：</span>
-            <span class="row_right">MA3R5KGF-3</span>
+            <span class="row_right">{{ company_info.organisation_code ? company_info.organisation_code : '-' }}</span>
           </p>
           <p>
             <span class="row_left">经营范围：</span>
-            <span class="row_right"></span>
+            <span class="row_right">{{ company_info.business_scope ? company_info.business_scope : '-' }}</span>
           </p>
           <p>
             <span class="row_left">投诉记录：</span>
@@ -464,8 +464,8 @@
   </div>
   <div class="padding-10 pc_background margin-40-top" v-else>
     <div class="top_2 margin-40-top">
-      <text class="emphasize">临沂市兰山区亿宇木制品厂</text>
-      <text class="margin-40-top emphasize">100分</text>
+      <text class="emphasize">{{ company_info.company_name ? company_info.company_name : '-' }}</text>
+      <text class="margin-40-top emphasize">{{ company_info.credit_score ? company_info.credit_score : '-' }}分</text>
       <div class="roadmap margin-40-top" style="--roadmap-cols: 11;">
         <div class="roadmap__row">
           <div class="roadmap__col ">联系企业</div>
@@ -482,13 +482,13 @@
           <div class="roadmap__col"></div>
           <div class="roadmap__col"></div>
           <div class="roadmap__timeline roadmap__timeline--s1" style="--roadmap-start: 2; --roadmap-end: 5;">
-            <div><strong>法定代表人：刘贵斌</strong></div>
+            <div><strong>法定代表人：{{ company_info.corporation ? company_info.corporation : '-' }}</strong></div>
           </div>
           <div class="roadmap__timeline roadmap__timeline--s1" style="--roadmap-start: 5; --roadmap-end: 8;">
-            <div><strong>手机号码：13625393317</strong></div>
+            <div><strong>手机号码：{{ company_info.contact_phone ? company_info.contact_phone : '-' }}</strong></div>
           </div>
           <div class="roadmap__timeline roadmap__timeline--s1 special" style="--roadmap-start: 8; --roadmap-end:12;">
-            <div><strong>山东省临沂市兰山区义堂镇大芝房村</strong></div>
+            <div><strong>{{ company_info.address ? company_info.address : '-' }}</strong></div>
           </div>
         </div>
         <div class="roadmap__row">
@@ -504,13 +504,13 @@
           <div class="roadmap__col"></div>
           <div class="roadmap__col"></div>
           <div class="roadmap__timeline " style="--roadmap-start: 2; --roadmap-end: 5;">
-            <div><strong>注册资本：100万</strong></div>
+            <div><strong>注册资本：{{ company_info.registered_capital ? company_info.registered_capital : '-' }}</strong></div>
           </div>
           <div class="roadmap__timeline " style="--roadmap-start: 5; --roadmap-end: 8;">
-            <div><strong>成立日期：2019-12-06</strong></div>
+            <div><strong>成立日期：{{ company_info.foundation_date ? company_info.foundation_date : '-' }}</strong></div>
           </div>
           <div class="roadmap__timeline  special" style="--roadmap-start: 8; --roadmap-end: 12;">
-            <div><strong>登记机关：临沂市兰山区市场监督管理局</strong></div>
+            <div><strong>登记机关：{{ shop_info.regist_author ? shop_info.regist_author : '-' }}</strong></div>
           </div>
         </div>
         <div class="roadmap__row">
@@ -525,15 +525,15 @@
           <div class="roadmap__col"></div>
           <div class="roadmap__col"></div>
           <div class="roadmap__col"></div>
-          <div class="roadmap__timeline " style="--roadmap-start: 2; --roadmap-end: 5;">
+          <!-- <div class="roadmap__timeline " style="--roadmap-start: 2; --roadmap-end: 5;">
             <div><strong>人员规模：50人</strong></div>
+          </div> -->
+          <div class="roadmap__timeline " style="--roadmap-start: 2; --roadmap-end: 12;">
+            <div><strong>经营状态：{{ company_info.operation_state ? company_info.operation_state : '-' }}</strong></div>
           </div>
-          <div class="roadmap__timeline " style="--roadmap-start: 5; --roadmap-end: 8;">
-            <div><strong>经营状态：开业</strong></div>
-          </div>
-          <div class="roadmap__timeline special" style="--roadmap-start: 8; --roadmap-end: 12;">
+          <!-- <div class="roadmap__timeline special" style="--roadmap-start: 8; --roadmap-end: 12;">
             <div><strong>登记状态：注销企业</strong></div>
-          </div>
+          </div> -->
         </div>
         <div class="roadmap__row">
           <div class="roadmap__col">唯一标识</div>
@@ -548,10 +548,10 @@
           <div class="roadmap__col"></div>
           <div class="roadmap__col"></div>
           <div class="roadmap__timeline " style="--roadmap-start: 2; --roadmap-end: 7;">
-            <div><strong>社会信用代码/纳税人识别号：91371302MA3R5KGF37</strong></div>
+            <div><strong>社会信用代码/纳税人识别号：{{ company_info.credit_code ? company_info.credit_code : '-' }}</strong></div>
           </div>
           <div class="roadmap__timeline " style="--roadmap-start: 7; --roadmap-end: 12;">
-            <div><strong>组织机构代码：MA3R5KGF-3</strong></div>
+            <div><strong>组织机构代码：{{ company_info.organisation_code ? company_info.organisation_code : '-' }}</strong></div>
           </div>
         </div>
         <div class="roadmap__row">
@@ -567,11 +567,12 @@
           <div class="roadmap__col"></div>
           <div class="roadmap__col"></div>
           <div class="roadmap__timeline " style="--roadmap-start: 2; --roadmap-end: 12;">
-            <div><strong>Domestika &amp; awwwards course platform</strong></div>
+            <!-- <div><strong>Domestika &amp; awwwards course platform</strong></div>
             <div class="roadmap__time">        <svg class="ico-svg" viewBox="0 0 20 20" width="20">
               <use xlink:href="https://www.awwwards.com/assets/redesign/images/sprite-icons.svg#clock"></use>
             </svg>
-              6 months</div>
+              6 months</div> -->
+            <div><strong>{{ company_info.business_scope ? company_info.business_scope : '-' }}</strong></div>
           </div>
         </div>
         <div class="roadmap__row">
@@ -803,7 +804,9 @@ const company_info_id_text = ref(null);
 company_info_id_text.value = 18;
 const company_info_id = ref(null);
 company_info_id.value = 2644899;
-// company_info_id.value = useRoute().query.company_info_id
+if (useRoute().query.hasOwnProperty('company_info_id') && useRoute().query.company_info_id) {
+  company_info_id.value = useRoute().query.company_info_id
+}
 const starValue = ref(5)
 const activities = [
   {
@@ -826,4 +829,32 @@ const handleItemClick = (index) => {
   tabDetailStore.current = index;
 }
 //导航栏切换结束
+const list = reactive({
+  arr: []
+});
+const company_info = ref({})
+const shop_info = ref({})
+const wood_name = ref([])
+const company_name = ref('')
+const credit_score = ref('')
+const credit_score_text = ref('')
+const credit_code = ref('')
+const isFranchisee = ref(0)
+const date = ref(0)
+const date_text = ref('')
+
+onMounted(() => {
+  shopDetailApi({company_info_id:company_info_id.value}).then(async(res) => {
+    console.log(res);
+    company_info.value = res.data.company_info;
+    shop_info.value = res.data.shop_info;
+    company_name.value = res.data.company_info.company_name
+    credit_score.value = res.data.company_info.credit_score
+    credit_score_text.value = '信用分 '+ credit_score.value
+    credit_code.value = res.data.company_info.credit_code
+    isFranchisee.value = res.data.isFranchisee
+    date.value = res.data.date
+    date_text.value = '入驻真木网'+ date.value + '天'
+  })
+})
 </script>
