@@ -2,8 +2,14 @@
   <div v-if="isMobile" class="inner">
     <ul id="user_votes" class="list-users-votes">
       <li class="js-hidden-list-element list-jury-notes__item" v-for="(item, index) in rankList" :key="index">
-        <p v-if="index*1 <= 2">NO.{{index+1}} {{item.company_name}}</p>
-        <p class="detail_text" v-else>{{index + 1}}. {{item.company_name}}</p>
+        <template v-if="scoreOrder==='desc'">
+          <p v-if="(firstItemRank + index - 1) * 1 <= 2">NO.{{firstItemRank + index}} {{item.company_name}}</p>
+          <p class="detail_text" v-else>{{firstItemRank + index}}. {{item.company_name}}</p>
+        </template>
+        <template v-else>
+          <p v-if="(totalCount - (firstItemRank + index - 1) - 1) * 1 <= 2">NO.{{totalCount - (firstItemRank + index - 1)}} {{item.company_name}}</p>
+          <p class="detail_text" v-else>{{totalCount - (firstItemRank + index - 1)}}. {{item.company_name}}</p>
+        </template>
         <div class="info_all">
           <div class="info2">
             <div class="info2_1">
@@ -42,26 +48,50 @@
           <div class="grid-score__item">评论</div>
           <div class="grid-score__item">问答</div>
           <div class="grid-score__item">投诉</div>
-          <div class="grid-score__item">信用分</div>
+          <div class="grid-score__item orderable" @click="changeScoreOrder">信用分
+            <svg t="1686210211523" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2376" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200" style="display: inline-block;width: 24px;height: 24px;">
+              <path d="M873.28 681.28a32 32 0 0 1 45.44 45.44l-128 128a32 32 0 0 1-45.44-45.44z" p-id="2377" v-if="scoreOrder==='desc'"></path>
+              <path d="M873.28 412.16a32 32 0 0 0 45.44 -45.44l-128 -128a32 32 0 0 1-45.44+45.44z" p-id="2378" v-else></path>
+              <path d="M800 832a32 32 0 0 1-64 0V256a32 32 0 0 1 64 0zM192 288a32 32 0 0 1 0-64h448a32 32 0 0 1 0 64z m0 192a32 32 0 0 1 0-64h448a32 32 0 0 1 0 64z m0 192a32 32 0 0 1 0-64h448a32 32 0 0 1 0 64z m0 192a32 32 0 0 1 0-64h448a32 32 0 0 1 0 64z" p-id="2378"></path>
+            </svg>
+          </div>
         </div>
         <ul id="user_votes" class="list-users-votes">
           <li class="js-hidden-list-element list-jury-notes__item" v-for="(item, index) in rankList" :key="index">
             <div class="list-jury-notes__info">
               <div class="info">
-                <Strong class="info_1" style="font-size: 20px" v-if="(firstItemRank+index)*1 <= 10">NO.<span style="font-size: 50px">{{firstItemRank + index}}</span></strong>
-                <figure class="info_1" v-else>
-                  <!--                如果index小于99，就用size=3,而且rank_text_3，如果index大于99，就用size=9而且strong使用class rank_text_9-->
-                  <AdvantageIcon location="none" size="3" v-show="firstItemRank + index <=  99">
-                    <template #iconDetail>
-                      <Strong class="rank_text rank_text_3">{{firstItemRank + index }}</Strong>
-                    </template>
-                  </AdvantageIcon>
-                  <AdvantageIcon location="none" size="9" v-show="firstItemRank + index >  99">
-                    <template #iconDetail>
-                      <Strong class="rank_text rank_text_9">{{ firstItemRank + index }}</Strong>
-                    </template>
-                  </AdvantageIcon>
-                </figure>
+                <template v-if="scoreOrder==='desc'">
+                  <Strong class="info_1" style="font-size: 20px" v-if="(firstItemRank+index)*1 <= 10">NO.<span style="font-size: 50px">{{firstItemRank + index}}</span></strong>
+                  <figure class="info_1" v-else>
+                    <!--                如果index小于99，就用size=3,而且rank_text_3，如果index大于99，就用size=9而且strong使用class rank_text_9-->
+                    <AdvantageIcon location="none" size="3" v-show="firstItemRank + index <=  99">
+                      <template #iconDetail>
+                        <Strong class="rank_text rank_text_3">{{firstItemRank + index }}</Strong>
+                      </template>
+                    </AdvantageIcon>
+                    <AdvantageIcon location="none" size="9" v-show="firstItemRank + index >  99">
+                      <template #iconDetail>
+                        <Strong class="rank_text rank_text_9">{{ firstItemRank + index }}</Strong>
+                      </template>
+                    </AdvantageIcon>
+                  </figure>
+                </template>
+                <template v-else>
+                  <Strong class="info_1" style="font-size: 20px" v-if="(totalCount - (firstItemRank + index - 1))*1 <= 10">NO.<span style="font-size: 50px">{{totalCount - (firstItemRank + index - 1)}}</span></strong>
+                  <figure class="info_1" v-else>
+                    <!--                如果index小于99，就用size=3,而且rank_text_3，如果index大于99，就用size=9而且strong使用class rank_text_9-->
+                    <AdvantageIcon location="none" size="3" v-show="totalCount - (firstItemRank + index - 1) <=  99">
+                      <template #iconDetail>
+                        <Strong class="rank_text rank_text_3">{{totalCount - (firstItemRank + index - 1) }}</Strong>
+                      </template>
+                    </AdvantageIcon>
+                    <AdvantageIcon location="none" size="9" v-show="totalCount - (firstItemRank + index - 1) >  99">
+                      <template #iconDetail>
+                        <Strong class="rank_text rank_text_9">{{ totalCount - (firstItemRank + index - 1) }}</Strong>
+                      </template>
+                    </AdvantageIcon>
+                  </figure>
+                </template>
                 <div class="info_2">
                   <p class="strong_text ">{{item.company_name}}</p>
                 </div>
@@ -234,6 +264,14 @@
   line-height: normal
 }
 
+.grid-score__item.orderable {
+  cursor: pointer;
+}
+
+.grid-score__item.orderable svg {
+  fill: var(--navbar-color);
+}
+
 .grid-score__item--total {
   position: relative;
   top: -16px;
@@ -241,6 +279,9 @@
   font-weight: bold;
   background: #0deaf6;
   font-size: 1.8em;
+}
+[data-theme="dark"] .grid-score__item--total {
+  background: #003b51;
 }
 .list-jury-notes {
   position: relative
@@ -565,6 +606,8 @@ const page = (totalPage, currentPage) => {
 const isInited = ref(false)
 // 是否加载中
 const isLoading = ref(false)
+// 总条数
+const totalCount = ref(0)
 // 总页数
 const totalPage = ref(1)
 // 当前页
@@ -577,6 +620,21 @@ const pagination = ref([1])
 const paginationSize = ref(5)
 // 分页的当前页
 const paginationCurrentPage = ref(1)
+
+// 信用分排序
+const scoreOrder = ref('desc')
+
+const changeScoreOrder = () => {
+  if (scoreOrder.value === 'desc') {
+    scoreOrder.value = 'asc'
+  } else {
+    scoreOrder.value = 'desc' 
+  }
+  getRankList({
+    page: 1,
+    isAuto: false,
+  })
+}
 
 // 列表第一项的排名
 const firstItemRank = ref(((currentPage.value - 1) * pageSize.value) + 1)
@@ -611,6 +669,7 @@ const clearAllAutoNextPageTimer = () => {
  * @param {object} params
  * @param {Number} params.page 当前页
  * @param {boolean} params.isAuto 是否为下拉自动加载的
+ * @param {('score_desc'|'score_asc')} params.order 排序规则
  * @return {false | AbortController}
  */
 const getRankList = (params) => {
@@ -620,6 +679,10 @@ const getRankList = (params) => {
 
   if (!params || !params.hasOwnProperty('page_size')) {
     params.page_size = pageSize.value;
+  }
+
+  if (!params || !params.hasOwnProperty('order')) {
+    params.order = scoreOrder.value === 'asc' ? 'score_asc' : 'score_desc'
   }
 
   // 中止其它请求任务
@@ -657,10 +720,6 @@ const getRankList = (params) => {
       isInited.value = true
     }
 
-    res.data.data.data = res.data.data.data.sort((a, b) => {
-      return Number(b.score) - Number(a.score)
-    })
-
     if (params.isAuto) {
       // 如果是下拉加载更多的，则合并列表数组
       rankList.value = rankList.value.concat(res.data.data.data)
@@ -672,6 +731,9 @@ const getRankList = (params) => {
     // 更新当前页
     currentPage.value = Number(res.data.data.current_page)
     paginationCurrentPage.value = Number(res.data.data.current_page)
+
+    // 更新总条数
+    totalCount.value = Number(res.data.data.total_count)
 
     // 更新总页数
     totalPage.value = Number(res.data.data.total_page)
