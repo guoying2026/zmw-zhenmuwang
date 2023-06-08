@@ -37,7 +37,7 @@
   background-repeat: no-repeat, no-repeat;
   background-position: -18%, 118%;
   background-size: 30% auto,30% auto;
-  height: 500px;
+  height: 800px;
 }
 .pc_background_3{
   background-image: url(/src/assets/09.png);
@@ -62,7 +62,7 @@
   height: 30px;
 }
 .link-underlined:hover:before {
-  background-position: 0% 50%
+  background-position: 0% 50%;
 }
 .left_1{
   display: flex;
@@ -108,12 +108,15 @@
   margin-left: 20px;
 }
 .roadmap {
-  width: 100%;
+  width: 80%;
   box-sizing: inherit;
   background-image: var(--dotted-color);
   background-position: bottom;
   background-size: 8px 1px;
   background-repeat: repeat-x;
+}
+.roadmap_2{
+  width: 100% !important;
 }
 .roadmap_mobile{
   width: 100%;
@@ -138,7 +141,7 @@
   background-size: 1px 8px;
 }
 .roadmap__col:first-child {
-  width: 200px;
+  width: 120px;
   letter-spacing: 4px;
   display: flex;
   justify-content: center;
@@ -147,6 +150,9 @@
 }
 .roadmap__timeline.special{
   background: var(--roadmap__timeline-special-bg-color);
+}
+.roadmap__timeline.none{
+  background: none;
 }
 .roadmap__timeline {
   grid-column: var(--roadmap-start)/var(--roadmap-end);
@@ -197,7 +203,6 @@
   flex-direction: column;
   align-items: flex-start;
   top: 150px;
-  z-index: 1000;
   margin: 0;
   color: var(--main-color);
   background-image: var(--dotted-color);
@@ -308,6 +313,62 @@
     z-index: 99;
   }
 }
+.el-carousel--vertical{
+  width: 80%;
+}
+.padding-10:deep(.el-carousel__item h3){
+  opacity: 0.75;
+  line-height: 100px;
+  margin: 0;
+  text-align: center;
+  font-weight: bolder;
+  letter-spacing: 5px;
+}
+.padding-10:deep(.el-carousel__item:nth-child(2n+1)){
+  background: var(--advantage__icon-bg-color);
+  color: var(--navbar-bg-color);
+}
+
+.padding-10:deep(.el-carousel__item:nth-child(2n)){
+  background: var(--advantage__icon-2-bg-color);
+  color: var(--navbar-color);
+}
+.custom-table {
+  width: 100%;
+  border-collapse: collapse;
+  /*background-color: #f3f8ff;*/
+  background-image: var(--dotted-color);
+  background-position: top;
+  background-size: 8px 1px;
+  background-repeat: repeat-x;
+}
+
+.custom-table td {
+  padding: 10px;
+  text-align: left;
+  height: 50px;
+  border: none;
+}
+
+.cell {
+  position: relative;
+}
+.cell.cross{
+  background-image: var(--col-dotted-color);
+  background-position: right;
+  background-size: 1px 8px;
+  background-repeat: repeat-y;
+}
+.cell.cross .inner::after {
+  /*content: "☠️";*/
+  content: "💀";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  transform: translate(50%, 100%);
+  font-size: 100px;
+  z-index: 99;
+}
 </style>
 <template>
   <div v-if="isMobile" class="padding-10 margin-40-top mobile">
@@ -364,19 +425,7 @@
           </p>
           <p>
             <span class="row_left">经营范围：</span>
-            <span class="row_right"></span>
-          </p>
-          <p>
-            <span class="row_left">投诉记录：</span>
-            <span class="row_right"></span>
-          </p>
-          <p>
-            <span class="row_left">群众评论：</span>
-            <span class="row_right"></span>
-          </p>
-          <p>
-            <span class="row_left">群众问答：</span>
-            <span class="row_right"></span>
+            <span class="row_right">加工销售：木制线条、木方、木制品、刨花木墩、单板、木皮、胶合板、多层板、建筑模版、装饰板</span>
           </p>
         </div>
       </div>
@@ -408,7 +457,7 @@
                 </AdvantageIcon>
                 <div class="left_1_2">
                   <figcaption class="avatar-name__name">
-                    <p class="text-bold link-underlined">{{item.company_name}}</p>
+                    <p class="text-bold ">{{item.company_name}}</p>
                   </figcaption>
                   <div class="left_1_2_bottom">
                     <svg viewBox="0 0 8.4666669 8.4666669" class="icon_l"  fill="var(--navbar-color)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <defs id="defs2"></defs> <g id="layer1" transform="translate(0,-288.53332)"> <path d="m 15.996094,0.99609375 c -6.0632836,0 -10.9980445,4.93673065 -10.9980471,11.00000025 -3.8e-6,10.668737 10.3789061,18.779297 10.3789061,18.779297 0.364612,0.290384 0.881482,0.290384 1.246094,0 0,0 10.380882,-8.11056 10.380859,-18.779297 C 27.003893,5.9328244 22.059377,0.99609375 15.996094,0.99609375 Z m 0,6.00195315 c 2.749573,0 5.00585,2.2484784 5.005859,4.9980471 C 21.001971,14.7457 18.745685,17 15.996094,17 c -2.749591,0 -4.998064,-2.2543 -4.998047,-5.003906 9e-6,-2.7495687 2.248474,-4.9980471 4.998047,-4.9980471 z" id="path929" style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:var(--navbar-color);solid-opacity:1;vector-effect:none;fill:var(--navbar-color);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.99999988;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" transform="matrix(0.26458333,0,0,0.26458333,0,288.53332)"></path> </g> </g></svg>
@@ -462,11 +511,27 @@
       </div>
     </div>
   </div>
-  <div class="padding-10 pc_background margin-40-top" v-else>
+  <div class="padding-10 pc_background_2 margin-40-top" v-else>
     <div class="top_2 margin-40-top">
+      <table class="custom-table">
+        <tr>
+          <td class="cell cross"><div class="inner">️</div></td>
+          <td>️</td>
+          <td class="cell cross"><div class="inner">️</div></td>
+          <td></td>
+        </tr>
+        <!-- Add more rows as necessary -->
+      </table>
       <text class="emphasize">临沂市兰山区亿宇木制品厂</text>
-      <text class="margin-40-top emphasize">100分</text>
-      <div class="roadmap margin-40-top" style="--roadmap-cols: 11;">
+      <text class="margin-40-top emphasize">24分</text>
+      <el-carousel height="100px" direction="vertical" :autoplay="true" class="margin-40-top">
+        <el-carousel-item v-for="(item,index) in activities" :key="index">
+          <div v-for="(item1,index1) in item.content" :key="index1">
+            <h3 text="2xl" justify="center">{{item.timestamp}} {{ item1.key }}{{item1.value}}</h3>
+          </div>
+        </el-carousel-item>
+      </el-carousel>
+      <div class="roadmap" style="--roadmap-cols: 11;">
         <div class="roadmap__row">
           <div class="roadmap__col ">联系企业</div>
           <div class="roadmap__col">
@@ -481,13 +546,13 @@
           <div class="roadmap__col"></div>
           <div class="roadmap__col"></div>
           <div class="roadmap__col"></div>
-          <div class="roadmap__timeline roadmap__timeline--s1" style="--roadmap-start: 2; --roadmap-end: 5;">
+          <div class="roadmap__timeline special" style="--roadmap-start: 2; --roadmap-end: 5;">
             <div><strong>法定代表人：刘贵斌</strong></div>
           </div>
-          <div class="roadmap__timeline roadmap__timeline--s1" style="--roadmap-start: 5; --roadmap-end: 8;">
+          <div class="roadmap__timeline special" style="--roadmap-start: 5; --roadmap-end: 8;">
             <div><strong>手机号码：13625393317</strong></div>
           </div>
-          <div class="roadmap__timeline roadmap__timeline--s1 special" style="--roadmap-start: 8; --roadmap-end:12;">
+          <div class="roadmap__timeline special" style="--roadmap-start: 8; --roadmap-end:12;">
             <div><strong>山东省临沂市兰山区义堂镇大芝房村</strong></div>
           </div>
         </div>
@@ -503,13 +568,13 @@
           <div class="roadmap__col"></div>
           <div class="roadmap__col"></div>
           <div class="roadmap__col"></div>
-          <div class="roadmap__timeline " style="--roadmap-start: 2; --roadmap-end: 5;">
+          <div class="roadmap__timeline special" style="--roadmap-start: 2; --roadmap-end: 5;">
             <div><strong>注册资本：100万</strong></div>
           </div>
-          <div class="roadmap__timeline " style="--roadmap-start: 5; --roadmap-end: 8;">
+          <div class="roadmap__timeline special" style="--roadmap-start: 5; --roadmap-end: 8;">
             <div><strong>成立日期：2019-12-06</strong></div>
           </div>
-          <div class="roadmap__timeline  special" style="--roadmap-start: 8; --roadmap-end: 12;">
+          <div class="roadmap__timeline special" style="--roadmap-start: 8; --roadmap-end: 12;">
             <div><strong>登记机关：临沂市兰山区市场监督管理局</strong></div>
           </div>
         </div>
@@ -525,10 +590,10 @@
           <div class="roadmap__col"></div>
           <div class="roadmap__col"></div>
           <div class="roadmap__col"></div>
-          <div class="roadmap__timeline " style="--roadmap-start: 2; --roadmap-end: 5;">
+          <div class="roadmap__timeline special" style="--roadmap-start: 2; --roadmap-end: 5;">
             <div><strong>人员规模：50人</strong></div>
           </div>
-          <div class="roadmap__timeline " style="--roadmap-start: 5; --roadmap-end: 8;">
+          <div class="roadmap__timeline special" style="--roadmap-start: 5; --roadmap-end: 8;">
             <div><strong>经营状态：开业</strong></div>
           </div>
           <div class="roadmap__timeline special" style="--roadmap-start: 8; --roadmap-end: 12;">
@@ -547,10 +612,10 @@
           <div class="roadmap__col"></div>
           <div class="roadmap__col"></div>
           <div class="roadmap__col"></div>
-          <div class="roadmap__timeline " style="--roadmap-start: 2; --roadmap-end: 7;">
-            <div><strong>社会信用代码/纳税人识别号：91371302MA3R5KGF37</strong></div>
+          <div class="roadmap__timeline special" style="--roadmap-start: 2; --roadmap-end: 8;">
+            <div><strong>社会信用代码 / 纳税人识别号：91371302MA3R5KGF37</strong></div>
           </div>
-          <div class="roadmap__timeline " style="--roadmap-start: 7; --roadmap-end: 12;">
+          <div class="roadmap__timeline special" style="--roadmap-start: 8; --roadmap-end: 12;">
             <div><strong>组织机构代码：MA3R5KGF-3</strong></div>
           </div>
         </div>
@@ -566,12 +631,8 @@
           <div class="roadmap__col"></div>
           <div class="roadmap__col"></div>
           <div class="roadmap__col"></div>
-          <div class="roadmap__timeline " style="--roadmap-start: 2; --roadmap-end: 12;">
-            <div><strong>Domestika &amp; awwwards course platform</strong></div>
-            <div class="roadmap__time">        <svg class="ico-svg" viewBox="0 0 20 20" width="20">
-              <use xlink:href="https://www.awwwards.com/assets/redesign/images/sprite-icons.svg#clock"></use>
-            </svg>
-              6 months</div>
+          <div class="roadmap__timeline special" style="--roadmap-start: 2; --roadmap-end: 12;">
+            <div><strong>加工销售：木制线条、木方、木制品、刨花木墩、单板、木皮、胶合板、多层板、建筑模版、装饰板</strong></div>
           </div>
         </div>
         <div class="roadmap__row">
@@ -586,12 +647,17 @@
           <div class="roadmap__col"></div>
           <div class="roadmap__col"></div>
           <div class="roadmap__col"></div>
-          <div class="roadmap__timeline " style="--roadmap-start: 6; --roadmap-end: 10;">
-            <div><strong>AI for personalized inspiration</strong></div>
-            <div class="roadmap__time">        <svg class="ico-svg" viewBox="0 0 20 20" width="20">
-              <use xlink:href="https://www.awwwards.com/assets/redesign/images/sprite-icons.svg#clock"></use>
-            </svg>
-              4 months</div>
+          <div class="roadmap__timeline special" style="--roadmap-start: 2; --roadmap-end: 5;">
+            <div><strong>投诉总记录： 6条</strong></div>
+          </div>
+          <div class="roadmap__timeline special" style="--roadmap-start: 5; --roadmap-end: 8;">
+            <div><strong>待审查记录： 1条</strong></div>
+          </div>
+          <div class="roadmap__timeline special" style="--roadmap-start: 8; --roadmap-end: 11;">
+            <div><strong>真木网核实： 5条</strong></div>
+          </div>
+          <div class="roadmap__timeline none" style="--roadmap-start: 11;--roadmap-end: 12" @click="handleItemClick(4)">
+            <svg fill="var(--navbar-color)" height="200px" width="200px" class="icon" viewBox="0 0 490 490" xml:space="preserve" transform="rotate(180)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M245,0C109.7,0,0,109.7,0,245s109.7,245,245,245s245-109.7,245-245S380.3,0,245,0z M308.2,335.5l-42.7,42.7L175,287.7 L132.3,245l42.7-42.7l90.5-90.5l42.7,42.7L217.8,245L308.2,335.5z"></path> </g> </g></svg>
           </div>
         </div>
         <div class="roadmap__row">
@@ -606,12 +672,17 @@
           <div class="roadmap__col"></div>
           <div class="roadmap__col"></div>
           <div class="roadmap__col"></div>
-          <div class="roadmap__timeline " style="--roadmap-start: 8; --roadmap-end: 11;">
-            <div><strong>Browser tool ( Chrome, Safari, etc..) </strong></div>
-            <div class="roadmap__time">        <svg class="ico-svg" viewBox="0 0 20 20" width="20">
-              <use xlink:href="https://www.awwwards.com/assets/redesign/images/sprite-icons.svg#clock"></use>
-            </svg>
-              3 months</div>
+          <div class="roadmap__timeline special" style="--roadmap-start: 2; --roadmap-end: 5;">
+            <div><strong>评论总数量： 6条</strong></div>
+          </div>
+          <div class="roadmap__timeline special" style="--roadmap-start: 5; --roadmap-end: 8;">
+            <div><strong>回复总数量： 1条</strong></div>
+          </div>
+          <div class="roadmap__timeline special" style="--roadmap-start: 8; --roadmap-end: 11;">
+            <div><strong>点赞总数量： 5条</strong></div>
+          </div>
+          <div class="roadmap__timeline none" style="--roadmap-start: 11;--roadmap-end: 12" @click="handleItemClick(0)">
+            <svg fill="var(--navbar-color)" height="200px" width="200px" class="icon" viewBox="0 0 490 490" xml:space="preserve" transform="rotate(180)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M245,0C109.7,0,0,109.7,0,245s109.7,245,245,245s245-109.7,245-245S380.3,0,245,0z M308.2,335.5l-42.7,42.7L175,287.7 L132.3,245l42.7-42.7l90.5-90.5l42.7,42.7L217.8,245L308.2,335.5z"></path> </g> </g></svg>
           </div>
         </div>
         <div class="roadmap__row">
@@ -626,12 +697,17 @@
           <div class="roadmap__col"></div>
           <div class="roadmap__col"></div>
           <div class="roadmap__col"></div>
-          <div class="roadmap__timeline " style="--roadmap-start: 9; --roadmap-end: 12;">
-            <div><strong>New section</strong></div>
-            <div class="roadmap__time">        <svg class="ico-svg" viewBox="0 0 20 20" width="20">
-              <use xlink:href="https://www.awwwards.com/assets/redesign/images/sprite-icons.svg#clock"></use>
-            </svg>
-              3 months</div>
+          <div class="roadmap__timeline special" style="--roadmap-start: 2; --roadmap-end: 5;">
+            <div><strong>问题总数量： 6条</strong></div>
+          </div>
+          <div class="roadmap__timeline special" style="--roadmap-start: 5; --roadmap-end: 8;">
+            <div><strong>回答总数量： 1条</strong></div>
+          </div>
+          <div class="roadmap__timeline special" style="--roadmap-start: 8; --roadmap-end: 11;">
+            <div><strong>有用总数量： 5条</strong></div>
+          </div>
+          <div class="roadmap__timeline none" style="--roadmap-start: 11;--roadmap-end: 12" @click="handleItemClick(3)">
+            <svg fill="var(--navbar-color)" height="200px" width="200px" class="icon" viewBox="0 0 490 490" xml:space="preserve" transform="rotate(180)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M245,0C109.7,0,0,109.7,0,245s109.7,245,245,245s245-109.7,245-245S380.3,0,245,0z M308.2,335.5l-42.7,42.7L175,287.7 L132.3,245l42.7-42.7l90.5-90.5l42.7,42.7L217.8,245L308.2,335.5z"></path> </g> </g></svg>
           </div>
         </div>
       </div>
@@ -696,7 +772,7 @@
                 </AdvantageIcon>
                 <div class="left_1_2">
                   <figcaption class="avatar-name__name">
-                    <p class="text-bold link-underlined">{{item.company_name}}</p>
+                    <p class="text-bold ">{{item.company_name}}</p>
                   </figcaption>
                   <div class="left_1_2_bottom">
                     <svg viewBox="0 0 8.4666669 8.4666669" class="icon_l"  fill="var(--navbar-color)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <defs id="defs2"></defs> <g id="layer1" transform="translate(0,-288.53332)"> <path d="m 15.996094,0.99609375 c -6.0632836,0 -10.9980445,4.93673065 -10.9980471,11.00000025 -3.8e-6,10.668737 10.3789061,18.779297 10.3789061,18.779297 0.364612,0.290384 0.881482,0.290384 1.246094,0 0,0 10.380882,-8.11056 10.380859,-18.779297 C 27.003893,5.9328244 22.059377,0.99609375 15.996094,0.99609375 Z m 0,6.00195315 c 2.749573,0 5.00585,2.2484784 5.005859,4.9980471 C 21.001971,14.7457 18.745685,17 15.996094,17 c -2.749591,0 -4.998064,-2.2543 -4.998047,-5.003906 9e-6,-2.7495687 2.248474,-4.9980471 4.998047,-4.9980471 z" id="path929" style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:var(--navbar-color);solid-opacity:1;vector-effect:none;fill:var(--navbar-color);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.99999988;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" transform="matrix(0.26458333,0,0,0.26458333,0,288.53332)"></path> </g> </g></svg>
@@ -779,7 +855,6 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener("resize", resizeListener);
 });
-
 
 // 数据列表
 const nearbyList = ref([

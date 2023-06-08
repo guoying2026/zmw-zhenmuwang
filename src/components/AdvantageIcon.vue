@@ -55,8 +55,10 @@ const props = defineProps({
   background: var(--advantage__icon-after-bg-color);
   border-radius: 50%;
   transform: translateX(-80%);
-  -webkit-backdrop-filter: blur(1.5625rem);
-  backdrop-filter: blur(1.5625rem)
+  /*-webkit-backdrop-filter: blur(1.5625rem);*/
+  /*backdrop-filter: blur(1.5625rem);*/
+  -webkit-backdrop-filter: blur(0.7rem);
+  backdrop-filter: blur(0.7rem);
 }
 .advantage__icon.advantage__icon_top:after{
   transform: translateY(-80%) !important;

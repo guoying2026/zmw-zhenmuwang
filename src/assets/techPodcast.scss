@@ -1752,7 +1752,7 @@ table {
 
 .font-size-11 {
   font-size: .875rem;
-  line-height: 1.7;
+  line-height: 3;
   letter-spacing: 0
 }
 
@@ -2413,11 +2413,12 @@ table {
 }
 
 .text-inherit p {
-  margin-bottom: 1.5rem
+  margin-bottom: 1.5rem;
 }
 
 .text-inherit p:last-of-type {
-  margin-bottom: 0
+  margin-bottom: 0;
+  line-heght: 2em;
 }
 
 picture.image {
@@ -3023,7 +3024,7 @@ body {
 @media (min-width: 1180px) {
   .hero__content-wrap {
     position:relative;
-    margin-top: 30%;
+    margin-top: 37%;
     padding-left: 3.25rem
   }
 }
@@ -3033,7 +3034,7 @@ body {
 }
 
 .hero__label {
-  letter-spacing: 1.95em;
+  letter-spacing: 1.1em;
   padding-bottom: 1.75rem
 }
 

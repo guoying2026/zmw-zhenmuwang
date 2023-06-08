@@ -2,7 +2,8 @@
   <div v-if="isMobile" class="inner">
     <ul id="user_votes" class="list-users-votes">
       <li class="js-hidden-list-element list-jury-notes__item" v-for="(item, index) in rankList" :key="index">
-        <p class="detail_text">{{index + 1}}. {{item.company_name}}</p>
+        <p v-if="index*1 <= 2">NO.{{index+1}} {{item.company_name}}</p>
+        <p class="detail_text" v-else>{{index + 1}}. {{item.company_name}}</p>
         <div class="info_all">
           <div class="info2">
             <div class="info2_1">
@@ -41,22 +42,23 @@
         <ul id="user_votes" class="list-users-votes">
           <li class="js-hidden-list-element list-jury-notes__item" v-for="(item, index) in rankList" :key="index">
             <div class="list-jury-notes__info">
-              <figure>
-<!--                如果index小于99，就用size=3,而且rank_text_3，如果index大于99，就用size=9而且strong使用class rank_text_9-->
-                <AdvantageIcon location="none" size="3" v-show="firstItemRank + index <=  99">
-                  <template #iconDetail>
-                    <Strong class="rank_text rank_text_3">{{firstItemRank + index }}</Strong>
-                  </template>
-                </AdvantageIcon>
-                <AdvantageIcon location="none" size="9" v-show="firstItemRank + index >  99">
-                  <template #iconDetail>
-                    <Strong class="rank_text rank_text_9">{{ firstItemRank + index }}</Strong>
-                  </template>
-                </AdvantageIcon>
-              </figure>
               <div class="info">
-                <div>
-                  <strong class="strong_text link-underlined">{{item.company_name}}</strong>
+                <Strong class="info_1" style="font-size: 20px" v-if="(firstItemRank+index)*1 <= 10">NO.<span style="font-size: 50px">{{firstItemRank + index}}</span></strong>
+                <figure class="info_1" v-else>
+                  <!--                如果index小于99，就用size=3,而且rank_text_3，如果index大于99，就用size=9而且strong使用class rank_text_9-->
+                  <AdvantageIcon location="none" size="3" v-show="firstItemRank + index <=  99">
+                    <template #iconDetail>
+                      <Strong class="rank_text rank_text_3">{{firstItemRank + index }}</Strong>
+                    </template>
+                  </AdvantageIcon>
+                  <AdvantageIcon location="none" size="9" v-show="firstItemRank + index >  99">
+                    <template #iconDetail>
+                      <Strong class="rank_text rank_text_9">{{ firstItemRank + index }}</Strong>
+                    </template>
+                  </AdvantageIcon>
+                </figure>
+                <div class="info_2">
+                  <p class="strong_text ">{{item.company_name}}</p>
                 </div>
               </div>
               <div class="info2">
@@ -93,7 +95,7 @@
           <a v-else href="javascript:void(0);" @click="getRankList({page: item, isAuto: false})" class="pagination__item">{{ item }}</a>
         </template>
       </template>
-      <a v-if="paginationCurrentPage < totalPage" href="javascript:void(0);" @click="getRankList({page: paginationCurrentPage + 1, isAuto: false})" class="pagination__next link-underlined">下一页</a>
+      <a v-if="paginationCurrentPage < totalPage" href="javascript:void(0);" @click="getRankList({page: paginationCurrentPage + 1, isAuto: false})" class="pagination__next ">下一页</a>
     </div>
   </div>
 </template>
@@ -113,7 +115,16 @@
 }
 .info{
   line-height: 2em;
-  width: 400px;
+  width: 500px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.info_1{
+  width: 120px;
+}
+.info_2{
+  flex:1;
 }
 .info2{
   flex: 1;
@@ -133,12 +144,13 @@
   margin-top: 10px;
 }
 .address_text{
-  font-size: 0.8em;
+  font-size: 1em;
   line-height: 1.5em;
 }
 .strong_text{
-  font-size: 1.2em;
+  font-size: 1.1em;
   margin: 0 0.5em 0 0;
+  font-weight: 400;
 }
 .detail_text{
   font-size: 0.9em;
@@ -204,7 +216,7 @@
   position: absolute;
   top: -50px;
   right: 0;
-  font-weight: 500
+  font-weight: 300
 }
 
 .grid-score__item {
@@ -222,6 +234,7 @@
   height: calc(100% + 32px);
   font-weight: bold;
   background: #0deaf6;
+  font-size: 1.8em;
 }
 .list-jury-notes {
   position: relative
@@ -233,6 +246,7 @@
   justify-content: space-between;
   padding: 16px 20px;
   font-size: 18px;
+  font-weight: 300;
 }
 
 .list-jury-notes__item:after {

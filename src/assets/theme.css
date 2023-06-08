@@ -22,7 +22,6 @@
   --right-blue-btn-bg: #e9f9ff;
   --list-new-color: #385f7f;
   --background-image-right-pre-url: url("https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_f1ef2e32-5a15-43dd-bf56-f16292243f8a.png");
-  --grey-color: #7a7777;
   --hero-bg-color: linear-gradient(180deg, #fff 0, #f3f8ff 50%);
   --hero__image-col-after-bg-color: linear-gradient(20deg,#5c6370 -140%,transparent 30%);
   --advantages-bg-color: linear-gradient(0deg, #fff 30%, #f3f8ff);
@@ -31,6 +30,7 @@
   --speaker-before-bg-color: #fff linear-gradient(0deg,transparent 20%,#f3f8ff);
   --speaker-after-bg-color: linear-gradient(180deg, transparent 20%, #f3f8ff);
   --advantage__icon-bg-color: conic-gradient(from 53deg at 50% 50%,#1f2123 0deg,#3a3d40 130deg,#1f2123 175deg,#3c4245 318deg,#1f2123 1turn);
+  --advantage__icon-2-bg-color: rgba(31, 31, 31, 0.2);
   --advantage__icon-after-bg-color: rgba(254,254,255,.2);
   --link-underlined-color: rgb(34,34,34);
   --link-underlined-before: linear-gradient(to right, rgb(34,34,34) 45%, rgba(34,34,34, 0.3) 55%);
@@ -67,7 +67,6 @@
   --right-blue-btn-bg: #385f7f;
   --list-new-color: #385f7f;
   --background-image-right-pre-url: url("https://zhenmuwang.oss-cn-beijing.aliyuncs.com/sell_answer_img__miniapp_8d79cbc0-74c7-427b-b2a4-0e12affdee83.png");
-  --grey-color: #dedbdb;
   --hero-bg-color: linear-gradient(180deg, #0f0f0f 0%, #1a1a1a 50%);
   --hero__image-col-after-bg-color:linear-gradient(20deg,rgba(255, 255, 255, 0.5) -140%,transparent 30%);
   --advantages-bg-color: linear-gradient(0deg, #0f0f0f 30%, #1a1a1a);
@@ -75,8 +74,9 @@
   --speaker-before-border-color: #0f0f0f;
   --speaker-before-bg-color: #0f0f0f linear-gradient(0deg,transparent 20%,#1a1a1a);
   --speaker-after-bg-color: linear-gradient(180deg, transparent 20%, #1a1a1a);
-  --advantage__icon-after-bg-color: rgba(23,23,23,.6);;
+  --advantage__icon-after-bg-color: rgba(23,23,23,.6);
   --advantage__icon-bg-color: conic-gradient(from 53deg at 50% 50%, #FFFFFF 0deg, #D3D3D3 130deg, #FFFFFF 175deg, #C0C0C0 318deg, #FFFFFF 1turn);
+  --advantage__icon-2-bg-color: conic-gradient(from 53deg at 50% 50%,#1f2123 0deg,#3a3d40 130deg,#1f2123 175deg,#3c4245 318deg,#1f2123 1turn);
   --link-underlined-color: #f1f1f1;
   --link-underlined-before: linear-gradient(to right, rgb(221,221,221) 45%, rgba(221,221,221, 0.3) 55%);
   --dotted-color: linear-gradient(to right, #949494 10%, transparent 10%), linear-gradient(to right, #949494 10%, transparent 10%);
