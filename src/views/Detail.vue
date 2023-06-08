@@ -355,6 +355,19 @@
   background-size: 1px 8px;
   background-repeat: repeat-y;
 }
+.cell.cross .inner1::after{
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  transform: translate(50%, 300%);
+  z-index: 99;
+  width: 200px;
+  height: 200px;
+  background-image: url(/src/assets/10.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+}
 .cell.cross .inner::after {
   /*content: "☠️";*/
   content: "💀";
@@ -526,16 +539,15 @@
       </div>
     </div>
   </div>
-  <div class="padding-10 pc_background_2 margin-40-top" v-else>
+  <div class="padding-10 margin-40-top" v-else>
     <div class="top_2 margin-40-top">
-      <table class="custom-table">
+      <table class="custom-table" v-if="company_info.credit_score*1 <= 59">
         <tr>
           <td class="cell cross"><div class="inner">️</div></td>
           <td>️</td>
           <td class="cell cross"><div class="inner">️</div></td>
           <td></td>
         </tr>
-        <!-- Add more rows as necessary -->
       </table>
       <text class="emphasize">{{ company_info.company_name ? company_info.company_name : '-' }}</text>
       <text class="margin-40-top emphasize">{{ company_info.credit_score ? company_info.credit_score : '-' }}分</text>

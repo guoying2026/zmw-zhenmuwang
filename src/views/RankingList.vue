@@ -151,6 +151,7 @@
 .address_text{
   font-size: 1em;
   line-height: 1.5em;
+  flex: 1;
 }
 .strong_text{
   font-size: 1.1em;
