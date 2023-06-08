@@ -45,7 +45,7 @@
           <div class="grid-score__item orderable" @click="changeScoreOrder">信用分
             <svg t="1686210211523" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2376" xmlns:xlink="http://www.w3.org/1999/xlink" width="200" height="200" style="display: inline-block;width: 24px;height: 24px;">
               <path d="M873.28 681.28a32 32 0 0 1 45.44 45.44l-128 128a32 32 0 0 1-45.44-45.44z" p-id="2377" v-if="scoreOrder==='desc'"></path>
-              <path d="M873.28 412.16a32 32 0 0 0 45.44 -45.44l-128 -128a32 32 0 0 1-45.44+45.44z" p-id="2378" v-else></path>
+              <path d="M871.28 405.16a32 32 0 0 0 45.44 -45.44l-128 -128a32 32 0 0 1-45.44+45.44z" p-id="2378" v-else></path>
               <path d="M800 832a32 32 0 0 1-64 0V256a32 32 0 0 1 64 0zM192 288a32 32 0 0 1 0-64h448a32 32 0 0 1 0 64z m0 192a32 32 0 0 1 0-64h448a32 32 0 0 1 0 64z m0 192a32 32 0 0 1 0-64h448a32 32 0 0 1 0 64z m0 192a32 32 0 0 1 0-64h448a32 32 0 0 1 0 64z" p-id="2378"></path>
             </svg>
           </div>
