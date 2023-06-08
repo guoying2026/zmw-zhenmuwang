@@ -305,6 +305,28 @@
   font-weight: bold;
   line-height: 200%;
 }
+@media screen and (max-width: 425px) {
+  .pagination {
+    justify-content: center;
+    letter-spacing: 2px;
+  }
+}
+@media screen and (max-width: 375px) {
+  .pagination {
+    gap: 4px;
+    margin-left: 3px;
+    margin-right: 3px;
+    letter-spacing: 1px;
+  }
+}
+@media screen and (max-width: 340px) {
+  .pagination {
+    gap: 4px;
+    margin-left: 2px;
+    margin-right: 2px;
+    letter-spacing: 0px;
+  }
+}
 .pagination a {
   text-decoration: none;
 }
@@ -357,6 +379,7 @@
 }
 .pagination__next {
   margin-left: 1em;
+  white-space: nowrap;
 }
 .pagination .link-underlined {
   margin-top: auto;

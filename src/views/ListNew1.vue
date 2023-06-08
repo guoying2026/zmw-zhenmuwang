@@ -123,7 +123,8 @@
     <div class="tsh-container">
       <div class="speaker__wrap">
         <p class="font-bold font-size-12 font-size-sd-11 speaker__label">Top timber merchants</p>
-        <h2 class="section-heading speaker__heading">1 7 3 3 5 9 6 木 材 商 排 行 榜</h2>
+        <!-- <h2 class="section-heading speaker__heading">1 7 3 3 5 9 6 木 材 商 排 行 榜</h2> -->
+        <RollNumber class="section-heading speaker__heading" :value="counter" :time="1" append=" 木 材 商 排 行 榜"/>
         <div class="font-size-10 speaker__content">
           <p class="advantage__detail">我们深知选择一个可信赖的木材供应商的重要性。这就是为什么我们时刻更新全国木材商排行榜，帮助你找到最优质、最可持续的木材。在这个排行榜中，我们考虑了诸多因素，我们深入研究每一个木材商，包括木材商的公司信息、产品质量、客户服务，以及来自所有群众反馈的市场声誉。无论你是正在寻找家庭装修的高品质木材，还是为了大规模的商业项目寻找批发木材商，这个排行榜都能为你提供指导。</p>
         </div>
@@ -159,6 +160,27 @@
 
 </style>
 <script setup>
+import { nextTick, onBeforeUnmount, onMounted, ref } from 'vue';
 import '../assets/techPodcast.scss';
 import AdvantageIcon from "../components/AdvantageIcon.vue";
+import RollNumber from "../components/RollNumber.vue";
+
+const totalCount = ref(1733596);
+const counter = ref(0);
+const observer = new IntersectionObserver((entries, observer) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      counter.value = totalCount.value;
+      observer.unobserve(entry.target);
+    }
+  });
+}, {})
+onMounted(() => {
+  nextTick(() => {
+    observer.observe(document.querySelector('.section-heading.speaker__heading'))
+  })
+})
+onBeforeUnmount(() => {
+  observer.disconnect()
+})
 </script>
