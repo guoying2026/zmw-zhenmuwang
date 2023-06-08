@@ -61,6 +61,10 @@
   width: 30px;
   height: 30px;
 }
+.icon_i{
+  width: 25px;
+  height: 25px;
+}
 .link-underlined:hover:before {
   background-position: 0% 50%;
 }
@@ -84,6 +88,7 @@
 }
 .left_1 .left_1_2 .left_1_2_bottom .left_1_2_bottom_right{
   line-height: 1.3em;
+  flex:1;
 }
 .left{
   display: flex;
@@ -146,7 +151,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  /*background: #0deaf6;*/
+  font-weight: 300;
 }
 .roadmap__timeline.special{
   background: var(--roadmap__timeline-special-bg-color);
@@ -369,6 +374,12 @@
   font-size: 100px;
   z-index: 99;
 }
+.question_show_item{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin: 0.5em 0 0.5em 2em;
+}
 </style>
 <template>
   <div v-if="isMobile" class="padding-10 margin-40-top mobile">
@@ -547,10 +558,15 @@
           <div class="roadmap__col"></div>
           <div class="roadmap__col"></div>
           <div class="roadmap__timeline special" style="--roadmap-start: 2; --roadmap-end: 5;">
-            <div><strong>法定代表人：刘贵斌</strong></div>
+            <div>
+              <text>法定代表人：</text>
+              <strong>刘贵斌</strong>
+            </div>
           </div>
           <div class="roadmap__timeline special" style="--roadmap-start: 5; --roadmap-end: 8;">
-            <div><strong>手机号码：13625393317</strong></div>
+            <div>
+              <text>手机号码：</text>
+              <strong>13625393317</strong></div>
           </div>
           <div class="roadmap__timeline special" style="--roadmap-start: 8; --roadmap-end:12;">
             <div><strong>山东省临沂市兰山区义堂镇大芝房村</strong></div>
@@ -569,13 +585,20 @@
           <div class="roadmap__col"></div>
           <div class="roadmap__col"></div>
           <div class="roadmap__timeline special" style="--roadmap-start: 2; --roadmap-end: 5;">
-            <div><strong>注册资本：100万</strong></div>
+            <div>
+              <text>注册资本：</text>
+              <strong>100万</strong></div>
           </div>
           <div class="roadmap__timeline special" style="--roadmap-start: 5; --roadmap-end: 8;">
-            <div><strong>成立日期：2019-12-06</strong></div>
+            <div>
+              <text>成立日期：</text>
+              <strong>2019-12-06</strong>
+            </div>
           </div>
           <div class="roadmap__timeline special" style="--roadmap-start: 8; --roadmap-end: 12;">
-            <div><strong>登记机关：临沂市兰山区市场监督管理局</strong></div>
+            <div>
+              <text>登记机关：</text>
+              <strong>临沂市兰山区市场监督管理局</strong></div>
           </div>
         </div>
         <div class="roadmap__row">
@@ -591,13 +614,22 @@
           <div class="roadmap__col"></div>
           <div class="roadmap__col"></div>
           <div class="roadmap__timeline special" style="--roadmap-start: 2; --roadmap-end: 5;">
-            <div><strong>人员规模：50人</strong></div>
+            <div>
+              <text>人员规模：</text>
+              <strong>50人</strong>
+            </div>
           </div>
           <div class="roadmap__timeline special" style="--roadmap-start: 5; --roadmap-end: 8;">
-            <div><strong>经营状态：开业</strong></div>
+            <div>
+              <text>经营状态：</text>
+              <strong>开业</strong>
+            </div>
           </div>
           <div class="roadmap__timeline special" style="--roadmap-start: 8; --roadmap-end: 12;">
-            <div><strong>登记状态：注销企业</strong></div>
+            <div>
+              <text>登记状态：</text>
+              <strong>注销企业</strong>
+            </div>
           </div>
         </div>
         <div class="roadmap__row">
@@ -613,10 +645,14 @@
           <div class="roadmap__col"></div>
           <div class="roadmap__col"></div>
           <div class="roadmap__timeline special" style="--roadmap-start: 2; --roadmap-end: 8;">
-            <div><strong>社会信用代码 / 纳税人识别号：91371302MA3R5KGF37</strong></div>
+            <div>
+              <text>社会信用代码 / 纳税人识别号：</text>
+              <strong>91371302MA3R5KGF37</strong></div>
           </div>
           <div class="roadmap__timeline special" style="--roadmap-start: 8; --roadmap-end: 12;">
-            <div><strong>组织机构代码：MA3R5KGF-3</strong></div>
+            <div>
+              <text>组织机构代码：</text>
+              <strong>MA3R5KGF-3</strong></div>
           </div>
         </div>
         <div class="roadmap__row">
@@ -632,7 +668,9 @@
           <div class="roadmap__col"></div>
           <div class="roadmap__col"></div>
           <div class="roadmap__timeline special" style="--roadmap-start: 2; --roadmap-end: 12;">
-            <div><strong>加工销售：木制线条、木方、木制品、刨花木墩、单板、木皮、胶合板、多层板、建筑模版、装饰板</strong></div>
+            <div>
+              <text>加工销售：</text>
+              <strong>木制线条、木方、木制品、刨花木墩、单板、木皮、胶合板、多层板、建筑模版、装饰板</strong></div>
           </div>
         </div>
         <div class="roadmap__row">
@@ -648,13 +686,19 @@
           <div class="roadmap__col"></div>
           <div class="roadmap__col"></div>
           <div class="roadmap__timeline special" style="--roadmap-start: 2; --roadmap-end: 5;">
-            <div><strong>投诉总记录： 6条</strong></div>
+            <div>
+              <text>投诉总记录：</text>
+              <strong> 6条</strong></div>
           </div>
           <div class="roadmap__timeline special" style="--roadmap-start: 5; --roadmap-end: 8;">
-            <div><strong>待审查记录： 1条</strong></div>
+            <div>
+              <text>待审查记录：</text>
+              <strong> 1条</strong></div>
           </div>
           <div class="roadmap__timeline special" style="--roadmap-start: 8; --roadmap-end: 11;">
-            <div><strong>真木网核实： 5条</strong></div>
+            <div>
+              <text>真木网核实：</text>
+              <strong> 5条</strong></div>
           </div>
           <div class="roadmap__timeline none" style="--roadmap-start: 11;--roadmap-end: 12" @click="handleItemClick(4)">
             <svg fill="var(--navbar-color)" height="200px" width="200px" class="icon" viewBox="0 0 490 490" xml:space="preserve" transform="rotate(180)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M245,0C109.7,0,0,109.7,0,245s109.7,245,245,245s245-109.7,245-245S380.3,0,245,0z M308.2,335.5l-42.7,42.7L175,287.7 L132.3,245l42.7-42.7l90.5-90.5l42.7,42.7L217.8,245L308.2,335.5z"></path> </g> </g></svg>
@@ -673,13 +717,19 @@
           <div class="roadmap__col"></div>
           <div class="roadmap__col"></div>
           <div class="roadmap__timeline special" style="--roadmap-start: 2; --roadmap-end: 5;">
-            <div><strong>评论总数量： 6条</strong></div>
+            <div>
+              <text>评论总数量：</text>
+              <strong> 6条</strong></div>
           </div>
           <div class="roadmap__timeline special" style="--roadmap-start: 5; --roadmap-end: 8;">
-            <div><strong>回复总数量： 1条</strong></div>
+            <div>
+              <text>回复总数量：</text>
+              <strong> 1条</strong></div>
           </div>
           <div class="roadmap__timeline special" style="--roadmap-start: 8; --roadmap-end: 11;">
-            <div><strong>点赞总数量： 5条</strong></div>
+            <div>
+              <text>点赞总数量：</text>
+              <strong> 5条</strong></div>
           </div>
           <div class="roadmap__timeline none" style="--roadmap-start: 11;--roadmap-end: 12" @click="handleItemClick(0)">
             <svg fill="var(--navbar-color)" height="200px" width="200px" class="icon" viewBox="0 0 490 490" xml:space="preserve" transform="rotate(180)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M245,0C109.7,0,0,109.7,0,245s109.7,245,245,245s245-109.7,245-245S380.3,0,245,0z M308.2,335.5l-42.7,42.7L175,287.7 L132.3,245l42.7-42.7l90.5-90.5l42.7,42.7L217.8,245L308.2,335.5z"></path> </g> </g></svg>
@@ -698,13 +748,19 @@
           <div class="roadmap__col"></div>
           <div class="roadmap__col"></div>
           <div class="roadmap__timeline special" style="--roadmap-start: 2; --roadmap-end: 5;">
-            <div><strong>问题总数量： 6条</strong></div>
+            <div>
+              <text>问题总数量：</text>
+              <strong> 6条</strong></div>
           </div>
           <div class="roadmap__timeline special" style="--roadmap-start: 5; --roadmap-end: 8;">
-            <div><strong>回答总数量： 1条</strong></div>
+            <div>
+              <text>回答总数量：</text>
+              <strong> 1条</strong></div>
           </div>
           <div class="roadmap__timeline special" style="--roadmap-start: 8; --roadmap-end: 11;">
-            <div><strong>有用总数量： 5条</strong></div>
+            <div>
+              <text>有用总数量：</text>
+              <strong> 5条</strong></div>
           </div>
           <div class="roadmap__timeline none" style="--roadmap-start: 11;--roadmap-end: 12" @click="handleItemClick(3)">
             <svg fill="var(--navbar-color)" height="200px" width="200px" class="icon" viewBox="0 0 490 490" xml:space="preserve" transform="rotate(180)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M245,0C109.7,0,0,109.7,0,245s109.7,245,245,245s245-109.7,245-245S380.3,0,245,0z M308.2,335.5l-42.7,42.7L175,287.7 L132.3,245l42.7-42.7l90.5-90.5l42.7,42.7L217.8,245L308.2,335.5z"></path> </g> </g></svg>
@@ -775,7 +831,7 @@
                     <p class="text-bold ">{{item.company_name}}</p>
                   </figcaption>
                   <div class="left_1_2_bottom">
-                    <svg viewBox="0 0 8.4666669 8.4666669" class="icon_l"  fill="var(--navbar-color)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <defs id="defs2"></defs> <g id="layer1" transform="translate(0,-288.53332)"> <path d="m 15.996094,0.99609375 c -6.0632836,0 -10.9980445,4.93673065 -10.9980471,11.00000025 -3.8e-6,10.668737 10.3789061,18.779297 10.3789061,18.779297 0.364612,0.290384 0.881482,0.290384 1.246094,0 0,0 10.380882,-8.11056 10.380859,-18.779297 C 27.003893,5.9328244 22.059377,0.99609375 15.996094,0.99609375 Z m 0,6.00195315 c 2.749573,0 5.00585,2.2484784 5.005859,4.9980471 C 21.001971,14.7457 18.745685,17 15.996094,17 c -2.749591,0 -4.998064,-2.2543 -4.998047,-5.003906 9e-6,-2.7495687 2.248474,-4.9980471 4.998047,-4.9980471 z" id="path929" style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:var(--navbar-color);solid-opacity:1;vector-effect:none;fill:var(--navbar-color);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.99999988;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" transform="matrix(0.26458333,0,0,0.26458333,0,288.53332)"></path> </g> </g></svg>
+                    <svg viewBox="0 0 8.4666669 8.4666669" class="icon_i"  fill="var(--navbar-color)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <defs id="defs2"></defs> <g id="layer1" transform="translate(0,-288.53332)"> <path d="m 15.996094,0.99609375 c -6.0632836,0 -10.9980445,4.93673065 -10.9980471,11.00000025 -3.8e-6,10.668737 10.3789061,18.779297 10.3789061,18.779297 0.364612,0.290384 0.881482,0.290384 1.246094,0 0,0 10.380882,-8.11056 10.380859,-18.779297 C 27.003893,5.9328244 22.059377,0.99609375 15.996094,0.99609375 Z m 0,6.00195315 c 2.749573,0 5.00585,2.2484784 5.005859,4.9980471 C 21.001971,14.7457 18.745685,17 15.996094,17 c -2.749591,0 -4.998064,-2.2543 -4.998047,-5.003906 9e-6,-2.7495687 2.248474,-4.9980471 4.998047,-4.9980471 z" id="path929" style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:sans-serif;font-variant-ligatures:normal;font-variant-position:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-alternates:normal;font-feature-settings:normal;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;text-decoration-style:solid;text-decoration-color:#000000;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;text-orientation:mixed;dominant-baseline:auto;baseline-shift:baseline;text-anchor:start;white-space:normal;shape-padding:0;clip-rule:nonzero;display:inline;overflow:visible;visibility:visible;opacity:1;isolation:auto;mix-blend-mode:normal;color-interpolation:sRGB;color-interpolation-filters:linearRGB;solid-color:var(--navbar-color);solid-opacity:1;vector-effect:none;fill:var(--navbar-color);fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.99999988;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers;color-rendering:auto;image-rendering:auto;shape-rendering:auto;text-rendering:auto;enable-background:accumulate" transform="matrix(0.26458333,0,0,0.26458333,0,288.53332)"></path> </g> </g></svg>
                     <text class="left_1_2_bottom_right margin-5-left">{{ item.address }}</text>
                   </div>
                 </div>
@@ -795,8 +851,17 @@
               </div>
               <div class="nearby_2" v-show="tabDetailStore.current*1 === 3">
                 <h4 class="nearby_2_comment">问答预览：</h4>
+                <div class="question_show_item"><svg class="avatar-name__img icon" viewBox="0 0 512 512" xml:space="preserve" fill="#000000">
+          <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
+          <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
+          <g id="SVGRepo_iconCarrier">
+            <g>
+              <path class="st0" d="M256,0C114.616,0,0,114.612,0,256s114.616,256,256,256s256-114.612,256-256S397.385,0,256,0z M207.678,378.794 c0-17.612,14.281-31.893,31.893-31.893c17.599,0,31.88,14.281,31.88,31.893c0,17.595-14.281,31.884-31.88,31.884 C221.959,410.678,207.678,396.389,207.678,378.794z M343.625,218.852c-3.596,9.793-8.802,18.289-14.695,25.356 c-11.847,14.148-25.888,22.718-37.442,29.041c-7.719,4.174-14.533,7.389-18.769,9.769c-2.905,1.604-4.479,2.95-5.256,3.826 c-0.768,0.926-1.029,1.306-1.496,2.826c-0.273,1.009-0.558,2.612-0.558,5.091c0,6.868,0,12.512,0,12.512 c0,6.472-5.248,11.728-11.723,11.728h-28.252c-6.475,0-11.732-5.256-11.732-11.728c0,0,0-5.645,0-12.512 c0-6.438,0.752-12.744,2.405-18.777c1.636-6.008,4.215-11.718,7.508-16.694c6.599-10.083,15.542-16.802,23.984-21.48 c7.401-4.074,14.723-7.455,21.516-11.281c6.789-3.793,12.843-7.91,17.302-12.372c2.988-2.975,5.31-6.05,7.087-9.52 c2.335-4.628,3.955-10.067,3.992-18.389c0.012-2.463-0.698-5.702-2.632-9.405c-1.926-3.686-5.066-7.694-9.264-11.29 c-8.45-7.248-20.843-12.545-35.054-12.521c-16.285,0.058-27.186,3.876-35.587,8.62c-8.36,4.776-11.029,9.595-11.029,9.595 c-4.268,3.718-10.603,3.85-15.025,0.314l-21.71-17.397c-2.719-2.173-4.322-5.438-4.396-8.926c-0.063-3.479,1.425-6.81,4.061-9.099 c0,0,6.765-10.43,22.451-19.38c15.62-8.992,36.322-15.488,61.236-15.429c20.215,0,38.839,5.562,54.268,14.661 c15.434,9.148,27.897,21.744,35.851,36.876c5.281,10.074,8.525,21.43,8.533,33.38C349.211,198.042,347.248,209.058,343.625,218.852 z"></path>
+            </g>
+          </g>
+        </svg><text>能做特殊规格吗？</text>
+                </div>
                 <text class="time">2023-09-03 11:10:30</text>
-                <p>问：能做特殊规格吗？</p>
                 <text class=" margin-40-left time">2023-09-03 11:10:20</text>
                 <p class=" margin-40-left ">答：能</p>
                 <text class="time">2023-09-03 11:10:20</text>

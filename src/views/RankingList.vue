@@ -27,6 +27,11 @@
     </ul>
   </div>
   <div class="inner" v-else>
+<!--    排行榜开始-->
+    <div>
+
+    </div>
+<!--    排行榜结束-->
     <div class="heading-section mb-0">
       <div class="heading-section__left">
       </div>
