@@ -1,7 +1,7 @@
 <template>
   <div v-if="isMobile" class="inner">
     <ul id="user_votes" class="list-users-votes">
-      <li class="js-hidden-list-element list-jury-notes__item" v-for="(item, index) in rankList" :key="index">
+      <li class="js-hidden-list-element list-jury-notes__item" v-for="(item, index) in rankList" :key="index" @click="gotoDetail(item.id)">
         <template v-if="scoreOrder==='desc'">
           <p v-if="(firstItemRank + index - 1) * 1 <= 2">NO.{{firstItemRank + index}} {{item.company_name}}</p>
           <p class="detail_text" v-else>{{firstItemRank + index}}. {{item.company_name}}</p>
@@ -57,7 +57,7 @@
           </div>
         </div>
         <ul id="user_votes" class="list-users-votes">
-          <li class="js-hidden-list-element list-jury-notes__item" v-for="(item, index) in rankList" :key="index">
+          <li class="js-hidden-list-element list-jury-notes__item" v-for="(item, index) in rankList" :key="index" @click="gotoDetail(item.id)">
             <div class="list-jury-notes__info">
               <div class="info">
                 <template v-if="scoreOrder==='desc'">
@@ -294,6 +294,7 @@
   padding: 16px 20px;
   font-size: 18px;
   font-weight: 300;
+  cursor: pointer;
 }
 
 .list-jury-notes__item:after {
@@ -763,6 +764,10 @@ const getRankList = (params) => {
 
   // 返回当前请求任务的中止控制器
   return controller
+}
+
+const gotoDetail = (id) => {
+  window.location.assign(`/detail?company_info_id=${id}`)
 }
 
 // 定义监听器的回调函数
