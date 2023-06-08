@@ -2,14 +2,8 @@
   <div v-if="isMobile" class="inner">
     <ul id="user_votes" class="list-users-votes">
       <li class="js-hidden-list-element list-jury-notes__item" v-for="(item, index) in rankList" :key="index" @click="gotoDetail(item.id)">
-        <template v-if="scoreOrder==='desc'">
-          <p v-if="(firstItemRank + index - 1) * 1 <= 2">NO.{{firstItemRank + index}} {{item.company_name}}</p>
-          <p class="detail_text" v-else>{{firstItemRank + index}}. {{item.company_name}}</p>
-        </template>
-        <template v-else>
-          <p v-if="(totalCount - (firstItemRank + index - 1) - 1) * 1 <= 2">NO.{{totalCount - (firstItemRank + index - 1)}} {{item.company_name}}</p>
-          <p class="detail_text" v-else>{{totalCount - (firstItemRank + index - 1)}}. {{item.company_name}}</p>
-        </template>
+        <p v-if="(calcRankIndex(index) - 1) * 1 <= 2">NO.{{ calcRankIndex(index) }} {{item.company_name}}</p>
+        <p class="detail_text" v-else>{{ calcRankIndex(index) }}. {{item.company_name}}</p>
         <div class="info_all">
           <div class="info2">
             <div class="info2_1">
@@ -60,38 +54,20 @@
           <li class="js-hidden-list-element list-jury-notes__item" v-for="(item, index) in rankList" :key="index" @click="gotoDetail(item.id)">
             <div class="list-jury-notes__info">
               <div class="info">
-                <template v-if="scoreOrder==='desc'">
-                  <Strong class="info_1" style="font-size: 20px" v-if="(firstItemRank+index)*1 <= 10">NO.<span style="font-size: 50px">{{firstItemRank + index}}</span></strong>
-                  <figure class="info_1" v-else>
-                    <!--                如果index小于99，就用size=3,而且rank_text_3，如果index大于99，就用size=9而且strong使用class rank_text_9-->
-                    <AdvantageIcon location="none" size="3" v-show="firstItemRank + index <=  99">
-                      <template #iconDetail>
-                        <Strong class="rank_text rank_text_3">{{firstItemRank + index }}</Strong>
-                      </template>
-                    </AdvantageIcon>
-                    <AdvantageIcon location="none" size="9" v-show="firstItemRank + index >  99">
-                      <template #iconDetail>
-                        <Strong class="rank_text rank_text_9">{{ firstItemRank + index }}</Strong>
-                      </template>
-                    </AdvantageIcon>
-                  </figure>
-                </template>
-                <template v-else>
-                  <Strong class="info_1" style="font-size: 20px" v-if="(totalCount - (firstItemRank + index - 1))*1 <= 10">NO.<span style="font-size: 50px">{{totalCount - (firstItemRank + index - 1)}}</span></strong>
-                  <figure class="info_1" v-else>
-                    <!--                如果index小于99，就用size=3,而且rank_text_3，如果index大于99，就用size=9而且strong使用class rank_text_9-->
-                    <AdvantageIcon location="none" size="3" v-show="totalCount - (firstItemRank + index - 1) <=  99">
-                      <template #iconDetail>
-                        <Strong class="rank_text rank_text_3">{{totalCount - (firstItemRank + index - 1) }}</Strong>
-                      </template>
-                    </AdvantageIcon>
-                    <AdvantageIcon location="none" size="9" v-show="totalCount - (firstItemRank + index - 1) >  99">
-                      <template #iconDetail>
-                        <Strong class="rank_text rank_text_9">{{ totalCount - (firstItemRank + index - 1) }}</Strong>
-                      </template>
-                    </AdvantageIcon>
-                  </figure>
-                </template>
+                <Strong class="info_1" style="font-size: 20px" v-if="(calcRankIndex(index))*1 <= 10">NO.<span style="font-size: 50px">{{ calcRankIndex(index) }}</span></strong>
+                <figure class="info_1" v-else>
+                  <!--                如果index小于99，就用size=3,而且rank_text_3，如果index大于99，就用size=9而且strong使用class rank_text_9-->
+                  <AdvantageIcon location="none" size="3" v-show="calcRankIndex(index) <=  99">
+                    <template #iconDetail>
+                      <Strong class="rank_text rank_text_3">{{ calcRankIndex(index) }}</Strong>
+                    </template>
+                  </AdvantageIcon>
+                  <AdvantageIcon location="none" size="9" v-show="calcRankIndex(index) >  99">
+                    <template #iconDetail>
+                      <Strong class="rank_text rank_text_9">{{ calcRankIndex(index) }}</Strong>
+                    </template>
+                  </AdvantageIcon>
+                </figure>
                 <div class="info_2">
                   <p class="strong_text ">{{item.company_name}}</p>
                 </div>
@@ -639,6 +615,17 @@ const changeScoreOrder = () => {
 
 // 列表第一项的排名
 const firstItemRank = ref(((currentPage.value - 1) * pageSize.value) + 1)
+
+/**
+ * @param {number} index
+ */
+const calcRankIndex = (index) => {
+  if (scoreOrder.value === 'desc') {
+    return firstItemRank.value + index
+  } else {
+    return totalCount.value - (firstItemRank.value + index - 1)
+  }
+}
 
 // 正在获取排行榜列表的任务
 let requestTaskList = []
