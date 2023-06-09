@@ -814,11 +814,15 @@ onBeforeUnmount(() => {
 
 onActivated(() => {
   // 切换回页面后，监听分页是否在视野范围内
-  observer.observe(document.querySelector('.pagination_container'))
+  if (document.querySelector('.pagination_container')) {
+    observer.observe(document.querySelector('.pagination_container'))
+  }
 })
 
 onDeactivated(() => {
   // 离开页面时，取消监听分页是否在视野范围内
-  observer.unobserve(document.querySelector('.pagination_container'))
+  if (document.querySelector('.pagination_container')) {
+    observer.unobserve(document.querySelector('.pagination_container'))
+  }
 })
 </script>
