@@ -35,7 +35,7 @@
               <strong class=" text-bold" data-dl-uid="390" data-dl-original="true" data-dl-translated="false">Marcin Treder</strong>
             </figcaption>
           </div>
-          <p class="reply_item_2">我曾经担心这种木材会受虫害，但实际使用过程中发现它的防虫性能非常好。</p>
+          <p class="reply_item_2">太过分了，商家必须给出休整意见。</p>
           <div class="reply_item_3">
             <text class="font-15-size time">2020-08-09 12:12:30</text>
           </div>
@@ -51,7 +51,7 @@
               <strong class=" text-bold" data-dl-uid="390" data-dl-original="true" data-dl-translated="false">Marcin Treder</strong>
             </figcaption>
           </div>
-          <p class="reply_item_2">我曾经担心这种木材会受虫害，但实际使用过程中发现它的防虫性能非常好。</p>
+          <p class="reply_item_2">太过分了，商家必须给出休整意见。</p>
           <div class="reply_item_3">
             <text class="font-15-size time">2020-08-09 12:12:30</text>
           </div>

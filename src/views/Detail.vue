@@ -26,7 +26,7 @@
   width: 100%;
 }
 .pc_background_1{
-  background-image: url("../assets/04.png"), url("../assets/03.png");
+  background-image: url("../assets/07.png"), url("../assets/07.png");
   background-repeat: no-repeat, no-repeat;
   background-position: -18%, 118%;
   background-size: 30% auto,30% auto;
@@ -384,6 +384,17 @@
   align-items: center;
   margin: 0.5em 0 0.5em 2em;
 }
+.before_homepage{
+  position: relative;
+  z-index: 20;
+}
+.HomepageAnonHeader_bg-btg1n {
+  top: 50px;
+  position: absolute;
+  right: -10px;
+  width: 800px;
+  z-index: 0;
+}
 </style>
 <template>
   <div v-if="isMobile" class="padding-10 margin-40-top mobile">
@@ -549,8 +560,9 @@
           <td></td>
         </tr>
       </table>
-      <text class="emphasize">{{ company_info.company_name ? company_info.company_name : '-' }}</text>
-      <text class="margin-40-top emphasize">{{ company_info.credit_score ? company_info.credit_score : '-' }}分</text>
+      <img src="https://cpwebassets.codepen.io/assets/packs/lines-2-4e66616a5ef291c3566a7ddfe1ffaaa8.svg" alt="" class="HomepageAnonHeader_bg-btg1n">
+      <text class="emphasize margin-60-top before_homepage">{{ company_info.company_name ? company_info.company_name : '-' }}</text>
+      <text class="margin-40-top emphasize before_homepage">{{ company_info.credit_score ? company_info.credit_score : '-' }}分</text>
       <el-carousel height="100px" direction="vertical" :autoplay="true" class="margin-40-top">
         <el-carousel-item v-for="(item,index) in activities" :key="index">
           <div v-for="(item1,index1) in item.content" :key="index1">
