@@ -463,7 +463,7 @@
           </p>
           <p>
             <span class="row_left">登记机关：</span>
-            <span class="row_right">{{ shop_info.regist_author ? shop_info.regist_author : '-' }}</span>
+            <span class="row_right">{{ shop_info && shop_info.regist_author ? shop_info.regist_author : '-' }}</span>
           </p>
           <!-- <p>
             <span class="row_left">人员规模：</span>
@@ -674,7 +674,7 @@
           <div class="roadmap__timeline special" style="--roadmap-start: 8; --roadmap-end: 12;">
             <div>
               <text>登记机关：</text>
-              <strong>{{ shop_info.regist_author ? shop_info.regist_author : '-' }}</strong></div>
+              <strong>{{ shop_info && shop_info.regist_author ? shop_info.regist_author : '-' }}</strong></div>
           </div>
         </div>
         <div class="roadmap__row">
