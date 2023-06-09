@@ -129,7 +129,7 @@
           <p class="advantage__detail">我们深知选择一个可信赖的木材供应商的重要性。这就是为什么我们时刻更新全国木材商排行榜，帮助你找到最优质、最可持续的木材。在这个排行榜中，我们考虑了诸多因素，我们深入研究每一个木材商，包括木材商的公司信息、产品质量、客户服务，以及来自所有群众反馈的市场声誉。无论你是正在寻找家庭装修的高品质木材，还是为了大规模的商业项目寻找批发木材商，这个排行榜都能为你提供指导。</p>
         </div>
       </div>
-      <a href="https://tsh.io/works-fine-for-me/become-a-speaker/" class="speaker__button">
+      <a href="javascript:void(0);" class="speaker__button" @click="gotoList">
         <span class="section-heading speaker__button-text"> GO </span>
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 300 300">
           <defs>
@@ -179,6 +179,10 @@ import RollNumber from "../components/RollNumber.vue";
 const parentInstance = ref(null)
 const searchSlideDown = () => {
   parentInstance.value.provides.searchSlideDown()
+}
+
+const gotoList = () => {
+  window.location.assign('/rankingList')
 }
 
 const totalCount = ref(1733596);
