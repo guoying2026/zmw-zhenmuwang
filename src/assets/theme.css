@@ -36,6 +36,11 @@
   --link-underlined-before: linear-gradient(to right, rgb(34,34,34) 45%, rgba(34,34,34, 0.3) 55%);
   --dotted-color: linear-gradient(to right, #000 10%, transparent 10%), linear-gradient(to right, #000 10%, transparent 10%);
   --col-dotted-color: linear-gradient(to bottom, rgb(34,34,34) 10%, rgba(255, 255, 255, 0) 10%);
+  --col-dotted-59-color: linear-gradient(to bottom, rgb(34,34,34) 10%, rgba(255, 255, 255, 0) 10%);
+  --col-dotted-60-color: linear-gradient(to bottom, rgb(34,34,34) 10%, rgba(255, 255, 255, 0) 10%);
+  --col-dotted-70-color: linear-gradient(to bottom, rgb(34,34,34) 10%, rgba(255, 255, 255, 0) 10%);
+  --col-dotted-90-color: linear-gradient(to bottom, rgb(34,34,34) 10%, rgba(255, 255, 255, 0) 10%);
+  --col-dotted-100-color: linear-gradient(to bottom, rgb(34,34,34) 10%, rgba(255, 255, 255, 0) 10%);
   --hero__equalizer-bar-bg-color: #ccd8ed;
   --hero__equalizer-bar-after-bg-color: #232323;
   --list-jury-notes__item-odd:linear-gradient(30deg, #5c6370 -140%, transparent 30%),linear-gradient(-30deg, #5c6370 -140%, transparent 30%);
@@ -43,6 +48,7 @@
   --roadmap__timeline-special-bg-color: linear-gradient(to right, #ecf0f6, rgba(255,255,255,0.1)) !important;
   --comment_time: #696969;
   --HomepageAnonHeader-bg-opacity: 0.7;
+  --pc_background_2-bg: url("../assets/06.png"), url("../assets/05.png");
 }
 [data-theme="dark"] {
   --navbar-bg-color: #000;
@@ -82,6 +88,11 @@
   --link-underlined-before: linear-gradient(to right, rgb(221,221,221) 45%, rgba(221,221,221, 0.3) 55%);
   --dotted-color: linear-gradient(to right, #949494 10%, transparent 10%), linear-gradient(to right, #949494 10%, transparent 10%);
   --col-dotted-color: linear-gradient(to bottom, #949494 10%, #000000 10%);
+  --col-dotted-59-color: linear-gradient(to bottom, #949494 10%, #000000 10%);
+  --col-dotted-60-color: linear-gradient(to bottom, #fa7112 10%, #000000 10%);
+  --col-dotted-70-color: linear-gradient(to bottom, #02ff08 10%, #000000 10%);
+  --col-dotted-90-color: linear-gradient(to bottom, #1465e0 10%, #000000 10%);
+  --col-dotted-100-color: linear-gradient(to bottom, #ac00fa 10%, #000000 10%);
   --hero__equalizer-bar-bg-color: #383838;
   --hero__equalizer-bar-after-bg-color: #fff;
   --list-jury-notes__item-odd:linear-gradient(30deg, #e7e7e7 -140%, transparent 30%),linear-gradient(-30deg,  #e7e7e7 -140%, transparent 30%);
@@ -89,4 +100,5 @@
   --roadmap__timeline-special-bg-color: linear-gradient(to right, #222, rgba(0,0,0,0.1)) !important;
   --comment_time: #bababa;
   --HomepageAnonHeader-bg-opacity: 1;
+  --pc_background_2-bg: url("../assets/07.png"), url("../assets/08.png");
 }

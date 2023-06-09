@@ -25,15 +25,8 @@
   align-items: center;
   width: 100%;
 }
-.pc_background_1{
-  background-image: url("../assets/07.png"), url("../assets/07.png");
-  background-repeat: no-repeat, no-repeat;
-  background-position: -18%, 118%;
-  background-size: 30% auto,30% auto;
-  height: 500px;
-}
 .pc_background_2{
-  background-image: url("../assets/06.png"), url("../assets/05.png");
+  background-image: var(--pc_background_2-bg);
   background-repeat: no-repeat, no-repeat;
   background-position: -18%, 118%;
   background-size: 30% auto,30% auto;
@@ -245,16 +238,6 @@
   justify-content: flex-start;
   align-items: center;
 }
-/*.cross-point{*/
-/*  position: absolute;*/
-/*  top: -200px;*/
-/*  left: -60px;*/
-/*  width: 250px;*/
-/*  height: 200px;*/
-/*  background: url(/src/assets/10.png);*/
-/*  background-size: cover;*/
-/*  z-index: 1;*/
-/*}*/
 @media only screen and (max-width: 989px) {
   .top{
     display: flex;
@@ -355,19 +338,6 @@
   background-size: 1px 8px;
   background-repeat: repeat-y;
 }
-.cell.cross .inner1::after{
-  content: "";
-  position: absolute;
-  bottom: 0;
-  right: 0;
-  transform: translate(50%, 300%);
-  z-index: 99;
-  width: 200px;
-  height: 200px;
-  background-image: url(/src/assets/10.png);
-  background-size: contain;
-  background-repeat: no-repeat;
-}
 .cell.cross .inner::after {
   /*content: "☠️";*/
   content: "💀";
@@ -440,6 +410,7 @@
   <div v-if="isMobile" class="padding-10 margin-40-top mobile">
     <div class="top_2">
       <text class="margin-40-top emphasize">{{ company_info.company_name ? company_info.company_name : '-' }}</text>
+      <text class="margin-20-top emphasize">{{ company_info.credit_score ?company_info.credit_score : '0' }}分</text>
       <div class="roadmap_mobile margin-20-top">
         <div class="roadmap__row_mobile">
           <p>
@@ -465,18 +436,18 @@
             <span class="row_left">登记机关：</span>
             <span class="row_right">{{ shop_info && shop_info.regist_author ? shop_info.regist_author : '-' }}</span>
           </p>
-          <!-- <p>
+          <p>
             <span class="row_left">人员规模：</span>
             <span class="row_right">50人</span>
-          </p> -->
+          </p>
           <p>
             <span class="row_left">经营状态：</span>
             <span class="row_right">{{ company_info.operation_state ? company_info.operation_state : '-' }}</span>
           </p>
-          <!-- <p>
+          <p>
             <span class="row_left">登记状态：</span>
             <span class="row_right">注销企业</span>
-          </p> -->
+          </p>
           <p>
             <span class="row_left">社会信用代码：</span>
             <span class="row_right">{{ company_info.credit_code ? company_info.credit_code : '-' }}</span>
@@ -577,7 +548,7 @@
       </div>
     </div>
   </div>
-  <div class="padding-10 margin-40-top" v-else>
+  <div :class="company_info.credit_score*1 <= 59 ? 'pc_background_2 padding-10 margin-40-top':'padding-10 margin-40-top'" v-else>
     <div class="top_2 margin-40-top">
       <table class="custom-table" v-if="company_info.credit_score*1 <= 59">
         <tr>
@@ -595,6 +566,10 @@
         <img class="HomepageAnonHeader_bg HomepageAnonHeader_bg-btg2n" src="../assets/18.png">
         <img class="HomepageAnonHeader_bg HomepageAnonHeader_bg-btg1n" src="../assets/19.png">
       </template>
+      <template v-else-if="company_info.credit_score*1 >= 70">
+        <img class="HomepageAnonHeader_bg HomepageAnonHeader_bg-btg2n" src="../assets/22.png">
+        <img class="HomepageAnonHeader_bg HomepageAnonHeader_bg-btg1n" src="../assets/23.png">
+      </template>
       <template v-else-if="company_info.credit_score*1 >= 60">
         <img class="HomepageAnonHeader_bg HomepageAnonHeader_bg-btg2n" src="../assets/15.png">
         <img class="HomepageAnonHeader_bg HomepageAnonHeader_bg-btg1n" src="../assets/16.png">
@@ -604,6 +579,7 @@
         <div class="before_homepage_1">
           <img class="before_homepage_1_1" v-if="company_info.credit_score*1 === 100" src="../assets/12.png">
           <img class="before_homepage_1_1" v-else-if="company_info.credit_score*1 >= 90" src="../assets/20.png">
+          <img class="before_homepage_1_1" v-else-if="company_info.credit_score*1 >= 70" src="../assets/21.png">
           <img class="before_homepage_1_1" v-else-if="company_info.credit_score*1 >= 60" src="../assets/17.png">
           <text class="emphasize margin-40-top">{{ company_info.company_name ? company_info.company_name : '-' }}</text>
           <div class="before_homepage_1_2">
@@ -645,7 +621,9 @@
               <strong>{{ company_info.contact_phone ? company_info.contact_phone : '-' }}</strong></div>
           </div>
           <div class="roadmap__timeline special" style="--roadmap-start: 8; --roadmap-end:12;">
-            <div><strong>{{ company_info.address ? company_info.address : '-' }}</strong></div>
+            <div>
+              <text>{{ company_info.address ? '' : '详细地址：' }}</text>
+              <strong>{{ company_info.address ? company_info.address : '-' }}</strong></div>
           </div>
         </div>
         <div class="roadmap__row">
@@ -692,7 +670,7 @@
           <div class="roadmap__timeline special" style="--roadmap-start: 2; --roadmap-end: 5;">
             <div>
               <text>人员规模：</text>
-              <strong>50人</strong>
+              <strong>-</strong>
             </div>
           </div>
           <div class="roadmap__timeline special" style="--roadmap-start: 5; --roadmap-end: 8;">
@@ -704,7 +682,7 @@
           <div class="roadmap__timeline special" style="--roadmap-start: 8; --roadmap-end: 12;">
             <div>
               <text>登记状态：</text>
-              <strong>注销企业</strong>
+              <strong>-</strong>
             </div>
           </div>
         </div>
