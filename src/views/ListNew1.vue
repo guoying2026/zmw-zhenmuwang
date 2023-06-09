@@ -4,7 +4,7 @@
       <div class="tsh-row">
         <div class="tsh-col-6 tsh-col-sd-4 hero__image-col">
           <img src="../assets/Credit1@2x.png" width="270" height="549" alt="" loading="lazy" class="image">
-          <button type="button" class="hero__play" data-title="Trailer" data-playback-url="https://api.spreaker.com/v2/episodes/52791206/play">
+          <button type="button" class="hero__play" data-title="Trailer" data-playback-url="https://api.spreaker.com/v2/episodes/52791206/play" @click="searchSlideDown">
             <svg viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg" fill="none" width="100px" height="100px"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill="var(--navbar-bg-color)" fill-rule="evenodd" d="M4 9a5 5 0 1110 0A5 5 0 014 9zm5-7a7 7 0 104.2 12.6.999.999 0 00.093.107l3 3a1 1 0 001.414-1.414l-3-3a.999.999 0 00-.107-.093A7 7 0 009 2z"></path> </g></svg>
             <div class="hero__play-text">
               <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 300 300"> <defs> <path id="criclePath" d=" M 150, 150 m -120, 0 a 120,120 0 0,1 240,0 a 120,120 0 0,1 -240,0 "></path> </defs> <g>
@@ -146,6 +146,17 @@
   </section>
 </template>
 <style>
+.hero__image-col::after {
+  z-index: 0;
+}
+.hero__play {
+  cursor: pointer;
+  z-index: 1;
+}
+.hero__play:hover svg {
+  --navbar-bg-color: #000;
+}
+
 .icon{
   width: 30px;
   height: 30px;
@@ -160,10 +171,15 @@
 
 </style>
 <script setup>
-import { nextTick, onBeforeUnmount, onMounted, ref } from 'vue';
+import { getCurrentInstance, nextTick, onBeforeUnmount, onMounted, ref } from 'vue';
 import '../assets/techPodcast.scss';
 import AdvantageIcon from "../components/AdvantageIcon.vue";
 import RollNumber from "../components/RollNumber.vue";
+
+const parentInstance = ref(null)
+const searchSlideDown = () => {
+  parentInstance.value.provides.searchSlideDown()
+}
 
 const totalCount = ref(1733596);
 const counter = ref(0);
@@ -176,6 +192,7 @@ const observer = new IntersectionObserver((entries, observer) => {
   });
 }, {})
 onMounted(() => {
+  parentInstance.value = getCurrentInstance().parent
   nextTick(() => {
     observer.observe(document.querySelector('.section-heading.speaker__heading'))
   })

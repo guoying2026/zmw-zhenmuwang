@@ -234,6 +234,11 @@ export default {
       }, 500)
     },
   },
+  provide() {
+    return {
+      searchSlideDown: this.searchSlideDown,
+    }
+  },
   methods: {
     searchSlideDown () {
       this.isSearchSlideDown = true
