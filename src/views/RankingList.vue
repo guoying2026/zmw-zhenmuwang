@@ -263,10 +263,8 @@
   height: calc(100% + 32px);
   font-weight: bold;
   background: #0deaf6;
+  color: #000;
   font-size: 1.8em;
-}
-[data-theme="dark"] .grid-score__item--total {
-  background: #003b51;
 }
 .list-jury-notes {
   position: relative
@@ -614,7 +612,7 @@ const changeScoreOrder = () => {
   if (scoreOrder.value === 'desc') {
     scoreOrder.value = 'asc'
   } else {
-    scoreOrder.value = 'desc' 
+    scoreOrder.value = 'desc'
   }
   getRankList({
     page: 1,

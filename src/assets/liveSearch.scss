@@ -1,9 +1,9 @@
 $color1: #fff;
 $color2: #151515;
-$color3: #f0f2f7;
+$color3: #f3f8ff;
 $dark-color1: #18161d;
 $dark-color2: #f5f5f5;
-$dark-color3: #202020;
+$dark-color3: #464646;
 
 $font-color: #c9c9c9;
 $dark-font-color: #333;
@@ -12,6 +12,19 @@ $shadow1: 2px 4px 25px rgba(0,0,0,.15);
 $shadow2: 2px 5px 13px -8px rgba(0,0,0,.6);
 $dark-shadow1: 2px 10px 40px -15px rgba(0,0,0,1);
 $dark-shadow2: 2px 5px 8px -4px rgba(0,0,0,1);
+input::-moz-placeholder {
+  color: $dark-color3;
+}
+
+/* Chrome, Opera, and Safari */
+input::-webkit-input-placeholder {
+  color: $dark-color3;
+}
+
+/* Internet Explorer */
+input:-ms-input-placeholder {
+  color: $dark-color3;
+}
 .mini-live-search-cont {
   position: fixed;
   z-index: 10000;

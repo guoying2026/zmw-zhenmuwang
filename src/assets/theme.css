@@ -1,5 +1,6 @@
 :root {
   --navbar-bg-color: #fff;
+  --navbar-bg-color-opacity:rgba(255,255,255,0.5);
   --navbar-color: #000;
   --navbar-height: 50px;
   --navbar-line-height: var(--navbar-height);
@@ -36,11 +37,6 @@
   --link-underlined-before: linear-gradient(to right, rgb(34,34,34) 45%, rgba(34,34,34, 0.3) 55%);
   --dotted-color: linear-gradient(to right, #000 10%, transparent 10%), linear-gradient(to right, #000 10%, transparent 10%);
   --col-dotted-color: linear-gradient(to bottom, rgb(34,34,34) 10%, rgba(255, 255, 255, 0) 10%);
-  --col-dotted-59-color: linear-gradient(to bottom, rgb(34,34,34) 10%, rgba(255, 255, 255, 0) 10%);
-  --col-dotted-60-color: linear-gradient(to bottom, rgb(34,34,34) 10%, rgba(255, 255, 255, 0) 10%);
-  --col-dotted-70-color: linear-gradient(to bottom, rgb(34,34,34) 10%, rgba(255, 255, 255, 0) 10%);
-  --col-dotted-90-color: linear-gradient(to bottom, rgb(34,34,34) 10%, rgba(255, 255, 255, 0) 10%);
-  --col-dotted-100-color: linear-gradient(to bottom, rgb(34,34,34) 10%, rgba(255, 255, 255, 0) 10%);
   --hero__equalizer-bar-bg-color: #ccd8ed;
   --hero__equalizer-bar-after-bg-color: #232323;
   --list-jury-notes__item-odd:linear-gradient(30deg, #5c6370 -140%, transparent 30%),linear-gradient(-30deg, #5c6370 -140%, transparent 30%);
@@ -49,9 +45,15 @@
   --comment_time: #696969;
   --HomepageAnonHeader-bg-opacity: 0.7;
   --pc_background_2-bg: url("../assets/06.png"), url("../assets/05.png");
+  --top_special_bg: #f3f8ff;
+  --purple_bg: rgb(233 220 242);
+  --sky_bg: rgb(44 215 248 / 15%);
+  --green_bg: rgb(108 166 78 / 15%);
+  --orange_bg: rgb(251 125 54 / 15%);
 }
 [data-theme="dark"] {
   --navbar-bg-color: #000;
+  --navbar-bg-color-opacity:rgba(0,0,0,0.5);
   --navbar-color: #fff;
   --navbar-height: 50px;
   --navbar-line-height: var(--navbar-height);
@@ -86,13 +88,8 @@
   --advantage__icon-2-bg-color: conic-gradient(from 53deg at 50% 50%,#1f2123 0deg,#3a3d40 130deg,#1f2123 175deg,#3c4245 318deg,#1f2123 1turn);
   --link-underlined-color: #f1f1f1;
   --link-underlined-before: linear-gradient(to right, rgb(221,221,221) 45%, rgba(221,221,221, 0.3) 55%);
-  --dotted-color: linear-gradient(to right, #949494 10%, transparent 10%), linear-gradient(to right, #949494 10%, transparent 10%);
-  --col-dotted-color: linear-gradient(to bottom, #949494 10%, #000000 10%);
-  --col-dotted-59-color: linear-gradient(to bottom, #949494 10%, #000000 10%);
-  --col-dotted-60-color: linear-gradient(to bottom, #fa7112 10%, #000000 10%);
-  --col-dotted-70-color: linear-gradient(to bottom, #02ff08 10%, #000000 10%);
-  --col-dotted-90-color: linear-gradient(to bottom, #1465e0 10%, #000000 10%);
-  --col-dotted-100-color: linear-gradient(to bottom, #ac00fa 10%, #000000 10%);
+  --dotted-color: linear-gradient(to right, #444d43 10%, transparent 10%), linear-gradient(to right, #444d43 10%, transparent 10%);
+  --col-dotted-color: linear-gradient(to bottom, #444d43 10%, #000000 10%);
   --hero__equalizer-bar-bg-color: #383838;
   --hero__equalizer-bar-after-bg-color: #fff;
   --list-jury-notes__item-odd:linear-gradient(30deg, #e7e7e7 -140%, transparent 30%),linear-gradient(-30deg,  #e7e7e7 -140%, transparent 30%);
@@ -101,4 +98,9 @@
   --comment_time: #bababa;
   --HomepageAnonHeader-bg-opacity: 1;
   --pc_background_2-bg: url("../assets/07.png"), url("../assets/08.png");
+  --top_special_bg: #000;
+  --purple_bg: rgb(49 30 66);
+  --sky_bg:rgb(17 73 85);
+  --green_bg:rgb(31 49 22);
+  --orange_bg: rgb(108 53 20);
 }

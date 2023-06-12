@@ -17,7 +17,7 @@
         </div>
         <div class="tsh-col-12 tsh-col-sd-8">
           <div class="hero__content-wrap ">
-            <header class="hero__header">
+            <header class="hero__header" @click="gotoList">
 <!--              <p class="font-size-11 font-medium hero__label" data-dl-uid="12" data-dl-original="true" data-dl-translated="true">National Wood Credit System</p>-->
               <h1 class="section-heading hero__heading">
                 <span class="hero__heading-line hero__heading-line--first" data-dl-uid="13" data-dl-original="true" data-dl-translated="true">真木网<span class="hero__equalizer" data-dl-uid="14" data-dl-original="true" data-dl-translated="true">

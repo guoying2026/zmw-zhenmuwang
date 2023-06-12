@@ -129,6 +129,14 @@
   background-repeat: repeat-y;
   background-size: 1px 8px;
 }
+.width-100 .roadmap__col:first-child {
+  width: 300px;
+  letter-spacing: 4px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: 300;
+}
 .roadmap__col:first-child {
   width: 120px;
   letter-spacing: 4px;
@@ -304,12 +312,12 @@
   letter-spacing: 5px;
 }
 .padding-10:deep(.el-carousel__item:nth-child(2n+1)){
-  background: var(--advantage__icon-bg-color);
-  color: var(--navbar-bg-color);
+  background: var(--navbar-bg-color);
+  color: var(--navbar-color);
 }
 
 .padding-10:deep(.el-carousel__item:nth-child(2n)){
-  background: var(--advantage__icon-2-bg-color);
+  background: var(--top_special_bg);
   color: var(--navbar-color);
 }
 .custom-table {
@@ -357,12 +365,11 @@
 .before_homepage{
   position: relative;
   z-index: 999;
-  opacity:0.9;
   display: flex;
   flex-direction:column;
   padding: 30px 100px;
   border-radius:30px;
-  background: var(--navbar-bg-color);
+  background: var(--navbar-bg-color-opacity);
   color: var(--navbar-color);
   box-shadow: 0 2.8px 2.2px rgba(0,0,0,.034), 0 6.7px 5.3px rgba(0,0,0,.048), 0 12.5px 10px rgba(0,0,0,.06), 0 22.3px 17.9px rgba(0,0,0,.072), 0 41.8px 33.4px rgba(0,0,0,.086), 0 100px 80px rgba(0,0,0,.12);
   /*background: linear-gradient(8deg,hsl(0, 0%, 95%)0%,hsl(0, 0%, 95.74%)6.3%,hsl(0, 0%, 96.33%)12.7%,hsl(0, 0%, 96.78%)19.2%,hsl(0, 0%, 97.11%)25.9%,hsl(0, 0%, 97.36%)32.6%,hsl(0, 0%, 97.54%)39.4%,hsl(0, 0%, 97.68%)46.2%,hsl(0, 0%, 97.8%)53.1%,hsl(0, 0%, 97.92%)59.9%,hsl(0, 0%, 98.07%)66.7%,hsl(0, 0%, 98.27%) 73.5%,hsl(0, 0%, 98.53%)80.3%,hsl(0, 0%, 98.9%) 87%, hsl(0, 0%, 99.38%)93.5%,hsl(0, 0%, 100%)100% );*/
@@ -386,7 +393,7 @@
   font-size: 40px;
 }
 .before_homepage_1_1{
-  width: 150px;
+  width: 250px;
 }
 .HomepageAnonHeader_bg{
   opacity: var(--HomepageAnonHeader-bg-opacity);
@@ -404,6 +411,91 @@
   right: -100px;
   width: 800px;
   z-index: 0;
+}
+.width-100{
+  width: 100% !important;
+}
+.hero__play:after{
+  border: none !important;
+}
+.image-container {
+  position: relative;
+  width: 270px;
+  height: 500px;
+  /*border-bottom-right-radius: 100px;*/
+}
+
+.back_image {
+  width: 100%;
+  height: auto;
+}
+
+.overlay-image {
+  position: absolute;
+  top: 140px;
+  left: 145px;
+}
+.overlay-image_2{
+  position: absolute;
+  top: 260px;
+  left: 145px;
+}
+.top_special{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  width: 100%;
+  align-items: center;
+  background: var(--top_special_bg);
+}
+.top_special_2{
+  color:var(--navbar-color);display:flex;flex-direction: column;width: 100%;margin-top:200px;
+}
+.top_special_2_1{
+  font-size: 50px;
+  letter-spacing: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.top_special_2_2{
+  margin-top: 20px;
+  font-size: 25px;
+  font-weight: 300;
+}
+.top_special_2_3{
+  margin-top: 30px;
+  font-size: 25px;
+  font-weight: 300;
+}
+.hero__play_1{
+  display: flex;
+  flex-direction: column;
+}
+.top_special_text{
+  font-size: 50px;color:var(--navbar-bg-color);letter-spacing: 5px;
+  font-style: italic;
+}
+.hero_play_1_2{
+  font-size: 20px;color:var(--navbar-bg-color);
+  margin-top:20px;letter-spacing: 2px;
+}
+.hero__play{
+  width: 12.125rem;
+  height: 12.125rem;
+  transform: translate(40%, 40%);
+}
+.purple_bg{
+  background: var(--purple_bg);
+}
+.sky_bg{
+  background: var(--sky_bg);
+}
+.green_bg{
+  background: var(--green_bg);
+}
+.orange_bg{
+  background: var(--orange_bg);
 }
 </style>
 <template>
@@ -548,9 +640,9 @@
       </div>
     </div>
   </div>
-  <div :class="company_info.credit_score*1 <= 59 ? 'pc_background_2 padding-10 margin-40-top':'padding-10 margin-40-top'" v-else>
-    <div class="top_2 margin-40-top">
-      <table class="custom-table" v-if="company_info.credit_score*1 <= 59">
+  <div :class="company_info.credit_score*1 <= 59 ? 'pc_background_2 padding-10 margin-40-top':'padding-10'" v-else>
+    <div class="top_2">
+      <table class="custom-table margin-40-top" v-if="company_info.credit_score*1 <= 59">
         <tr>
           <td class="cell cross"><div class="inner">️</div></td>
           <td>️</td>
@@ -558,48 +650,102 @@
           <td></td>
         </tr>
       </table>
-      <template v-if="company_info.credit_score*1 === 100">
-        <img class="HomepageAnonHeader_bg HomepageAnonHeader_bg-btg2n" src="../assets/13.png">
-        <img class="HomepageAnonHeader_bg HomepageAnonHeader_bg-btg1n" src="../assets/14.png">
-      </template>
-      <template v-else-if="company_info.credit_score*1 >= 90">
-        <img class="HomepageAnonHeader_bg HomepageAnonHeader_bg-btg2n" src="../assets/18.png">
-        <img class="HomepageAnonHeader_bg HomepageAnonHeader_bg-btg1n" src="../assets/19.png">
-      </template>
-      <template v-else-if="company_info.credit_score*1 >= 70">
-        <img class="HomepageAnonHeader_bg HomepageAnonHeader_bg-btg2n" src="../assets/22.png">
-        <img class="HomepageAnonHeader_bg HomepageAnonHeader_bg-btg1n" src="../assets/23.png">
-      </template>
-      <template v-else-if="company_info.credit_score*1 >= 60">
-        <img class="HomepageAnonHeader_bg HomepageAnonHeader_bg-btg2n" src="../assets/15.png">
-        <img class="HomepageAnonHeader_bg HomepageAnonHeader_bg-btg1n" src="../assets/16.png">
-      </template>
+      <div class="top_special" v-else>
+        <div class="hero__image-col">
+          <template v-if="company_info.credit_score*1 === 100">
+            <div class="image-container purple_bg">
+              <img class="before_homepage_1_1 overlay-image" src="../assets/12.png">
+            </div>
+          </template>
+          <template v-else-if="company_info.credit_score*1 >= 90">
+            <div class="image-container sky_bg">
+              <img class="before_homepage_1_1 overlay-image" src="../assets/20.png">
+            </div>
+          </template>
+          <template v-else-if="company_info.credit_score*1 >= 70">
+            <div class="image-container green_bg">
+              <img class="before_homepage_1_1 overlay-image" src="../assets/21.png">
+            </div>
+          </template>
+          <template v-else-if="company_info.credit_score*1 >= 60">
+            <div class="image-container orange_bg">
+              <img class="before_homepage_1_1 overlay-image" src="../assets/17.png">
+            </div>
+          </template>
+          <button type="button" class="hero__play">
+            <div class="hero__play_1">
+              <text class="top_special_text">{{ company_info.credit_score ? company_info.credit_score : '-' }}</text>
+              <text class="hero_play_1_2">信用分</text>
+            </div>
+            <div class="hero__play-text">
+              <svg viewBox="0 0 300 300"> <defs> <path id="criclePath" d=" M 150, 150 m -120, 0 a 120,120 0 0,1 240,0 a 120,120 0 0,1 -240,0 "></path> </defs> <g>
+                <use xlink:href="#criclePath" fill="none"></use>
+                <text fill="var(--navbar-color)"> <textPath xlink:href="#criclePath" data-dl-uid="11" data-dl-original="true" data-dl-translated="true"></textPath> </text>
+              </g>
+              </svg>
+            </div>
+          </button>
+        </div>
+        <div class="top_special_2">
+          <div class="top_special_2_1">
+            <text class="top_special_2_1">{{company_info.company_name}}</text>
+            <template v-if="company_info.credit_score*1 === 100">
+              <el-rate class="margin-20-top" v-model="starValue5" size="large" clearable />
+            </template>
+            <template v-else-if="company_info.credit_score*1 >= 90">
+              <el-rate class="margin-20-top" v-model="starValue4" size="large" clearable />
+            </template>
+            <template v-else-if="company_info.credit_score*1 >= 70">
+              <el-rate class="margin-20-top" v-model="starValue3" size="large" clearable />
+            </template>
+            <template v-else-if="company_info.credit_score*1 >= 60">
+              <el-rate class="margin-20-top" v-model="starValue1" size="large" clearable />
+            </template>
+            <text class="top_special_2_2">法定代表人：{{company_info.corporation}}</text>
+            <text class="top_special_2_3">社会信用代码：{{ company_info.credit_code ? company_info.credit_code : '-' }}</text>
+          </div>
+        </div>
+      </div>
+<!--      <template v-if="company_info.credit_score*1 === 100">-->
+<!--        <img class="HomepageAnonHeader_bg HomepageAnonHeader_bg-btg2n" src="../assets/13-1.png">-->
+<!--        <img class="HomepageAnonHeader_bg HomepageAnonHeader_bg-btg1n" src="../assets/14-1.png">-->
+<!--      </template>-->
+<!--      <template v-else-if="company_info.credit_score*1 >= 90">-->
+<!--        <img class="HomepageAnonHeader_bg HomepageAnonHeader_bg-btg2n" src="../assets/18.png">-->
+<!--        <img class="HomepageAnonHeader_bg HomepageAnonHeader_bg-btg1n" src="../assets/19.png">-->
+<!--      </template>-->
+<!--      <template v-else-if="company_info.credit_score*1 >= 70">-->
+<!--        <img class="HomepageAnonHeader_bg HomepageAnonHeader_bg-btg2n" src="../assets/22.png">-->
+<!--        <img class="HomepageAnonHeader_bg HomepageAnonHeader_bg-btg1n" src="../assets/23.png">-->
+<!--      </template>-->
+<!--      <template v-else-if="company_info.credit_score*1 >= 60">-->
+<!--        <img class="HomepageAnonHeader_bg HomepageAnonHeader_bg-btg2n" src="../assets/15.png">-->
+<!--        <img class="HomepageAnonHeader_bg HomepageAnonHeader_bg-btg1n" src="../assets/16.png">-->
+<!--      </template>-->
 <!--      <img class="HomepageAnonHeader_bg-btg1n" src="https://cpwebassets.codepen.io/assets/packs/lines-2-4e66616a5ef291c3566a7ddfe1ffaaa8.svg" alt="" >-->
-      <div class="before_homepage">
+      <div class="before_homepage" v-if="company_info.credit_score*1 <= 59">
         <div class="before_homepage_1">
-          <img class="before_homepage_1_1" v-if="company_info.credit_score*1 === 100" src="../assets/12.png">
-          <img class="before_homepage_1_1" v-else-if="company_info.credit_score*1 >= 90" src="../assets/20.png">
-          <img class="before_homepage_1_1" v-else-if="company_info.credit_score*1 >= 70" src="../assets/21.png">
-          <img class="before_homepage_1_1" v-else-if="company_info.credit_score*1 >= 60" src="../assets/17.png">
+<!--          <img class="before_homepage_1_1" v-if="company_info.credit_score*1 === 100" src="../assets/12.png">-->
+<!--          <img class="before_homepage_1_1" v-else-if="company_info.credit_score*1 >= 90" src="../assets/20.png">-->
+<!--          <img class="before_homepage_1_1" v-else-if="company_info.credit_score*1 >= 70" src="../assets/21.png">-->
+<!--          <img class="before_homepage_1_1" v-else-if="company_info.credit_score*1 >= 60" src="../assets/17.png">-->
           <text class="emphasize margin-40-top">{{ company_info.company_name ? company_info.company_name : '-' }}</text>
           <div class="before_homepage_1_2">
             <text class="before_homepage_1_2_1">{{ company_info.credit_score ? company_info.credit_score : '-' }}</text>
           </div>
         </div>
       </div>
-      <el-carousel height="100px" direction="vertical" :autoplay="true" class="margin-40-top">
+      <el-carousel height="100px" direction="vertical" :autoplay="true" :class="company_info.credit_score*1 <= 59 ? 'margin-40-top':'width-100'">
         <el-carousel-item v-for="(item,index) in activities" :key="index">
           <div v-for="(item1,index1) in item.content" :key="index1">
             <h3 text="2xl" justify="center">{{item.timestamp}} {{ item1.key }}{{item1.value}}</h3>
           </div>
         </el-carousel-item>
       </el-carousel>
-      <div class="roadmap" style="--roadmap-cols: 11;">
+      <div :class="company_info.credit_score*1 <= 59 ? 'roadmap':'roadmap width-100'" style="--roadmap-cols: 11;">
         <div class="roadmap__row">
-          <div class="roadmap__col ">联系企业</div>
-          <div class="roadmap__col">
-            <div class="cross-point"></div>
-          </div>
+          <div class="roadmap__col">联系企业</div>
+          <div class="roadmap__col"></div>
           <div class="roadmap__col"></div>
           <div class="roadmap__col"></div>
           <div class="roadmap__col"></div>
@@ -656,7 +802,7 @@
           </div>
         </div>
         <div class="roadmap__row">
-          <div class="roadmap__col ">规模状态</div>
+          <div class="roadmap__col">规模状态</div>
           <div class="roadmap__col"></div>
           <div class="roadmap__col"></div>
           <div class="roadmap__col"></div>
@@ -950,6 +1096,12 @@ import AdvantageIcon from "../components/AdvantageIcon.vue";
 import CommentListNew from "../components/CommentListNew.vue";
 import QuestionListNew from "../components/QuestionListNew.vue";
 import ComplaintNew from "../components/ComplaintNew.vue";
+
+const starValue5 = ref(5)
+const starValue4 = ref(4)
+const starValue3 = ref(3)
+const starValue2 = ref(2)
+const starValue1 = ref(1)
 
 const isMobile = ref(window.matchMedia("(max-width: 990px)").matches);
 console.log(isMobile.value);
