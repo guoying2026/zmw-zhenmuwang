@@ -1,4 +1,331 @@
 <template>
+  <!--    <div class="top_2">-->
+  <!--      <table class="custom-table margin-40-top" v-if="company_info.credit_score*1 <= 59">-->
+  <!--        <tr>-->
+  <!--          <td class="cell cross"><div class="inner">️</div></td>-->
+  <!--          <td>️</td>-->
+  <!--          <td class="cell cross"><div class="inner">️</div></td>-->
+  <!--          <td></td>-->
+  <!--        </tr>-->
+  <!--      </table>-->
+  <!--      <div class="top_special" v-else>-->
+  <!--        <div class="hero__image-col">-->
+  <!--          <template v-if="company_info.credit_score*1 === 100">-->
+  <!--            <div class="image-container purple_bg">-->
+  <!--              <img class="before_homepage_1_1 overlay-image" src="../assets/12.png">-->
+  <!--            </div>-->
+  <!--          </template>-->
+  <!--          <template v-else-if="company_info.credit_score*1 >= 90">-->
+  <!--            <div class="image-container sky_bg">-->
+  <!--              <img class="before_homepage_1_1 overlay-image" src="../assets/20.png">-->
+  <!--            </div>-->
+  <!--          </template>-->
+  <!--          <template v-else-if="company_info.credit_score*1 >= 70">-->
+  <!--            <div class="image-container green_bg">-->
+  <!--              <img class="before_homepage_1_1 overlay-image" src="../assets/21.png">-->
+  <!--            </div>-->
+  <!--          </template>-->
+  <!--          <template v-else-if="company_info.credit_score*1 >= 60">-->
+  <!--            <div class="image-container orange_bg">-->
+  <!--              <img class="before_homepage_1_1 overlay-image" src="../assets/17.png">-->
+  <!--            </div>-->
+  <!--          </template>-->
+  <!--          <button type="button" class="hero__play">-->
+  <!--            <div class="hero__play_1">-->
+  <!--              <text class="top_special_text">{{ company_info.credit_score ? company_info.credit_score : '-' }}</text>-->
+  <!--              <text class="hero_play_1_2">信用分</text>-->
+  <!--            </div>-->
+  <!--            <div class="hero__play-text">-->
+  <!--              <svg viewBox="0 0 300 300"> <defs> <path id="criclePath" d=" M 150, 150 m -120, 0 a 120,120 0 0,1 240,0 a 120,120 0 0,1 -240,0 "></path> </defs> <g>-->
+  <!--                <use xlink:href="#criclePath" fill="none"></use>-->
+  <!--                <text fill="var(&#45;&#45;navbar-color)"> <textPath xlink:href="#criclePath" data-dl-uid="11" data-dl-original="true" data-dl-translated="true"></textPath> </text>-->
+  <!--              </g>-->
+  <!--              </svg>-->
+  <!--            </div>-->
+  <!--          </button>-->
+  <!--        </div>-->
+  <!--        <div class="top_special_2">-->
+  <!--          <div class="top_special_2_1">-->
+  <!--            <text class="top_special_2_1">{{company_info.company_name}}</text>-->
+  <!--            <template v-if="company_info.credit_score*1 === 100">-->
+  <!--              <el-rate class="margin-20-top" v-model="starValue5" size="large" clearable />-->
+  <!--            </template>-->
+  <!--            <template v-else-if="company_info.credit_score*1 >= 90">-->
+  <!--              <el-rate class="margin-20-top" v-model="starValue4" size="large" clearable />-->
+  <!--            </template>-->
+  <!--            <template v-else-if="company_info.credit_score*1 >= 70">-->
+  <!--              <el-rate class="margin-20-top" v-model="starValue3" size="large" clearable />-->
+  <!--            </template>-->
+  <!--            <template v-else-if="company_info.credit_score*1 >= 60">-->
+  <!--              <el-rate class="margin-20-top" v-model="starValue1" size="large" clearable />-->
+  <!--            </template>-->
+  <!--            <text class="top_special_2_2">法定代表人：{{company_info.corporation}}</text>-->
+  <!--            <text class="top_special_2_3">社会信用代码：{{ company_info.credit_code ? company_info.credit_code : '-' }}</text>-->
+  <!--          </div>-->
+  <!--        </div>-->
+  <!--      </div>-->
+  <!--&lt;!&ndash;      <template v-if="company_info.credit_score*1 === 100">&ndash;&gt;-->
+  <!--&lt;!&ndash;        <img class="HomepageAnonHeader_bg HomepageAnonHeader_bg-btg2n" src="../assets/13-1.png">&ndash;&gt;-->
+  <!--&lt;!&ndash;        <img class="HomepageAnonHeader_bg HomepageAnonHeader_bg-btg1n" src="../assets/14-1.png">&ndash;&gt;-->
+  <!--&lt;!&ndash;      </template>&ndash;&gt;-->
+  <!--&lt;!&ndash;      <template v-else-if="company_info.credit_score*1 >= 90">&ndash;&gt;-->
+  <!--&lt;!&ndash;        <img class="HomepageAnonHeader_bg HomepageAnonHeader_bg-btg2n" src="../assets/18.png">&ndash;&gt;-->
+  <!--&lt;!&ndash;        <img class="HomepageAnonHeader_bg HomepageAnonHeader_bg-btg1n" src="../assets/19.png">&ndash;&gt;-->
+  <!--&lt;!&ndash;      </template>&ndash;&gt;-->
+  <!--&lt;!&ndash;      <template v-else-if="company_info.credit_score*1 >= 70">&ndash;&gt;-->
+  <!--&lt;!&ndash;        <img class="HomepageAnonHeader_bg HomepageAnonHeader_bg-btg2n" src="../assets/22.png">&ndash;&gt;-->
+  <!--&lt;!&ndash;        <img class="HomepageAnonHeader_bg HomepageAnonHeader_bg-btg1n" src="../assets/23.png">&ndash;&gt;-->
+  <!--&lt;!&ndash;      </template>&ndash;&gt;-->
+  <!--&lt;!&ndash;      <template v-else-if="company_info.credit_score*1 >= 60">&ndash;&gt;-->
+  <!--&lt;!&ndash;        <img class="HomepageAnonHeader_bg HomepageAnonHeader_bg-btg2n" src="../assets/15.png">&ndash;&gt;-->
+  <!--&lt;!&ndash;        <img class="HomepageAnonHeader_bg HomepageAnonHeader_bg-btg1n" src="../assets/16.png">&ndash;&gt;-->
+  <!--&lt;!&ndash;      </template>&ndash;&gt;-->
+  <!--&lt;!&ndash;      <img class="HomepageAnonHeader_bg-btg1n" src="https://cpwebassets.codepen.io/assets/packs/lines-2-4e66616a5ef291c3566a7ddfe1ffaaa8.svg" alt="" >&ndash;&gt;-->
+  <!--      <div class="before_homepage" v-if="company_info.credit_score*1 <= 59">-->
+  <!--        <div class="before_homepage_1">-->
+  <!--&lt;!&ndash;          <img class="before_homepage_1_1" v-if="company_info.credit_score*1 === 100" src="../assets/12.png">&ndash;&gt;-->
+  <!--&lt;!&ndash;          <img class="before_homepage_1_1" v-else-if="company_info.credit_score*1 >= 90" src="../assets/20.png">&ndash;&gt;-->
+  <!--&lt;!&ndash;          <img class="before_homepage_1_1" v-else-if="company_info.credit_score*1 >= 70" src="../assets/21.png">&ndash;&gt;-->
+  <!--&lt;!&ndash;          <img class="before_homepage_1_1" v-else-if="company_info.credit_score*1 >= 60" src="../assets/17.png">&ndash;&gt;-->
+  <!--          <text class="emphasize margin-40-top">{{ company_info.company_name ? company_info.company_name : '-' }}</text>-->
+  <!--          <div class="before_homepage_1_2">-->
+  <!--            <text class="before_homepage_1_2_1">{{ company_info.credit_score ? company_info.credit_score : '-' }}</text>-->
+  <!--          </div>-->
+  <!--        </div>-->
+  <!--      </div>-->
+  <!--      <el-carousel height="100px" direction="vertical" :autoplay="true" :class="company_info.credit_score*1 <= 59 ? 'margin-40-top':'width-100'">-->
+  <!--        <el-carousel-item v-for="(item,index) in activities" :key="index">-->
+  <!--          <div v-for="(item1,index1) in item.content" :key="index1">-->
+  <!--            <h3 text="2xl" justify="center">{{item.timestamp}} {{ item1.key }}{{item1.value}}</h3>-->
+  <!--          </div>-->
+  <!--        </el-carousel-item>-->
+  <!--      </el-carousel>-->
+  <!--      <div :class="company_info.credit_score*1 <= 59 ? 'roadmap':'roadmap width-100'" style="&#45;&#45;roadmap-cols: 11;">-->
+  <!--        <div class="roadmap__row">-->
+  <!--          <div class="roadmap__col">联系企业</div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__timeline special" style="&#45;&#45;roadmap-start: 2; &#45;&#45;roadmap-end: 5;">-->
+  <!--            <div>-->
+  <!--              <text>法定代表人：</text>-->
+  <!--              <strong>{{ company_info.corporation ? company_info.corporation : '-' }}</strong>-->
+  <!--            </div>-->
+  <!--          </div>-->
+  <!--          <div class="roadmap__timeline special" style="&#45;&#45;roadmap-start: 5; &#45;&#45;roadmap-end: 8;">-->
+  <!--            <div>-->
+  <!--              <text>手机号码：</text>-->
+  <!--              <strong>{{ company_info.contact_phone ? company_info.contact_phone : '-' }}</strong></div>-->
+  <!--          </div>-->
+  <!--          <div class="roadmap__timeline special" style="&#45;&#45;roadmap-start: 8; &#45;&#45;roadmap-end:12;">-->
+  <!--            <div>-->
+  <!--              <text>{{ company_info.address ? '' : '详细地址：' }}</text>-->
+  <!--              <strong>{{ company_info.address ? company_info.address : '-' }}</strong></div>-->
+  <!--          </div>-->
+  <!--        </div>-->
+  <!--        <div class="roadmap__row">-->
+  <!--          <div class="roadmap__col ">登记信息</div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__timeline special" style="&#45;&#45;roadmap-start: 2; &#45;&#45;roadmap-end: 5;">-->
+  <!--            <div>-->
+  <!--              <text>注册资本：</text>-->
+  <!--              <strong>{{ company_info.registered_capital ? company_info.registered_capital : '-' }}</strong></div>-->
+  <!--          </div>-->
+  <!--          <div class="roadmap__timeline special" style="&#45;&#45;roadmap-start: 5; &#45;&#45;roadmap-end: 8;">-->
+  <!--            <div>-->
+  <!--              <text>成立日期：</text>-->
+  <!--              <strong>{{ company_info.foundation_date ? company_info.foundation_date : '-' }}</strong>-->
+  <!--            </div>-->
+  <!--          </div>-->
+  <!--          <div class="roadmap__timeline special" style="&#45;&#45;roadmap-start: 8; &#45;&#45;roadmap-end: 12;">-->
+  <!--            <div>-->
+  <!--              <text>登记机关：</text>-->
+  <!--              <strong>{{ shop_info && shop_info.regist_author ? shop_info.regist_author : '-' }}</strong></div>-->
+  <!--          </div>-->
+  <!--        </div>-->
+  <!--        <div class="roadmap__row">-->
+  <!--          <div class="roadmap__col">规模状态</div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__timeline special" style="&#45;&#45;roadmap-start: 2; &#45;&#45;roadmap-end: 5;">-->
+  <!--            <div>-->
+  <!--              <text>人员规模：</text>-->
+  <!--              <strong>-</strong>-->
+  <!--            </div>-->
+  <!--          </div>-->
+  <!--          <div class="roadmap__timeline special" style="&#45;&#45;roadmap-start: 5; &#45;&#45;roadmap-end: 8;">-->
+  <!--            <div>-->
+  <!--              <text>经营状态：</text>-->
+  <!--              <strong>{{ company_info.operation_state ? company_info.operation_state : '-' }}</strong>-->
+  <!--            </div>-->
+  <!--          </div>-->
+  <!--          <div class="roadmap__timeline special" style="&#45;&#45;roadmap-start: 8; &#45;&#45;roadmap-end: 12;">-->
+  <!--            <div>-->
+  <!--              <text>登记状态：</text>-->
+  <!--              <strong>-</strong>-->
+  <!--            </div>-->
+  <!--          </div>-->
+  <!--        </div>-->
+  <!--        <div class="roadmap__row">-->
+  <!--          <div class="roadmap__col">唯一标识</div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__timeline special" style="&#45;&#45;roadmap-start: 2; &#45;&#45;roadmap-end: 8;">-->
+  <!--            <div>-->
+  <!--              <text>社会信用代码 / 纳税人识别号：</text>-->
+  <!--              <strong>{{ company_info.credit_code ? company_info.credit_code : '-' }}</strong></div>-->
+  <!--          </div>-->
+  <!--          <div class="roadmap__timeline special" style="&#45;&#45;roadmap-start: 8; &#45;&#45;roadmap-end: 12;">-->
+  <!--            <div>-->
+  <!--              <text>组织机构代码：</text>-->
+  <!--              <strong>{{ company_info.organisation_code ? company_info.organisation_code : '-' }}</strong></div>-->
+  <!--          </div>-->
+  <!--        </div>-->
+  <!--        <div class="roadmap__row">-->
+  <!--          <div class="roadmap__col">经营范围</div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__timeline special" style="&#45;&#45;roadmap-start: 2; &#45;&#45;roadmap-end: 12;">-->
+  <!--            <div>-->
+  <!--              <text>加工销售：</text>-->
+  <!--              <strong>{{ company_info.business_scope ? company_info.business_scope : '-' }}</strong></div>-->
+  <!--          </div>-->
+  <!--        </div>-->
+  <!--        <div class="roadmap__row">-->
+  <!--          <div class="roadmap__col">投诉记录</div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__timeline special" style="&#45;&#45;roadmap-start: 2; &#45;&#45;roadmap-end: 5;">-->
+  <!--            <div>-->
+  <!--              <text>投诉总记录：</text>-->
+  <!--              <strong> 6条</strong></div>-->
+  <!--          </div>-->
+  <!--          <div class="roadmap__timeline special" style="&#45;&#45;roadmap-start: 5; &#45;&#45;roadmap-end: 8;">-->
+  <!--            <div>-->
+  <!--              <text>待审查记录：</text>-->
+  <!--              <strong> 1条</strong></div>-->
+  <!--          </div>-->
+  <!--          <div class="roadmap__timeline special" style="&#45;&#45;roadmap-start: 8; &#45;&#45;roadmap-end: 11;">-->
+  <!--            <div>-->
+  <!--              <text>真木网核实：</text>-->
+  <!--              <strong> 5条</strong></div>-->
+  <!--          </div>-->
+  <!--          <div class="roadmap__timeline none" style="&#45;&#45;roadmap-start: 11;&#45;&#45;roadmap-end: 12" @click="handleItemClick(4)">-->
+  <!--            <svg fill="var(&#45;&#45;navbar-color)" height="200px" width="200px" class="icon" viewBox="0 0 490 490" xml:space="preserve" transform="rotate(180)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M245,0C109.7,0,0,109.7,0,245s109.7,245,245,245s245-109.7,245-245S380.3,0,245,0z M308.2,335.5l-42.7,42.7L175,287.7 L132.3,245l42.7-42.7l90.5-90.5l42.7,42.7L217.8,245L308.2,335.5z"></path> </g> </g></svg>-->
+  <!--          </div>-->
+  <!--        </div>-->
+  <!--        <div class="roadmap__row">-->
+  <!--          <div class="roadmap__col">群众评论</div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__timeline special" style="&#45;&#45;roadmap-start: 2; &#45;&#45;roadmap-end: 5;">-->
+  <!--            <div>-->
+  <!--              <text>评论总数量：</text>-->
+  <!--              <strong> 6条</strong></div>-->
+  <!--          </div>-->
+  <!--          <div class="roadmap__timeline special" style="&#45;&#45;roadmap-start: 5; &#45;&#45;roadmap-end: 8;">-->
+  <!--            <div>-->
+  <!--              <text>回复总数量：</text>-->
+  <!--              <strong> 1条</strong></div>-->
+  <!--          </div>-->
+  <!--          <div class="roadmap__timeline special" style="&#45;&#45;roadmap-start: 8; &#45;&#45;roadmap-end: 11;">-->
+  <!--            <div>-->
+  <!--              <text>点赞总数量：</text>-->
+  <!--              <strong> 5条</strong></div>-->
+  <!--          </div>-->
+  <!--          <div class="roadmap__timeline none" style="&#45;&#45;roadmap-start: 11;&#45;&#45;roadmap-end: 12" @click="handleItemClick(0)">-->
+  <!--            <svg fill="var(&#45;&#45;navbar-color)" height="200px" width="200px" class="icon" viewBox="0 0 490 490" xml:space="preserve" transform="rotate(180)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M245,0C109.7,0,0,109.7,0,245s109.7,245,245,245s245-109.7,245-245S380.3,0,245,0z M308.2,335.5l-42.7,42.7L175,287.7 L132.3,245l42.7-42.7l90.5-90.5l42.7,42.7L217.8,245L308.2,335.5z"></path> </g> </g></svg>-->
+  <!--          </div>-->
+  <!--        </div>-->
+  <!--        <div class="roadmap__row">-->
+  <!--          <div class="roadmap__col">群众问答</div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__col"></div>-->
+  <!--          <div class="roadmap__timeline special" style="&#45;&#45;roadmap-start: 2; &#45;&#45;roadmap-end: 5;">-->
+  <!--            <div>-->
+  <!--              <text>问题总数量：</text>-->
+  <!--              <strong> 6条</strong></div>-->
+  <!--          </div>-->
+  <!--          <div class="roadmap__timeline special" style="&#45;&#45;roadmap-start: 5; &#45;&#45;roadmap-end: 8;">-->
+  <!--            <div>-->
+  <!--              <text>回答总数量：</text>-->
+  <!--              <strong> 1条</strong></div>-->
+  <!--          </div>-->
+  <!--          <div class="roadmap__timeline special" style="&#45;&#45;roadmap-start: 8; &#45;&#45;roadmap-end: 11;">-->
+  <!--            <div>-->
+  <!--              <text>有用总数量：</text>-->
+  <!--              <strong> 5条</strong></div>-->
+  <!--          </div>-->
+  <!--          <div class="roadmap__timeline none" style="&#45;&#45;roadmap-start: 11;&#45;&#45;roadmap-end: 12" @click="handleItemClick(3)">-->
+  <!--            <svg fill="var(&#45;&#45;navbar-color)" height="200px" width="200px" class="icon" viewBox="0 0 490 490" xml:space="preserve" transform="rotate(180)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M245,0C109.7,0,0,109.7,0,245s109.7,245,245,245s245-109.7,245-245S380.3,0,245,0z M308.2,335.5l-42.7,42.7L175,287.7 L132.3,245l42.7-42.7l90.5-90.5l42.7,42.7L217.8,245L308.2,335.5z"></path> </g> </g></svg>-->
+  <!--          </div>-->
+  <!--        </div>-->
+  <!--      </div>-->
+  <!--    </div>-->
   <section class="hero">
     <div class="tsh-container">
       <div class="tsh-row">

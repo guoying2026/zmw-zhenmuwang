@@ -13,12 +13,13 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 100%;
+  /*width: 100%;*/
 }
 .top_right_title{
   align-self: center;
 }
 .padding-10{
+  padding: 0px 10px 20px 10px;
   letter-spacing: 2px;
   display: flex;
   flex-direction: column;
@@ -26,11 +27,11 @@
   width: 100%;
 }
 .pc_background_2{
-  background-image: var(--pc_background_2-bg);
-  background-repeat: no-repeat, no-repeat;
-  background-position: -18%, 118%;
-  background-size: 30% auto,30% auto;
-  height: 800px;
+  background-image: var(--background-image-url);
+  height: 500px;
+  background-size: contain;
+  background-position: center center;
+  background-repeat: no-repeat;
 }
 .top_3{
   display: flex;
@@ -301,7 +302,7 @@
   }
 }
 .el-carousel--vertical{
-  width: 80%;
+  width: 100%;
 }
 .padding-10:deep(.el-carousel__item h3){
   opacity: 0.75;
@@ -311,14 +312,12 @@
   font-weight: bolder;
   letter-spacing: 5px;
 }
-.padding-10:deep(.el-carousel__item:nth-child(2n+1)){
-  background: var(--navbar-bg-color);
-  color: var(--navbar-color);
+.padding-10:deep(.el-carousel__item:nth-child(2n)){
+  background-color: #99a9bf;
 }
 
-.padding-10:deep(.el-carousel__item:nth-child(2n)){
-  background: var(--top_special_bg);
-  color: var(--navbar-color);
+.padding-10:deep(.el-carousel__item:nth-child(2n + 1)){
+  background-color: #d3dce6;
 }
 .custom-table {
   width: 100%;
@@ -497,6 +496,53 @@
 .orange_bg{
   background: var(--orange_bg);
 }
+.padding-10:deep(.el-carousel__item h3){
+  color: #475669;
+  opacity: 0.75;
+  line-height: 100px;
+  margin: 0;
+  text-align: center;
+}
+.padding-10:deep(.el-step__description){
+  padding-right: 0px !important;
+}
+.padding-10:deep(.el-descriptions__body) {
+  background-color: var(--table-fill-color);
+}
+.el-descriptions{
+  --el-descriptions-table-border: 1px solid var(--descriptions-table-border);
+}
+.padding-10:deep(.el-descriptions__content.el-descriptions__cell.is-bordered-content){
+  color: var(--descriptions-bordered-content-color);
+}
+.padding-10:deep(.el-descriptions__label.el-descriptions__cell.is-bordered-label){
+  color: var(--descriptions-bordered-label-color);
+  background: var(--descriptions-bordered-label-bg-color);
+  font-weight: 500;
+}
+.complaint{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.complaint_left{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 85%;
+}
+.complaint_left_2{
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+}
+.complaint_right{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
 </style>
 <template>
   <div v-if="isMobile" class="padding-10 margin-40-top mobile">
@@ -640,333 +686,95 @@
       </div>
     </div>
   </div>
-  <div :class="company_info.credit_score*1 <= 59 ? 'pc_background_2 padding-10 margin-40-top':'padding-10'" v-else>
+  <div :class="company_info.credit_score*1 <= 59 ?'padding-10 margin-40-top pc_background_2':'padding-10 margin-40-top'" v-else>
     <div class="top_2">
-      <table class="custom-table margin-40-top" v-if="company_info.credit_score*1 <= 59">
-        <tr>
-          <td class="cell cross"><div class="inner">️</div></td>
-          <td>️</td>
-          <td class="cell cross"><div class="inner">️</div></td>
-          <td></td>
-        </tr>
-      </table>
-      <div class="top_special" v-else>
-        <div class="hero__image-col">
-          <template v-if="company_info.credit_score*1 === 100">
-            <div class="image-container purple_bg">
-              <img class="before_homepage_1_1 overlay-image" src="../assets/12.png">
-            </div>
-          </template>
-          <template v-else-if="company_info.credit_score*1 >= 90">
-            <div class="image-container sky_bg">
-              <img class="before_homepage_1_1 overlay-image" src="../assets/20.png">
-            </div>
-          </template>
-          <template v-else-if="company_info.credit_score*1 >= 70">
-            <div class="image-container green_bg">
-              <img class="before_homepage_1_1 overlay-image" src="../assets/21.png">
-            </div>
-          </template>
-          <template v-else-if="company_info.credit_score*1 >= 60">
-            <div class="image-container orange_bg">
-              <img class="before_homepage_1_1 overlay-image" src="../assets/17.png">
-            </div>
-          </template>
-          <button type="button" class="hero__play">
-            <div class="hero__play_1">
-              <text class="top_special_text">{{ company_info.credit_score ? company_info.credit_score : '-' }}</text>
-              <text class="hero_play_1_2">信用分</text>
-            </div>
-            <div class="hero__play-text">
-              <svg viewBox="0 0 300 300"> <defs> <path id="criclePath" d=" M 150, 150 m -120, 0 a 120,120 0 0,1 240,0 a 120,120 0 0,1 -240,0 "></path> </defs> <g>
-                <use xlink:href="#criclePath" fill="none"></use>
-                <text fill="var(--navbar-color)"> <textPath xlink:href="#criclePath" data-dl-uid="11" data-dl-original="true" data-dl-translated="true"></textPath> </text>
-              </g>
-              </svg>
-            </div>
-          </button>
-        </div>
-        <div class="top_special_2">
-          <div class="top_special_2_1">
-            <text class="top_special_2_1">{{company_info.company_name}}</text>
-            <template v-if="company_info.credit_score*1 === 100">
-              <el-rate class="margin-20-top" v-model="starValue5" size="large" clearable />
-            </template>
-            <template v-else-if="company_info.credit_score*1 >= 90">
-              <el-rate class="margin-20-top" v-model="starValue4" size="large" clearable />
-            </template>
-            <template v-else-if="company_info.credit_score*1 >= 70">
-              <el-rate class="margin-20-top" v-model="starValue3" size="large" clearable />
-            </template>
-            <template v-else-if="company_info.credit_score*1 >= 60">
-              <el-rate class="margin-20-top" v-model="starValue1" size="large" clearable />
-            </template>
-            <text class="top_special_2_2">法定代表人：{{company_info.corporation}}</text>
-            <text class="top_special_2_3">社会信用代码：{{ company_info.credit_code ? company_info.credit_code : '-' }}</text>
-          </div>
-        </div>
-      </div>
-<!--      <template v-if="company_info.credit_score*1 === 100">-->
-<!--        <img class="HomepageAnonHeader_bg HomepageAnonHeader_bg-btg2n" src="../assets/13-1.png">-->
-<!--        <img class="HomepageAnonHeader_bg HomepageAnonHeader_bg-btg1n" src="../assets/14-1.png">-->
-<!--      </template>-->
-<!--      <template v-else-if="company_info.credit_score*1 >= 90">-->
-<!--        <img class="HomepageAnonHeader_bg HomepageAnonHeader_bg-btg2n" src="../assets/18.png">-->
-<!--        <img class="HomepageAnonHeader_bg HomepageAnonHeader_bg-btg1n" src="../assets/19.png">-->
-<!--      </template>-->
-<!--      <template v-else-if="company_info.credit_score*1 >= 70">-->
-<!--        <img class="HomepageAnonHeader_bg HomepageAnonHeader_bg-btg2n" src="../assets/22.png">-->
-<!--        <img class="HomepageAnonHeader_bg HomepageAnonHeader_bg-btg1n" src="../assets/23.png">-->
-<!--      </template>-->
-<!--      <template v-else-if="company_info.credit_score*1 >= 60">-->
-<!--        <img class="HomepageAnonHeader_bg HomepageAnonHeader_bg-btg2n" src="../assets/15.png">-->
-<!--        <img class="HomepageAnonHeader_bg HomepageAnonHeader_bg-btg1n" src="../assets/16.png">-->
-<!--      </template>-->
-<!--      <img class="HomepageAnonHeader_bg-btg1n" src="https://cpwebassets.codepen.io/assets/packs/lines-2-4e66616a5ef291c3566a7ddfe1ffaaa8.svg" alt="" >-->
-      <div class="before_homepage" v-if="company_info.credit_score*1 <= 59">
-        <div class="before_homepage_1">
-<!--          <img class="before_homepage_1_1" v-if="company_info.credit_score*1 === 100" src="../assets/12.png">-->
-<!--          <img class="before_homepage_1_1" v-else-if="company_info.credit_score*1 >= 90" src="../assets/20.png">-->
-<!--          <img class="before_homepage_1_1" v-else-if="company_info.credit_score*1 >= 70" src="../assets/21.png">-->
-<!--          <img class="before_homepage_1_1" v-else-if="company_info.credit_score*1 >= 60" src="../assets/17.png">-->
-          <text class="emphasize margin-40-top">{{ company_info.company_name ? company_info.company_name : '-' }}</text>
-          <div class="before_homepage_1_2">
-            <text class="before_homepage_1_2_1">{{ company_info.credit_score ? company_info.credit_score : '-' }}</text>
-          </div>
-        </div>
-      </div>
-      <el-carousel height="100px" direction="vertical" :autoplay="true" :class="company_info.credit_score*1 <= 59 ? 'margin-40-top':'width-100'">
+      <text class="margin-40-top emphasize">{{ company_name}}</text>      <Tag :tag="credit_score_text" number="60" color="yellow"></Tag>
+      <el-rate v-model="starValue" clearable />
+      <el-carousel height="100px" direction="vertical" :autoplay="true" class="margin-10-top">
         <el-carousel-item v-for="(item,index) in activities" :key="index">
           <div v-for="(item1,index1) in item.content" :key="index1">
             <h3 text="2xl" justify="center">{{item.timestamp}} {{ item1.key }}{{item1.value}}</h3>
           </div>
         </el-carousel-item>
       </el-carousel>
-      <div :class="company_info.credit_score*1 <= 59 ? 'roadmap':'roadmap width-100'" style="--roadmap-cols: 11;">
-        <div class="roadmap__row">
-          <div class="roadmap__col">联系企业</div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__timeline special" style="--roadmap-start: 2; --roadmap-end: 5;">
-            <div>
-              <text>法定代表人：</text>
-              <strong>{{ company_info.corporation ? company_info.corporation : '-' }}</strong>
+      <el-descriptions title="" :column="3" border>
+        <el-descriptions-item label="法定代表人" width="150px" label-align="left" align="left" label-class-name="my-label" class-name="my-content">{{ company_info.corporation ? company_info.corporation : '-' }}</el-descriptions-item>
+        <el-descriptions-item label="经营状态"  width="150px" label-align="left" align="left">{{ company_info.operation_state ? company_info.operation_state : '-' }}</el-descriptions-item>
+        <el-descriptions-item label="登记状态"  width="150px" label-align="left" align="left">-</el-descriptions-item>
+        <el-descriptions-item label="成立日期"  width="150px" label-align="left" align="left">{{ company_info.foundation_date ? company_info.foundation_date : '-' }}</el-descriptions-item>
+        <el-descriptions-item label="人员规模"  width="150px" label-align="left" align="left">-</el-descriptions-item>
+        <el-descriptions-item label="注册资本"  width="150px" label-align="left" align="left">{{ company_info.registered_capital ? company_info.registered_capital : '-' }}</el-descriptions-item>
+        <el-descriptions-item label="社会信用代码"  width="150px" label-align="left" align="left">{{ company_info.credit_code ? company_info.credit_code : '-' }}</el-descriptions-item>
+        <el-descriptions-item label="组织机构代码"  width="150px" label-align="left" align="left">{{ company_info.organisation_code ? company_info.organisation_code : '-' }}</el-descriptions-item>
+        <el-descriptions-item label="纳税人识别号"  width="150px" label-align="left" align="left">{{ company_info.credit_code ? company_info.credit_code : '-' }}</el-descriptions-item>
+        <el-descriptions-item label="登记机关"  width="150px" label-align="left" align="left">{{ shop_info && shop_info.regist_author ? shop_info.regist_author : '-' }}</el-descriptions-item>
+        <el-descriptions-item label="手机号码"  width="150px" label-align="left" align="left">{{ company_info.contact_phone ? company_info.contact_phone : '-' }}</el-descriptions-item>
+        <el-descriptions-item label="详细地址"  width="150px" label-align="left" align="left">{{ company_info.address ? company_info.address : '-' }}</el-descriptions-item>
+        <el-descriptions-item label="经营范围"  :span="3" label-align="left" align="left">
+          <text>加工销售：木制线条、木方、木制品、刨花木墩、单板、木皮、胶合板、多层板、建筑模版、装饰板</text>
+        </el-descriptions-item>
+        <el-descriptions-item label="投诉记录"  :span="3" label-align="left" align="left">
+          <Tag tag="如果商家被投诉次数达到上限，经真木网核实，会被列入黑名单" number="30" color="yellow"></Tag>
+          <div class="complaint">
+            <div class="complaint_left">
+              <el-descriptions title="" :column="3" border class="margin-10-top">
+                <el-descriptions-item label="投诉总记录"  width="120px" label-align="center" align="center">
+                  6条
+                </el-descriptions-item>
+                <el-descriptions-item label="待审查记录"  width="120px" label-align="center" align="center">
+                  1条
+                </el-descriptions-item>
+                <el-descriptions-item label="真木网核实"  width="120px" label-align="center" align="center">
+                  5条
+                </el-descriptions-item>
+              </el-descriptions>
+            </div>
+            <div class="complaint_right margin-10-top" @click="handleItemClick(4)">
+              <svg t="1684209218061" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2372" width="200" height="200"><path d="M448 736c-8.19 0-16.38-3.12-22.62-9.38-12.5-12.5-12.5-32.75 0-45.25L594.75 512 425.38 342.62c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l180.69 180.69c18.72 18.72 18.72 49.16 0 67.88l-180.7 180.68c-6.24 6.26-14.43 9.38-22.62 9.38z m158.06-212.69h0.31-0.31z" fill="var(--navbar-color)" p-id="2373"></path><path d="M512 128c211.74 0 384 172.26 384 384S723.74 896 512 896 128 723.74 128 512s172.26-384 384-384m0-64C264.58 64 64 264.58 64 512s200.58 448 448 448 448-200.58 448-448S759.42 64 512 64z" fill="var(--navbar-color)" p-id="2374"></path></svg>
             </div>
           </div>
-          <div class="roadmap__timeline special" style="--roadmap-start: 5; --roadmap-end: 8;">
-            <div>
-              <text>手机号码：</text>
-              <strong>{{ company_info.contact_phone ? company_info.contact_phone : '-' }}</strong></div>
-          </div>
-          <div class="roadmap__timeline special" style="--roadmap-start: 8; --roadmap-end:12;">
-            <div>
-              <text>{{ company_info.address ? '' : '详细地址：' }}</text>
-              <strong>{{ company_info.address ? company_info.address : '-' }}</strong></div>
-          </div>
-        </div>
-        <div class="roadmap__row">
-          <div class="roadmap__col ">登记信息</div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__timeline special" style="--roadmap-start: 2; --roadmap-end: 5;">
-            <div>
-              <text>注册资本：</text>
-              <strong>{{ company_info.registered_capital ? company_info.registered_capital : '-' }}</strong></div>
-          </div>
-          <div class="roadmap__timeline special" style="--roadmap-start: 5; --roadmap-end: 8;">
-            <div>
-              <text>成立日期：</text>
-              <strong>{{ company_info.foundation_date ? company_info.foundation_date : '-' }}</strong>
+        </el-descriptions-item>
+        <el-descriptions-item label="群众评论"  :span="3" label-align="left" align="left">
+          <div class="complaint">
+            <div class="complaint_left">
+              <el-descriptions title="" :column="3" border class="margin-10-top">
+                <el-descriptions-item label="评论总数量"  width="120px" label-align="center" align="center">
+                  6条
+                </el-descriptions-item>
+                <el-descriptions-item label="回复总数量"  width="120px" label-align="center" align="center">
+                  1条
+                </el-descriptions-item>
+                <el-descriptions-item label="点赞总数量"  width="120px" label-align="center" align="center">
+                  5条
+                </el-descriptions-item>
+              </el-descriptions>
+            </div>
+            <div class="complaint_right margin-10-top" @click="handleItemClick(0)">
+              <svg t="1684209218061" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2372" width="200" height="200"><path d="M448 736c-8.19 0-16.38-3.12-22.62-9.38-12.5-12.5-12.5-32.75 0-45.25L594.75 512 425.38 342.62c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l180.69 180.69c18.72 18.72 18.72 49.16 0 67.88l-180.7 180.68c-6.24 6.26-14.43 9.38-22.62 9.38z m158.06-212.69h0.31-0.31z" fill="var(--navbar-color)" p-id="2373"></path><path d="M512 128c211.74 0 384 172.26 384 384S723.74 896 512 896 128 723.74 128 512s172.26-384 384-384m0-64C264.58 64 64 264.58 64 512s200.58 448 448 448 448-200.58 448-448S759.42 64 512 64z" fill="var(--navbar-color)" p-id="2374"></path></svg>
             </div>
           </div>
-          <div class="roadmap__timeline special" style="--roadmap-start: 8; --roadmap-end: 12;">
-            <div>
-              <text>登记机关：</text>
-              <strong>{{ shop_info && shop_info.regist_author ? shop_info.regist_author : '-' }}</strong></div>
-          </div>
-        </div>
-        <div class="roadmap__row">
-          <div class="roadmap__col">规模状态</div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__timeline special" style="--roadmap-start: 2; --roadmap-end: 5;">
-            <div>
-              <text>人员规模：</text>
-              <strong>-</strong>
+        </el-descriptions-item>
+        <el-descriptions-item label="群众问答"  :span="3" label-align="left" align="left">
+          <div class="complaint">
+            <div class="complaint_left">
+              <el-descriptions title="" :column="3" border class="margin-10-top">
+                <el-descriptions-item label="问题总数量"  width="120px" label-align="center" align="center">
+                  6条
+                </el-descriptions-item>
+                <el-descriptions-item label="回答总数量"  width="120px" label-align="center" align="center">
+                  1条
+                </el-descriptions-item>
+                <el-descriptions-item label="有用总数量"  width="120px" label-align="center" align="center">
+                  5条
+                </el-descriptions-item>
+              </el-descriptions>
+            </div>
+            <div class="complaint_right margin-10-top" @click="handleItemClick(3)">
+              <svg t="1684209218061" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="2372" width="200" height="200"><path d="M448 736c-8.19 0-16.38-3.12-22.62-9.38-12.5-12.5-12.5-32.75 0-45.25L594.75 512 425.38 342.62c-12.5-12.5-12.5-32.75 0-45.25s32.75-12.5 45.25 0l180.69 180.69c18.72 18.72 18.72 49.16 0 67.88l-180.7 180.68c-6.24 6.26-14.43 9.38-22.62 9.38z m158.06-212.69h0.31-0.31z" fill="var(--navbar-color)" p-id="2373"></path><path d="M512 128c211.74 0 384 172.26 384 384S723.74 896 512 896 128 723.74 128 512s172.26-384 384-384m0-64C264.58 64 64 264.58 64 512s200.58 448 448 448 448-200.58 448-448S759.42 64 512 64z" fill="var(--navbar-color)" p-id="2374"></path></svg>
             </div>
           </div>
-          <div class="roadmap__timeline special" style="--roadmap-start: 5; --roadmap-end: 8;">
-            <div>
-              <text>经营状态：</text>
-              <strong>{{ company_info.operation_state ? company_info.operation_state : '-' }}</strong>
-            </div>
-          </div>
-          <div class="roadmap__timeline special" style="--roadmap-start: 8; --roadmap-end: 12;">
-            <div>
-              <text>登记状态：</text>
-              <strong>-</strong>
-            </div>
-          </div>
-        </div>
-        <div class="roadmap__row">
-          <div class="roadmap__col">唯一标识</div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__timeline special" style="--roadmap-start: 2; --roadmap-end: 8;">
-            <div>
-              <text>社会信用代码 / 纳税人识别号：</text>
-              <strong>{{ company_info.credit_code ? company_info.credit_code : '-' }}</strong></div>
-          </div>
-          <div class="roadmap__timeline special" style="--roadmap-start: 8; --roadmap-end: 12;">
-            <div>
-              <text>组织机构代码：</text>
-              <strong>{{ company_info.organisation_code ? company_info.organisation_code : '-' }}</strong></div>
-          </div>
-        </div>
-        <div class="roadmap__row">
-          <div class="roadmap__col">经营范围</div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__timeline special" style="--roadmap-start: 2; --roadmap-end: 12;">
-            <div>
-              <text>加工销售：</text>
-              <strong>{{ company_info.business_scope ? company_info.business_scope : '-' }}</strong></div>
-          </div>
-        </div>
-        <div class="roadmap__row">
-          <div class="roadmap__col">投诉记录</div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__timeline special" style="--roadmap-start: 2; --roadmap-end: 5;">
-            <div>
-              <text>投诉总记录：</text>
-              <strong> 6条</strong></div>
-          </div>
-          <div class="roadmap__timeline special" style="--roadmap-start: 5; --roadmap-end: 8;">
-            <div>
-              <text>待审查记录：</text>
-              <strong> 1条</strong></div>
-          </div>
-          <div class="roadmap__timeline special" style="--roadmap-start: 8; --roadmap-end: 11;">
-            <div>
-              <text>真木网核实：</text>
-              <strong> 5条</strong></div>
-          </div>
-          <div class="roadmap__timeline none" style="--roadmap-start: 11;--roadmap-end: 12" @click="handleItemClick(4)">
-            <svg fill="var(--navbar-color)" height="200px" width="200px" class="icon" viewBox="0 0 490 490" xml:space="preserve" transform="rotate(180)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M245,0C109.7,0,0,109.7,0,245s109.7,245,245,245s245-109.7,245-245S380.3,0,245,0z M308.2,335.5l-42.7,42.7L175,287.7 L132.3,245l42.7-42.7l90.5-90.5l42.7,42.7L217.8,245L308.2,335.5z"></path> </g> </g></svg>
-          </div>
-        </div>
-        <div class="roadmap__row">
-          <div class="roadmap__col">群众评论</div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__timeline special" style="--roadmap-start: 2; --roadmap-end: 5;">
-            <div>
-              <text>评论总数量：</text>
-              <strong> 6条</strong></div>
-          </div>
-          <div class="roadmap__timeline special" style="--roadmap-start: 5; --roadmap-end: 8;">
-            <div>
-              <text>回复总数量：</text>
-              <strong> 1条</strong></div>
-          </div>
-          <div class="roadmap__timeline special" style="--roadmap-start: 8; --roadmap-end: 11;">
-            <div>
-              <text>点赞总数量：</text>
-              <strong> 5条</strong></div>
-          </div>
-          <div class="roadmap__timeline none" style="--roadmap-start: 11;--roadmap-end: 12" @click="handleItemClick(0)">
-            <svg fill="var(--navbar-color)" height="200px" width="200px" class="icon" viewBox="0 0 490 490" xml:space="preserve" transform="rotate(180)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M245,0C109.7,0,0,109.7,0,245s109.7,245,245,245s245-109.7,245-245S380.3,0,245,0z M308.2,335.5l-42.7,42.7L175,287.7 L132.3,245l42.7-42.7l90.5-90.5l42.7,42.7L217.8,245L308.2,335.5z"></path> </g> </g></svg>
-          </div>
-        </div>
-        <div class="roadmap__row">
-          <div class="roadmap__col">群众问答</div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__col"></div>
-          <div class="roadmap__timeline special" style="--roadmap-start: 2; --roadmap-end: 5;">
-            <div>
-              <text>问题总数量：</text>
-              <strong> 6条</strong></div>
-          </div>
-          <div class="roadmap__timeline special" style="--roadmap-start: 5; --roadmap-end: 8;">
-            <div>
-              <text>回答总数量：</text>
-              <strong> 1条</strong></div>
-          </div>
-          <div class="roadmap__timeline special" style="--roadmap-start: 8; --roadmap-end: 11;">
-            <div>
-              <text>有用总数量：</text>
-              <strong> 5条</strong></div>
-          </div>
-          <div class="roadmap__timeline none" style="--roadmap-start: 11;--roadmap-end: 12" @click="handleItemClick(3)">
-            <svg fill="var(--navbar-color)" height="200px" width="200px" class="icon" viewBox="0 0 490 490" xml:space="preserve" transform="rotate(180)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <path d="M245,0C109.7,0,0,109.7,0,245s109.7,245,245,245s245-109.7,245-245S380.3,0,245,0z M308.2,335.5l-42.7,42.7L175,287.7 L132.3,245l42.7-42.7l90.5-90.5l42.7,42.7L217.8,245L308.2,335.5z"></path> </g> </g></svg>
-          </div>
-        </div>
-      </div>
+        </el-descriptions-item>
+      </el-descriptions>
     </div>
     <div class="top_3">
       <div class="top_left">
